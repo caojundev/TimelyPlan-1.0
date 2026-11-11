@@ -74,6 +74,12 @@ protocol WSPluginProvider: AnyObject {
     /// 仅 `flexible` 尺寸的组件需要实现：布局按容器宽度询问高度，
     /// 无需等待单元格创建。返回 nil 时组件使用默认高度（等于一个网格单元）。
     func makeHeightCalculator(plugin: WSPlugin) -> WSPluginHeightCalculating?
+
+    /// 该组件在面板中的外观。
+    ///
+    /// 默认使用系统分组背景色；不需要背景的组件（如分割线）返回 `.transparent`。
+    /// 带 `plugin` 参数以便按配置决定外观。
+    func appearance(for plugin: WSPlugin) -> WSPluginAppearance
 }
 
 extension WSPluginProvider {
@@ -106,5 +112,10 @@ extension WSPluginProvider {
     /// 默认不提供高度计算对象，仅 `flexible` 尺寸组件需要
     func makeHeightCalculator(plugin: WSPlugin) -> WSPluginHeightCalculating? {
         return nil
+    }
+
+    /// 默认使用系统分组背景色
+    func appearance(for plugin: WSPlugin) -> WSPluginAppearance {
+        return .default
     }
 }

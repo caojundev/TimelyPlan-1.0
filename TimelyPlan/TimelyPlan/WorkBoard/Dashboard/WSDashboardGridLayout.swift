@@ -136,9 +136,11 @@ class WSDashboardGridLayout {
         return unitLength
     }
     
-    /// flexible 组件的最小高度，取半个网格单元，避免内容过少时组件过矮难以点击
+    /// flexible 组件算出非正高度时的兜底高度。
+    ///
+    /// 具体高度由组件自行决定（如分割线只有 30pt），布局只保证条目不会塌陷为 0
     private var minimumFlexibleHeight: CGFloat {
-        return unitLength * 0.5
+        return 1.0
     }
     
     /// flexible 组件在给定宽度下的高度

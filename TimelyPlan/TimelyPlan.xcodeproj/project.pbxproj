@@ -114,6 +114,7 @@
 		E5091C61305BC6DD009CFD17 /* CountdownEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C60305BC6DD009CFD17 /* CountdownEventListViewController.swift */; };
 		E5091C64305BC742009CFD17 /* CountdownEventSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C63305BC741009CFD17 /* CountdownEventSearchResultViewController.swift */; };
 		E5091C66305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C65305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift */; };
+		E5097C2230A429750080ECCF /* WSPluginAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5097C2130A429740080ECCF /* WSPluginAppearance.swift */; };
 		E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */; };
 		E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */; };
 		E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */; };
@@ -721,11 +722,6 @@
 		E537BCAD308B4B5900C308E3 /* WSCountdownMediumEventsGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC8E308B4B5800C308E3 /* WSCountdownMediumEventsGridPluginProvider.swift */; };
 		E537BCAE308B4B5900C308E3 /* WSCountdownSmallSelectedPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC91308B4B5800C308E3 /* WSCountdownSmallSelectedPluginProvider.swift */; };
 		E537BCAF308B4B5900C308E3 /* WSCountdownSmallCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC92308B4B5800C308E3 /* WSCountdownSmallCardContentView.swift */; };
-		E5A7C11130A3370700FE6914 /* WSHeadlinePluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10130A3370700FE6914 /* WSHeadlinePluginTypes.swift */; };
-		E5A7C11230A3370700FE6914 /* WSHeadlineDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10230A3370700FE6914 /* WSHeadlineDataItem.swift */; };
-		E5A7C11330A3370700FE6914 /* WSHeadlinePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10330A3370700FE6914 /* WSHeadlinePluginProvider.swift */; };
-		E5A7C11430A3370700FE6914 /* WSHeadlineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10430A3370700FE6914 /* WSHeadlineContentView.swift */; };
-		E5A7C11530A3370700FE6914 /* WSHeadlineConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10530A3370700FE6914 /* WSHeadlineConfigViewController.swift */; };
 		E537BCB1308B4B5900C308E3 /* WSCountdownSmallSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC94308B4B5800C308E3 /* WSCountdownSmallSelectedConfigViewController.swift */; };
 		E537BCB3308B4B5900C308E3 /* WSCountdownSmallEventsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC97308B4B5800C308E3 /* WSCountdownSmallEventsPluginProvider.swift */; };
 		E537BCB4308B4B5900C308E3 /* WSCountdownEventsConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC99308B4B5800C308E3 /* WSCountdownEventsConfigViewController.swift */; };
@@ -1510,7 +1506,6 @@
 		E5A625BE3089B3CE003EB8BC /* WSPluginConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625853089B3CD003EB8BC /* WSPluginConfigViewController.swift */; };
 		E5A625BF3089B3CE003EB8BC /* WSPluginModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625873089B3CD003EB8BC /* WSPluginModule.swift */; };
 		E5A625C03089B3CE003EB8BC /* WSPluginSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625883089B3CD003EB8BC /* WSPluginSize.swift */; };
-		E5A7C11630A3370700FE6914 /* WSPluginHeightCalculating.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10630A3370700FE6914 /* WSPluginHeightCalculating.swift */; };
 		E5A625C13089B3CE003EB8BC /* WorkspaceMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625893089B3CD003EB8BC /* WorkspaceMainViewController.swift */; };
 		E5A625C23089B3CE003EB8BC /* WSDashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6258B3089B3CD003EB8BC /* WSDashboardInteractor.swift */; };
 		E5A625C33089B3CE003EB8BC /* WSDashboardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6258C3089B3CD003EB8BC /* WSDashboardCollectionViewLayout.swift */; };
@@ -1545,6 +1540,25 @@
 		E5A7C0DE00000000000000B6 /* WSHabitPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */; };
 		E5A7C0DE00000000000000B7 /* WSGoalPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */; };
 		E5A7C0DE00000000000000B8 /* WSTodoPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */; };
+		E5A7C11130A3370700FE6914 /* WSHeadlinePluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10130A3370700FE6914 /* WSHeadlinePluginTypes.swift */; };
+		E5A7C11230A3370700FE6914 /* WSHeadlineDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10230A3370700FE6914 /* WSHeadlineDataItem.swift */; };
+		E5A7C11330A3370700FE6914 /* WSHeadlinePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10330A3370700FE6914 /* WSHeadlinePluginProvider.swift */; };
+		E5A7C11430A3370700FE6914 /* WSHeadlineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10430A3370700FE6914 /* WSHeadlineContentView.swift */; };
+		E5A7C11530A3370700FE6914 /* WSHeadlineConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10530A3370700FE6914 /* WSHeadlineConfigViewController.swift */; };
+		E5A7C11630A3370700FE6914 /* WSPluginHeightCalculating.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10630A3370700FE6914 /* WSPluginHeightCalculating.swift */; };
+		E5A7C21130A3370700FE6914 /* WSBodyPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20130A3370700FE6914 /* WSBodyPluginTypes.swift */; };
+		E5A7C21230A3370700FE6914 /* WSBodyDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20230A3370700FE6914 /* WSBodyDataItem.swift */; };
+		E5A7C21330A3370700FE6914 /* WSBodyPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20330A3370700FE6914 /* WSBodyPluginProvider.swift */; };
+		E5A7C21430A3370700FE6914 /* WSBodyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20430A3370700FE6914 /* WSBodyContentView.swift */; };
+		E5A7C21530A3370700FE6914 /* WSBodyConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20530A3370700FE6914 /* WSBodyConfigViewController.swift */; };
+		E5A7C31130A3370700FE6914 /* WSSeparatorPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30130A3370700FE6914 /* WSSeparatorPluginTypes.swift */; };
+		E5A7C31230A3370700FE6914 /* WSSeparatorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30230A3370700FE6914 /* WSSeparatorStyle.swift */; };
+		E5A7C31330A3370700FE6914 /* WSSeparatorLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30330A3370700FE6914 /* WSSeparatorLineView.swift */; };
+		E5A7C31430A3370700FE6914 /* WSSeparatorDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30430A3370700FE6914 /* WSSeparatorDataItem.swift */; };
+		E5A7C31530A3370700FE6914 /* WSSeparatorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30530A3370700FE6914 /* WSSeparatorContentView.swift */; };
+		E5A7C31630A3370700FE6914 /* WSSeparatorPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30630A3370700FE6914 /* WSSeparatorPluginProvider.swift */; };
+		E5A7C31730A3370700FE6914 /* WSSeparatorConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30730A3370700FE6914 /* WSSeparatorConfigViewController.swift */; };
+		E5A7C31830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift */; };
 		E5AC723E309F1B02004042F8 /* WSCalendarEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC723D309F1B02004042F8 /* WSCalendarEventListView.swift */; };
 		E5AC725630A00E49004042F8 /* WSCalendarLargeTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC724930A00E48004042F8 /* WSCalendarLargeTwoDaysPluginProvider.swift */; };
 		E5AC725730A00E49004042F8 /* WSCalendarMediumTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC724B30A00E48004042F8 /* WSCalendarMediumTwoDaysPluginProvider.swift */; };
@@ -3151,6 +3165,7 @@
 		E5091C60305BC6DD009CFD17 /* CountdownEventListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventListViewController.swift; sourceTree = "<group>"; };
 		E5091C63305BC741009CFD17 /* CountdownEventSearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchResultViewController.swift; sourceTree = "<group>"; };
 		E5091C65305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchResultListView.swift; sourceTree = "<group>"; };
+		E5097C2130A429740080ECCF /* WSPluginAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginAppearance.swift; sourceTree = "<group>"; };
 		E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCustomPopup.swift; sourceTree = "<group>"; };
 		E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultInfoView.swift; sourceTree = "<group>"; };
 		E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Extensions.swift"; sourceTree = "<group>"; };
@@ -3761,11 +3776,6 @@
 		E537BC8E308B4B5800C308E3 /* WSCountdownMediumEventsGridPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownMediumEventsGridPluginProvider.swift; sourceTree = "<group>"; };
 		E537BC91308B4B5800C308E3 /* WSCountdownSmallSelectedPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallSelectedPluginProvider.swift; sourceTree = "<group>"; };
 		E537BC92308B4B5800C308E3 /* WSCountdownSmallCardContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallCardContentView.swift; sourceTree = "<group>"; };
-		E5A7C10130A3370700FE6914 /* WSHeadlinePluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlinePluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C10230A3370700FE6914 /* WSHeadlineDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlineDataItem.swift; sourceTree = "<group>"; };
-		E5A7C10330A3370700FE6914 /* WSHeadlinePluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlinePluginProvider.swift; sourceTree = "<group>"; };
-		E5A7C10430A3370700FE6914 /* WSHeadlineContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlineContentView.swift; sourceTree = "<group>"; };
-		E5A7C10530A3370700FE6914 /* WSHeadlineConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlineConfigViewController.swift; sourceTree = "<group>"; };
 		E537BC94308B4B5800C308E3 /* WSCountdownSmallSelectedConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallSelectedConfigViewController.swift; sourceTree = "<group>"; };
 		E537BC97308B4B5800C308E3 /* WSCountdownSmallEventsPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallEventsPluginProvider.swift; sourceTree = "<group>"; };
 		E537BC99308B4B5800C308E3 /* WSCountdownEventsConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsConfigViewController.swift; sourceTree = "<group>"; };
@@ -4552,7 +4562,6 @@
 		E5A625853089B3CD003EB8BC /* WSPluginConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginConfigViewController.swift; sourceTree = "<group>"; };
 		E5A625873089B3CD003EB8BC /* WSPluginModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginModule.swift; sourceTree = "<group>"; };
 		E5A625883089B3CD003EB8BC /* WSPluginSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginSize.swift; sourceTree = "<group>"; };
-		E5A7C10630A3370700FE6914 /* WSPluginHeightCalculating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginHeightCalculating.swift; sourceTree = "<group>"; };
 		E5A625893089B3CD003EB8BC /* WorkspaceMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceMainViewController.swift; sourceTree = "<group>"; };
 		E5A6258B3089B3CD003EB8BC /* WSDashboardInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDashboardInteractor.swift; sourceTree = "<group>"; };
 		E5A6258C3089B3CD003EB8BC /* WSDashboardCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDashboardCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -4587,6 +4596,25 @@
 		E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHabitPluginTypes.swift; sourceTree = "<group>"; };
 		E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSGoalPluginTypes.swift; sourceTree = "<group>"; };
 		E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTodoPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C10130A3370700FE6914 /* WSHeadlinePluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlinePluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C10230A3370700FE6914 /* WSHeadlineDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlineDataItem.swift; sourceTree = "<group>"; };
+		E5A7C10330A3370700FE6914 /* WSHeadlinePluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlinePluginProvider.swift; sourceTree = "<group>"; };
+		E5A7C10430A3370700FE6914 /* WSHeadlineContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlineContentView.swift; sourceTree = "<group>"; };
+		E5A7C10530A3370700FE6914 /* WSHeadlineConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlineConfigViewController.swift; sourceTree = "<group>"; };
+		E5A7C10630A3370700FE6914 /* WSPluginHeightCalculating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginHeightCalculating.swift; sourceTree = "<group>"; };
+		E5A7C20130A3370700FE6914 /* WSBodyPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSBodyPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C20230A3370700FE6914 /* WSBodyDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSBodyDataItem.swift; sourceTree = "<group>"; };
+		E5A7C20330A3370700FE6914 /* WSBodyPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSBodyPluginProvider.swift; sourceTree = "<group>"; };
+		E5A7C20430A3370700FE6914 /* WSBodyContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSBodyContentView.swift; sourceTree = "<group>"; };
+		E5A7C20530A3370700FE6914 /* WSBodyConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSBodyConfigViewController.swift; sourceTree = "<group>"; };
+		E5A7C30130A3370700FE6914 /* WSSeparatorPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C30230A3370700FE6914 /* WSSeparatorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorStyle.swift; sourceTree = "<group>"; };
+		E5A7C30330A3370700FE6914 /* WSSeparatorLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorLineView.swift; sourceTree = "<group>"; };
+		E5A7C30430A3370700FE6914 /* WSSeparatorDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorDataItem.swift; sourceTree = "<group>"; };
+		E5A7C30530A3370700FE6914 /* WSSeparatorContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorContentView.swift; sourceTree = "<group>"; };
+		E5A7C30630A3370700FE6914 /* WSSeparatorPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorPluginProvider.swift; sourceTree = "<group>"; };
+		E5A7C30730A3370700FE6914 /* WSSeparatorConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorConfigViewController.swift; sourceTree = "<group>"; };
+		E5A7C30830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorStyleSelectCell.swift; sourceTree = "<group>"; };
 		E5AC723D309F1B02004042F8 /* WSCalendarEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarEventListView.swift; sourceTree = "<group>"; };
 		E5AC724930A00E48004042F8 /* WSCalendarLargeTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarLargeTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
 		E5AC724B30A00E48004042F8 /* WSCalendarMediumTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
@@ -6443,6 +6471,21 @@
 				E5091C65305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		E5097C2030A413750080ECCF /* Separator */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7C30130A3370700FE6914 /* WSSeparatorPluginTypes.swift */,
+				E5A7C30230A3370700FE6914 /* WSSeparatorStyle.swift */,
+				E5A7C30330A3370700FE6914 /* WSSeparatorLineView.swift */,
+				E5A7C30430A3370700FE6914 /* WSSeparatorDataItem.swift */,
+				E5A7C30530A3370700FE6914 /* WSSeparatorContentView.swift */,
+				E5A7C30630A3370700FE6914 /* WSSeparatorPluginProvider.swift */,
+				E5A7C30730A3370700FE6914 /* WSSeparatorConfigViewController.swift */,
+				E5A7C30830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift */,
+			);
+			path = Separator;
 			sourceTree = "<group>";
 		};
 		E509B50F2F6431D90045F11E /* Popup */ = {
@@ -11396,6 +11439,27 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		E5A50C8D30A357AB009B24D2 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				E5A50C8E30A357C7009B24D2 /* Body */,
+				E50B915F30A3370700FE6914 /* Headline */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
+		E5A50C8E30A357C7009B24D2 /* Body */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7C20130A3370700FE6914 /* WSBodyPluginTypes.swift */,
+				E5A7C20230A3370700FE6914 /* WSBodyDataItem.swift */,
+				E5A7C20330A3370700FE6914 /* WSBodyPluginProvider.swift */,
+				E5A7C20430A3370700FE6914 /* WSBodyContentView.swift */,
+				E5A7C20530A3370700FE6914 /* WSBodyConfigViewController.swift */,
+			);
+			path = Body;
+			sourceTree = "<group>";
+		};
 		E5A625733089B3CD003EB8BC /* WorkBoard */ = {
 			isa = PBXGroup;
 			children = (
@@ -11479,6 +11543,7 @@
 				E5A625873089B3CD003EB8BC /* WSPluginModule.swift */,
 				E5A625883089B3CD003EB8BC /* WSPluginSize.swift */,
 				E5A7C10630A3370700FE6914 /* WSPluginHeightCalculating.swift */,
+				E5097C2130A429740080ECCF /* WSPluginAppearance.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -11522,7 +11587,8 @@
 			isa = PBXGroup;
 			children = (
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
-				E50B915F30A3370700FE6914 /* Headline */,
+				E5097C2030A413750080ECCF /* Separator */,
+				E5A50C8D30A357AB009B24D2 /* Text */,
 				E539C86F308CAE6C0077FE8A /* UIComponents */,
 				E52628633097711A00B87016 /* Calendar */,
 				E52628623097711300B87016 /* Todo */,
@@ -19543,6 +19609,19 @@
 				E5A7C11330A3370700FE6914 /* WSHeadlinePluginProvider.swift in Sources */,
 				E5A7C11430A3370700FE6914 /* WSHeadlineContentView.swift in Sources */,
 				E5A7C11530A3370700FE6914 /* WSHeadlineConfigViewController.swift in Sources */,
+				E5A7C21130A3370700FE6914 /* WSBodyPluginTypes.swift in Sources */,
+				E5A7C21230A3370700FE6914 /* WSBodyDataItem.swift in Sources */,
+				E5A7C21330A3370700FE6914 /* WSBodyPluginProvider.swift in Sources */,
+				E5A7C21430A3370700FE6914 /* WSBodyContentView.swift in Sources */,
+				E5A7C21530A3370700FE6914 /* WSBodyConfigViewController.swift in Sources */,
+				E5A7C31130A3370700FE6914 /* WSSeparatorPluginTypes.swift in Sources */,
+				E5A7C31230A3370700FE6914 /* WSSeparatorStyle.swift in Sources */,
+				E5A7C31330A3370700FE6914 /* WSSeparatorLineView.swift in Sources */,
+				E5A7C31430A3370700FE6914 /* WSSeparatorDataItem.swift in Sources */,
+				E5A7C31530A3370700FE6914 /* WSSeparatorContentView.swift in Sources */,
+				E5A7C31630A3370700FE6914 /* WSSeparatorPluginProvider.swift in Sources */,
+				E5A7C31730A3370700FE6914 /* WSSeparatorConfigViewController.swift in Sources */,
+				E5A7C31830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift in Sources */,
 				E5185063300F11E100112DFC /* TimelineItem.swift in Sources */,
 				E518D6A12FBEC6610045D456 /* DateInterval+Calendar.swift in Sources */,
 				E5BB9F222D3BF2C20089667A /* AppInitializer.swift in Sources */,
@@ -19629,6 +19708,7 @@
 				E529ACD42F7E1270000EA2F1 /* TodoTag.swift in Sources */,
 				E5DE23E3306A6D63000BBE3F /* GoalStatsMonthlyViewController.swift in Sources */,
 				E53F32932F68DB2400B85B65 /* HabitReportMoreBarButtonItem.swift in Sources */,
+				E5097C2230A429750080ECCF /* WSPluginAppearance.swift in Sources */,
 				E556BCEC2F5E610900CA20D9 /* HabitTaskMenuActionProcessor.swift in Sources */,
 				E5BB9DA42D3BF0C60089667A /* TPLongPressPeriodicButton.swift in Sources */,
 				E57CC5FD2F7FF79F00ADDBA4 /* TodoEditProgress.swift in Sources */,

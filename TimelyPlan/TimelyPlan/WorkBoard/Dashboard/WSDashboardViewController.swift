@@ -116,10 +116,15 @@ class WSDashboardViewController: TPViewController,
                 return
             }
             
-            self.addPlugin(plugin, at: self.pendingInsertionIndex)
+            let createdPlugin = self.addPlugin(plugin, at: self.pendingInsertionIndex)
             self.pendingInsertionIndex = nil
-            /// 添加完成后关闭选择器
-            navController?.dismiss(animated: true)
+            /// 添加完成后关闭选择器，需要配置的组件在选择器关闭后再弹出配置界面
+            navController?.dismiss(animated: true) { [weak self] in
+                /// 等选择器的关闭转场结束再弹出，避免上一场转场未结束时弹出失败
+                DispatchQueue.main.async {
+                    self?.showConfigIfNeeded(for: createdPlugin)
+                }
+            }
         }
         
         navController.show()
@@ -138,8 +143,19 @@ class WSDashboardViewController: TPViewController,
     
     /// 添加组件到当前面板
     /// - Parameter index: 插入位置。为 nil 时追加到末尾
-    private func addPlugin(_ plugin: WSPlugin, at index: Int? = nil) {
-        interactor.createPlugin(type: plugin.type, configJSON: plugin.configJSON, at: index)
+    /// - Returns: 创建后的组件，用于添加后继续配置
+    @discardableResult
+    private func addPlugin(_ plugin: WSPlugin, at index: Int? = nil) -> WSPlugin {
+        return interactor.createPlugin(type: plugin.type, configJSON: plugin.configJSON, at: index)
+    }
+
+    /// 添加后立即进入配置。仅模块声明了「添加后配置」时生效
+    private func showConfigIfNeeded(for plugin: WSPlugin) {
+        guard plugin.type.module.opensConfigAfterAdd else {
+            return
+        }
+
+        showPluginConfig(for: plugin)
     }
     
     // MARK: - 组件配置

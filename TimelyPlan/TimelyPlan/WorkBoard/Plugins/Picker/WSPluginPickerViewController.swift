@@ -88,7 +88,17 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
     }
     
     /// 模块对应的单元格条目
-    private func makeCellItem(for module: WSPluginModule) -> TPImageInfoTableCellItem? {
+    private func makeCellItem(for module: WSPluginModule) -> TPBaseTableCellItem? {
+        switch module.pickerStyle {
+        case .gallery:
+            return makeGalleryCellItem(for: module)
+        case .directAdd:
+            return makeDirectAddCellItem(for: module)
+        }
+    }
+    
+    /// 进入画廊的模块行
+    private func makeGalleryCellItem(for module: WSPluginModule) -> TPBaseTableCellItem? {
         let typesCount = module.types.count
         guard typesCount > 0 else {
             return nil
@@ -108,7 +118,33 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
         return cellItem
     }
     
+    /// 直接添加的模块行：右侧展示加号，点击整行或加号都直接添加组件
+    private func makeDirectAddCellItem(for module: WSPluginModule) -> TPBaseTableCellItem? {
+        guard module.directAddType != nil else {
+            return nil
+        }
+        
+        let cellItem = TPImageInfoRightButtonTableCellItem()
+        cellItem.imageConfig.size = .default
+        cellItem.imageConfig.shouldRenderImageWithColor = false
+        cellItem.height = Constants.moduleRowHeight
+        cellItem.title = module.displayName
+        cellItem.imageName = module.iconName
+        cellItem.rightViewMargins = UIEdgeInsets(right: 8.0)
+        cellItem.rightButtonImageName = "plus_24"
+        cellItem.rightButtonNormalImageColor = .secondaryLabel
+        cellItem.didSelectHandler = { [weak self] in
+            self?.addDirectly(module)
+        }
+        cellItem.didClickRightButton = { [weak self] _ in
+            self?.addDirectly(module)
+        }
+        
+        return cellItem
+    }
+    
     // MARK: - 选择
+    /// 进入画廊选择模块内的组件
     private func pick(_ module: WSPluginModule) {
         let vc = WSPluginGalleryViewController(module: module)
         /// 画廊中选中插件后回传给外部添加
@@ -118,5 +154,15 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
         
         navigationItem.backButtonDisplayMode = .minimal
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 直接添加模块内的组件。关闭界面与插入位置由外部处理
+    private func addDirectly(_ module: WSPluginModule) {
+        guard let type = module.directAddType else {
+            return
+        }
+        
+        TPImpactFeedback.impactWithSoftStyle()
+        didAddPlugin?(WSPlugin(identifier: type.rawValue, type: type))
     }
 }

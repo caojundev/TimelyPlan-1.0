@@ -19,6 +19,9 @@ class WSPluginCell: UICollectionViewCell {
     /// 展示上下文。决定交互器读取真实数据还是画廊预览数据
     private var context: WSPluginContext = .dashboard
     
+    /// 组件外观。由组件提供者决定，背景色为空时单元格透明
+    private(set) var appearance: WSPluginAppearance = .default
+    
     /// 组件内容视图
     private(set) var pluginContentView: WSPluginContentView!
     
@@ -109,6 +112,7 @@ class WSPluginCell: UICollectionViewCell {
         provider = nil
         context = .dashboard
         interactor = nil
+        appearance = .default
         setJiggling(false)
     }
     
@@ -157,6 +161,7 @@ class WSPluginCell: UICollectionViewCell {
         self.plugin = plugin
         self.provider = provider
         self.context = context
+        self.appearance = provider.appearance(for: plugin)
         
         /// 内容视图由提供者决定；先替换内容视图，再展示占位视图
         updatePluginContentViewIfNeeded(with: provider)
@@ -277,9 +282,9 @@ class WSPluginCell: UICollectionViewCell {
         emptyPlaceholderView = nil
     }
     
-    /// 应用组件外观：圆角
+    /// 应用组件外观：背景色与圆角
     private func updateAppearance() {
-        let backColor: UIColor = .secondarySystemGroupedBackground
+        let backColor = appearance.backgroundColor ?? .clear
         backgroundView?.backgroundColor = backColor
         selectedBackgroundView?.backgroundColor = backColor
         
