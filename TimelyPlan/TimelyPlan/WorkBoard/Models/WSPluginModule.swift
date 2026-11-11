@@ -90,7 +90,9 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
             return .todoTask
         case .headline, .body:
             return .text
-        case .myDay, .calendar, .timeline, .quadrants, .goal, .focus, .habit, .countdown, .separator:
+        case .separator:
+            return .separator
+        case .myDay, .calendar, .timeline, .quadrants, .goal, .focus, .habit, .countdown:
             return .others
         }
     }
@@ -151,6 +153,36 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
             return false
         }
     }
+
+    /// 选择器中的预设变体。
+    ///
+    /// 非空时模块按变体展开成多行，每行直接添加同一组件并预设不同的配置，
+    /// 例如分割线的四种样式共用一套组件。
+    var pickerVariants: [WSPluginModuleVariant] {
+        switch self {
+        case .separator:
+            return WSPluginType.Separator.styleVariants
+        default:
+            return []
+        }
+    }
+}
+
+// MARK: - 选择器变体
+
+/// 模块在选择器中的预设变体。
+///
+/// 每个变体对应选择器中的一行，添加的组件类型不变，只是写入不同的组件配置。
+struct WSPluginModuleVariant {
+
+    /// 行标题
+    let title: String
+
+    /// 行图标。为 nil 时沿用模块图标
+    let iconName: String?
+
+    /// 添加时写入的组件配置 JSON
+    let configJSON: String?
 }
 
 // MARK: - 选择方式
@@ -170,18 +202,20 @@ enum WSPluginModulePickerStyle {
 /// 组件模块组。
 ///
 /// 一个组对应选择器中的一个 section，组内模块逐行展示。
-/// 待办按「清单/标签/过滤器」与「任务」拆成两个组，文本单独成组，其余模块统一归入 `others`；
-/// 后续需要单独成组时，新增 case 并把对应模块的 `group` 指过来即可。
+/// 待办按「清单/标签/过滤器」与「任务」拆成两个组，文本与分割线各自成组，
+/// 其余模块统一归入 `others`；后续需要单独成组时，新增 case 并把对应模块的 `group` 指过来即可。
 public enum WSPluginModuleGroup: String, CaseIterable {
-    case text     /// 文本
-    case todo     /// 待办
-    case todoTask /// 待办任务
-    case others   /// 其它
+    case text      /// 文本
+    case separator /// 分割线
+    case todo      /// 待办
+    case todoTask  /// 待办任务
+    case others    /// 其它
 
     /// 组标题
     var title: String {
         switch self {
         case .text: return resGetString("Text")
+        case .separator: return resGetString("Separator")
         case .todo: return resGetString("Todo")
         case .todoTask: return resGetString("Todo Tasks")
         case .others: return resGetString("Others")

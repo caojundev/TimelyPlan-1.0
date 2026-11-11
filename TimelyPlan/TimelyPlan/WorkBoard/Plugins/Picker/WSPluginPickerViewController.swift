@@ -60,21 +60,24 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
         }
     }
     
-    /// 一个模块组对应一个 section，组内按模块逐行展示
+    /// 一个模块组对应一个 section，组内按模块逐行展示；声明了预设变体的模块展开成多行
     private func makeSectionController(for group: WSPluginModuleGroup) -> TPTableItemSectionController? {
         let modules = group.availableModules
         guard modules.count > 0 else {
             return nil
         }
         
-        let sectionController = TPTableItemSectionController()
-        sectionController.cellItems = modules.compactMap { module in
-            makeCellItem(for: module)
+        let cellItems = modules.flatMap { makeCellItems(for: $0) }
+        guard cellItems.count > 0 else {
+            return nil
         }
+        
+        let sectionController = TPTableItemSectionController()
+        sectionController.cellItems = cellItems
         sectionController.footerItem.height = 0.0
         
-        /// 组内有多个模块时展示组标题，用于归纳同一业务拆分出的模块
-        if modules.count > 1 {
+        /// 组内有多行时展示组标题，用于归纳同一业务拆分出的模块或同一模块的多种预设
+        if cellItems.count > 1 {
             sectionController.headerItem.title = group.displayName
             sectionController.headerItem.height = Constants.groupHeaderHeight
             sectionController.headerItem.padding = Constants.groupHeaderPadding
@@ -85,6 +88,16 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
         }
         
         return sectionController
+    }
+    
+    /// 模块对应的单元格条目。有预设变体时按变体展开成多行
+    private func makeCellItems(for module: WSPluginModule) -> [TPBaseTableCellItem] {
+        let variants = module.pickerVariants
+        guard variants.isEmpty else {
+            return variants.compactMap { makeVariantCellItem(for: module, variant: $0) }
+        }
+        
+        return [makeCellItem(for: module)].compactMap { $0 }
     }
     
     /// 模块对应的单元格条目
@@ -118,27 +131,46 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
         return cellItem
     }
     
-    /// 直接添加的模块行：右侧展示加号，点击整行或加号都直接添加组件
+    /// 直接添加整个模块的行
     private func makeDirectAddCellItem(for module: WSPluginModule) -> TPBaseTableCellItem? {
-        guard module.directAddType != nil else {
+        guard let type = module.directAddType else {
             return nil
         }
         
+        return makeDirectAddCellItem(title: module.displayName,
+                                     iconName: module.iconName) { [weak self] in
+            self?.addDirectly(type: type, configJSON: nil)
+        }
+    }
+    
+    /// 直接添加某个预设变体的行
+    private func makeVariantCellItem(for module: WSPluginModule,
+                                     variant: WSPluginModuleVariant) -> TPBaseTableCellItem? {
+        guard let type = module.directAddType else {
+            return nil
+        }
+        
+        return makeDirectAddCellItem(title: variant.title,
+                                     iconName: variant.iconName ?? module.iconName) { [weak self] in
+            self?.addDirectly(type: type, configJSON: variant.configJSON)
+        }
+    }
+    
+    /// 直接添加行：右侧展示加号，点击整行或加号都执行添加
+    private func makeDirectAddCellItem(title: String,
+                                       iconName: String?,
+                                       onAdd: @escaping () -> Void) -> TPBaseTableCellItem {
         let cellItem = TPImageInfoRightButtonTableCellItem()
         cellItem.imageConfig.size = .default
         cellItem.imageConfig.shouldRenderImageWithColor = false
         cellItem.height = Constants.moduleRowHeight
-        cellItem.title = module.displayName
-        cellItem.imageName = module.iconName
+        cellItem.title = title
+        cellItem.imageName = iconName
         cellItem.rightViewMargins = UIEdgeInsets(right: 8.0)
         cellItem.rightButtonImageName = "plus_24"
         cellItem.rightButtonNormalImageColor = .secondaryLabel
-        cellItem.didSelectHandler = { [weak self] in
-            self?.addDirectly(module)
-        }
-        cellItem.didClickRightButton = { [weak self] _ in
-            self?.addDirectly(module)
-        }
+        cellItem.didSelectHandler = onAdd
+        cellItem.didClickRightButton = { _ in onAdd() }
         
         return cellItem
     }
@@ -156,13 +188,13 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    /// 直接添加模块内的组件。关闭界面与插入位置由外部处理
-    private func addDirectly(_ module: WSPluginModule) {
-        guard let type = module.directAddType else {
-            return
-        }
-        
+    /// 直接添加组件。关闭界面与插入位置由外部处理
+    /// - Parameter configJSON: 预设的组件配置。为 nil 时组件使用默认配置
+    private func addDirectly(type: WSPluginType, configJSON: String?) {
         TPImpactFeedback.impactWithSoftStyle()
-        didAddPlugin?(WSPlugin(identifier: type.rawValue, type: type))
+        
+        let plugin = WSPlugin(identifier: type.rawValue, type: type)
+        plugin.configJSON = configJSON
+        didAddPlugin?(plugin)
     }
 }
