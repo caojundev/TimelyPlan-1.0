@@ -1500,6 +1500,8 @@
 		E5A625B83089B3CE003EB8BC /* WorkspaceDashboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6257B3089B3CD003EB8BC /* WorkspaceDashboardManager.swift */; };
 		E5A625B93089B3CE003EB8BC /* WorkspacePluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6257C3089B3CD003EB8BC /* WorkspacePluginManager.swift */; };
 		E5A625BA3089B3CE003EB8BC /* WSPluginPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6257F3089B3CD003EB8BC /* WSPluginPickerViewController.swift */; };
+		E5A7C41130A3370700FE6914 /* WSPluginModuleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C40130A3370700FE6914 /* WSPluginModuleSectionController.swift */; };
+		E5A7C41230A3370700FE6914 /* WSPluginModuleCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C40230A3370700FE6914 /* WSPluginModuleCollectionCell.swift */; };
 		E5A625BB3089B3CE003EB8BC /* WSPluginGalleryFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625813089B3CD003EB8BC /* WSPluginGalleryFlowLayout.swift */; };
 		E5A625BC3089B3CE003EB8BC /* WSPluginGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625823089B3CD003EB8BC /* WSPluginGalleryViewController.swift */; };
 		E5A625BD3089B3CE003EB8BC /* WSPluginGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625833089B3CD003EB8BC /* WSPluginGalleryView.swift */; };
@@ -4556,6 +4558,8 @@
 		E5A6257B3089B3CD003EB8BC /* WorkspaceDashboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceDashboardManager.swift; sourceTree = "<group>"; };
 		E5A6257C3089B3CD003EB8BC /* WorkspacePluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspacePluginManager.swift; sourceTree = "<group>"; };
 		E5A6257F3089B3CD003EB8BC /* WSPluginPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginPickerViewController.swift; sourceTree = "<group>"; };
+		E5A7C40130A3370700FE6914 /* WSPluginModuleSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginModuleSectionController.swift; sourceTree = "<group>"; };
+		E5A7C40230A3370700FE6914 /* WSPluginModuleCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginModuleCollectionCell.swift; sourceTree = "<group>"; };
 		E5A625813089B3CD003EB8BC /* WSPluginGalleryFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginGalleryFlowLayout.swift; sourceTree = "<group>"; };
 		E5A625823089B3CD003EB8BC /* WSPluginGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginGalleryViewController.swift; sourceTree = "<group>"; };
 		E5A625833089B3CD003EB8BC /* WSPluginGalleryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginGalleryView.swift; sourceTree = "<group>"; };
@@ -11513,6 +11517,8 @@
 			isa = PBXGroup;
 			children = (
 				E5A6257F3089B3CD003EB8BC /* WSPluginPickerViewController.swift */,
+				E5A7C40130A3370700FE6914 /* WSPluginModuleSectionController.swift */,
+				E5A7C40230A3370700FE6914 /* WSPluginModuleCollectionCell.swift */,
 				E5A625803089B3CD003EB8BC /* Gallery */,
 			);
 			path = Picker;
@@ -19035,6 +19041,8 @@
 				E5F155272F83681E00116091 /* TodoGroupNormalHeaderView.swift in Sources */,
 				E5B499602FDC2E7B00F3A9BD /* EKEvent+Extension.swift in Sources */,
 				E5A625BA3089B3CE003EB8BC /* WSPluginPickerViewController.swift in Sources */,
+				E5A7C41130A3370700FE6914 /* WSPluginModuleSectionController.swift in Sources */,
+				E5A7C41230A3370700FE6914 /* WSPluginModuleCollectionCell.swift in Sources */,
 				E5BB9EED2D3BF0C80089667A /* TPMultiColumnDetailViewController.swift in Sources */,
 				E5D7D93D2D43933700EC877A /* FocusCountdownConfigCell.swift in Sources */,
 				E53B113F2F94D1B300701410 /* TodoFilterSpecificDateRangeSectionController.swift in Sources */,
