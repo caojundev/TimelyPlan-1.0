@@ -56,17 +56,24 @@ class LocalNotifiableTaskFetcher: LocalNotifiableTaskProvider,
     
     func fetchNotifiableTasks(completion: @escaping([LocalNotifiable]) -> Void) {
         var results = [LocalNotifiable]()
+        /// 各 provider 的回调线程不确定，需要加锁保护结果数组
+        let resultsLock = NSLock()
         let group = DispatchGroup()
         for provider in providers {
             group.enter()
             provider.fetchNotifiableTasks { tasks in
+                resultsLock.lock()
                 results.append(contentsOf: tasks)
+                resultsLock.unlock()
                 group.leave()
             }
         }
         
         group.notify(queue: .main) {
-            completion(results)
+            resultsLock.lock()
+            let tasks = results
+            resultsLock.unlock()
+            completion(tasks)
         }
     }
     

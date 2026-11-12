@@ -150,6 +150,9 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
         let operation = CancellableOperation()
         setCurrentOperation(operation)
         
+        /// 任务对象非线程安全，必须在主线程收集通知配置，后台只处理值类型数据
+        let allConfigs = tasks.flatMap { $0.getNotificationConfigs() }
+        
         // 修复：使用 Task 包裹异步代码
         serialQueue.async { [weak self] in
             guard let self = self else { return }
@@ -160,14 +163,7 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
                     // 检查是否已被取消
                     try operation.checkCancelled()
                     
-                    // 1. 收集所有配置
-                    let allConfigs = tasks.flatMap { task -> [TaskNotificationConfig] in
-                        task.getNotificationConfigs()
-                    }
-                    
-                    try operation.checkCancelled()
-                    
-                    // 2. 过滤 + 排序
+                    // 1. 过滤 + 排序
                     let now = Date()
                     let validConfigs = allConfigs
                         .filter { $0.triggerDate > now }
@@ -175,23 +171,23 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
                     
                     try operation.checkCancelled()
                     
-                    // 3. 冲突处理
+                    // 2. 冲突处理
                     let resolvedConfigs = self.resolveConflicts(validConfigs)
                     
                     try operation.checkCancelled()
                     
-                    // 4. 截取
+                    // 3. 截取
                     let finalConfigs = Array(resolvedConfigs.prefix(self.maxNotifications))
                     
-                    // 5. 检查版本号
+                    // 4. 检查版本号
                     guard thisVersion >= self.latestScheduledVersion else {
                         throw NotificationError.operationCancelled
                     }
                     
-                    // 6. 全量替换
+                    // 5. 全量替换
                     try await self.replaceAllNotifications(finalConfigs, operation: operation)
                     
-                    // 7. 更新版本号
+                    // 6. 更新版本号
                     self.completeVersion(thisVersion)
                     
                     print("✅ 调度完成 v\(thisVersion): \(finalConfigs.count)个通知")
