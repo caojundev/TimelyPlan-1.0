@@ -61,6 +61,20 @@ class WSPlugin: NSObject, Sortable {
     }
 }
 
+// MARK: - 配置能力
+
+extension WSPlugin {
+    
+    /// 组件是否支持配置。由组件提供者决定
+    var isConfigurable: Bool {
+        guard let provider = WSPluginRegistry.shared.provider(for: type) else {
+            return false
+        }
+        
+        return provider.makeConfigViewController(plugin: self) != nil
+    }
+}
+
 // MARK: - 类型化配置
 
 extension WSPlugin {

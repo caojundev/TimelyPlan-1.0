@@ -14,13 +14,13 @@ enum WSPluginMenuActionType: Int, CaseIterable, TPMenuRepresentable {
     case configPlugin      /// 配置插件
     case removePlugin      /// 移除插件
     
-    /// 菜单标题
+    /// 菜单标题。工具栏按钮宽度有限，文案需保持简短
     var title: String {
         switch self {
         case .addPreviousPlugin:
-            return resGetString("Add Previous Plugin")
+            return resGetString("Add Above")
         case .addNextPlugin:
-            return resGetString("Add Next Plugin")
+            return resGetString("Add Below")
         case .configPlugin:
             return resGetString("Config Plugin")
         case .removePlugin:

@@ -205,9 +205,18 @@ class WSDashboardViewController: TPViewController,
         toolView.actionTypes = actionTypes(for: plugins)
     }
     
-    /// 按选中数量返回可用动作。多选时仅支持删除
+    /// 按选中数量返回可用动作。多选时仅支持删除，单选时配置动作仅在组件支持配置时提供
     private func actionTypes(for plugins: [WSPlugin]) -> [WSPluginMenuActionType] {
-        return plugins.count > 1 ? [.removePlugin] : WSPluginMenuActionType.allCases
+        guard plugins.count == 1, let plugin = plugins.first else {
+            return [.removePlugin]
+        }
+        
+        var actionTypes: [WSPluginMenuActionType] = [.addPreviousPlugin, .addNextPlugin, .removePlugin]
+        if plugin.isConfigurable {
+            actionTypes.insert(.configPlugin, at: 2)
+        }
+        
+        return actionTypes
     }
     
     /// 显示工具栏
@@ -222,6 +231,10 @@ class WSDashboardViewController: TPViewController,
         }
         
         isShowingToolView = true
+        
+        /// 移除可能仍在滑出动画中的旧工具栏
+        view.subviews.compactMap { $0 as? TPMenuToolView<WSPluginMenuActionType> }
+            .forEach { $0.removeFromSuperview() }
         
         let toolView = TPMenuToolView(actionTypes: actionTypes(for: selectedPlugins))
         toolView.backgroundColor = .secondarySystemGroupedBackground

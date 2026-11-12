@@ -212,14 +212,15 @@ final class WSDashboardReorder: NSObject, UIGestureRecognizerDelegate {
         }, completion: nil)
     }
     
-    /// 快照放大比例。按组件的宽高计算，单边增加的长度不超过 maxScaleLength
+    /// 快照放大比例。取较长边计算统一缩放系数，单边增加的长度不超过 maxScaleLength
     private func draggingScale(for size: CGSize) -> CGAffineTransform {
-        guard size.width > 0, size.height > 0 else {
+        let longSide = max(size.width, size.height)
+        guard longSide > 0 else {
             return .identity
         }
         
-        return CGAffineTransform(scaleX: (size.width + maxScaleLength) / size.width,
-                                 y: (size.height + maxScaleLength) / size.height)
+        let scale = (longSide + maxScaleLength) / longSide
+        return CGAffineTransform(scaleX: scale, y: scale)
     }
     
     /// 把拖动视图移动到手指位置

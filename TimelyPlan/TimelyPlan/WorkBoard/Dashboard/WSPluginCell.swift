@@ -307,13 +307,9 @@ class WSPluginCell: UICollectionViewCell {
     }
     
     // MARK: - 组件配置
-    /// 组件是否支持配置。由组件提供者决定
+    /// 组件是否支持配置
     var isConfigurable: Bool {
-        guard let plugin = plugin, let provider = provider else {
-            return false
-        }
-        
-        return provider.makeConfigViewController(plugin: plugin) != nil
+        return plugin?.isConfigurable ?? false
     }
     
     /// 点击配置入口回调

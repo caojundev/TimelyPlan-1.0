@@ -448,7 +448,8 @@ extension WSDashboardView {
     
     /// 长按手势已识别，尚未进入拖动
     func reorderDidRecognizeLongPress(at indexPath: IndexPath) {
-        debugPrint("WSDashboardView 长按响应: \(indexPath)")
+        /// 长按针对单个插件，先取消其它插件的选中
+        clearSelection()
         
         /// 进入编辑模式，外部据此展示完成编辑按钮
         setEditing(true)

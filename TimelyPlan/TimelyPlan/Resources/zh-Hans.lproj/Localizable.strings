@@ -171,8 +171,8 @@
 "New Semester" = "新学期";
 "Graduation" = "毕业";
 "Annual Plan" = "年度计划";
-"Add Previous Plugin" = "添加上一个插件";
-"Add Next Plugin" = "添加下一个插件";
+"Add Above" = "上方添加";
+"Add Below" = "下方添加";
 
 ///**************************侧边栏**************************///
 "My Day" = "我的一天";
