@@ -233,8 +233,7 @@ class WSPluginGalleryView: UIView,
             return
         }
         
-        /// 画廊里不显示长按菜单，展示固定预览数据
-        cell.isContextMenuEnabled = false
+        /// 画廊里展示固定预览数据
         cell.configure(plugin: plugin, provider: provider, context: .gallery)
     }
     

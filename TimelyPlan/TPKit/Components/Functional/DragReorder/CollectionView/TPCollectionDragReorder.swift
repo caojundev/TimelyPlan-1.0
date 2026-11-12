@@ -98,7 +98,7 @@ class TPCollectionDragReorder: NSObject, UIGestureRecognizerDelegate {
         self.collectionView.removeGestureRecognizer(self.longPressGesture)
     }
     
-    @objc private func handleLongPress(_ recognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(_ recognizer: UILongPressGestureRecognizer) {
         self.currentPoint = recognizer.location(in: recognizer.view)
         switch recognizer.state {
         case .began:

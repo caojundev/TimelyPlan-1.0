@@ -1500,8 +1500,6 @@
 		E5A625B83089B3CE003EB8BC /* WorkspaceDashboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6257B3089B3CD003EB8BC /* WorkspaceDashboardManager.swift */; };
 		E5A625B93089B3CE003EB8BC /* WorkspacePluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6257C3089B3CD003EB8BC /* WorkspacePluginManager.swift */; };
 		E5A625BA3089B3CE003EB8BC /* WSPluginPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6257F3089B3CD003EB8BC /* WSPluginPickerViewController.swift */; };
-		E5A7C41130A3370700FE6914 /* WSPluginModuleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C40130A3370700FE6914 /* WSPluginModuleSectionController.swift */; };
-		E5A7C41230A3370700FE6914 /* WSPluginModuleCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C40230A3370700FE6914 /* WSPluginModuleCollectionCell.swift */; };
 		E5A625BB3089B3CE003EB8BC /* WSPluginGalleryFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625813089B3CD003EB8BC /* WSPluginGalleryFlowLayout.swift */; };
 		E5A625BC3089B3CE003EB8BC /* WSPluginGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625823089B3CD003EB8BC /* WSPluginGalleryViewController.swift */; };
 		E5A625BD3089B3CE003EB8BC /* WSPluginGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625833089B3CD003EB8BC /* WSPluginGalleryView.swift */; };
@@ -1519,7 +1517,6 @@
 		E5A625C93089B3CE003EB8BC /* WSDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625923089B3CD003EB8BC /* WSDashboardViewController.swift */; };
 		E5A625CA3089B3CE003EB8BC /* WSPluginContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625933089B3CD003EB8BC /* WSPluginContentView.swift */; };
 		E5A625CB3089B3CE003EB8BC /* WSDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625943089B3CD003EB8BC /* WSDashboardView.swift */; };
-		E5A625CC3089B3CE003EB8BC /* WorkspaceMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625953089B3CD003EB8BC /* WorkspaceMoreBarButtonItem.swift */; };
 		E5A625CD3089B3CE003EB8BC /* WorkspaceTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625963089B3CD003EB8BC /* WorkspaceTitleView.swift */; };
 		E5A625CE3089B3CE003EB8BC /* WSPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625983089B3CD003EB8BC /* WSPluginProvider.swift */; };
 		E5A625CF3089B3CE003EB8BC /* WSPluginRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625993089B3CD003EB8BC /* WSPluginRegistry.swift */; };
@@ -1532,6 +1529,7 @@
 		E5A625DE3089B3CE003EB8BC /* SkeletonHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625AE3089B3CD003EB8BC /* SkeletonHostView.swift */; };
 		E5A625DF3089B3CE003EB8BC /* SkeletonConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625AF3089B3CD003EB8BC /* SkeletonConfig.swift */; };
 		E5A625E03089B3CE003EB8BC /* SkeletonLayoutMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625B03089B3CD003EB8BC /* SkeletonLayoutMonitor.swift */; };
+		E5A625E03089B3D0003EB8BC /* WSPluginMenuActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625E13089B3D0003EB8BC /* WSPluginMenuActionType.swift */; };
 		E5A625E13089B3CF003EB8BC /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625B13089B3CD003EB8BC /* Skeleton.swift */; };
 		E5A625E23089B3CF003EB8BC /* SkeletonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625B23089B3CD003EB8BC /* SkeletonBuilder.swift */; };
 		E5A7C0DE00000000000000B1 /* WSMyDayPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A1 /* WSMyDayPluginTypes.swift */; };
@@ -1561,6 +1559,8 @@
 		E5A7C31630A3370700FE6914 /* WSSeparatorPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30630A3370700FE6914 /* WSSeparatorPluginProvider.swift */; };
 		E5A7C31730A3370700FE6914 /* WSSeparatorConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30730A3370700FE6914 /* WSSeparatorConfigViewController.swift */; };
 		E5A7C31830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift */; };
+		E5A7C41130A3370700FE6914 /* WSPluginModuleSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C40130A3370700FE6914 /* WSPluginModuleSectionController.swift */; };
+		E5A7C41230A3370700FE6914 /* WSPluginModuleCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C40230A3370700FE6914 /* WSPluginModuleCollectionCell.swift */; };
 		E5AC723E309F1B02004042F8 /* WSCalendarEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC723D309F1B02004042F8 /* WSCalendarEventListView.swift */; };
 		E5AC725630A00E49004042F8 /* WSCalendarLargeTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC724930A00E48004042F8 /* WSCalendarLargeTwoDaysPluginProvider.swift */; };
 		E5AC725730A00E49004042F8 /* WSCalendarMediumTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC724B30A00E48004042F8 /* WSCalendarMediumTwoDaysPluginProvider.swift */; };
@@ -2211,6 +2211,7 @@
 		E5C41D000000000000000F02 /* WSCalendarSmallUpcomingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000E02 /* WSCalendarSmallUpcomingContentView.swift */; };
 		E5C41D000000000000000F03 /* WSCalendarUpcomingContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000E03 /* WSCalendarUpcomingContentInteractor.swift */; };
 		E5C41D000000000000000F04 /* WSCalendarSmallUpcomingPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000E04 /* WSCalendarSmallUpcomingPluginProvider.swift */; };
+		E5C5E1A730A4AFC400E7D1F3 /* WSDashboardReorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C5E1A630A4AFC400E7D1F3 /* WSDashboardReorder.swift */; };
 		E5C74358308D9BFC00D396A3 /* WSRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C74357308D9BFC00D396A3 /* WSRowView.swift */; };
 		E5C7435B308DA17C00D396A3 /* WSFocusUserTimerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7435A308DA17C00D396A3 /* WSFocusUserTimerRowView.swift */; };
 		E5C76BA62F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C76BA22F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png */; };
@@ -4558,8 +4559,6 @@
 		E5A6257B3089B3CD003EB8BC /* WorkspaceDashboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceDashboardManager.swift; sourceTree = "<group>"; };
 		E5A6257C3089B3CD003EB8BC /* WorkspacePluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspacePluginManager.swift; sourceTree = "<group>"; };
 		E5A6257F3089B3CD003EB8BC /* WSPluginPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginPickerViewController.swift; sourceTree = "<group>"; };
-		E5A7C40130A3370700FE6914 /* WSPluginModuleSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginModuleSectionController.swift; sourceTree = "<group>"; };
-		E5A7C40230A3370700FE6914 /* WSPluginModuleCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginModuleCollectionCell.swift; sourceTree = "<group>"; };
 		E5A625813089B3CD003EB8BC /* WSPluginGalleryFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginGalleryFlowLayout.swift; sourceTree = "<group>"; };
 		E5A625823089B3CD003EB8BC /* WSPluginGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginGalleryViewController.swift; sourceTree = "<group>"; };
 		E5A625833089B3CD003EB8BC /* WSPluginGalleryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginGalleryView.swift; sourceTree = "<group>"; };
@@ -4577,7 +4576,6 @@
 		E5A625923089B3CD003EB8BC /* WSDashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDashboardViewController.swift; sourceTree = "<group>"; };
 		E5A625933089B3CD003EB8BC /* WSPluginContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginContentView.swift; sourceTree = "<group>"; };
 		E5A625943089B3CD003EB8BC /* WSDashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDashboardView.swift; sourceTree = "<group>"; };
-		E5A625953089B3CD003EB8BC /* WorkspaceMoreBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceMoreBarButtonItem.swift; sourceTree = "<group>"; };
 		E5A625963089B3CD003EB8BC /* WorkspaceTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceTitleView.swift; sourceTree = "<group>"; };
 		E5A625983089B3CD003EB8BC /* WSPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginProvider.swift; sourceTree = "<group>"; };
 		E5A625993089B3CD003EB8BC /* WSPluginRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginRegistry.swift; sourceTree = "<group>"; };
@@ -4592,6 +4590,7 @@
 		E5A625B03089B3CD003EB8BC /* SkeletonLayoutMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonLayoutMonitor.swift; sourceTree = "<group>"; };
 		E5A625B13089B3CD003EB8BC /* Skeleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 		E5A625B23089B3CD003EB8BC /* SkeletonBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonBuilder.swift; sourceTree = "<group>"; };
+		E5A625E13089B3D0003EB8BC /* WSPluginMenuActionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginMenuActionType.swift; sourceTree = "<group>"; };
 		E5A7C0DE00000000000000A1 /* WSMyDayPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSMyDayPluginTypes.swift; sourceTree = "<group>"; };
 		E5A7C0DE00000000000000A2 /* WSTimelinePluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTimelinePluginTypes.swift; sourceTree = "<group>"; };
 		E5A7C0DE00000000000000A3 /* WSQuadrantPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSQuadrantPluginTypes.swift; sourceTree = "<group>"; };
@@ -4619,6 +4618,8 @@
 		E5A7C30630A3370700FE6914 /* WSSeparatorPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorPluginProvider.swift; sourceTree = "<group>"; };
 		E5A7C30730A3370700FE6914 /* WSSeparatorConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorConfigViewController.swift; sourceTree = "<group>"; };
 		E5A7C30830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorStyleSelectCell.swift; sourceTree = "<group>"; };
+		E5A7C40130A3370700FE6914 /* WSPluginModuleSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginModuleSectionController.swift; sourceTree = "<group>"; };
+		E5A7C40230A3370700FE6914 /* WSPluginModuleCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginModuleCollectionCell.swift; sourceTree = "<group>"; };
 		E5AC723D309F1B02004042F8 /* WSCalendarEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarEventListView.swift; sourceTree = "<group>"; };
 		E5AC724930A00E48004042F8 /* WSCalendarLargeTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarLargeTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
 		E5AC724B30A00E48004042F8 /* WSCalendarMediumTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
@@ -5284,6 +5285,7 @@
 		E5C41D000000000000000E02 /* WSCalendarSmallUpcomingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallUpcomingContentView.swift; sourceTree = "<group>"; };
 		E5C41D000000000000000E03 /* WSCalendarUpcomingContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarUpcomingContentInteractor.swift; sourceTree = "<group>"; };
 		E5C41D000000000000000E04 /* WSCalendarSmallUpcomingPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallUpcomingPluginProvider.swift; sourceTree = "<group>"; };
+		E5C5E1A630A4AFC400E7D1F3 /* WSDashboardReorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDashboardReorder.swift; sourceTree = "<group>"; };
 		E5C74357308D9BFC00D396A3 /* WSRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSRowView.swift; sourceTree = "<group>"; };
 		E5C7435A308DA17C00D396A3 /* WSFocusUserTimerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerRowView.swift; sourceTree = "<group>"; };
 		E5C76BA22F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_stats_group_task_24@2x.png"; sourceTree = "<group>"; };
@@ -11468,7 +11470,6 @@
 			isa = PBXGroup;
 			children = (
 				E5A625893089B3CD003EB8BC /* WorkspaceMainViewController.swift */,
-				E5A625953089B3CD003EB8BC /* WorkspaceMoreBarButtonItem.swift */,
 				E5A625963089B3CD003EB8BC /* WorkspaceTitleView.swift */,
 				E5A6259B3089B3CD003EB8BC /* WorkspaceCoordinator.swift */,
 				E5A625973089B3CD003EB8BC /* Registry */,
@@ -11565,8 +11566,10 @@
 				E5A625903089B3CD003EB8BC /* WSPluginDefaultPlaceholderView.swift */,
 				E5A625913089B3CD003EB8BC /* WSPluginEmptyPlaceholderView.swift */,
 				E5A625923089B3CD003EB8BC /* WSDashboardViewController.swift */,
-				E5A625933089B3CD003EB8BC /* WSPluginContentView.swift */,
 				E5A625943089B3CD003EB8BC /* WSDashboardView.swift */,
+				E5C5E1A630A4AFC400E7D1F3 /* WSDashboardReorder.swift */,
+				E5A625933089B3CD003EB8BC /* WSPluginContentView.swift */,
+				E5A625E13089B3D0003EB8BC /* WSPluginMenuActionType.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -18657,6 +18660,7 @@
 				E5D7D8D12D43933600EC877A /* FocusRecordTimelineBar.swift in Sources */,
 				E50179602FD6B75900DC544D /* TodoTaskMoveSectionSearchResultCell.swift in Sources */,
 				E51A4C2B2DC261E8005A0E3F /* CalendarModeBarButtonItem.swift in Sources */,
+				E5C5E1A730A4AFC400E7D1F3 /* WSDashboardReorder.swift in Sources */,
 				E5371DF52FF5109D00BA9DEF /* TaskNotificationType.swift in Sources */,
 				E549B1692F88D3800014BE85 /* TodoTaskEditNameView.swift in Sources */,
 				E5BB9B412D3BEF920089667A /* CGSizeExtension.swift in Sources */,
@@ -18968,7 +18972,6 @@
 				E5FAA9E6304D91B400C9CCD8 /* GoalPlanFilterView.swift in Sources */,
 				E5D7D9072D43933600EC877A /* PomodoroCircleView.swift in Sources */,
 				E549B15A2F87CF670014BE85 /* TodoRecordInputViewController.swift in Sources */,
-				E5A625CC3089B3CE003EB8BC /* WorkspaceMoreBarButtonItem.swift in Sources */,
 				E5B33D402F80B30700939C3E /* TodoBaseListPickerViewController.swift in Sources */,
 				E5FAA9D3304ABE1200C9CCD8 /* CDGoalTask+Extensions.swift in Sources */,
 				E57CC5E62F7FEF3E00ADDBA4 /* TodoTaskPriority.swift in Sources */,
@@ -19688,6 +19691,7 @@
 				E50D024B2F557BF800E93977 /* DateFrequencySectionController.swift in Sources */,
 				E537BCBB308B4B5900C308E3 /* WSCountdownColumnEventRowView.swift in Sources */,
 				E5A625C63089B3CE003EB8BC /* WSPluginCell.swift in Sources */,
+				E5A625E03089B3D0003EB8BC /* WSPluginMenuActionType.swift in Sources */,
 				E5F9E3F230261D6100EDC2A5 /* HabitRecordProgressInfoView.swift in Sources */,
 				E5BB9DDF2D3BF0C60089667A /* UIScrollView+Scroll.swift in Sources */,
 				E5BB9EBE2D3BF0C80089667A /* TPAbsoluteTimePresetTableCell.swift in Sources */,

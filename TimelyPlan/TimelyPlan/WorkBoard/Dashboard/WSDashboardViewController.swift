@@ -13,7 +13,7 @@ protocol WSDashboardViewControllerDelegate: AnyObject {
     
     /// 面板编辑状态发生变化
     func dashboardViewController(_ viewController: WSDashboardViewController,
-                                 didChangeReordering isReordering: Bool)
+                                 didChangeEditing isEditing: Bool)
 }
 
 /// 面板视图控制器。
@@ -28,9 +28,9 @@ class WSDashboardViewController: TPViewController,
     /// 展示的面板
     let dashboard: WSDashboard
     
-    /// 是否处于编辑模式
-    var isReordering: Bool {
-        return dashboardView.isReordering
+    /// 是否处于编辑模式。重写系统属性，由面板视图的编辑状态决定
+    var isEditingMode: Bool {
+        return dashboardView.isEditing
     }
     
     /// 仪表盘视图
@@ -52,6 +52,23 @@ class WSDashboardViewController: TPViewController,
     
     /// 新插件的待插入位置。nil 表示追加到末尾
     private var pendingInsertionIndex: Int?
+    
+    /// 编辑模式下选中的插件
+    private var selectedPlugins: [WSPlugin] = []
+    
+    /// 选中插件时的底部工具栏
+    private var toolView: TPMenuToolView<WSPluginMenuActionType>?
+    
+    /// 工具栏是否正在滑入
+    private var isShowingToolView = false
+    
+    /// 工具栏内容高度
+    private let toolViewContentHeight = 60.0
+    
+    /// 工具栏整体高度，包含底部安全区
+    private var toolViewFitHeight: CGFloat {
+        return toolViewContentHeight + view.safeAreaInsets.bottom
+    }
     
     // MARK: - Initialization
     init(dashboard: WSDashboard) {
@@ -76,17 +93,16 @@ class WSDashboardViewController: TPViewController,
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         dashboardView.frame = view.bounds
+        
+        if let toolView = toolView {
+            toolView.width = view.width
+            toolView.height = toolViewFitHeight
+            toolView.bottom = view.height
+        }
     }
     
-    // MARK: - 编辑模式
-    /// 进入编辑模式，组件抖动并支持拖动排序
-    func beginReordering() {
-        dashboardView.beginReordering()
-    }
-    
-    /// 退出编辑模式
-    func endReordering() {
-        dashboardView.endReordering()
+    func endEditing() {
+        dashboardView.endEditing()
     }
     
     // MARK: - 加载
@@ -174,6 +190,130 @@ class WSDashboardViewController: TPViewController,
         navController.popoverShow()
     }
     
+    // MARK: - 底部工具栏
+    /// 按选中的插件更新工具栏
+    private func updateToolView(with plugins: [WSPlugin]) {
+        guard plugins.count > 0 else {
+            hideToolView()
+            return
+        }
+        
+        guard let toolView = showToolViewIfNeeded() else {
+            return
+        }
+        
+        toolView.actionTypes = actionTypes(for: plugins)
+    }
+    
+    /// 按选中数量返回可用动作。多选时仅支持删除
+    private func actionTypes(for plugins: [WSPlugin]) -> [WSPluginMenuActionType] {
+        return plugins.count > 1 ? [.removePlugin] : WSPluginMenuActionType.allCases
+    }
+    
+    /// 显示工具栏
+    private func showToolViewIfNeeded() -> TPMenuToolView<WSPluginMenuActionType>? {
+        if let toolView = toolView {
+            return toolView
+        }
+        
+        /// 滑入动画期间不重复创建
+        guard !isShowingToolView else {
+            return nil
+        }
+        
+        isShowingToolView = true
+        
+        let toolView = TPMenuToolView(actionTypes: actionTypes(for: selectedPlugins))
+        toolView.backgroundColor = .secondarySystemGroupedBackground
+        toolView.preferredItemsCount = WSPluginMenuActionType.allCases.count
+        toolView.addSeparator(position: .top)
+        toolView.didSelectActionType = { [weak self] actionType, _ in
+            self?.performMenuAction(actionType)
+        }
+        
+        let height = toolViewFitHeight
+        toolView.frame = CGRect(x: 0.0, y: view.height, width: view.width, height: height)
+        view.addSubview(toolView)
+        
+        updateDashboardContentInset(bottomInset: toolViewContentHeight)
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut) {
+            toolView.bottom = self.view.height
+        } completion: { _ in
+            self.isShowingToolView = false
+            
+            /// 动画期间选中已被清空，直接移除
+            guard self.selectedPlugins.count > 0 else {
+                toolView.removeFromSuperview()
+                self.updateDashboardContentInset(bottomInset: 0.0)
+                return
+            }
+            
+            self.toolView = toolView
+        }
+        
+        return toolView
+    }
+    
+    /// 隐藏工具栏
+    private func hideToolView() {
+        guard let toolView = toolView else {
+            updateDashboardContentInset(bottomInset: 0.0)
+            return
+        }
+        
+        self.toolView = nil
+        isShowingToolView = false
+        updateDashboardContentInset(bottomInset: 0.0)
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut) {
+            toolView.top = self.view.height
+        } completion: { _ in
+            toolView.removeFromSuperview()
+        }
+    }
+    
+    /// 更新面板底部内边距，避免末尾内容被工具栏遮挡
+    private func updateDashboardContentInset(bottomInset: CGFloat) {
+        dashboardView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: bottomInset, right: 0.0)
+    }
+    
+    /// 执行工具栏动作。执行后退出编辑模式，多选时仅支持删除
+    private func performMenuAction(_ action: WSPluginMenuActionType) {
+        let plugins = selectedPlugins
+        guard plugins.count > 0 else {
+            return
+        }
+        
+        if action == .removePlugin {
+            plugins.forEach { interactor.deletePlugin($0) }
+            dashboardView.endEditing()
+            return
+        }
+        
+        /// 其余动作仅对单个插件生效
+        guard plugins.count == 1, let plugin = plugins.first else {
+            return
+        }
+        
+        performMenuAction(action, for: plugin)
+        
+        /// 菜单动作执行后退出编辑模式
+        dashboardView.endEditing()
+    }
+    
+    /// 执行单个插件的菜单动作
+    private func performMenuAction(_ action: WSPluginMenuActionType, for plugin: WSPlugin) {
+        switch action {
+        case .addPreviousPlugin:
+            insertPlugin(around: plugin, isNext: false)
+        case .addNextPlugin:
+            insertPlugin(around: plugin, isNext: true)
+        case .configPlugin:
+            showPluginConfig(for: plugin)
+        case .removePlugin:
+            interactor.deletePlugin(plugin)
+        }
+    }
+    
     // MARK: - Setup
     private func setupSubviews() {
         view.addSubview(dashboardView)
@@ -192,27 +332,25 @@ class WSDashboardViewController: TPViewController,
 // MARK: - WSDashboardViewDelegate
 extension WSDashboardViewController {
     
-    func dashboardView(_ dashboardView: WSDashboardView, didChangeReordering isReordering: Bool) {
+    func dashboardView(_ dashboardView: WSDashboardView, didChangeEditing isEditing: Bool) {
+        /// 退出编辑模式时收起底部工具栏
+        if !isEditing {
+            hideToolView()
+        }
+        
         /// 编辑状态由协调器同步到导航栏
-        delegate?.dashboardViewController(self, didChangeReordering: isReordering)
+        delegate?.dashboardViewController(self, didChangeEditing: isEditing)
+    }
+    
+    func dashboardView(_ dashboardView: WSDashboardView, didChangeSelectedPlugins plugins: [WSPlugin]) {
+        selectedPlugins = plugins
+        updateToolView(with: plugins)
     }
     
     func dashboardView(_ dashboardView: WSDashboardView,
-                       didSelectMenuAction action: WSPluginCell.MenuActionType,
+                       didSelectMenuAction action: WSPluginMenuActionType,
                        for plugin: WSPlugin) {
-        switch action {
-        case .addPreviousPlugin:
-            insertPlugin(around: plugin, isNext: false)
-        case .addNextPlugin:
-            insertPlugin(around: plugin, isNext: true)
-        case .editDashboard:
-            /// 进入编辑模式，组件抖动并支持长按拖动排序
-            dashboardView.beginReordering()
-        case .configPlugin:
-            showPluginConfig(for: plugin)
-        case .removePlugin:
-            interactor.deletePlugin(plugin)
-        }
+        performMenuAction(action, for: plugin)
     }
     
     func dashboardView(_ dashboardView: WSDashboardView, didReorderPlugins plugins: [WSPlugin]) {

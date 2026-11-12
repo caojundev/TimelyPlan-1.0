@@ -10,13 +10,16 @@ import UIKit
 
 protocol WSDashboardViewDelegate: AnyObject {
     
-    /// 排序模式发生变化
-    func dashboardView(_ dashboardView: WSDashboardView, didChangeReordering isReordering: Bool)
+    /// 编辑模式发生变化
+    func dashboardView(_ dashboardView: WSDashboardView, didChangeEditing isEditing: Bool)
     
     /// 选中组件的菜单动作
     func dashboardView(_ dashboardView: WSDashboardView,
-                       didSelectMenuAction action: WSPluginCell.MenuActionType,
+                       didSelectMenuAction action: WSPluginMenuActionType,
                        for plugin: WSPlugin)
+    
+    /// 编辑模式下选中的插件发生变化
+    func dashboardView(_ dashboardView: WSDashboardView, didChangeSelectedPlugins plugins: [WSPlugin])
     
     /// 组件顺序发生改变
     func dashboardView(_ dashboardView: WSDashboardView, didReorderPlugins plugins: [WSPlugin])
@@ -27,13 +30,17 @@ protocol WSDashboardViewDelegate: AnyObject {
 
 extension WSDashboardViewDelegate {
     
-    func dashboardView(_ dashboardView: WSDashboardView, didChangeReordering isReordering: Bool) {
+    func dashboardView(_ dashboardView: WSDashboardView, didChangeEditing isEditing: Bool) {
         
     }
     
     func dashboardView(_ dashboardView: WSDashboardView,
-                       didSelectMenuAction action: WSPluginCell.MenuActionType,
+                       didSelectMenuAction action: WSPluginMenuActionType,
                        for plugin: WSPlugin) {
+        
+    }
+    
+    func dashboardView(_ dashboardView: WSDashboardView, didChangeSelectedPlugins plugins: [WSPlugin]) {
         
     }
     
@@ -47,8 +54,8 @@ extension WSDashboardViewDelegate {
 }
 
 class WSDashboardView: UIView,
-                              TPCollectionViewAdapterDataSource,
-                              TPCollectionViewAdapterDelegate {
+                       TPCollectionViewAdapterDataSource,
+                       TPCollectionViewAdapterDelegate {
     
     /// 代理对象
     weak var delegate: WSDashboardViewDelegate?
@@ -87,7 +94,7 @@ class WSDashboardView: UIView,
         return layout
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: bounds, collectionViewLayout: collectionViewLayout)
         collectionView.backgroundColor = .clear
         collectionView.isPrefetchingEnabled = false
@@ -100,11 +107,19 @@ class WSDashboardView: UIView,
         return collectionView
     }()
     
-    /// 是否处于排序模式。进入后组件抖动并支持拖动排序，同时关闭长按菜单避免冲突。
-    private(set) var isReordering: Bool = false
+    /// 是否处于编辑模式。进入后支持拖动排序，并可点击选择插件
+    private(set) var isEditing: Bool = false
+    
+    /// 编辑模式下的插件选择器
+    private var selection = TPMultipleItemSelection<WSPlugin>()
+    
+    /// 编辑模式下已选中的插件
+    var selectedPlugins: Set<WSPlugin> {
+        return selection.selectedItems
+    }
     
     /// 拖动排序器
-    private var reorder: TPCollectionDragExchangeReorder?
+    private var reorder: WSDashboardReorder?
 
     /// 区块布局。小 / 中 / 大组件尺寸均由容器宽度推导
     private lazy var dashboardLayout: WSDashboardGridLayout = {
@@ -136,10 +151,8 @@ class WSDashboardView: UIView,
     }
     
     private func setupReorder() {
-        let reorder = TPCollectionDragExchangeReorder(collectionView: collectionView)
-        reorder.delegate = self
-        /// 默认关闭，进入排序模式后再开启
-        reorder.isEnabled = false
+        let reorder = WSDashboardReorder(dashboardView: self)
+        reorder.isEnabled = true
         self.reorder = reorder
     }
     
@@ -210,43 +223,62 @@ class WSDashboardView: UIView,
         adapter.performUpdate()
     }
     
-    // MARK: - 排序模式
-    /// 进入排序模式。组件抖动并支持长按拖动排序，同时关闭长按菜单避免与拖动冲突。
-    func beginReordering() {
-        setReordering(true)
+    // MARK: - 编辑模式
+    /// 进入编辑模式。支持长按拖动排序与点击选择插件。
+    func beginEditing() {
+        setEditing(true)
     }
     
-    /// 退出排序模式
-    func endReordering() {
-        setReordering(false)
+    /// 退出编辑模式
+    func endEditing() {
+        setEditing(false)
     }
     
-    private func setReordering(_ isReordering: Bool) {
-        guard self.isReordering != isReordering else {
+    private func setEditing(_ isEditing: Bool) {
+        guard self.isEditing != isEditing else {
             return
         }
         
-        self.isReordering = isReordering
-        /// 仅在排序模式下开启拖动排序
-        reorder?.isEnabled = isReordering
-        collectionView.visibleCells.forEach { updateCellForReordering($0) }
+        self.isEditing = isEditing
+        /// 同步单元格编辑状态，编辑模式下内容视图不响应手势
+        collectionView.visibleCells.forEach {
+            ($0 as? WSPluginCell)?.isEditing = isEditing
+        }
+        /// 仅在编辑模式下开启拖动排序
+//        reorder?.isEnabled = isEditing
         
-        /// 退出排序模式时兜底恢复空白占位视图
-        if !isReordering {
+        /// 退出编辑模式时清空选择并兜底恢复空白占位视图
+        if !isEditing {
+            clearSelection()
             setGapDecorationsHidden(false)
         }
         
-        delegate?.dashboardView(self, didChangeReordering: isReordering)
+        delegate?.dashboardView(self, didChangeEditing: isEditing)
     }
     
-    /// 应用排序模式到单元格
-    private func updateCellForReordering(_ cell: UICollectionViewCell) {
-        guard let cell = cell as? WSPluginCell else {
+    /// 清空插件选择
+    private func clearSelection() {
+        selection.reset()
+        collectionView.visibleCells.forEach {
+            ($0 as? WSPluginCell)?.isPluginSelected = false
+        }
+        
+        notifySelectedPluginsDidChange()
+    }
+    
+    /// 通知外部选中的插件发生变化
+    private func notifySelectedPluginsDidChange() {
+        delegate?.dashboardView(self, didChangeSelectedPlugins: Array(selection.selectedItems))
+    }
+    
+    /// 刷新索引处单元格的选中边框
+    private func updateCellSelection(at indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? WSPluginCell,
+              let plugin = plugin(at: indexPath) else {
             return
         }
         
-        cell.isContextMenuEnabled = !isReordering
-        cell.setJiggling(isReordering)
+        cell.isPluginSelected = selection.isSelectedItem(plugin)
     }
     
     // MARK: - 空白占位视图
@@ -293,8 +325,8 @@ class WSDashboardView: UIView,
     
     /// 点击空白占位视图。回调参数为该空白前一个插件的索引
     private func handleGapDecorationTap(after indexPath: IndexPath) {
-        /// 排序模式下不响应，避免与拖动排序冲突
-        guard !isReordering, let plugin = plugin(at: indexPath) else {
+        /// 编辑模式下不响应，避免与拖动排序冲突
+        guard !isEditing, let plugin = plugin(at: indexPath) else {
             return
         }
         
@@ -324,8 +356,21 @@ class WSDashboardView: UIView,
     
     // MARK: - TPCollectionViewAdapterDelegate
     func adapter(_ adapter: TPCollectionViewAdapter, didSelectItemAt indexPath: IndexPath) {
-        /// 排序模式下不响应选中，避免误触
-        guard !isReordering else {
+        guard let plugin = plugin(at: indexPath) else {
+            return
+        }
+        
+        /// 编辑模式下点击选择插件，具体操作由底部菜单处理
+        if isEditing {
+            selection.selectItem(plugin, autoDeselect: true)
+            updateCellSelection(at: indexPath)
+            
+            /// 最后一个插件被反选时退出编辑模式
+            if selection.selectedCount == 0 {
+                setEditing(false)
+            } else {
+                notifySelectedPluginsDidChange()
+            }
             return
         }
         
@@ -356,24 +401,18 @@ class WSDashboardView: UIView,
             return
         }
         
+        cell.isEditing = isEditing
         cell.configure(plugin: plugin, provider: provider)
-        cell.deleteActionHandler = { [weak self] cell in
-            guard let self = self, let plugin = cell.plugin else {
-                return
-            }
-            
-            self.delegate?.dashboardView(self, didSelectMenuAction: .removePlugin, for: plugin)
-        }
-        cell.menuActionHandler = { [weak self] cell, actionType in
+        cell.isPluginSelected = selection.isSelectedItem(plugin)
+        cell.configActionHandler = { [weak self] cell in
             guard let self = self, let plugin = cell.plugin else {
                 return
             }
             
             self.delegate?.dashboardView(self,
-                                         didSelectMenuAction: actionType,
+                                         didSelectMenuAction: .configPlugin,
                                          for: plugin)
         }
-        updateCellForReordering(cell)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -404,23 +443,41 @@ class WSDashboardView: UIView,
     }
 }
 
-// MARK: - TPCollectionDragExchangeReorderDelegate
-extension WSDashboardView: TPCollectionDragExchangeReorderDelegate {
+// MARK: - 拖动排序
+extension WSDashboardView {
     
-    func collectionDragReorder(_ reorder: TPCollectionDragReorder, canMoveItemAt indexPath: IndexPath) -> Bool {
-        return isReordering
+    /// 长按手势已识别，尚未进入拖动
+    func reorderDidRecognizeLongPress(at indexPath: IndexPath) {
+        debugPrint("WSDashboardView 长按响应: \(indexPath)")
+        
+        /// 进入编辑模式，外部据此展示完成编辑按钮
+        setEditing(true)
     }
     
-    func collectionDragReorder(_ reorder: TPCollectionDragReorder, willBeginAt indexPath: IndexPath) {
+    /// 位移达到阈值，开始拖动
+    func reorderWillBeginDragging(at indexPath: IndexPath) {
+        /// 进入拖动排序后退出编辑模式，外部恢复常规按钮
+        setEditing(false)
+        
         /// 拖动期间隐藏空白占位视图，避免占位视图参与拖拽视觉
         setGapDecorationsHidden(true)
-        /// 拖动期间暂停被拖动项的抖动，避免拖拽快照带上旋转
-        (collectionView.cellForItem(at: indexPath) as? WSPluginCell)?.setJiggling(false)
     }
     
-    func collectionDragReorderDidEnd(_ reorder: TPCollectionDragReorder) {
-        /// 拖动结束后恢复抖动
-        collectionView.visibleCells.forEach { updateCellForReordering($0) }
+    /// 未拖动即松手结束。编辑模式下选中该插件，供底部菜单操作
+    func reorderDidEndWithoutDragging(at indexPath: IndexPath) {
+        TPImpactFeedback.impactWithHeavyStyle()
+        
+        guard isEditing, let plugin = plugin(at: indexPath) else {
+            return
+        }
+        
+        selection.selectItem(plugin, autoDeselect: false)
+        updateCellSelection(at: indexPath)
+        notifySelectedPluginsDidChange()
+    }
+    
+    /// 拖动结束
+    func reorderDidEndDragging() {
         /// 拖动结束后恢复空白占位视图
         setGapDecorationsHidden(false)
         
@@ -428,24 +485,14 @@ extension WSDashboardView: TPCollectionDragExchangeReorderDelegate {
         delegate?.dashboardView(self, didReorderPlugins: plugins ?? [])
     }
     
-    func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder,
-                                       canMoveItemFrom fromIndexPath: IndexPath,
-                                       to toIndexPath: IndexPath) -> Bool {
-        return isReordering && fromIndexPath.section == toIndexPath.section
-    }
-    
-    func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder,
-                                       moveItemFrom fromIndexPath: IndexPath,
-                                       to toIndexPath: IndexPath) -> Bool {
-        guard var newPlugins = plugins else {
+    /// 交换两个位置的组件
+    func reorderMovePlugin(from fromIndexPath: IndexPath, to toIndexPath: IndexPath) -> Bool {
+        guard var newPlugins = plugins,
+              newPlugins.moveObject(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item) else {
             return false
         }
         
-        guard newPlugins.moveObject(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item) else {
-            return false
-        }
-        
-        self.plugins = newPlugins
+        plugins = newPlugins
         adapter.moveItem(at: fromIndexPath, to: toIndexPath)
         return true
     }

@@ -74,14 +74,9 @@ class WorkspaceCoordinator {
         dashboardViewController?.showPluginPicker()
     }
     
-    /// 进入编辑模式
-    func beginReordering() {
-        dashboardViewController?.beginReordering()
-    }
-    
     /// 退出编辑模式
-    func endReordering() {
-        dashboardViewController?.endReordering()
+    func endEditing() {
+        dashboardViewController?.endEditing()
     }
 }
 
@@ -89,7 +84,7 @@ class WorkspaceCoordinator {
 extension WorkspaceCoordinator: WSDashboardViewControllerDelegate {
     
     func dashboardViewController(_ viewController: WSDashboardViewController,
-                                 didChangeReordering isReordering: Bool) {
+                                 didChangeEditing isEditing: Bool) {
         guard viewController === dashboardViewController else {
             return
         }

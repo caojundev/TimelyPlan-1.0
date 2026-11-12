@@ -46,16 +46,6 @@ class WorkspaceMainViewController: TPContainerViewController,
         return titleView
     }()
     
-    /// 更多菜单按钮
-    private lazy var moreBarButtonItem: WorkspaceMoreBarButtonItem = {
-        let item = WorkspaceMoreBarButtonItem()
-        item.didSelectType = { [weak self] type in
-            self?.performMoreMenuAction(type)
-        }
-        
-        return item
-    }()
-    
     /// 完成编辑按钮。仅编辑模式下显示在导航栏右侧
     private lazy var doneEditingBarButtonItem: UIBarButtonItem = {
         let button = TPDefaultButton()
@@ -100,11 +90,10 @@ class WorkspaceMainViewController: TPContainerViewController,
             navigationItem.leftBarButtonItems = [sidebarButtonItem]
         }
         
-        /// 编辑模式下右侧仅显示「完成」按钮，添加与更多按钮不显示
-        let isReordering = coordinator.dashboardViewController?.isReordering ?? false
-        navigationItem.rightBarButtonItems = isReordering ? [doneEditingBarButtonItem]
-                                                          : [moreBarButtonItem,
-                                                             addBarButtonItem]
+        /// 编辑模式下右侧仅显示「完成」按钮，其余情况仅显示添加按钮
+        let isEditing = coordinator.dashboardViewController?.isEditingMode ?? false
+        navigationItem.rightBarButtonItems = isEditing ? [doneEditingBarButtonItem]
+                                                       : [addBarButtonItem]
     }
     
     // MARK: - Event Response
@@ -116,7 +105,7 @@ class WorkspaceMainViewController: TPContainerViewController,
     /// 点击「完成」，退出编辑模式
     @objc private func clickDoneEditing() {
         TPImpactFeedback.impactWithSoftStyle()
-        coordinator.endReordering()
+        coordinator.endEditing()
     }
     
     // MARK: - 面板管理
@@ -126,16 +115,6 @@ class WorkspaceMainViewController: TPContainerViewController,
         WSDashboardManageViewController.show(currentDashboard: coordinator.dashboard) { [weak self] dashboard in
             /// 选中面板后切换工作台展示的面板
             self?.coordinator.showDashboard(dashboard)
-        }
-    }
-    
-    // MARK: - 更多菜单
-    /// 处理更多菜单动作
-    private func performMoreMenuAction(_ type: WorkspaceMoreMenuType) {
-        switch type {
-        case .editDashboard:
-            /// 进入编辑模式，组件抖动并支持拖动排序
-            coordinator.beginReordering()
         }
     }
 }

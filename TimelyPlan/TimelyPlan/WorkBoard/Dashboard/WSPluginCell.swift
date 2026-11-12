@@ -36,27 +36,39 @@ class WSPluginCell: UICollectionViewCell {
     
     private(set) var interactor: WSPluginContentInteractor?
     
-    /// 点击删除按钮回调。仅在编辑模式下显示删除按钮
-    var deleteActionHandler: ((WSPluginCell) -> Void)?
+    /// 选中边框宽度
+    private let selectionBorderWidth: CGFloat = 2.4
     
-    /// 删除按钮尺寸
-    private let deleteButtonSize = CGSize(width: 24.0, height: 24.0)
-    
-    /// 删除按钮与右上角的间距
-    private let deleteButtonMargin: CGFloat = 6.0
-    
-    /// 编辑模式下的删除按钮
-    private lazy var deleteButton: TPImageButton = {
-        let button = TPImageButton()
-        button.normalImage = resGetImage("xmark_circle_fill_24")
-        button.normalImageColor = .danger6
-        button.imageSize = deleteButtonSize
-        button.padding = .zero
-        button.hitTestEdgeInsets = UIEdgeInsets(value: -deleteButtonMargin)
-        button.isHidden = true
-        button.addTarget(self, action: #selector(clickDelete(_:)), for: .touchUpInside)
-        return button
+    /// 选中边框视图。编辑模式下选中插件时显示
+    private lazy var selectionBorderView: UIView = {
+        let view = UIView()
+        view.layer.borderWidth = selectionBorderWidth
+        view.isUserInteractionEnabled = false
+        view.isHidden = true
+        return view
     }()
+    
+    /// 是否被选中。由面板在编辑模式下维护，用于显示选中边框
+    var isPluginSelected: Bool = false {
+        didSet {
+            selectionBorderView.isHidden = !isPluginSelected
+            if isPluginSelected {
+                bringSubviewToFront(selectionBorderView)
+            }
+        }
+    }
+    
+    /// 是否处于编辑模式。编辑模式下内容视图不响应手势
+    var isEditing: Bool = false {
+        didSet {
+            guard isEditing != oldValue else {
+                return
+            }
+            
+            updatePluginContentEnabled()
+            emptyPlaceholderView?.isUserInteractionEnabled = !isEditing
+        }
+    }
     
     // MARK: - 外观
     /// 组件圆角半径
@@ -78,8 +90,7 @@ class WSPluginCell: UICollectionViewCell {
         
         self.pluginContentView = WSPluginContentView()
         contentView.addSubview(pluginContentView)
-        addSubview(deleteButton)
-        contentView.addInteraction(contextMenuInteraction)
+        addSubview(selectionBorderView)
     }
 
     override func layoutSubviews() {
@@ -87,19 +98,8 @@ class WSPluginCell: UICollectionViewCell {
         pluginContentView.frame = contentView.bounds
         placeholderView?.frame = contentView.bounds
         emptyPlaceholderView?.frame = contentView.bounds
-        layoutDeleteButton()
+        selectionBorderView.frame = bounds
         updateAppearance()
-    }
-    
-    /// 布局右上角的删除按钮
-    private func layoutDeleteButton() {
-        deleteButton.size = deleteButtonSize
-        deleteButton.right = contentView.width - deleteButtonMargin
-        deleteButton.top = deleteButtonMargin
-        
-        if !deleteButton.isHidden {
-            bringSubviewToFront(deleteButton)
-        }
     }
     
     override func prepareForReuse() {
@@ -113,7 +113,8 @@ class WSPluginCell: UICollectionViewCell {
         context = .dashboard
         interactor = nil
         appearance = .default
-        setJiggling(false)
+        isPluginSelected = false
+        isEditing = false
     }
     
     required init?(coder: NSCoder) {
@@ -174,10 +175,6 @@ class WSPluginCell: UICollectionViewCell {
     // MARK: - 主操作
     /// 执行组件的主操作。转发给内容交互器处理，单元格不关心具体业务。
     func performPrimaryAction() {
-        guard !isJiggling else {
-            return
-        }
-        
         interactor?.performPrimaryAction()
     }
     
@@ -206,7 +203,7 @@ class WSPluginCell: UICollectionViewCell {
         
         interactor?.configActionHandler = isConfigurable ? { [weak self] in
             guard let self = self else { return }
-            self.menuActionHandler?(self, .configPlugin)
+            self.configActionHandler?(self)
         } : nil
         
         /// 交互器注入内容视图，内容内的点击、按钮等交互由内容视图直接调用
@@ -263,14 +260,14 @@ class WSPluginCell: UICollectionViewCell {
             /// 与内容视图一致，空白视图也拿到交互器，内部的自定义操作直接交给它处理
             emptyView.interactor = interactor
             
-            /// 支持配置的组件在空白态直接提供配置入口，与长按菜单的「配置」项一致
+            /// 支持配置的组件在空白态直接提供配置入口
             emptyView.configActionHandler = isConfigurable ? { [weak self] in
                 guard let self = self else { return }
-                self.menuActionHandler?(self, .configPlugin)
+                self.configActionHandler?(self)
             } : nil
         }
         
-        view.isUserInteractionEnabled = !isJiggling
+        view.isUserInteractionEnabled = !isEditing
         emptyPlaceholderView = view
         contentView.addSubview(view)
         setNeedsLayout()
@@ -298,88 +295,18 @@ class WSPluginCell: UICollectionViewCell {
         contentView.layer.cornerRadius = cornerRadius
         contentView.backgroundColor = backColor
         contentView.clipsToBounds = true
-    }
-    
-    // MARK: - 排序抖动
-    /// 抖动动画的标识
-    private static let jiggleAnimationKey = "jiggle"
-    
-    /// 是否处于抖动状态
-    private(set) var isJiggling: Bool = false
-    
-    /// 设置抖动状态。排序模式下开启，用于提示组件可拖动排序。
-    func setJiggling(_ isJiggling: Bool) {
-        guard self.isJiggling != isJiggling else {
-            return
-        }
         
-        self.isJiggling = isJiggling
-        /// 删除按钮仅在编辑（抖动）模式下显示
-        deleteButton.isHidden = !isJiggling
-        updatePluginContentEnabled()
-        emptyPlaceholderView?.isUserInteractionEnabled = !isJiggling
-        if isJiggling {
-            bringSubviewToFront(deleteButton)
-            startJiggling()
-        } else {
-            stopJiggling()
-        }
+        /// 选中效果跟随组件圆角与主题色
+        selectionBorderView.layer.cornerRadius = cornerRadius
+        selectionBorderView.layer.borderColor = UIColor.primary.cgColor
+        selectionBorderView.backgroundColor = UIColor.primary.withAlphaComponent(0.1)
     }
     
     private func updatePluginContentEnabled() {
-        guard context != .gallery else {
-            pluginContentView.isUserInteractionEnabled = false
-            return
-        }
-        
-        pluginContentView.isUserInteractionEnabled = !isJiggling
+        pluginContentView.isUserInteractionEnabled = !isEditing && context != .gallery
     }
     
-    /// 点击删除按钮
-    @objc private func clickDelete(_ sender: TPImageButton) {
-        deleteActionHandler?(self)
-    }
-    
-    /// 开始抖动
-    private func startJiggling() {
-        guard layer.animation(forKey: Self.jiggleAnimationKey) == nil else {
-            return
-        }
-        
-        /// 左右各轻微旋转，形成与系统小组件一致的抖动效果
-        let angle = CGFloat.pi / 180.0
-        let animation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
-        animation.values = [-angle, angle, -angle]
-        animation.keyTimes = [0.0, 0.5, 1.0]
-        animation.duration = 0.3
-        animation.repeatCount = .greatestFiniteMagnitude
-        animation.isRemovedOnCompletion = false
-        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        layer.add(animation, forKey: Self.jiggleAnimationKey)
-    }
-    
-    /// 结束抖动
-    private func stopJiggling() {
-        layer.removeAnimation(forKey: Self.jiggleAnimationKey)
-    }
-    
-    // MARK: - 长按菜单
-    /// 是否支持长按弹出菜单
-    var isContextMenuEnabled: Bool = true
-    
-    /// 长按菜单动作分组
-    var menuActionTypeGroups: [[MenuActionType]] {
-        var groups: [[MenuActionType]] = [[.editDashboard]]
-        if isConfigurable {
-            /// 配置插件分组
-            groups.append([.configPlugin])
-        }
-        
-        groups.append([.addPreviousPlugin, .addNextPlugin])
-        groups.append([.removePlugin])
-        return groups
-    }
-    
+    // MARK: - 组件配置
     /// 组件是否支持配置。由组件提供者决定
     var isConfigurable: Bool {
         guard let plugin = plugin, let provider = provider else {
@@ -389,109 +316,6 @@ class WSPluginCell: UICollectionViewCell {
         return provider.makeConfigViewController(plugin: plugin) != nil
     }
     
-    /// 长按菜单显示的动作。默认全部分组内的动作，子类可重写裁剪
-    var menuActionTypes: [MenuActionType] {
-        return menuActionTypeGroups.flatMap { $0 }
-    }
-    
-    /// 长按菜单动作回调
-    var menuActionHandler: ((WSPluginCell, MenuActionType) -> Void)?
-    
-    /// 菜单动作类型
-    enum MenuActionType: Int, CaseIterable {
-        case editDashboard     /// 编辑面板
-        case addPreviousPlugin /// 添加上一个插件
-        case addNextPlugin     /// 添加下一个插件
-        case configPlugin      /// 配置插件
-        case removePlugin      /// 移除插件
-        
-        /// 菜单标题
-        var title: String {
-            switch self {
-            case .addPreviousPlugin:
-                return resGetString("Add Previous Plugin")
-            case .addNextPlugin:
-                return resGetString("Add Next Plugin")
-            case .editDashboard:
-                return resGetString("Edit Dashboard")
-            case .configPlugin:
-                return resGetString("Config Plugin")
-            case .removePlugin:
-                return resGetString("Remove Plugin")
-            }
-        }
-        
-        /// 菜单图标
-        var image: UIImage? {
-            switch self {
-            case .addPreviousPlugin:
-                return UIImage(systemName: "arrow.up.square")
-            case .addNextPlugin:
-                return UIImage(systemName: "arrow.down.square")
-            case .editDashboard:
-                return UIImage(systemName: "square.and.pencil")
-            case .configPlugin:
-                return UIImage(systemName: "slider.horizontal.3")
-            case .removePlugin:
-                return UIImage(systemName: "trash")
-            }
-        }
-        
-        /// 菜单属性
-        var attributes: UIMenuElement.Attributes {
-            switch self {
-            case .removePlugin:
-                return .destructive
-            default:
-                return []
-            }
-        }
-    }
-    
-    /// 长按手势交互
-    private lazy var contextMenuInteraction: UIContextMenuInteraction = {
-        return UIContextMenuInteraction(delegate: self)
-    }()
-    
-    /// 构建长按菜单
-    private func makeContextMenu() -> UIMenu {
-        /// 每个分组使用内联子菜单，分组之间由系统绘制分割线
-        let groups = menuActionTypeGroups.compactMap { actionTypes -> UIMenu? in
-            let actions = actionTypes.map { actionType in
-                return UIAction(title: actionType.title,
-                                image: actionType.image,
-                                attributes: actionType.attributes) { [weak self] _ in
-                    guard let self = self else {
-                        return
-                    }
-                    
-                    self.menuActionHandler?(self, actionType)
-                }
-            }
-            
-            guard actions.count > 0 else {
-                return nil
-            }
-            
-            return UIMenu(title: "", options: .displayInline, children: actions)
-        }
-        
-        return UIMenu(title: "", children: groups)
-    }
-}
-
-// MARK: - UIContextMenuInteractionDelegate
-extension WSPluginCell: UIContextMenuInteractionDelegate {
-    
-    func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
-                                configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        /// 未开启长按菜单、未配置组件或无可用动作时不响应长按
-        guard isContextMenuEnabled, plugin != nil, !menuActionTypes.isEmpty else {
-            return nil
-        }
-        
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
-            return self?.makeContextMenu()
-        }
-    }
+    /// 点击配置入口回调
+    var configActionHandler: ((WSPluginCell) -> Void)?
 }
