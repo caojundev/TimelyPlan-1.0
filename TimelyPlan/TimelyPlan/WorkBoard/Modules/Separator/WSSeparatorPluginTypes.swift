@@ -18,14 +18,6 @@ extension WSPluginType {
             .init(WSSeparatorPluginProvider(), title: "Separator", subtitle: "Shows a divider line"),
         ]
 
-        /// 选择器中的样式入口。共用同一个组件，只预设不同的分割线样式，
-        /// 新增样式时随 `WSSeparatorStyle` 自动增加一行
-        static let styleVariants: [WSPluginModuleVariant] = WSSeparatorStyle.allCases.map { style in
-            return WSPluginModuleVariant(title: style.title,
-                                         iconName: nil,
-                                         configJSON: WSSeparatorConfiguration(style: style).jsonString())
-        }
-
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
             return WSPluginType(rawValue, module: .separator, size: size)
         }

@@ -58,7 +58,7 @@
 "Dashed" = "虚线";
 "Thick" = "粗线";
 "Dotted" = "点";
-"Text" = "文本";
+"Content" = "内容";
 "Title" = "标题";
 "Description" = "描述";
 "Flexible" = "自适应";
