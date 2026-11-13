@@ -152,6 +152,17 @@ class WSPluginCell: UICollectionViewCell {
     }
     
     // MARK: - 配置
+    /// 是否已经加载了相同内容的插件。内容未变化时无需重新配置
+    func isLoaded(with plugin: WSPlugin) -> Bool {
+        guard let currentPlugin = self.plugin else {
+            return false
+        }
+        
+        return currentPlugin.identifier == plugin.identifier
+            && currentPlugin.type == plugin.type
+            && currentPlugin.configJSON == plugin.configJSON
+    }
+    
     /// 通过组件配置单元格
     ///
     /// - Parameter context: 展示上下文。仪表盘传 `.dashboard` 读取真实数据，

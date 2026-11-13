@@ -52,12 +52,9 @@ class WSPlugin: NSObject, Sortable {
             return false
         }
         
-        /// 标识相同则继续比较其余属性，类型或配置变化都需要刷新对应内容
+        /// 标识相同则只比较内容。排序因子与时间戳变化不影响展示，避免重排后整体刷新单元格
         return type == plugin.type
             && configJSON == plugin.configJSON
-            && order == plugin.order
-            && creationDate == plugin.creationDate
-            && modificationDate == plugin.modificationDate
     }
 }
 

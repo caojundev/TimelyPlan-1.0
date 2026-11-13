@@ -402,7 +402,12 @@ class WSDashboardView: UIView,
         }
         
         cell.isEditing = isEditing
-        cell.configure(plugin: plugin, provider: provider)
+        
+        /// 内容未变化时不重新配置，避免闪现加载占位视图
+        if !cell.isLoaded(with: plugin) {
+            cell.configure(plugin: plugin, provider: provider)
+        }
+        
         cell.isPluginSelected = selection.isSelectedItem(plugin)
         cell.configActionHandler = { [weak self] cell in
             guard let self = self, let plugin = cell.plugin else {
