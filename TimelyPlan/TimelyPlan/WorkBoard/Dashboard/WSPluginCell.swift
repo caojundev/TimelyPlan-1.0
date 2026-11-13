@@ -28,6 +28,9 @@ class WSPluginCell: UICollectionViewCell {
     /// 当前内容视图对应的提供者类型。用于跨类型复用时判断是否需要替换内容视图
     private var contentProviderType: ObjectIdentifier?
     
+    /// 当前已加载内容的内容标识。用于判断是否需要重新加载
+    private var loadedContentKey: String?
+    
     /// 数据加载期间的占位视图
     private(set) var placeholderView: UIView?
     
@@ -113,6 +116,7 @@ class WSPluginCell: UICollectionViewCell {
         context = .dashboard
         interactor = nil
         appearance = .default
+        loadedContentKey = nil
         isPluginSelected = false
         isEditing = false
     }
@@ -154,13 +158,7 @@ class WSPluginCell: UICollectionViewCell {
     // MARK: - 配置
     /// 是否已经加载了相同内容的插件。内容未变化时无需重新配置
     func isLoaded(with plugin: WSPlugin) -> Bool {
-        guard let currentPlugin = self.plugin else {
-            return false
-        }
-        
-        return currentPlugin.identifier == plugin.identifier
-            && currentPlugin.type == plugin.type
-            && currentPlugin.configJSON == plugin.configJSON
+        return loadedContentKey == plugin.contentKey
     }
     
     /// 通过组件配置单元格
@@ -174,6 +172,8 @@ class WSPluginCell: UICollectionViewCell {
         self.provider = provider
         self.context = context
         self.appearance = provider.appearance(for: plugin)
+        /// 记录本次配置的内容，后续同内容刷新时跳过重复加载
+        self.loadedContentKey = plugin.contentKey
         
         /// 内容视图由提供者决定；先替换内容视图，再展示占位视图
         updatePluginContentViewIfNeeded(with: provider)

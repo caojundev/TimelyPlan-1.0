@@ -62,6 +62,11 @@ class WSPlugin: NSObject, Sortable {
 
 extension WSPlugin {
     
+    /// 内容标识。类型或配置变化时需要刷新对应内容
+    var contentKey: String {
+        return "\(identifier)|\(type.rawValue)|\(configJSON ?? "")"
+    }
+    
     /// 组件是否支持配置。由组件提供者决定
     var isConfigurable: Bool {
         guard let provider = WSPluginRegistry.shared.provider(for: type) else {
