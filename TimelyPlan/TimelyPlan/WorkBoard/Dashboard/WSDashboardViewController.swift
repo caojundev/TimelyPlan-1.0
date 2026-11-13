@@ -202,7 +202,7 @@ class WSDashboardViewController: TPViewController,
             return
         }
         
-        toolView.actionTypes = actionTypes(for: plugins)
+        toolView.setActionTypes(actionTypes(for: plugins), animated: true)
     }
     
     /// 按选中数量返回可用动作。多选时仅支持删除，单选时配置动作仅在组件支持配置时提供

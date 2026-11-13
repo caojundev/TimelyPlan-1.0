@@ -76,6 +76,46 @@ class TPMenuToolView<T: Hashable & TPMenuRepresentable>: UIView {
         }
     }
     
+    /// 更新动作类型。animated 为 true 时旧按钮淡出，新按钮从中间展开归位
+    func setActionTypes(_ actionTypes: [T], animated: Bool) {
+        guard self.actionTypes != actionTypes else {
+            return
+        }
+        
+        guard animated else {
+            self.actionTypes = actionTypes
+            return
+        }
+        
+        UIView.animate(withDuration: 0.1,
+                       delay: 0.0,
+                       options: [.beginFromCurrentState, .curveEaseIn],
+                       animations: {
+            self.buttons.forEach { $0.alpha = 0.0 }
+        }, completion: { _ in
+            self.actionTypes = actionTypes
+            /// 先完成布局，拿到新按钮的最终位置
+            self.layoutIfNeeded()
+            
+            /// 新按钮先从工具条中间起步，再动画回各自位置
+            let centerX = self.bounds.midX
+            self.buttons.forEach { button in
+                button.transform = CGAffineTransform(translationX: centerX - button.center.x, y: 0.0)
+                button.alpha = 0.0
+            }
+            
+            UIView.animate(withDuration: 0.22,
+                           delay: 0.0,
+                           options: [.beginFromCurrentState, .curveEaseOut],
+                           animations: {
+                self.buttons.forEach { button in
+                    button.transform = .identity
+                    button.alpha = 1.0
+                }
+            })
+        })
+    }
+    
     convenience init(actionTypes: [T]) {
         self.init(frame: .zero, actionTypes: actionTypes)
     }
