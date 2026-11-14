@@ -1483,6 +1483,24 @@
 		E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */; };
 		E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD42D4CE4E3007D5A6A /* TPTableWrapperView.swift */; };
 		E5926DD82D4D0166007D5A6A /* TPCheckmarkTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD72D4D0166007D5A6A /* TPCheckmarkTableCell.swift */; };
+		E598E95230A7367A00E63A53 /* WSActionPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E94230A7367A00E63A53 /* WSActionPluginTypes.swift */; };
+		E598E95630A7367A00E63A53 /* WSActionSmallListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E94630A7367A00E63A53 /* WSActionSmallListPluginProvider.swift */; };
+		E598E9D130A7367A00E63A53 /* WSActionConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9C130A7367A00E63A53 /* WSActionConfigViewController.swift */; };
+		E598E9D230A7367A00E63A53 /* WSActionItemEditContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9C230A7367A00E63A53 /* WSActionItemEditContentViewController.swift */; };
+		E598E9D330A7367A00E63A53 /* WSActionItemEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9C330A7367A00E63A53 /* WSActionItemEditViewController.swift */; };
+		E598E9D430A7367A00E63A53 /* WSActionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9C430A7367A00E63A53 /* WSActionListViewController.swift */; };
+		E598E9D530A7367A00E63A53 /* WSActionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9C530A7367A00E63A53 /* WSActionContentView.swift */; };
+		E598E9D630A7367A00E63A53 /* WSActionGridContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9C630A7367A00E63A53 /* WSActionGridContentView.swift */; };
+		E598E9D730A7367A00E63A53 /* WSActionListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9C730A7367A00E63A53 /* WSActionListContentView.swift */; };
+		E598E9D830A7367A00E63A53 /* WSActionDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9C830A7367A00E63A53 /* WSActionDataItem.swift */; };
+		E598E9D930A7367A00E63A53 /* WSActionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9C930A7367A00E63A53 /* WSActionModel.swift */; };
+		E598E9DA30A7367A00E63A53 /* WSActionContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9CA30A7367A00E63A53 /* WSActionContentInteractor.swift */; };
+		E598E9DB30A7367A00E63A53 /* WSActionPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9CB30A7367A00E63A53 /* WSActionPluginProvider.swift */; };
+		E598E9DC30A7367A00E63A53 /* WSActionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9CC30A7367A00E63A53 /* WSActionRowView.swift */; };
+		E598E9DD30A7367A00E63A53 /* WSActionMediumGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9CD30A7367A00E63A53 /* WSActionMediumGridPluginProvider.swift */; };
+		E598E9DE30A7367A00E63A53 /* WSActionMediumListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9CE30A7367A00E63A53 /* WSActionMediumListPluginProvider.swift */; };
+		E598E9E430A7367A00E63A53 /* WSActionLargeListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9E230A7367A00E63A53 /* WSActionLargeListPluginProvider.swift */; };
+		E598E9E530A7367A00E63A53 /* WSActionLargeGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598E9E330A7367A00E63A53 /* WSActionLargeGridPluginProvider.swift */; };
 		E59E715C2DB7975E00744C68 /* CalendarMonthWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59E715B2DB7975E00744C68 /* CalendarMonthWeekView.swift */; };
 		E59E715F2DB7D06100744C68 /* CalendarMonthWeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59E715E2DB7D06100744C68 /* CalendarMonthWeekCell.swift */; };
 		E59E71612DB7DBA500744C68 /* CalendarMonthDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59E71602DB7DBA500744C68 /* CalendarMonthDayView.swift */; };
@@ -4542,6 +4560,24 @@
 		E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextFieldTableCellItem.swift; sourceTree = "<group>"; };
 		E5926DD42D4CE4E3007D5A6A /* TPTableWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableWrapperView.swift; sourceTree = "<group>"; };
 		E5926DD72D4D0166007D5A6A /* TPCheckmarkTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCheckmarkTableCell.swift; sourceTree = "<group>"; };
+		E598E94230A7367A00E63A53 /* WSActionPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionPluginTypes.swift; sourceTree = "<group>"; };
+		E598E94630A7367A00E63A53 /* WSActionSmallListPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionSmallListPluginProvider.swift; sourceTree = "<group>"; };
+		E598E9C130A7367A00E63A53 /* WSActionConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionConfigViewController.swift; sourceTree = "<group>"; };
+		E598E9C230A7367A00E63A53 /* WSActionItemEditContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionItemEditContentViewController.swift; sourceTree = "<group>"; };
+		E598E9C330A7367A00E63A53 /* WSActionItemEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionItemEditViewController.swift; sourceTree = "<group>"; };
+		E598E9C430A7367A00E63A53 /* WSActionListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionListViewController.swift; sourceTree = "<group>"; };
+		E598E9C530A7367A00E63A53 /* WSActionContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionContentView.swift; sourceTree = "<group>"; };
+		E598E9C630A7367A00E63A53 /* WSActionGridContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionGridContentView.swift; sourceTree = "<group>"; };
+		E598E9C730A7367A00E63A53 /* WSActionListContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionListContentView.swift; sourceTree = "<group>"; };
+		E598E9C830A7367A00E63A53 /* WSActionDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionDataItem.swift; sourceTree = "<group>"; };
+		E598E9C930A7367A00E63A53 /* WSActionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionModel.swift; sourceTree = "<group>"; };
+		E598E9CA30A7367A00E63A53 /* WSActionContentInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionContentInteractor.swift; sourceTree = "<group>"; };
+		E598E9CB30A7367A00E63A53 /* WSActionPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionPluginProvider.swift; sourceTree = "<group>"; };
+		E598E9CC30A7367A00E63A53 /* WSActionRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionRowView.swift; sourceTree = "<group>"; };
+		E598E9CD30A7367A00E63A53 /* WSActionMediumGridPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionMediumGridPluginProvider.swift; sourceTree = "<group>"; };
+		E598E9CE30A7367A00E63A53 /* WSActionMediumListPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionMediumListPluginProvider.swift; sourceTree = "<group>"; };
+		E598E9E230A7367A00E63A53 /* WSActionLargeListPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionLargeListPluginProvider.swift; sourceTree = "<group>"; };
+		E598E9E330A7367A00E63A53 /* WSActionLargeGridPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionLargeGridPluginProvider.swift; sourceTree = "<group>"; };
 		E59E715B2DB7975E00744C68 /* CalendarMonthWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthWeekView.swift; sourceTree = "<group>"; };
 		E59E715E2DB7D06100744C68 /* CalendarMonthWeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthWeekCell.swift; sourceTree = "<group>"; };
 		E59E71602DB7DBA500744C68 /* CalendarMonthDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthDayView.swift; sourceTree = "<group>"; };
@@ -11422,6 +11458,96 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		E598E93430A7366C00E63A53 /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				E598E94230A7367A00E63A53 /* WSActionPluginTypes.swift */,
+				E5EEC0D930A8850200C23C05 /* Common */,
+				E5EEC0DB30A88F6700C23C05 /* Large */,
+				E5EEC0DA30A885D300C23C05 /* Medium */,
+				E598E93530A7367A00E63A53 /* Small */,
+			);
+			path = Action;
+			sourceTree = "<group>";
+		};
+		E598E93530A7367A00E63A53 /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E598E94630A7367A00E63A53 /* WSActionSmallListPluginProvider.swift */,
+			);
+			path = Small;
+			sourceTree = "<group>";
+		};
+		E598E9B130A7367A00E63A53 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9C130A7367A00E63A53 /* WSActionConfigViewController.swift */,
+				E598E9C230A7367A00E63A53 /* WSActionItemEditContentViewController.swift */,
+				E598E9C330A7367A00E63A53 /* WSActionItemEditViewController.swift */,
+				E598E9C430A7367A00E63A53 /* WSActionListViewController.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		E598E9B230A7367A00E63A53 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9C530A7367A00E63A53 /* WSActionContentView.swift */,
+				E598E9C630A7367A00E63A53 /* WSActionGridContentView.swift */,
+				E598E9C730A7367A00E63A53 /* WSActionListContentView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E598E9B330A7367A00E63A53 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9C830A7367A00E63A53 /* WSActionDataItem.swift */,
+				E598E9C930A7367A00E63A53 /* WSActionModel.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E598E9B430A7367A00E63A53 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9CA30A7367A00E63A53 /* WSActionContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E598E9B530A7367A00E63A53 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9CB30A7367A00E63A53 /* WSActionPluginProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E598E9B630A7367A00E63A53 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9CC30A7367A00E63A53 /* WSActionRowView.swift */,
+			);
+			path = Row;
+			sourceTree = "<group>";
+		};
+		E598E9B830A7367A00E63A53 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9CE30A7367A00E63A53 /* WSActionMediumListPluginProvider.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		E598E9B930A7367A00E63A53 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9CD30A7367A00E63A53 /* WSActionMediumGridPluginProvider.swift */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
 		E59E715D2DB7979200744C68 /* Month */ = {
 			isa = PBXGroup;
 			children = (
@@ -11596,6 +11722,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
+				E598E93430A7366C00E63A53 /* Action */,
 				E5097C2030A413750080ECCF /* Separator */,
 				E5A50C8D30A357AB009B24D2 /* Text */,
 				E539C86F308CAE6C0077FE8A /* UIComponents */,
@@ -16287,6 +16414,53 @@
 			path = CardView;
 			sourceTree = "<group>";
 		};
+		E5EEC0D930A8850200C23C05 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9B130A7367A00E63A53 /* Config */,
+				E598E9B230A7367A00E63A53 /* Content */,
+				E598E9B330A7367A00E63A53 /* Data */,
+				E598E9B430A7367A00E63A53 /* Interactor */,
+				E598E9B530A7367A00E63A53 /* Provider */,
+				E598E9B630A7367A00E63A53 /* Row */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E5EEC0DA30A885D300C23C05 /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9B930A7367A00E63A53 /* Grid */,
+				E598E9B830A7367A00E63A53 /* List */,
+			);
+			path = Medium;
+			sourceTree = "<group>";
+		};
+		E5EEC0DB30A88F6700C23C05 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9E130A7367A00E63A53 /* Grid */,
+				E598E9E030A7367A00E63A53 /* List */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
+		E598E9E030A7367A00E63A53 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9E230A7367A00E63A53 /* WSActionLargeListPluginProvider.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		E598E9E130A7367A00E63A53 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9E330A7367A00E63A53 /* WSActionLargeGridPluginProvider.swift */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
 		E5EFB15E2F590FAC000FFDF4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -19633,6 +19807,24 @@
 				E5A7C31630A3370700FE6914 /* WSSeparatorPluginProvider.swift in Sources */,
 				E5A7C31730A3370700FE6914 /* WSSeparatorConfigViewController.swift in Sources */,
 				E5A7C31830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift in Sources */,
+				E598E95230A7367A00E63A53 /* WSActionPluginTypes.swift in Sources */,
+				E598E95630A7367A00E63A53 /* WSActionSmallListPluginProvider.swift in Sources */,
+				E598E9D130A7367A00E63A53 /* WSActionConfigViewController.swift in Sources */,
+				E598E9D230A7367A00E63A53 /* WSActionItemEditContentViewController.swift in Sources */,
+				E598E9D330A7367A00E63A53 /* WSActionItemEditViewController.swift in Sources */,
+				E598E9D430A7367A00E63A53 /* WSActionListViewController.swift in Sources */,
+				E598E9D530A7367A00E63A53 /* WSActionContentView.swift in Sources */,
+				E598E9D630A7367A00E63A53 /* WSActionGridContentView.swift in Sources */,
+				E598E9D730A7367A00E63A53 /* WSActionListContentView.swift in Sources */,
+				E598E9D830A7367A00E63A53 /* WSActionDataItem.swift in Sources */,
+				E598E9D930A7367A00E63A53 /* WSActionModel.swift in Sources */,
+				E598E9DA30A7367A00E63A53 /* WSActionContentInteractor.swift in Sources */,
+				E598E9DB30A7367A00E63A53 /* WSActionPluginProvider.swift in Sources */,
+				E598E9DC30A7367A00E63A53 /* WSActionRowView.swift in Sources */,
+				E598E9DD30A7367A00E63A53 /* WSActionMediumGridPluginProvider.swift in Sources */,
+				E598E9DE30A7367A00E63A53 /* WSActionMediumListPluginProvider.swift in Sources */,
+				E598E9E430A7367A00E63A53 /* WSActionLargeListPluginProvider.swift in Sources */,
+				E598E9E530A7367A00E63A53 /* WSActionLargeGridPluginProvider.swift in Sources */,
 				E5185063300F11E100112DFC /* TimelineItem.swift in Sources */,
 				E518D6A12FBEC6610045D456 /* DateInterval+Calendar.swift in Sources */,
 				E5BB9F222D3BF2C20089667A /* AppInitializer.swift in Sources */,

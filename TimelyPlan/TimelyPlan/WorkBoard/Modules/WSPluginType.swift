@@ -67,6 +67,7 @@ extension WSPluginType: CaseIterable {
         WSPluginType.Headline.all,
         WSPluginType.Body.all,
         WSPluginType.Separator.all,
+        WSPluginType.Action.all,
     ].flatMap { $0 }
 
     /// 标识索引，避免每次按标识反查都遍历数组。
@@ -178,6 +179,7 @@ enum WSPluginCatalog {
         WSPluginType.Headline.catalog,
         WSPluginType.Body.catalog,
         WSPluginType.Separator.catalog,
+        WSPluginType.Action.catalog,
     ].flatMap { $0 }
 
     /// 按类型取回组件配置

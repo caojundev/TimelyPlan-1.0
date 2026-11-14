@@ -1560,3 +1560,21 @@
 "Habit Reminder at %@" = "%@习惯提醒";
 "Goal Reminder at %@" = "%@目标提醒";
 "Countdown Reminder at %@" = "%@倒数日提醒";
+
+/// 工作台动作
+
+"Action" = "动作";
+"Actions" = "动作";
+"Shows custom actions" = "展示自定义动作";
+"Shows custom actions in a list" = "以列表展示自定义动作";
+"Shows custom actions in a grid" = "以网格展示自定义动作";
+"No Actions" = "暂无动作";
+
+"Jump" = "跳转";
+"New Action" = "新建动作";
+"Edit Action" = "编辑动作";
+
+"Todo List" = "待办列表";
+"Todo Tag" = "待办标签";
+"Todo Filter" = "待办过滤器";
+"Goal Plan" = "目标计划";

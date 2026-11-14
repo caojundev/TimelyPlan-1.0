@@ -173,6 +173,18 @@ class SideMenuViewController: TPTableViewController,
         }
     }
     
+    // MARK: - 跳转
+    /// 以代码方式选中菜单，与点击菜单走同一条回调链，同步勾选状态与当前页面
+    func select(_ menuType: SideMenuType) {
+        guard displayedMenuTypes.contains(menuType), selectedMenuType != menuType else {
+            return
+        }
+
+        selectedMenuType = menuType
+        delegate?.sideMenuViewController(self, didSelect: menuType)
+        adapter.updateCheckmarks(animated: true)
+    }
+
     func menuType(at indexPath: IndexPath) -> SideMenuType? {
         guard let menuAction = adapter.item(at: indexPath) as? TPMenuAction,
               let menuType = SideMenuType(rawValue: menuAction.identifier) else {

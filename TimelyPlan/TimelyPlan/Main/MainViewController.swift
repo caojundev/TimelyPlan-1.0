@@ -176,6 +176,18 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         replaceDetailViewController(vc)
     }
     
+    // MARK: - 跳转
+    /// 跳转到指定模块。工作台与设置不作为跳转目标
+    func jump(to menuType: SideMenuType) {
+        guard menuType != .workspace, menuType != .settings else {
+            return
+        }
+
+        /// 侧边栏可能尚未加载，先完成加载以初始化菜单列表
+        menuViewController.loadViewIfNeeded()
+        menuViewController.select(menuType)
+    }
+
     // MARK: - SideMenuViewControllerDelegate
     func sideMenuViewController(_ vc: SideMenuViewController, didSelect menuType: SideMenuType) {
         replaceViewController(with: menuType)

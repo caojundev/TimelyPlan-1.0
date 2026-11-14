@@ -37,6 +37,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     case headline   /// 标题
     case body       /// 正文
     case separator  /// 分割线
+    case action     /// 动作
 
     /// 模块标题。同一业务拆分出的模块使用各自的名称，便于在画廊与选择器中区分。
     var title: String {
@@ -60,6 +61,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .headline: return resGetString("Headline")
         case .body: return resGetString("Body")
         case .separator: return resGetString("Separator")
+        case .action: return resGetString("Action")
         }
     }
 
@@ -68,7 +70,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         switch self {
         case .todoList, .todoUserListTask, .todoSmartListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoCustomTask:
             return "sideMenu_todo_40"
-        case .headline, .body, .separator:
+        case .headline, .body, .separator, .action:
             /// 暂无专属图标，暂时复用工作台图标
             return "sideMenu_workspace_40"
         default:
@@ -90,7 +92,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
             return .todoTask
         case .headline, .body, .separator:
             return .content
-        case .myDay, .calendar, .timeline, .quadrants, .goal, .focus, .habit, .countdown:
+        case .myDay, .calendar, .timeline, .quadrants, .goal, .focus, .habit, .countdown, .action:
             return .others
         }
     }
@@ -117,6 +119,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .headline: return WSPluginType.Headline.all
         case .body: return WSPluginType.Body.all
         case .separator: return WSPluginType.Separator.all
+        case .action: return WSPluginType.Action.all
         }
     }
 

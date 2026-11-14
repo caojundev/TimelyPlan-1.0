@@ -31,6 +31,10 @@ protocol TPGroupTableViewDelegate: AnyObject {
 
     /// 配置出队的头部视图
     func groupTableView(_ tableView: TPGroupTableView, didDequeHeader headerView: UITableViewHeaderFooterView, inSection section: Int)
+
+    /// 获取单元格的滑动操作
+    func groupTableView(_ tableView: TPGroupTableView,
+                        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
 }
 
 
@@ -62,6 +66,11 @@ extension TPGroupTableViewDelegate {
 
     func groupTableView(_ tableView: TPGroupTableView, didDequeHeader headerView: UITableViewHeaderFooterView, inSection section: Int) {
         
+    }
+    
+    func groupTableView(_ tableView: TPGroupTableView,
+                        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return nil
     }
     
     func groupTableView(_ tableView: TPGroupTableView, didSelectRowAt indexPath: IndexPath) { }
@@ -158,6 +167,11 @@ class TPGroupTableView: TPTableWrapperView,
     
     func adapter(_ adapter: TPTableViewAdapter, didSelectRowAt indexPath: IndexPath) {
         delegate?.groupTableView(self, didSelectRowAt: indexPath)
+    }
+    
+    func adapter(_ adapter: TPTableViewAdapter,
+                 trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return delegate?.groupTableView(self, trailingSwipeActionsConfigurationForRowAt: indexPath)
     }
     
     func adapter(_ adapter: TPTableViewAdapter, shouldShowCheckmarkForRowAt indexPath: IndexPath) -> Bool {
