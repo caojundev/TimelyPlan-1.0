@@ -36,8 +36,8 @@ class WSDashboardGridLayout {
     private let sectionLayout = TPCollectionSectionLayout()
     
     init(edgeMargins: UIEdgeInsets = UIEdgeInsets(horizontal: 16.0, vertical: 16.0),
-         interitemSpacing: CGFloat = 16.0,
-         lineSpacing: CGFloat = 16.0) {
+         interitemSpacing: CGFloat = 8.0,
+         lineSpacing: CGFloat = 8.0) {
         self.edgeMargins = edgeMargins
         self.interitemSpacing = interitemSpacing
         self.lineSpacing = lineSpacing

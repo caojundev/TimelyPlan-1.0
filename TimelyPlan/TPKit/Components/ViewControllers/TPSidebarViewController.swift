@@ -70,6 +70,9 @@ class TPSidebarViewController: UIViewController,
 
     /// 是否展开侧边栏
     var isExpand: Bool = false
+
+    /// 是否正在拖拽侧边栏
+    private(set) var isDragging: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,11 +175,13 @@ class TPSidebarViewController: UIViewController,
         let translation = recognizer.translation(in: self.contentView)
         switch recognizer.state {
         case .began:
+            self.isDragging = true
             self.sidebarPanGestureRecognizerBegan()
             self.setUserInteractionEnabled(false)
         case .changed:
             self.sidebarPanGestureRecognizerChanged(translation)
         default:
+            self.isDragging = false
             let velocity = recognizer.velocity(in: self.contentView)
             let info = shouldExpandAndUsingSpring(translation: translation, velocity: velocity)
             let shouldExpand = info.shouldExpand

@@ -13,6 +13,7 @@ class AppState {
         case sideMenuType        /// 侧边栏菜单
         case sideMenuTypeOrder   /// 侧边栏菜单顺序
         case hiddenSideMenuTypes /// 隐藏的侧边栏菜单
+        case jumpBackButtonPosition /// 返回工作台按钮位置
         
         static func keyPrefix() -> String? {
             return "AppState"
@@ -29,6 +30,10 @@ class AppState {
     /// 隐藏的侧边栏菜单
     @LocalStored(key: SettingKey.hiddenSideMenuTypes.name, defaultValue: [])
     var hiddenSideMenuTypes: [SideMenuType]
+
+    /// 返回工作台按钮位置
+    @LocalStored(key: SettingKey.jumpBackButtonPosition.name, defaultValue: JumpBackButtonPosition())
+    var jumpBackButtonPosition: JumpBackButtonPosition
     
     static let shared = AppState()
     private init() {}

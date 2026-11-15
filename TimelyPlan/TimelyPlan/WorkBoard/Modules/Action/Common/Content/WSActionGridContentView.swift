@@ -22,13 +22,13 @@ class WSActionGridContentView: WSActionContentView {
         static let padding = UIEdgeInsets(value: 8.0)
 
         /// 卡片间距
-        static let spacing: CGFloat = 6.0
+        static let spacing: CGFloat = 8.0
 
         /// 卡片圆角
         static let cornerRadius: CGFloat = 12.0
 
         /// 卡片底色
-        static let backColor = Color(light: 0x000000, 0.05, dark: 0xFFFFFF, 0.10)
+        static let backColor = Color(light: 0x000000, 0.05, dark: 0xFFFFFF, 0.06)
 
         /// 卡片按下底色
         static let highlightedBackColor = Color(light: 0x000000, 0.10, dark: 0xFFFFFF, 0.20)

@@ -47,6 +47,11 @@ class WSHeadlinePluginProvider: WSPluginProvider {
     func makeHeightCalculator(plugin: WSPlugin) -> WSPluginHeightCalculating? {
         return WSHeadlineHeightCalculator(configuration: plugin.configuration(as: WSHeadlineConfiguration.self))
     }
+
+    /// 文本本身即为视觉元素，单元格不需要背景
+    func appearance(for plugin: WSPlugin) -> WSPluginAppearance {
+        return .transparent
+    }
 }
 
 // MARK: - 内容交互器

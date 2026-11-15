@@ -105,28 +105,8 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     /// 跳转目标菜单，用于判断是否需要展示返回工作台的按钮
     private var pendingJumpMenuType: SideMenuType?
 
-    /// 返回工作台按钮尺寸
-    private let jumpBackButtonSize = CGSize(width: 30.0, height: 60.0)
-
-    /// 返回工作台按钮是否显示
-    private var isJumpBackButtonVisible = false
-
-    /// 吸附在内容区左侧中间边缘的返回工作台按钮
-    private lazy var jumpBackButton: UIButton = {
-        let button = UIButton(type: .system)
-        let image = resGetImage("chevron_left_24")?.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
-        button.tintColor = .secondaryLabel
-        button.backgroundColor = .secondarySystemBackground
-        button.layer.cornerRadius = self.jumpBackButtonSize.width / 2.0
-        button.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOpacity = 0.12
-        button.layer.shadowRadius = 6.0
-        button.layer.shadowOffset = CGSize(width: 2.0, height: 0.0)
-        button.addTarget(self, action: #selector(clickJumpBackButton(_:)), for: .touchUpInside)
-        return button
-    }()
+    /// 返回工作台按钮管理器
+    private let MainJumpBackButtonManager = MainJumpBackButtonManager()
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -141,28 +121,45 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         self.separatorColor = Color(0x888888, 0.1)
+        self.MainJumpBackButtonManager.clickHandler = { [weak self] in
+            self?.backToWorkspace()
+        }
         self.replaceViewController(with: selectedMenuType)
     }
     
     private var mainViewSize: CGSize?
     
     override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+        /// 拖拽侧边栏期间基类会 relayout 重置容器位置，导致不跟手，此时跳过
+        if !isDragging {
+            super.viewWillLayoutSubviews()
+        }
+
         if mainViewSize != view.size {
             mainViewSize = view.size
             NotificationCenter.default.post(name: .notificationMainViewSizeDidChange, object: nil)
         }
-        layoutJumpBackButton()
     }
 
     override func setExpand(_ shouldExpand: Bool, animated: Bool, forceLayout: Bool) {
         super.setExpand(shouldExpand, animated: animated, forceLayout: forceLayout)
         if shouldExpand {
             /// 展开侧边栏时移除返回工作台按钮
-            setJumpBackButtonVisible(false, animated: animated)
+            MainJumpBackButtonManager.hide(animated: animated)
         }
     }
-    
+
+    // MARK: - UIGestureRecognizerDelegate
+    /// 触摸落在返回按钮上时不响应侧边栏手势，避免与按钮拖动冲突
+    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                                    shouldReceive touch: UITouch) -> Bool {
+        guard !MainJumpBackButtonManager.isTouchInsideButton(touch) else {
+            return false
+        }
+
+        return super.gestureRecognizer(gestureRecognizer, shouldReceive: touch)
+    }
+
     private(set) var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -236,70 +233,6 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         menuViewController.select(.workspace)
     }
 
-    // MARK: - 返回工作台按钮
-    /// 设置返回工作台按钮的显示状态
-    private func setJumpBackButtonVisible(_ visible: Bool, animated: Bool = true) {
-        guard visible != isJumpBackButtonVisible else {
-            return
-        }
-        
-        isJumpBackButtonVisible = visible
-        if visible {
-            detailContainerView.addSubview(jumpBackButton)
-            jumpBackButton.left = -jumpBackButtonSize.width
-            jumpBackButton.alpha = 0.0
-
-            let animations = {
-                self.layoutJumpBackButton()
-                self.jumpBackButton.alpha = 1.0
-            }
-
-            guard animated else {
-                animations()
-                return
-            }
-
-            UIView.animate(withDuration: 0.25,
-                           delay: 0.0,
-                           options: .curveEaseOut,
-                           animations: animations)
-            return
-        }
-
-        guard animated else {
-            jumpBackButton.removeFromSuperview()
-            return
-        }
-
-        UIView.animate(withDuration: 0.2,
-                       delay: 0.0,
-                       options: .beginFromCurrentState,
-                       animations: {
-            self.jumpBackButton.alpha = 0.0
-        }, completion: { _ in
-            guard !self.isJumpBackButtonVisible else {
-                return
-            }
-            
-            self.jumpBackButton.removeFromSuperview()
-        })
-    }
-
-    private func layoutJumpBackButton() {
-        guard isJumpBackButtonVisible, jumpBackButton.superview != nil else {
-            return
-        }
-
-        jumpBackButton.size = jumpBackButtonSize
-        jumpBackButton.left = 0.0
-        jumpBackButton.centerY = detailContainerView.bounds.midY
-    }
-
-    @objc private func clickJumpBackButton(_ button: UIButton) {
-        TPImpactFeedback.impactWithLightStyle()
-        backToWorkspace()
-    }
-
     // MARK: - SideMenuViewControllerDelegate
     func sideMenuViewController(_ vc: SideMenuViewController, didSelect menuType: SideMenuType) {
         /// 仅由跳转进入的非工作台模块才提供返回工作台的入口
@@ -308,7 +241,11 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
 
         replaceViewController(with: menuType)
         sidebarController.hideSidebar()
-        setJumpBackButtonVisible(showsBackButton)
+        if showsBackButton {
+            MainJumpBackButtonManager.show(in: detailContainerView)
+        } else {
+            MainJumpBackButtonManager.hide()
+        }
         
         if menuType != .settings {
             /// 保存选中侧边栏状态

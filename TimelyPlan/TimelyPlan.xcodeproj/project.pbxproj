@@ -1509,6 +1509,7 @@
 		E59E716A2DB921E600744C68 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59E71692DB921E600744C68 /* CalendarEvent.swift */; };
 		E5A1C0DE31A1B2C3D4E5F602 /* MyDayTimelinePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1C0DE31A1B2C3D4E5F601 /* MyDayTimelinePageViewController.swift */; };
 		E5A1C0DE31A1B2C3D4E5F604 /* MyDaySingleDateTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1C0DE31A1B2C3D4E5F603 /* MyDaySingleDateTimelineViewController.swift */; };
+		E5A1C2D42F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1C2D32F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift */; };
 		E5A1EC8E307495A700FCE0A3 /* AppProUpgradeBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1EC8D307495A700FCE0A3 /* AppProUpgradeBannerView.swift */; };
 		E5A625B33089B3CE003EB8BC /* WorkspacePluginProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625753089B3CD003EB8BC /* WorkspacePluginProcessorUpdater.swift */; };
 		E5A625B43089B3CE003EB8BC /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625763089B3CD003EB8BC /* WorkspaceRepository.swift */; };
@@ -4586,6 +4587,7 @@
 		E59E71692DB921E600744C68 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		E5A1C0DE31A1B2C3D4E5F601 /* MyDayTimelinePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelinePageViewController.swift; sourceTree = "<group>"; };
 		E5A1C0DE31A1B2C3D4E5F603 /* MyDaySingleDateTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDaySingleDateTimelineViewController.swift; sourceTree = "<group>"; };
+		E5A1C2D32F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainJumpBackButtonManager.swift; sourceTree = "<group>"; };
 		E5A1EC8D307495A700FCE0A3 /* AppProUpgradeBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppProUpgradeBannerView.swift; sourceTree = "<group>"; };
 		E5A625753089B3CD003EB8BC /* WorkspacePluginProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspacePluginProcessorUpdater.swift; sourceTree = "<group>"; };
 		E5A625763089B3CD003EB8BC /* WorkspaceRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
@@ -11548,6 +11550,22 @@
 			path = Grid;
 			sourceTree = "<group>";
 		};
+		E598E9E030A7367A00E63A53 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9E230A7367A00E63A53 /* WSActionLargeListPluginProvider.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		E598E9E130A7367A00E63A53 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				E598E9E330A7367A00E63A53 /* WSActionLargeGridPluginProvider.swift */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
 		E59E715D2DB7979200744C68 /* Month */ = {
 			isa = PBXGroup;
 			children = (
@@ -14145,6 +14163,7 @@
 			isa = PBXGroup;
 			children = (
 				E5BB9F402D3BF45F0089667A /* MainViewController.swift */,
+				E5A1C2D32F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift */,
 				E5BB9F452D3BF45F0089667A /* SidebarController.swift */,
 				E5BB9F412D3BF45F0089667A /* SideMenu */,
 			);
@@ -16443,22 +16462,6 @@
 				E598E9E030A7367A00E63A53 /* List */,
 			);
 			path = Large;
-			sourceTree = "<group>";
-		};
-		E598E9E030A7367A00E63A53 /* List */ = {
-			isa = PBXGroup;
-			children = (
-				E598E9E230A7367A00E63A53 /* WSActionLargeListPluginProvider.swift */,
-			);
-			path = List;
-			sourceTree = "<group>";
-		};
-		E598E9E130A7367A00E63A53 /* Grid */ = {
-			isa = PBXGroup;
-			children = (
-				E598E9E330A7367A00E63A53 /* WSActionLargeGridPluginProvider.swift */,
-			);
-			path = Grid;
 			sourceTree = "<group>";
 		};
 		E5EFB15E2F590FAC000FFDF4 /* Data */ = {
@@ -19338,6 +19341,7 @@
 				E5D7D91F2D43933700EC877A /* StatsSummaryCell.swift in Sources */,
 				E5F9E3E53021D8EB00EDC2A5 /* MyDayFocusTimerBindViewController.swift in Sources */,
 				E5BB9F462D3BF45F0089667A /* MainViewController.swift in Sources */,
+				E5A1C2D42F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift in Sources */,
 				E5141F102F7D3E5B007A864B /* NSManagedObject+Sort.swift in Sources */,
 				E5BB9E612D3BF0C70089667A /* TPImageTitleCollectionCell.swift in Sources */,
 				E5BB9E582D3BF0C70089667A /* TPCalendarDayCell.swift in Sources */,
