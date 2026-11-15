@@ -31,7 +31,8 @@ class WSActionItemEditViewController: TPContainerViewController {
     init(actionItem: WSActionItem?) {
         self.editType = actionItem == nil ? .create : .modify
 
-        let actionItem = actionItem ?? WSActionItem(colorHex: WSActionItem.defaultColor.hexString,
+        /// 新建时随机取一个颜色作为默认颜色
+        let actionItem = actionItem ?? WSActionItem(colorHex: WSActionItem.randomColor.hexString,
                                                     mode: .add,
                                                     addType: WSActionAddType.allCases.first)
         self.editingViewController = WSActionItemEditContentViewController(actionItem: actionItem)

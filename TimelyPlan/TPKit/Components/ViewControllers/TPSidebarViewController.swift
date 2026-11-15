@@ -339,6 +339,45 @@ class TPSidebarViewController: UIViewController,
                        completion: nil)
     }
 
+    /// 部分露出侧边栏，用于模块切换等过渡动画。
+    ///
+    /// 只移动两侧容器，不改变 `isExpand` 状态；后续关闭动画由 `setExpand(false, animated:)` 接着完成。
+    func peekSidebar(width: CGFloat, animated: Bool = true, completion: (() -> Void)? = nil) {
+        let peekWidth = min(max(width, 0.0), sidebarWidth)
+        if peekWidth <= 0.0 {
+            completion?()
+            return
+        }
+
+        disableDetailUserInteraction()
+
+        let sidebarRect = CGRect(x: peekWidth - sidebarWidth,
+                                 y: 0.0,
+                                 width: sidebarWidth,
+                                 height: view.height)
+        var detailRect = detailContainerRect
+        detailRect.origin.x = peekWidth
+
+        let animations = {
+            self.sidebarContainerView.frame = sidebarRect
+            self.detailContainerView.frame = detailRect
+            self.detailContainerView.separatorAlpha = 1.0
+        }
+
+        guard animated else {
+            animations()
+            completion?()
+            return
+        }
+
+        UIView.animate(withDuration: 0.25,
+                       delay: 0.0,
+                       options: .curveEaseOut,
+                       animations: animations) { _ in
+            completion?()
+        }
+    }
+
     // MARK: - 切换新的详细视图控制器
     func replaceDetailViewController(_ detailViewController: UIViewController) {
         guard self.detailViewController != detailViewController else {

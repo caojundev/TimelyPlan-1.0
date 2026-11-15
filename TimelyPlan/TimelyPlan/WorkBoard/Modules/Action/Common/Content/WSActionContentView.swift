@@ -145,6 +145,8 @@ class WSActionContentView: WSRowListView {
         super.update(with: dataItem)
 
         for (index, rowView) in rowViews.enumerated() {
+            /// 网格最后一行可能多出空位，隐藏空位避免出现空白卡片
+            rowView.isHidden = index >= displayedCount
             (rowView as? WSActionRowView)?.update(with: actions[safe: index])
         }
     }

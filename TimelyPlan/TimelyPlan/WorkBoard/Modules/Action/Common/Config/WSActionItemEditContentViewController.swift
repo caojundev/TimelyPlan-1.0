@@ -151,7 +151,7 @@ class WSActionItemEditContentViewController: TPTableSectionsViewController {
             cellItem.title = menuType.title
             /// 左侧展示模块图标，与侧边栏保持一致
             cellItem.imageName = menuType.iconName
-            cellItem.imageConfig.size = .default
+            cellItem.imageConfig.size = .small
             cellItem.imageConfig.shouldRenderImageWithColor = false
             cellItem.height = Metrics.cellHeight
             cellItem.didSelectHandler = { [weak self] in

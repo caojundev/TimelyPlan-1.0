@@ -26,7 +26,7 @@ enum WSActionItemCount {
     static let largeList = 6
 
     /// 大号网格组件的展示条数
-    static let largeGrid = 8
+    static let largeGrid = 10
 
     /// 网格组件的列数
     static let gridColumnCount = 2

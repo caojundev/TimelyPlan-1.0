@@ -19,13 +19,13 @@ class WSActionGridContentView: WSActionContentView {
     private enum Metrics {
 
         /// 内容与组件边缘的间距
-        static let padding = UIEdgeInsets(value: 6.0)
+        static let padding = UIEdgeInsets(value: 8.0)
 
         /// 卡片间距
         static let spacing: CGFloat = 6.0
 
         /// 卡片圆角
-        static let cornerRadius: CGFloat = 10.0
+        static let cornerRadius: CGFloat = 12.0
 
         /// 卡片底色
         static let backColor = Color(light: 0x000000, 0.05, dark: 0xFFFFFF, 0.10)

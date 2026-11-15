@@ -125,6 +125,9 @@ extension SideMenuType {
 /// 单个动作。同时作为行视图的数据条目传给交互器
 struct WSActionItem: Codable, WSPluginDataItem {
 
+    /// 唯一标识
+    var identifier: String
+
     /// 自定义颜色。为空时使用主题色
     var colorHex: String?
 
@@ -137,14 +140,34 @@ struct WSActionItem: Codable, WSPluginDataItem {
     /// 跳转目标，`mode` 为 `navigate` 时有值
     var sideMenuType: SideMenuType?
 
-    init(colorHex: String? = nil,
+    init(identifier: String = UUID().uuidString,
+         colorHex: String? = nil,
          mode: WSActionMode,
          addType: WSActionAddType? = nil,
          sideMenuType: SideMenuType? = nil) {
+        self.identifier = identifier
         self.colorHex = colorHex
         self.mode = mode
         self.addType = addType
         self.sideMenuType = sideMenuType
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case identifier
+        case colorHex
+        case mode
+        case addType
+        case sideMenuType
+    }
+
+    /// 旧配置没有标识，解码时补一个
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.identifier = try container.decodeIfPresent(String.self, forKey: .identifier) ?? UUID().uuidString
+        self.colorHex = try container.decodeIfPresent(String.self, forKey: .colorHex)
+        self.mode = try container.decode(WSActionMode.self, forKey: .mode)
+        self.addType = try container.decodeIfPresent(WSActionAddType.self, forKey: .addType)
+        self.sideMenuType = try container.decodeIfPresent(SideMenuType.self, forKey: .sideMenuType)
     }
 
     /// 自定义颜色
@@ -195,6 +218,11 @@ extension WSActionItem {
     /// 默认颜色
     static var defaultColor: UIColor {
         return colors[0]
+    }
+
+    /// 随机颜色，新建动作时作为默认值
+    static var randomColor: UIColor {
+        return colors.randomElement() ?? defaultColor
     }
 }
 

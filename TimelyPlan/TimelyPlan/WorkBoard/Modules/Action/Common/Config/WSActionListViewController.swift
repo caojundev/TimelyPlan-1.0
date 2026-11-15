@@ -50,9 +50,6 @@ class WSActionListItem: NSObject {
     /// 动作
     let action: WSActionItem
 
-    /// 条目唯一标识
-    private let identifier = UUID().uuidString
-
     init(action: WSActionItem) {
         self.action = action
         super.init()
@@ -60,7 +57,7 @@ class WSActionListItem: NSObject {
 
     // MARK: - ListDiffable
     override func diffIdentifier() -> NSObjectProtocol {
-        return identifier as NSString
+        return action.identifier as NSString
     }
 
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
@@ -68,7 +65,7 @@ class WSActionListItem: NSObject {
             return false
         }
 
-        return identifier == other.identifier
+        return action.identifier == other.action.identifier
     }
 }
 
@@ -194,10 +191,7 @@ class WSActionListViewController: TPViewController,
         static let cellHeight: CGFloat = 55.0
     }
 
-    /// 点击动作回调，参数为动作位置
-    var didSelectAction: ((Int) -> Void)?
-
-    /// 动作变化回调，删除或排序后回调最新的动作列表
+    /// 动作变化回调，添加、编辑、删除或排序后回调最新的动作列表
     var didChangeActions: (([WSActionItem]) -> Void)?
 
     /// 当前配置的动作
@@ -263,12 +257,6 @@ class WSActionListViewController: TPViewController,
     }
 
     // MARK: - 数据
-    /// 更新动作列表
-    func update(actions: [WSActionItem]) {
-        self.actions = actions
-        reloadList()
-    }
-
     private func updateGroups() {
         let group = WSActionGroup(identifier: groupIdentifier)
         group.actionItems = actions.map { WSActionListItem(action: $0) }
@@ -285,9 +273,46 @@ class WSActionListViewController: TPViewController,
         return listView.item(at: indexPath) as? WSActionListItem
     }
 
+    // MARK: - 添加 / 编辑
+    /// 添加动作
+    func addAction() {
+        editAction(at: nil)
+    }
+
+    /// 编辑指定位置的动作，index 为 nil 时新建
+    private func editAction(at index: Int?) {
+        let viewController = WSActionItemEditViewController(actionItem: index.flatMap { actions[safe: $0] })
+        viewController.didEndEditing = { [weak self] action in
+            self?.apply(action, at: index)
+        }
+
+        viewController.didDeleteAction = { [weak self] in
+            guard let index = index else {
+                return
+            }
+
+            self?.deleteAction(at: index)
+        }
+
+        viewController.popoverShowAsNavigationRoot()
+    }
+
+    /// 保存新建或编辑后的动作
+    private func apply(_ action: WSActionItem, at index: Int?) {
+        if let index = index, index < actions.count {
+            actions[index] = action
+        } else {
+            actions.append(action)
+        }
+
+        updateGroups()
+        listView.performUpdate(with: .fade)
+        didChangeActions?(actions)
+    }
+
     // MARK: - 删除
     /// 删除指定位置的动作并刷新列表
-    func deleteAction(at index: Int) {
+    private func deleteAction(at index: Int) {
         guard index < actions.count else {
             return
         }
@@ -331,14 +356,14 @@ class WSActionListViewController: TPViewController,
     }
 
     func groupTableView(_ tableView: TPGroupTableView, didSelectRowAt indexPath: IndexPath) {
-        didSelectAction?(indexPath.row)
+        editAction(at: indexPath.row)
     }
 
     func groupTableView(_ tableView: TPGroupTableView,
                         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         /// 编辑
         let editAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completion in
-            self?.didSelectAction?(indexPath.row)
+            self?.editAction(at: indexPath.row)
             completion(true)
         }
 
