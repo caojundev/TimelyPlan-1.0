@@ -106,7 +106,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     private var pendingJumpMenuType: SideMenuType?
 
     /// 返回工作台按钮管理器
-    private let MainJumpBackButtonManager = MainJumpBackButtonManager()
+    private let jumpBackButtonManager = MainJumpBackButtonManager()
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -121,7 +121,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         self.separatorColor = Color(0x888888, 0.1)
-        self.MainJumpBackButtonManager.clickHandler = { [weak self] in
+        self.jumpBackButtonManager.clickHandler = { [weak self] in
             self?.backToWorkspace()
         }
         self.replaceViewController(with: selectedMenuType)
@@ -145,7 +145,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         super.setExpand(shouldExpand, animated: animated, forceLayout: forceLayout)
         if shouldExpand {
             /// 展开侧边栏时移除返回工作台按钮
-            MainJumpBackButtonManager.hide(animated: animated)
+            jumpBackButtonManager.hide(animated: animated)
         }
     }
 
@@ -153,7 +153,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     /// 触摸落在返回按钮上时不响应侧边栏手势，避免与按钮拖动冲突
     override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                                     shouldReceive touch: UITouch) -> Bool {
-        guard !MainJumpBackButtonManager.isTouchInsideButton(touch) else {
+        guard !jumpBackButtonManager.isTouchInsideButton(touch) else {
             return false
         }
 
@@ -178,7 +178,8 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     }
     
     // MARK: - Private Methods
-    private func replaceViewController(with menuType: SideMenuType) {
+    private func replaceViewController(with menuType: SideMenuType,
+                                       transition: DetailTransition = .none) {
         var vc: UIViewController
         switch menuType {
         case .workspace:
@@ -205,7 +206,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
             vc = settingsViewController
         }
    
-        replaceDetailViewController(vc)
+        replaceDetailViewController(vc, transition: transition)
     }
     
     // MARK: - 跳转
@@ -222,9 +223,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         }
 
         pendingJumpMenuType = menuType
-        peekSidebar(width: sidebarWidth * 0.8) { [weak self] in
-            self?.menuViewController.select(menuType)
-        }
+        menuViewController.select(menuType)
     }
 
     /// 返回工作台
@@ -237,14 +236,28 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     func sideMenuViewController(_ vc: SideMenuViewController, didSelect menuType: SideMenuType) {
         /// 仅由跳转进入的非工作台模块才提供返回工作台的入口
         let showsBackButton = pendingJumpMenuType == menuType && menuType != .workspace
+        /// 跳转进入时新页面向前推入，返回工作台时新页面从后方顶入（反向）
+        let isReturningToWorkspace = menuType == .workspace && jumpBackButtonManager.isShowing
         pendingJumpMenuType = nil
 
-        replaceViewController(with: menuType)
+        let transition: DetailTransition
+        if showsBackButton {
+            transition = .push
+        } else if isReturningToWorkspace {
+            transition = .pop
+        } else {
+            transition = .none
+        }
+
+        /// 过渡快照不参与返回按钮，离开跳转页时先立即移除
+        if !showsBackButton {
+            jumpBackButtonManager.hide(animated: false)
+        }
+
+        replaceViewController(with: menuType, transition: transition)
         sidebarController.hideSidebar()
         if showsBackButton {
-            MainJumpBackButtonManager.show(in: detailContainerView)
-        } else {
-            MainJumpBackButtonManager.hide()
+            jumpBackButtonManager.show(in: detailContainerView)
         }
         
         if menuType != .settings {

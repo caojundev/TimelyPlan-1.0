@@ -311,7 +311,6 @@ class TPSidebarViewController: UIViewController,
         return (shouldExpand, usingSpring)
     }
     
-    
     func setExpand(_ shouldExpand: Bool, animated: Bool = true, forceLayout: Bool = true) {
         self.isExpand = shouldExpand
         
@@ -344,55 +343,89 @@ class TPSidebarViewController: UIViewController,
                        completion: nil)
     }
 
-    /// 部分露出侧边栏，用于模块切换等过渡动画。
-    ///
-    /// 只移动两侧容器，不改变 `isExpand` 状态；后续关闭动画由 `setExpand(false, animated:)` 接着完成。
-    func peekSidebar(width: CGFloat, animated: Bool = true, completion: (() -> Void)? = nil) {
-        let peekWidth = min(max(width, 0.0), sidebarWidth)
-        if peekWidth <= 0.0 {
-            completion?()
-            return
-        }
-
-        disableDetailUserInteraction()
-
-        let sidebarRect = CGRect(x: peekWidth - sidebarWidth,
-                                 y: 0.0,
-                                 width: sidebarWidth,
-                                 height: view.height)
-        var detailRect = detailContainerRect
-        detailRect.origin.x = peekWidth
-
-        let animations = {
-            self.sidebarContainerView.frame = sidebarRect
-            self.detailContainerView.frame = detailRect
-            self.detailContainerView.separatorAlpha = 1.0
-        }
-
-        guard animated else {
-            animations()
-            completion?()
-            return
-        }
-
-        UIView.animate(withDuration: 0.25,
-                       delay: 0.0,
-                       options: .curveEaseOut,
-                       animations: animations) { _ in
-            completion?()
-        }
+    // MARK: - 切换新的详细视图控制器
+    /// 详情页切换过渡动画
+    enum DetailTransition {
+        /// 无动画
+        case none
+        /// 新页面从前方推入，当前页面向后退（z 轴）
+        case push
+        /// 新页面从后方顶入，当前页面向前进（z 轴）
+        case pop
     }
 
-    // MARK: - 切换新的详细视图控制器
-    func replaceDetailViewController(_ detailViewController: UIViewController) {
+    func replaceDetailViewController(_ detailViewController: UIViewController,
+                                     transition: DetailTransition = .none) {
         guard self.detailViewController != detailViewController else {
             return
         }
-        
+
+        guard transition != .none else {
+            self.setDetailViewController(detailViewController)
+            return
+        }
+
+        self.transitionDetailViewController(detailViewController, transition: transition)
+    }
+
+    private func setDetailViewController(_ detailViewController: UIViewController) {
         self.removeSubViewController(self.detailViewController)
         self.detailViewController = detailViewController
         self.addSubviewController(detailViewController)
         self.detailContainerView.viewController = detailViewController
+    }
+
+    /// 使用旧页面快照完成 z 轴方向的前后推顶动画，避免直接变换被替换的视图影响后续显示
+    private func transitionDetailViewController(_ detailViewController: UIViewController,
+                                               transition: DetailTransition) {
+        let fromSnapshot = self.detailContainerView.snapshotView(afterScreenUpdates: false)
+        self.setDetailViewController(detailViewController)
+
+        /// 新页面在整个过渡期间被旧页面快照覆盖，先隐藏避免闪现
+        guard let contentView = detailViewController.view else {
+            return
+        }
+
+        contentView.alpha = 0.0
+        self.detailContainerView.layoutIfNeeded()
+
+        guard let fromSnapshot = fromSnapshot else {
+            contentView.alpha = 1.0
+            return
+        }
+
+        /// 背景保持透明，新页面在旧页面快照下方淡入
+        let transitionView = UIView(frame: self.detailContainerView.bounds)
+        transitionView.clipsToBounds = true
+        fromSnapshot.frame = transitionView.bounds
+        fromSnapshot.layer.shadowColor = UIColor.black.cgColor
+        fromSnapshot.layer.shadowOpacity = 0.18
+        fromSnapshot.layer.shadowRadius = 12.0
+        fromSnapshot.layer.shadowOffset = .zero
+        transitionView.addSubview(fromSnapshot)
+        self.detailContainerView.addSubview(transitionView)
+
+        /// 缩放后的新页面会超出容器，过渡期间裁剪
+        self.detailContainerView.clipsToBounds = true
+        /// 初值必须在布局之后设置，否则容器布局会按变换后的 frame 反推 bounds
+        let incomingScale: CGFloat = transition == .push ? 1.18 : 0.92
+        contentView.transform = CGAffineTransform(scaleX: incomingScale, y: incomingScale)
+
+        UIView.animate(withDuration: 0.35,
+                       delay: 0.0,
+                       options: [.curveEaseInOut, .beginFromCurrentState]) {
+            contentView.alpha = 1.0
+            contentView.transform = .identity
+
+            let outgoingScale: CGFloat = transition == .push ? 0.92 : 1.18
+            fromSnapshot.transform = CGAffineTransform(scaleX: outgoingScale, y: outgoingScale)
+            fromSnapshot.alpha = 0.0
+        } completion: { finished in
+            transitionView.removeFromSuperview()
+            contentView.alpha = 1.0
+            contentView.transform = .identity
+            self.detailContainerView.clipsToBounds = false
+        }
     }
     
     // MARK: - UIGestureRecognizerDelegate
