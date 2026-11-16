@@ -151,6 +151,36 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
             return false
         }
     }
+
+    /// 选择器中的预设变体。
+    ///
+    /// 非空时模块按变体展开成多行，每行直接添加同一组件并预设不同的配置，
+    /// 例如文本的标题 / 正文两种字体样式共用一套组件。
+    var pickerVariants: [WSPluginModuleVariant] {
+        switch self {
+        case .text:
+            return WSPluginType.Text.styleVariants
+        default:
+            return []
+        }
+    }
+}
+
+// MARK: - 选择器变体
+
+/// 模块在选择器中的预设变体。
+///
+/// 每个变体对应选择器中的一行，添加的组件类型不变，只是写入不同的组件配置。
+struct WSPluginModuleVariant {
+
+    /// 行标题
+    let title: String
+
+    /// 行图标。为 nil 时沿用模块图标
+    let iconName: String?
+
+    /// 添加时写入的组件配置 JSON
+    let configJSON: String?
 }
 
 // MARK: - 选择方式

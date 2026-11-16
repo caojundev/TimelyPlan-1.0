@@ -10,8 +10,8 @@ import UIKit
 
 /// 组件选择器。
 ///
-/// 按模块组划分 section，组内以网格展示模块：单组件模块直接添加，
-/// 其余模块进入画廊选中插件，均通过 `didAddPlugin` 回调。
+/// 按模块组划分 section，组内以网格展示模块：单组件模块直接添加，其余模块进入画廊选中插件；
+/// 声明了预设变体的模块会按变体拆成多个条目（如文本的标题 / 正文样式），均通过 `didAddPlugin` 回调。
 class WSPluginPickerViewController: TPCollectionSectionsViewController {
     
     /// 添加插件回调，参数为画廊中选中的插件或直接添加的插件
@@ -58,8 +58,8 @@ class WSPluginPickerViewController: TPCollectionSectionsViewController {
                 return nil
             }
             
-            sectionController.didSelectModule = { [weak self] module in
-                self?.select(module)
+            sectionController.didSelectEntry = { [weak self] entry in
+                self?.select(entry)
             }
             
             return sectionController
@@ -67,13 +67,18 @@ class WSPluginPickerViewController: TPCollectionSectionsViewController {
     }
     
     // MARK: - 选择
-    /// 处理选中的模块：单组件模块直接添加，其余进入画廊
-    private func select(_ module: WSPluginModule) {
-        switch module.pickerStyle {
+    /// 处理选中的网格条目：预设变体与单组件模块直接添加，其余进入画廊
+    private func select(_ entry: WSPluginPickerEntry) {
+        if entry.variant != nil {
+            addDirectly(module: entry.module, configJSON: entry.variant?.configJSON)
+            return
+        }
+        
+        switch entry.module.pickerStyle {
         case .gallery:
-            pick(module)
+            pick(entry.module)
         case .directAdd:
-            addDirectly(module)
+            addDirectly(module: entry.module, configJSON: nil)
         }
     }
     
@@ -90,12 +95,16 @@ class WSPluginPickerViewController: TPCollectionSectionsViewController {
     }
     
     /// 直接添加组件。关闭界面与插入位置由外部处理
-    private func addDirectly(_ module: WSPluginModule) {
+    /// - Parameter configJSON: 预设的组件配置。为 nil 时组件使用默认配置
+    private func addDirectly(module: WSPluginModule, configJSON: String?) {
         guard let type = module.directAddType else {
             return
         }
         
         TPImpactFeedback.impactWithSoftStyle()
-        didAddPlugin?(WSPlugin(identifier: type.rawValue, type: type))
+        
+        let plugin = WSPlugin(identifier: type.rawValue, type: type)
+        plugin.configJSON = configJSON
+        didAddPlugin?(plugin)
     }
 }

@@ -18,6 +18,16 @@ extension WSPluginType {
             .init(WSTextPluginProvider(), title: "Text", subtitle: "Shows a paragraph of text"),
         ]
 
+        /// 选择器中的样式入口。共用同一个文本组件，只预设不同的字体样式
+        static let styleVariants: [WSPluginModuleVariant] = {
+            let styles: [WSTextStyle] = [.title, .body]
+            return styles.map { style in
+                return WSPluginModuleVariant(title: style.title,
+                                             iconName: nil,
+                                             configJSON: WSTextConfiguration(textStyle: style).jsonString())
+            }
+        }()
+
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
             return WSPluginType(rawValue, module: .text, size: size)
         }

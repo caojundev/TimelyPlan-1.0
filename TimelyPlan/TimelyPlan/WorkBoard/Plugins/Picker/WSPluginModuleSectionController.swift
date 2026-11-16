@@ -8,6 +8,31 @@
 import Foundation
 import UIKit
 
+// MARK: - 选择器条目
+
+/// 组件选择器中的一个网格条目。
+///
+/// 一个模块对应一个条目；声明了预设变体的模块（如文本的标题 / 正文样式）
+/// 按变体拆成多个条目，共用同一个组件类型。
+struct WSPluginPickerEntry {
+    
+    /// 所属模块
+    let module: WSPluginModule
+    
+    /// 预设变体。为 nil 表示模块本身
+    let variant: WSPluginModuleVariant?
+    
+    /// 条目标题
+    var title: String {
+        return variant?.title ?? module.displayName
+    }
+    
+    /// 条目图标
+    var iconName: String? {
+        return variant?.iconName ?? module.iconName
+    }
+}
+
 // MARK: - 模块组网格区块
 
 /// 模块组网格区块
@@ -40,8 +65,8 @@ class WSPluginModuleSectionController: TPCollectionItemSectionController {
     /// 当前模块组
     let group: WSPluginModuleGroup
     
-    /// 选中模块回调
-    var didSelectModule: ((WSPluginModule) -> Void)?
+    /// 选中条目回调
+    var didSelectEntry: ((WSPluginPickerEntry) -> Void)?
     
     init(group: WSPluginModuleGroup) {
         self.group = group
@@ -82,22 +107,34 @@ class WSPluginModuleSectionController: TPCollectionItemSectionController {
     }
     
     // MARK: - 条目
-    /// 模块对应的网格条目
+    /// 模块组对应的网格条目
     private func makeCellItems() -> [TPCollectionCellItem] {
         var cellItems = [TPCollectionCellItem]()
         for module in group.availableModules {
-            let cellItem = WSPluginModuleCollectionCellItem()
-            cellItem.imageName = module.iconName
-            cellItem.title = module.displayName
-            /// 数目只在进入画廊的模块上展示，表示可选组件的个数
-            cellItem.count = module.pickerStyle == .gallery ? module.types.count : 0
-            cellItem.didSelectHandler = { [weak self] in
-                self?.didSelectModule?(module)
+            for entry in makeEntries(for: module) {
+                let cellItem = WSPluginModuleCollectionCellItem()
+                cellItem.imageName = entry.iconName
+                cellItem.title = entry.title
+                /// 数目只在进入画廊的模块上展示，表示可选组件的个数
+                cellItem.count = entry.variant == nil && module.pickerStyle == .gallery ? module.types.count : 0
+                cellItem.didSelectHandler = { [weak self] in
+                    self?.didSelectEntry?(entry)
+                }
+                
+                cellItems.append(cellItem)
             }
-            
-            cellItems.append(cellItem)
         }
         
         return cellItems
+    }
+    
+    /// 模块对应的条目。声明了预设变体时按变体展开成多个条目
+    private func makeEntries(for module: WSPluginModule) -> [WSPluginPickerEntry] {
+        let variants = module.pickerVariants
+        guard !variants.isEmpty else {
+            return [WSPluginPickerEntry(module: module, variant: nil)]
+        }
+        
+        return variants.map { WSPluginPickerEntry(module: module, variant: $0) }
     }
 }
