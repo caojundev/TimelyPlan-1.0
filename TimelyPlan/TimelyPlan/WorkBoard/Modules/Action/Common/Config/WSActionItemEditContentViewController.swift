@@ -81,7 +81,7 @@ class WSActionItemEditContentViewController: TPTableSectionsViewController {
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
         cellItem.backgroundColor = .clear
         cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
-        cellItem.menuItems = WSActionMode.segmentedMenuItems(style: .title)
+        cellItem.menuItems = WSActionMode.segmentedMenuItems(style: .iconAndTitle)
         cellItem.updater = {
             self?.modeCellItem.selectedMenuTag = self?.actionItem.mode.tag ?? 0
         }
@@ -151,7 +151,7 @@ class WSActionItemEditContentViewController: TPTableSectionsViewController {
             cellItem.title = menuType.title
             /// 左侧展示模块图标，与侧边栏保持一致
             cellItem.imageName = menuType.iconName
-            cellItem.imageConfig.size = .small
+            cellItem.imageConfig.size = .size(8)
             cellItem.imageConfig.shouldRenderImageWithColor = false
             cellItem.height = Metrics.cellHeight
             cellItem.didSelectHandler = { [weak self] in

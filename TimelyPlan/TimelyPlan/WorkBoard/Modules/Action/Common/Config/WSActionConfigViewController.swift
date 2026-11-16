@@ -12,7 +12,7 @@ import UIKit
 
 /// 动作组件的配置界面，各尺寸共用。
 ///
-/// 展示动作列表，右上角添加按钮；添加、编辑、删除与排序均由列表完成，
+/// 展示动作列表；添加、编辑、删除与排序均由列表完成，
 /// 本界面只负责把最新的动作写入配置。
 class WSActionConfigViewController: WSPluginConfigViewController {
 
@@ -36,14 +36,7 @@ class WSActionConfigViewController: WSPluginConfigViewController {
         super.viewDidLoad()
 
         self.title = resGetString("Actions")
-        navigationItem.rightBarButtonItem = addBarButtonItem
         contentViewController = listViewController
-    }
-
-    // MARK: - 添加
-    override func clickAdd() {
-        super.clickAdd()
-        listViewController.addAction()
     }
 
     // MARK: - 配置保存

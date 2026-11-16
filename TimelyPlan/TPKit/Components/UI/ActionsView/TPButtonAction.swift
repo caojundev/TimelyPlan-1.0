@@ -67,7 +67,9 @@ class TPButtonAction: NSObject {
         self.style.selectedBackgroundColor = backgroundColor.darkerColor
     }
     
-    init(type: TPButtonActionType = .normal, title: String? = nil, handler: ((TPButtonAction) -> Void)? = nil) {
+    init(type: TPButtonActionType = .normal,
+         title: String? = nil,
+         handler: ((TPButtonAction) -> Void)? = nil) {
         super.init()
         self.type = type
         self.title = title

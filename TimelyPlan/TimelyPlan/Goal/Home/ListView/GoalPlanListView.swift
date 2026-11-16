@@ -142,13 +142,11 @@ class GoalPlanListView: TPGroupCollectionView,
     
     // MARK: - GoalPlanListCellDelegate
     func goalPlanListCellDidClickMore(_ cell: GoalPlanListCell) {
-        guard let goalPlan = cell.goalPlan,
-              let indexPath = self.adapter.indexPath(of: goalPlan) else {
+        guard let goalPlan = cell.goalPlan else {
             return
         }
         
         let menuController = GoalPlanMenuController(goalPlan: goalPlan)
-        
         menuController.didSelectMenuActionType = { [weak self] type in
             self?.menuProcessor.performMenuAction(type, for: goalPlan)
         }

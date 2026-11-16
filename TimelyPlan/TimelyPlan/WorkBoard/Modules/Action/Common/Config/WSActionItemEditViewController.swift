@@ -27,14 +27,15 @@ class WSActionItemEditViewController: TPContainerViewController {
     /// 编辑内容
     private let editingViewController: WSActionItemEditContentViewController
 
-    /// 传入 nil 表示新建动作
-    init(actionItem: WSActionItem?) {
+    /// 传入 nil 表示新建动作，`mode` 决定新建动作的默认方式
+    init(actionItem: WSActionItem?, mode: WSActionMode = .add) {
         self.editType = actionItem == nil ? .create : .modify
 
-        /// 新建时随机取一个颜色作为默认颜色
+        /// 新建时随机取一个颜色作为默认颜色，并按方式补上默认类型
         let actionItem = actionItem ?? WSActionItem(colorHex: WSActionItem.randomColor.hexString,
-                                                    mode: .add,
-                                                    addType: WSActionAddType.allCases.first)
+                                                    mode: mode,
+                                                    addType: mode == .add ? WSActionAddType.allCases.first : nil,
+                                                    sideMenuType: mode == .navigate ? SideMenuType.actionTargets.first : nil)
         self.editingViewController = WSActionItemEditContentViewController(actionItem: actionItem)
         super.init(nibName: nil, bundle: nil)
     }

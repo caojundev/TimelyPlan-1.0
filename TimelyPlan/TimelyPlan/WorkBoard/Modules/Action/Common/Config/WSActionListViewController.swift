@@ -217,12 +217,18 @@ class WSActionListViewController: TPViewController,
         view.delegate = self
         return view
     }()
-
-    /// 占位视图提供者
-    private lazy var placeholderProvider: TPDefaultPlaceholderProvider = {
-        let provider = TPDefaultPlaceholderProvider()
-        provider.emptyTitle = resGetString("No Actions")
-        return provider
+    
+    /// 底部操作栏：添加动作与跳转动作，点击后即确定新建动作的方式
+    private lazy var footerBar: WSActionListFooterView = {
+        let view = WSActionListFooterView()
+        view.didSelectMode = { [weak self] mode in
+            self?.addAction(mode: mode)
+        }
+        view.frame = CGRect(x: 0.0,
+                            y: 0.0,
+                            width: 0.0,
+                            height: WSActionListFooterView.footerHeight)
+        return view
     }()
 
     init(actions: [WSActionItem]) {
@@ -237,9 +243,8 @@ class WSActionListViewController: TPViewController,
     // MARK: - 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .systemGroupedBackground
-        listView.placeholderProvider = placeholderProvider
+        listView.adapter.tableView.tableFooterView = footerBar
         view.addSubview(listView)
 
         reloadList()
@@ -274,14 +279,15 @@ class WSActionListViewController: TPViewController,
     }
 
     // MARK: - 添加 / 编辑
-    /// 添加动作
-    func addAction() {
-        editAction(at: nil)
+    /// 添加指定方式的动作
+    private func addAction(mode: WSActionMode) {
+        editAction(at: nil, mode: mode)
     }
 
-    /// 编辑指定位置的动作，index 为 nil 时新建
-    private func editAction(at index: Int?) {
-        let viewController = WSActionItemEditViewController(actionItem: index.flatMap { actions[safe: $0] })
+    /// 编辑指定位置的动作，index 为 nil 时按 `mode` 新建
+    private func editAction(at index: Int?, mode: WSActionMode = .add) {
+        let viewController = WSActionItemEditViewController(actionItem: index.flatMap { actions[safe: $0] },
+                                                            mode: mode)
         viewController.didEndEditing = { [weak self] action in
             self?.apply(action, at: index)
         }

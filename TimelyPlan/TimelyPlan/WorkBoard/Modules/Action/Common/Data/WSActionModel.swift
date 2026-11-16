@@ -23,6 +23,15 @@ enum WSActionMode: String, Codable, CaseIterable, TPMenuRepresentable {
     static func titles() -> [String] {
         return ["Add", "Jump"]
     }
+    
+    var iconName: String? {
+        switch self {
+        case .add:
+            return "plus_24"
+        case .navigate:
+            return "arrow_right_24"
+        }
+    }
 }
 
 // MARK: - 添加动作

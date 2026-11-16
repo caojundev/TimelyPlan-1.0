@@ -238,8 +238,6 @@ class GoalHomeViewController: TPViewController,
                 switch change {
                 case .create(let goalPlan), .update(let goalPlan):
                     revealGoalPlan = goalPlan
-                default:
-                    break
                 }
             }
             

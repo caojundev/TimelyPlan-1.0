@@ -148,7 +148,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 直接添加后是否立即进入配置界面。默认不进入，由模块自行决定。
     var opensConfigAfterAdd: Bool {
         switch self {
-        case .headline, .body:
+        case .headline, .body, .action:
             return true
         default:
             return false

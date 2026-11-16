@@ -1511,6 +1511,7 @@
 		E5A1C0DE31A1B2C3D4E5F604 /* MyDaySingleDateTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1C0DE31A1B2C3D4E5F603 /* MyDaySingleDateTimelineViewController.swift */; };
 		E5A1C2D42F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1C2D32F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift */; };
 		E5A1EC8E307495A700FCE0A3 /* AppProUpgradeBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1EC8D307495A700FCE0A3 /* AppProUpgradeBannerView.swift */; };
+		E5A2D1E42F9A4B5C00D1E2F4 /* WSActionListFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2D1E32F9A4B5C00D1E2F4 /* WSActionListFooterView.swift */; };
 		E5A625B33089B3CE003EB8BC /* WorkspacePluginProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625753089B3CD003EB8BC /* WorkspacePluginProcessorUpdater.swift */; };
 		E5A625B43089B3CE003EB8BC /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625763089B3CD003EB8BC /* WorkspaceRepository.swift */; };
 		E5A625B53089B3CE003EB8BC /* WorkspaceDashboardProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625773089B3CD003EB8BC /* WorkspaceDashboardProcessorUpdater.swift */; };
@@ -2253,6 +2254,8 @@
 		E5CAA9682D700ABD00A0539C /* todo_task_quadrant_fill_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAA9642D700ABC00A0539C /* todo_task_quadrant_fill_24@2x.png */; };
 		E5CAA9692D700ABD00A0539C /* todo_task_quadrant_fill_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAA9652D700ABD00A0539C /* todo_task_quadrant_fill_24@3x.png */; };
 		E5CAA96A2D700ABD00A0539C /* todo_task_quadrant_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAA9662D700ABD00A0539C /* todo_task_quadrant_24@3x.png */; };
+		E5CAC2D030AA9C620058CF8B /* arrow_right_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAC2CE30AA9C610058CF8B /* arrow_right_24@3x.png */; };
+		E5CAC2D130AA9C620058CF8B /* arrow_right_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAC2CF30AA9C620058CF8B /* arrow_right_24@2x.png */; };
 		E5CBA0113092000100E35B41 /* WSGoalPlanDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0013092000100E35B41 /* WSGoalPlanDataItem.swift */; };
 		E5CBA0123092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0023092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift */; };
 		E5CBA0133092000100E35B41 /* WSGoalPlanBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0033092000100E35B41 /* WSGoalPlanBindViewController.swift */; };
@@ -4589,6 +4592,7 @@
 		E5A1C0DE31A1B2C3D4E5F603 /* MyDaySingleDateTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDaySingleDateTimelineViewController.swift; sourceTree = "<group>"; };
 		E5A1C2D32F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainJumpBackButtonManager.swift; sourceTree = "<group>"; };
 		E5A1EC8D307495A700FCE0A3 /* AppProUpgradeBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppProUpgradeBannerView.swift; sourceTree = "<group>"; };
+		E5A2D1E32F9A4B5C00D1E2F4 /* WSActionListFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionListFooterView.swift; sourceTree = "<group>"; };
 		E5A625753089B3CD003EB8BC /* WorkspacePluginProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspacePluginProcessorUpdater.swift; sourceTree = "<group>"; };
 		E5A625763089B3CD003EB8BC /* WorkspaceRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
 		E5A625773089B3CD003EB8BC /* WorkspaceDashboardProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceDashboardProcessorUpdater.swift; sourceTree = "<group>"; };
@@ -5346,6 +5350,8 @@
 		E5CAA9642D700ABC00A0539C /* todo_task_quadrant_fill_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quadrant_fill_24@2x.png"; sourceTree = "<group>"; };
 		E5CAA9652D700ABD00A0539C /* todo_task_quadrant_fill_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quadrant_fill_24@3x.png"; sourceTree = "<group>"; };
 		E5CAA9662D700ABD00A0539C /* todo_task_quadrant_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quadrant_24@3x.png"; sourceTree = "<group>"; };
+		E5CAC2CE30AA9C610058CF8B /* arrow_right_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_right_24@3x.png"; sourceTree = "<group>"; };
+		E5CAC2CF30AA9C620058CF8B /* arrow_right_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_right_24@2x.png"; sourceTree = "<group>"; };
 		E5CBA0013092000100E35B41 /* WSGoalPlanDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanDataItem.swift; sourceTree = "<group>"; };
 		E5CBA0023092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanPluginContentInteractor.swift; sourceTree = "<group>"; };
 		E5CBA0033092000100E35B41 /* WSGoalPlanBindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanBindViewController.swift; sourceTree = "<group>"; };
@@ -11487,6 +11493,7 @@
 				E598E9C230A7367A00E63A53 /* WSActionItemEditContentViewController.swift */,
 				E598E9C330A7367A00E63A53 /* WSActionItemEditViewController.swift */,
 				E598E9C430A7367A00E63A53 /* WSActionListViewController.swift */,
+				E5A2D1E32F9A4B5C00D1E2F4 /* WSActionListFooterView.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -12219,6 +12226,8 @@
 				E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */,
 				E5B926D62D3FF04A0065FA79 /* arrow_up_24@2x.png */,
 				E5B926D72D3FF04A0065FA79 /* arrow_up_24@3x.png */,
+				E5CAC2CF30AA9C620058CF8B /* arrow_right_24@2x.png */,
+				E5CAC2CE30AA9C610058CF8B /* arrow_right_24@3x.png */,
 			);
 			path = arrow;
 			sourceTree = "<group>";
@@ -17549,6 +17558,7 @@
 				E5D7D9772D43E05700EC877A /* focus_running_screenAlwaysOnEnabled_24@3x.png in Resources */,
 				E50D02552F55860B00E93977 /* habit_time_morning_24@3x.png in Resources */,
 				E5BBCAD83091A97700E35B41 /* inbox_24@2x.png in Resources */,
+				E5CAC2D030AA9C620058CF8B /* arrow_right_24@3x.png in Resources */,
 				E55528362FB5CB2C0093DD7E /* todo_smartlist_tomorrow_80@2x.png in Resources */,
 				E5E276EF2D3DF0B4004EC522 /* todo_list_inbox_24@3x.png in Resources */,
 				E5BB9AA82D3BEF0D0089667A /* todo_task_note_24@3x.png in Resources */,
@@ -18206,6 +18216,7 @@
 				E55E4BE72F9336170068E032 /* calendar_22_24@3x.png in Resources */,
 				E5E40718306FE02900673727 /* calendar_panelStyle_3_4_vertical@2x.png in Resources */,
 				E5BB9A9A2D3BEF0D0089667A /* todo_list_layout_list_96@2x.png in Resources */,
+				E5CAC2D130AA9C620058CF8B /* arrow_right_24@2x.png in Resources */,
 				E526D4062F6D7479005C1DED /* habit_menu_editLog_24@3x.png in Resources */,
 				E55E4BE92F9336170068E032 /* calendar_8_24@2x.png in Resources */,
 				E5BB9A9C2D3BEF0D0089667A /* todo_board_24@2x.png in Resources */,
@@ -19817,6 +19828,7 @@
 				E598E9D230A7367A00E63A53 /* WSActionItemEditContentViewController.swift in Sources */,
 				E598E9D330A7367A00E63A53 /* WSActionItemEditViewController.swift in Sources */,
 				E598E9D430A7367A00E63A53 /* WSActionListViewController.swift in Sources */,
+				E5A2D1E42F9A4B5C00D1E2F4 /* WSActionListFooterView.swift in Sources */,
 				E598E9D530A7367A00E63A53 /* WSActionContentView.swift in Sources */,
 				E598E9D630A7367A00E63A53 /* WSActionGridContentView.swift in Sources */,
 				E598E9D730A7367A00E63A53 /* WSActionListContentView.swift in Sources */,
