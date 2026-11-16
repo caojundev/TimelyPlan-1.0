@@ -11,7 +11,7 @@ import Foundation
 /// `rawValue` 参与持久化与组件标识，已发布的取值不可修改。
 public struct WSPluginType: Hashable {
 
-    /// 组件标识，与旧版枚举的 rawValue 一一对应。
+    /// 组件标识
     public let rawValue: String
 
     /// 所属模块。用于组件选择器分组，以及同模块三个尺寸之间的归类。
@@ -64,8 +64,7 @@ extension WSPluginType: CaseIterable {
         WSPluginType.TodoFilter.all,
         WSPluginType.TodoFilterTask.all,
         WSPluginType.TodoCustomTask.all,
-        WSPluginType.Headline.all,
-        WSPluginType.Body.all,
+        WSPluginType.Text.all,
         WSPluginType.Separator.all,
         WSPluginType.Action.all,
     ].flatMap { $0 }
@@ -176,8 +175,7 @@ enum WSPluginCatalog {
         WSPluginType.TodoFilter.catalog,
         WSPluginType.TodoFilterTask.catalog,
         WSPluginType.TodoCustomTask.catalog,
-        WSPluginType.Headline.catalog,
-        WSPluginType.Body.catalog,
+        WSPluginType.Text.catalog,
         WSPluginType.Separator.catalog,
         WSPluginType.Action.catalog,
     ].flatMap { $0 }

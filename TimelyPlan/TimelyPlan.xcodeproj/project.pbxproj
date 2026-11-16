@@ -1560,17 +1560,12 @@
 		E5A7C0DE00000000000000B6 /* WSHabitPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */; };
 		E5A7C0DE00000000000000B7 /* WSGoalPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */; };
 		E5A7C0DE00000000000000B8 /* WSTodoPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */; };
-		E5A7C11130A3370700FE6914 /* WSHeadlinePluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10130A3370700FE6914 /* WSHeadlinePluginTypes.swift */; };
-		E5A7C11230A3370700FE6914 /* WSHeadlineDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10230A3370700FE6914 /* WSHeadlineDataItem.swift */; };
-		E5A7C11330A3370700FE6914 /* WSHeadlinePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10330A3370700FE6914 /* WSHeadlinePluginProvider.swift */; };
-		E5A7C11430A3370700FE6914 /* WSHeadlineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10430A3370700FE6914 /* WSHeadlineContentView.swift */; };
-		E5A7C11530A3370700FE6914 /* WSHeadlineConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10530A3370700FE6914 /* WSHeadlineConfigViewController.swift */; };
 		E5A7C11630A3370700FE6914 /* WSPluginHeightCalculating.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C10630A3370700FE6914 /* WSPluginHeightCalculating.swift */; };
-		E5A7C21130A3370700FE6914 /* WSBodyPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20130A3370700FE6914 /* WSBodyPluginTypes.swift */; };
-		E5A7C21230A3370700FE6914 /* WSBodyDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20230A3370700FE6914 /* WSBodyDataItem.swift */; };
-		E5A7C21330A3370700FE6914 /* WSBodyPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20330A3370700FE6914 /* WSBodyPluginProvider.swift */; };
-		E5A7C21430A3370700FE6914 /* WSBodyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20430A3370700FE6914 /* WSBodyContentView.swift */; };
-		E5A7C21530A3370700FE6914 /* WSBodyConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20530A3370700FE6914 /* WSBodyConfigViewController.swift */; };
+		E5A7C21130A3370700FE6914 /* WSTextPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20130A3370700FE6914 /* WSTextPluginTypes.swift */; };
+		E5A7C21230A3370700FE6914 /* WSTextDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20230A3370700FE6914 /* WSTextDataItem.swift */; };
+		E5A7C21330A3370700FE6914 /* WSTextPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20330A3370700FE6914 /* WSTextPluginProvider.swift */; };
+		E5A7C21430A3370700FE6914 /* WSTextContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20430A3370700FE6914 /* WSTextContentView.swift */; };
+		E5A7C21530A3370700FE6914 /* WSTextConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C20530A3370700FE6914 /* WSTextConfigViewController.swift */; };
 		E5A7C31130A3370700FE6914 /* WSSeparatorPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30130A3370700FE6914 /* WSSeparatorPluginTypes.swift */; };
 		E5A7C31230A3370700FE6914 /* WSSeparatorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30230A3370700FE6914 /* WSSeparatorStyle.swift */; };
 		E5A7C31330A3370700FE6914 /* WSSeparatorLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C30330A3370700FE6914 /* WSSeparatorLineView.swift */; };
@@ -4644,17 +4639,12 @@
 		E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHabitPluginTypes.swift; sourceTree = "<group>"; };
 		E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSGoalPluginTypes.swift; sourceTree = "<group>"; };
 		E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTodoPluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C10130A3370700FE6914 /* WSHeadlinePluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlinePluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C10230A3370700FE6914 /* WSHeadlineDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlineDataItem.swift; sourceTree = "<group>"; };
-		E5A7C10330A3370700FE6914 /* WSHeadlinePluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlinePluginProvider.swift; sourceTree = "<group>"; };
-		E5A7C10430A3370700FE6914 /* WSHeadlineContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlineContentView.swift; sourceTree = "<group>"; };
-		E5A7C10530A3370700FE6914 /* WSHeadlineConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHeadlineConfigViewController.swift; sourceTree = "<group>"; };
 		E5A7C10630A3370700FE6914 /* WSPluginHeightCalculating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginHeightCalculating.swift; sourceTree = "<group>"; };
-		E5A7C20130A3370700FE6914 /* WSBodyPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSBodyPluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C20230A3370700FE6914 /* WSBodyDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSBodyDataItem.swift; sourceTree = "<group>"; };
-		E5A7C20330A3370700FE6914 /* WSBodyPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSBodyPluginProvider.swift; sourceTree = "<group>"; };
-		E5A7C20430A3370700FE6914 /* WSBodyContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSBodyContentView.swift; sourceTree = "<group>"; };
-		E5A7C20530A3370700FE6914 /* WSBodyConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSBodyConfigViewController.swift; sourceTree = "<group>"; };
+		E5A7C20130A3370700FE6914 /* WSTextPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTextPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C20230A3370700FE6914 /* WSTextDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTextDataItem.swift; sourceTree = "<group>"; };
+		E5A7C20330A3370700FE6914 /* WSTextPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTextPluginProvider.swift; sourceTree = "<group>"; };
+		E5A7C20430A3370700FE6914 /* WSTextContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTextContentView.swift; sourceTree = "<group>"; };
+		E5A7C20530A3370700FE6914 /* WSTextConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTextConfigViewController.swift; sourceTree = "<group>"; };
 		E5A7C30130A3370700FE6914 /* WSSeparatorPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorPluginTypes.swift; sourceTree = "<group>"; };
 		E5A7C30230A3370700FE6914 /* WSSeparatorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorStyle.swift; sourceTree = "<group>"; };
 		E5A7C30330A3370700FE6914 /* WSSeparatorLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSSeparatorLineView.swift; sourceTree = "<group>"; };
@@ -6552,18 +6542,6 @@
 				E5F9E3F130261D6100EDC2A5 /* HabitRecordProgressInfoView.swift */,
 			);
 			path = Popup;
-			sourceTree = "<group>";
-		};
-		E50B915F30A3370700FE6914 /* Headline */ = {
-			isa = PBXGroup;
-			children = (
-				E5A7C10130A3370700FE6914 /* WSHeadlinePluginTypes.swift */,
-				E5A7C10230A3370700FE6914 /* WSHeadlineDataItem.swift */,
-				E5A7C10330A3370700FE6914 /* WSHeadlinePluginProvider.swift */,
-				E5A7C10430A3370700FE6914 /* WSHeadlineContentView.swift */,
-				E5A7C10530A3370700FE6914 /* WSHeadlineConfigViewController.swift */,
-			);
-			path = Headline;
 			sourceTree = "<group>";
 		};
 		E50BB6792D57178F00D316FD /* Layout */ = {
@@ -11605,23 +11583,13 @@
 		E5A50C8D30A357AB009B24D2 /* Text */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7C20130A3370700FE6914 /* WSTextPluginTypes.swift */,
+				E5A7C20230A3370700FE6914 /* WSTextDataItem.swift */,
+				E5A7C20330A3370700FE6914 /* WSTextPluginProvider.swift */,
+				E5A7C20430A3370700FE6914 /* WSTextContentView.swift */,
 				E5CAC2D230AAAB0B0058CF8B /* Config */,
-				E5A50C8E30A357C7009B24D2 /* Body */,
-				E50B915F30A3370700FE6914 /* Headline */,
 			);
 			path = Text;
-			sourceTree = "<group>";
-		};
-		E5A50C8E30A357C7009B24D2 /* Body */ = {
-			isa = PBXGroup;
-			children = (
-				E5A7C20130A3370700FE6914 /* WSBodyPluginTypes.swift */,
-				E5A7C20230A3370700FE6914 /* WSBodyDataItem.swift */,
-				E5A7C20330A3370700FE6914 /* WSBodyPluginProvider.swift */,
-				E5A7C20430A3370700FE6914 /* WSBodyContentView.swift */,
-				E5A7C20530A3370700FE6914 /* WSBodyConfigViewController.swift */,
-			);
-			path = Body;
 			sourceTree = "<group>";
 		};
 		E5A625733089B3CD003EB8BC /* WorkBoard */ = {
@@ -14648,6 +14616,7 @@
 				E5CAC2D330AAAB940058CF8B /* WSTextStyle.swift */,
 				E5CAC2D730AAAB940058CF8B /* WSTextAlignment.swift */,
 				E5CAC2D530AAAB940058CF8B /* WSTextStyleSelectView.swift */,
+				E5A7C20530A3370700FE6914 /* WSTextConfigViewController.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -19824,16 +19793,11 @@
 				E5BB9E732D3BF0C70089667A /* TPGridsLayer.swift in Sources */,
 				E5FC91962FBB643800FC75C6 /* CalendarDayPageTimelineCell.swift in Sources */,
 				E537BCAF308B4B5900C308E3 /* WSCountdownSmallCardContentView.swift in Sources */,
-				E5A7C11130A3370700FE6914 /* WSHeadlinePluginTypes.swift in Sources */,
-				E5A7C11230A3370700FE6914 /* WSHeadlineDataItem.swift in Sources */,
-				E5A7C11330A3370700FE6914 /* WSHeadlinePluginProvider.swift in Sources */,
-				E5A7C11430A3370700FE6914 /* WSHeadlineContentView.swift in Sources */,
-				E5A7C11530A3370700FE6914 /* WSHeadlineConfigViewController.swift in Sources */,
-				E5A7C21130A3370700FE6914 /* WSBodyPluginTypes.swift in Sources */,
-				E5A7C21230A3370700FE6914 /* WSBodyDataItem.swift in Sources */,
-				E5A7C21330A3370700FE6914 /* WSBodyPluginProvider.swift in Sources */,
-				E5A7C21430A3370700FE6914 /* WSBodyContentView.swift in Sources */,
-				E5A7C21530A3370700FE6914 /* WSBodyConfigViewController.swift in Sources */,
+				E5A7C21130A3370700FE6914 /* WSTextPluginTypes.swift in Sources */,
+				E5A7C21230A3370700FE6914 /* WSTextDataItem.swift in Sources */,
+				E5A7C21330A3370700FE6914 /* WSTextPluginProvider.swift in Sources */,
+				E5A7C21430A3370700FE6914 /* WSTextContentView.swift in Sources */,
+				E5A7C21530A3370700FE6914 /* WSTextConfigViewController.swift in Sources */,
 				E5A7C31130A3370700FE6914 /* WSSeparatorPluginTypes.swift in Sources */,
 				E5A7C31230A3370700FE6914 /* WSSeparatorStyle.swift in Sources */,
 				E5A7C31330A3370700FE6914 /* WSSeparatorLineView.swift in Sources */,

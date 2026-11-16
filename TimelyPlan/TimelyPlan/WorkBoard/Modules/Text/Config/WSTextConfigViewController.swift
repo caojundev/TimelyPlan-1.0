@@ -1,5 +1,5 @@
 //
-//  WSBodyConfigViewController.swift
+//  WSTextConfigViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/10.
@@ -10,17 +10,17 @@ import UIKit
 
 // MARK: - 配置界面
 
-/// 正文组件的配置界面，用于配置展示的正文
-class WSBodyConfigViewController: WSPluginConfigViewController {
+/// 文本组件的配置界面，用于配置展示的文本
+class WSTextConfigViewController: WSPluginConfigViewController {
 
     /// 当前配置
-    private lazy var config: WSBodyConfiguration = {
-        return configuration(as: WSBodyConfiguration.self) ?? WSBodyConfiguration()
+    private lazy var config: WSTextConfiguration = {
+        return configuration(as: WSTextConfiguration.self) ?? WSTextConfiguration()
     }()
 
-    /// 正文编辑界面
-    private lazy var editingViewController: WSBodyEditingViewController = {
-        let viewController = WSBodyEditingViewController(configuration: config)
+    /// 文本编辑界面
+    private lazy var editingViewController: WSTextEditingViewController = {
+        let viewController = WSTextEditingViewController(configuration: config)
         viewController.didChangeConfiguration = { [weak self] configuration in
             self?.config = configuration
             self?.updateConfiguration(configuration)
@@ -31,21 +31,21 @@ class WSBodyConfigViewController: WSPluginConfigViewController {
     // MARK: - 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = resGetString("Body")
+        self.title = resGetString("Text")
         contentViewController = editingViewController
     }
 }
 
 // MARK: - 编辑界面
 
-/// 正文的编辑界面
-class WSBodyEditingViewController: UIViewController, UITextViewDelegate {
+/// 文本的编辑界面
+class WSTextEditingViewController: UIViewController, UITextViewDelegate {
 
     /// 配置变化回调。编辑过程中实时回调，由配置界面在点击完成时统一保存
-    var didChangeConfiguration: ((WSBodyConfiguration) -> Void)?
+    var didChangeConfiguration: ((WSTextConfiguration) -> Void)?
 
     /// 当前编辑的配置
-    private var configuration: WSBodyConfiguration
+    private var configuration: WSTextConfiguration
 
     /// 布局尺寸
     private enum Metrics {
@@ -75,7 +75,7 @@ class WSBodyEditingViewController: UIViewController, UITextViewDelegate {
     /// 内容滚动视图
     private let contentView = UIScrollView()
 
-    /// 正文输入框
+    /// 文本输入框
     private let textView = UITextView()
 
     /// 文本样式选择视图
@@ -113,7 +113,7 @@ class WSBodyEditingViewController: UIViewController, UITextViewDelegate {
         return configuration.textAlignment ?? .left
     }
 
-    init(configuration: WSBodyConfiguration) {
+    init(configuration: WSTextConfiguration) {
         self.configuration = configuration
         super.init(nibName: nil, bundle: nil)
     }

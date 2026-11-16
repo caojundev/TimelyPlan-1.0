@@ -1,5 +1,5 @@
 //
-//  WSBodyContentView.swift
+//  WSTextContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/10.
@@ -10,11 +10,11 @@ import UIKit
 
 // MARK: - 内容视图
 
-/// 正文组件的内容视图。
+/// 文本组件的内容视图。
 ///
-/// 只展示一个正文文本标签，文本使用 Body 文本样式。
+/// 只展示一个文本标签，字体与对齐方式取自组件配置。
 /// 组件高度由布局按宽度计算后下发，内容按实际行数自上而下排列。
-class WSBodyContentView: WSPluginContentView {
+class WSTextContentView: WSPluginContentView {
 
     /// 布局尺寸
     private enum Metrics {
@@ -22,14 +22,14 @@ class WSBodyContentView: WSPluginContentView {
         /// 内容与组件边缘的间距
         static let padding = UIEdgeInsets(value: 12.0)
 
-        /// 正文字号
+        /// 默认文本字号
         static let textFont = UIFont.preferredFont(forTextStyle: .body)
 
-        /// 正文最大行数，避免长文本把组件撑得过高
+        /// 文本最大行数，避免长文本把组件撑得过高
         static let maximumNumberOfLines = 8
     }
 
-    /// 正文
+    /// 文本
     private let textLabel: UILabel = {
         let label = UILabel()
         label.font = Metrics.textFont
@@ -73,24 +73,29 @@ class WSBodyContentView: WSPluginContentView {
     override func update(with dataItem: WSPluginDataItem?) {
         super.update(with: dataItem)
 
-        guard let dataItem = dataItem as? WSBodyDataItem else {
+        guard let dataItem = dataItem as? WSTextDataItem else {
+            textLabel.font = Metrics.textFont
+            textLabel.textAlignment = .left
             textLabel.text = nil
             setNeedsLayout()
             return
         }
 
+        textLabel.font = dataItem.textStyle.font
+        textLabel.textAlignment = dataItem.textAlignment.textAlignment
         textLabel.text = dataItem.text
         setNeedsLayout()
     }
 
     // MARK: - 高度计算
-    /// 正文在给定宽度下所需的高度。
+    /// 文本在给定宽度下所需的高度。
     ///
     /// 与 `layoutSubviews` 使用同一套字体与间距，保证布局给出的高度与实际渲染一致。
-    static func preferredHeight(forWidth width: CGFloat, dataItem: WSBodyDataItem) -> CGFloat {
+    static func preferredHeight(forWidth width: CGFloat, dataItem: WSTextDataItem) -> CGFloat {
         let contentWidth = max(width - Metrics.padding.horizontalLength, 0.0)
-        let textHeight = min(measuredHeight(of: dataItem.text, font: Metrics.textFont, width: contentWidth),
-                             ceil(Metrics.textFont.lineHeight * CGFloat(Metrics.maximumNumberOfLines)))
+        let font = dataItem.textStyle.font
+        let textHeight = min(measuredHeight(of: dataItem.text, font: font, width: contentWidth),
+                             ceil(font.lineHeight * CGFloat(Metrics.maximumNumberOfLines)))
 
         return ceil(Metrics.padding.verticalLength + textHeight)
     }
@@ -111,14 +116,14 @@ class WSBodyContentView: WSPluginContentView {
 
 // MARK: - 高度计算对象
 
-/// 正文组件的高度计算对象。按配置中的正文测量高度
-struct WSBodyHeightCalculator: WSPluginHeightCalculating {
+/// 文本组件的高度计算对象。按配置中的文本测量高度
+struct WSTextHeightCalculator: WSPluginHeightCalculating {
 
     /// 组件配置
-    let configuration: WSBodyConfiguration?
+    let configuration: WSTextConfiguration?
 
     func height(forWidth width: CGFloat) -> CGFloat {
-        return WSBodyContentView.preferredHeight(forWidth: width,
-                                                 dataItem: WSBodyDataItem(configuration: configuration))
+        return WSTextContentView.preferredHeight(forWidth: width,
+                                                 dataItem: WSTextDataItem(configuration: configuration))
     }
 }

@@ -50,9 +50,8 @@
 "Shows recent or selected countdowns in a list" = "以列表展示最近或自选的倒数日";
 "Shows recent or selected countdowns in a grid" = "以网格展示最近或自选的倒数日";
 "Shows recent or selected countdowns in columns" = "以三列展示最近或自选的倒数日";
-"Headline" = "标题";
 "Body" = "正文";
-"Body Text" = "正文";
+"Text" = "文本";
 "Large Title" = "大标题";
 "Headline Style" = "粗体标题";
 "Subheadline" = "副标题";
@@ -64,10 +63,8 @@
 "Dotted" = "点";
 "Content" = "内容";
 "Title" = "标题";
-"Description" = "描述";
 "Flexible" = "自适应";
-"Shows a title and description" = "展示标题和描述";
-"Shows a paragraph of text" = "展示一段正文";
+"Shows a paragraph of text" = "展示一段文本";
 "Shows a divider line" = "展示一条分割线";
 "Default Timer" = "默认计时器";
 "Quickly starts the default timer" = "快速开始默认计时器";

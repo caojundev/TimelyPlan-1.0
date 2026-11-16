@@ -34,8 +34,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     case focus      /// 专注
     case habit      /// 习惯
     case countdown  /// 倒数日
-    case headline   /// 标题
-    case body       /// 正文
+    case text       /// 文本
     case separator  /// 分割线
     case action     /// 动作
 
@@ -58,8 +57,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .focus: return resGetString("Focus")
         case .habit: return resGetString("Habit")
         case .countdown: return resGetString("Countdown")
-        case .headline: return resGetString("Headline")
-        case .body: return resGetString("Body")
+        case .text: return resGetString("Text")
         case .separator: return resGetString("Separator")
         case .action: return resGetString("Action")
         }
@@ -70,7 +68,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         switch self {
         case .todoList, .todoUserListTask, .todoSmartListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoCustomTask:
             return "sideMenu_todo_40"
-        case .headline, .body, .separator, .action:
+        case .text, .separator, .action:
             /// 暂无专属图标，暂时复用工作台图标
             return "sideMenu_workspace_40"
         default:
@@ -90,7 +88,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
             return .todo
         case .todoUserListTask, .todoSmartListTask, .todoTagTask, .todoFilterTask, .todoCustomTask:
             return .todoTask
-        case .headline, .body, .separator:
+        case .text, .separator:
             return .content
         case .myDay, .calendar, .timeline, .quadrants, .goal, .focus, .habit, .countdown, .action:
             return .others
@@ -116,8 +114,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .focus: return WSPluginType.Focus.all
         case .habit: return WSPluginType.Habit.all
         case .countdown: return WSPluginType.Countdown.all
-        case .headline: return WSPluginType.Headline.all
-        case .body: return WSPluginType.Body.all
+        case .text: return WSPluginType.Text.all
         case .separator: return WSPluginType.Separator.all
         case .action: return WSPluginType.Action.all
         }
@@ -128,7 +125,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 模块在组件选择器中的选择方式。默认进入组件画廊，单组件模块可直接添加。
     var pickerStyle: WSPluginModulePickerStyle {
         switch self {
-        case .headline, .body, .separator:
+        case .text, .separator:
             return .directAdd
         default:
             return .gallery
@@ -148,7 +145,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 直接添加后是否立即进入配置界面。默认不进入，由模块自行决定。
     var opensConfigAfterAdd: Bool {
         switch self {
-        case .headline, .body, .action:
+        case .text, .action:
             return true
         default:
             return false
