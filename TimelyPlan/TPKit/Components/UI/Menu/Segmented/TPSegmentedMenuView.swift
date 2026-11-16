@@ -117,7 +117,13 @@ class TPSegmentedMenuView: UIView, TPPageMenuRepresentable {
         CATransaction.commit()
     }
     
+    var preferredInnerRadius: CGFloat?
+    
     var innerRadius: CGFloat {
+        if let preferredInnerRadius = preferredInnerRadius {
+            return preferredInnerRadius
+        }
+        
         let outerRadius = min(cornerRadius, halfHeight)
         var radius = outerRadius - padding.left
         if radius <= 0 {

@@ -2256,6 +2256,9 @@
 		E5CAA96A2D700ABD00A0539C /* todo_task_quadrant_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAA9662D700ABD00A0539C /* todo_task_quadrant_24@3x.png */; };
 		E5CAC2D030AA9C620058CF8B /* arrow_right_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAC2CE30AA9C610058CF8B /* arrow_right_24@3x.png */; };
 		E5CAC2D130AA9C620058CF8B /* arrow_right_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAC2CF30AA9C620058CF8B /* arrow_right_24@2x.png */; };
+		E5CAC2D430AAAB940058CF8B /* WSTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CAC2D330AAAB940058CF8B /* WSTextStyle.swift */; };
+		E5CAC2D630AAAB940058CF8B /* WSTextStyleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CAC2D530AAAB940058CF8B /* WSTextStyleSelectView.swift */; };
+		E5CAC2D830AAAB940058CF8B /* WSTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CAC2D730AAAB940058CF8B /* WSTextAlignment.swift */; };
 		E5CBA0113092000100E35B41 /* WSGoalPlanDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0013092000100E35B41 /* WSGoalPlanDataItem.swift */; };
 		E5CBA0123092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0023092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift */; };
 		E5CBA0133092000100E35B41 /* WSGoalPlanBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0033092000100E35B41 /* WSGoalPlanBindViewController.swift */; };
@@ -5352,6 +5355,9 @@
 		E5CAA9662D700ABD00A0539C /* todo_task_quadrant_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quadrant_24@3x.png"; sourceTree = "<group>"; };
 		E5CAC2CE30AA9C610058CF8B /* arrow_right_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_right_24@3x.png"; sourceTree = "<group>"; };
 		E5CAC2CF30AA9C620058CF8B /* arrow_right_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_right_24@2x.png"; sourceTree = "<group>"; };
+		E5CAC2D330AAAB940058CF8B /* WSTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTextStyle.swift; sourceTree = "<group>"; };
+		E5CAC2D530AAAB940058CF8B /* WSTextStyleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTextStyleSelectView.swift; sourceTree = "<group>"; };
+		E5CAC2D730AAAB940058CF8B /* WSTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTextAlignment.swift; sourceTree = "<group>"; };
 		E5CBA0013092000100E35B41 /* WSGoalPlanDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanDataItem.swift; sourceTree = "<group>"; };
 		E5CBA0023092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanPluginContentInteractor.swift; sourceTree = "<group>"; };
 		E5CBA0033092000100E35B41 /* WSGoalPlanBindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanBindViewController.swift; sourceTree = "<group>"; };
@@ -11599,6 +11605,7 @@
 		E5A50C8D30A357AB009B24D2 /* Text */ = {
 			isa = PBXGroup;
 			children = (
+				E5CAC2D230AAAB0B0058CF8B /* Config */,
 				E5A50C8E30A357C7009B24D2 /* Body */,
 				E50B915F30A3370700FE6914 /* Headline */,
 			);
@@ -14633,6 +14640,16 @@
 				E50179592FD6A09900DC544D /* Select */,
 			);
 			path = Move;
+			sourceTree = "<group>";
+		};
+		E5CAC2D230AAAB0B0058CF8B /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E5CAC2D330AAAB940058CF8B /* WSTextStyle.swift */,
+				E5CAC2D730AAAB940058CF8B /* WSTextAlignment.swift */,
+				E5CAC2D530AAAB940058CF8B /* WSTextStyleSelectView.swift */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		E5CBA0C03092000100E35B41 /* PlanRing */ = {
@@ -19408,6 +19425,9 @@
 				E5FC6BBC2F666F1900D5A5EA /* HabitStatsCalendarWeekSectionController.swift in Sources */,
 				E50D60832F7A360700D5E0A4 /* TodoList+Extensions.swift in Sources */,
 				E5D7D7DD2D43923800EC877A /* FocusScoreCalculator.swift in Sources */,
+				E5CAC2D430AAAB940058CF8B /* WSTextStyle.swift in Sources */,
+				E5CAC2D630AAAB940058CF8B /* WSTextStyleSelectView.swift in Sources */,
+				E5CAC2D830AAAB940058CF8B /* WSTextAlignment.swift in Sources */,
 				E5A625C83089B3CE003EB8BC /* WSPluginEmptyPlaceholderView.swift in Sources */,
 				E5B3BABA3014B00800D908B6 /* MyDayTimelineConfig.swift in Sources */,
 				E55CE36A2D8BCCC20083316E /* TPCollectionDragExchangeReorder.swift in Sources */,

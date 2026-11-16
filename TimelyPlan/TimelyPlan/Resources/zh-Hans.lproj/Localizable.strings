@@ -53,6 +53,10 @@
 "Headline" = "标题";
 "Body" = "正文";
 "Body Text" = "正文";
+"Large Title" = "大标题";
+"Headline Style" = "粗体标题";
+"Subheadline" = "副标题";
+"Caption" = "说明文字";
 "Separator" = "分割线";
 "Solid" = "实线";
 "Dashed" = "虚线";

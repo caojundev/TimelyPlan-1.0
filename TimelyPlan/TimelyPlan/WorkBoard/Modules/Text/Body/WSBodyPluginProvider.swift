@@ -15,6 +15,12 @@ struct WSBodyConfiguration: Codable {
 
     /// 正文文本
     var text: String?
+
+    /// 文本样式
+    var textStyle: WSTextStyle?
+
+    /// 文本对齐方式
+    var textAlignment: WSTextAlignment?
 }
 
 // MARK: - 组件提供者
