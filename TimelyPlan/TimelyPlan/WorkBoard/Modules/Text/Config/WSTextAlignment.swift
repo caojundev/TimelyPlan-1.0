@@ -25,9 +25,15 @@ enum WSTextAlignment: Int, Codable, TPMenuRepresentable {
             return .right
         }
     }
-
-    /// 菜单标题本地化键，顺序与 allCases 一致
-    static func titles() -> [String] {
-        return ["Left", "Center", "Right"]
+    
+    var iconName: String? {
+        switch self {
+        case .left:
+            return "text_alignment_left_24"
+        case .center:
+            return "text_alignment_center_24"
+        case .right:
+            return "text_alignment_right_24"
+        }
     }
 }

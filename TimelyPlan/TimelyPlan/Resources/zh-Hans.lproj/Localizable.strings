@@ -52,9 +52,9 @@
 "Shows recent or selected countdowns in columns" = "以三列展示最近或自选的倒数日";
 "Body" = "正文";
 "Text" = "文本";
-"Large Title" = "大标题";
-"Headline Style" = "粗体标题";
-"Subheadline" = "副标题";
+"Subtitle" = "副标题";
+"Heading" = "小标题";
+"Strong" = "强调";
 "Caption" = "说明文字";
 "Separator" = "分割线";
 "Solid" = "实线";

@@ -109,6 +109,9 @@ class WSTextStyleSelectView: UIView {
 /// 文本样式选项按钮
 class WSTextStyleButton: TPDefaultButton {
 
+    /// 按钮标题统一字号
+    private static let titleFontSize: CGFloat = 14.0
+
     private let selectedTextColor: UIColor = .white
     private let normalTextColor: UIColor = resGetColor(.title).withAlphaComponent(0.3)
 
@@ -118,7 +121,9 @@ class WSTextStyleButton: TPDefaultButton {
         self.style = style
         super.init(frame: .zero)
 
-        self.title = style.title
+        self.title = style.shortTitle
+        self.titleConfig.font = style.isBold ? UIFont.boldSystemFont(ofSize: Self.titleFontSize)
+                                             : UIFont.systemFont(ofSize: Self.titleFontSize)
         self.titleConfig.textColor = normalTextColor
         self.titleConfig.highlightedTextColor = selectedTextColor
         self.titleConfig.selectedTextColor = selectedTextColor

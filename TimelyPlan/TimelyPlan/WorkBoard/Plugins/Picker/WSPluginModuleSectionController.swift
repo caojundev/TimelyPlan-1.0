@@ -27,9 +27,9 @@ struct WSPluginPickerEntry {
         return variant?.title ?? module.displayName
     }
     
-    /// 条目图标
-    var iconName: String? {
-        return variant?.iconName ?? module.iconName
+    /// 条目图标，变体未配置的字段沿用模块图标
+    var icon: WSPluginIcon {
+        return module.icon.merging(variant?.icon)
     }
 }
 
@@ -113,7 +113,7 @@ class WSPluginModuleSectionController: TPCollectionItemSectionController {
         for module in group.availableModules {
             for entry in makeEntries(for: module) {
                 let cellItem = WSPluginModuleCollectionCellItem()
-                cellItem.imageName = entry.iconName
+                cellItem.icon = entry.icon
                 cellItem.title = entry.title
                 /// 数目只在进入画廊的模块上展示，表示可选组件的个数
                 cellItem.count = entry.variant == nil && module.pickerStyle == .gallery ? module.types.count : 0

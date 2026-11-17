@@ -23,7 +23,7 @@ extension WSPluginType {
             let styles: [WSTextStyle] = [.title, .body]
             return styles.map { style in
                 return WSPluginModuleVariant(title: style.title,
-                                             iconName: nil,
+                                             icon: WSPluginIcon(name: style.iconName),
                                              configJSON: WSTextConfiguration(textStyle: style).jsonString())
             }
         }()

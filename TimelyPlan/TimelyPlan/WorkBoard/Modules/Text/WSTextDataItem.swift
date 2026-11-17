@@ -11,7 +11,7 @@ import Foundation
 
 /// 文本组件数据。
 ///
-/// 承载一段文本，未配置或配置为空时使用默认文案。
+/// 承载一段文本
 class WSTextDataItem: NSObject, WSPluginDataItem {
 
     /// 文本内容
@@ -35,7 +35,7 @@ class WSTextDataItem: NSObject, WSPluginDataItem {
     /// 由组件配置生成展示数据。配置为空时使用默认的「文本」
     convenience init(configuration: WSTextConfiguration?) {
         let text = configuration?.text?.whitespacesAndNewlinesTrimmedString ?? ""
-        self.init(text: text.isEmpty ? resGetString("Text") : text,
+        self.init(text: text,
                   textStyle: configuration?.textStyle ?? .body,
                   textAlignment: configuration?.textAlignment ?? .left)
     }

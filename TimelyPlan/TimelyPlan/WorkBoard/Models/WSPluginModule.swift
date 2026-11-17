@@ -64,15 +64,16 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     }
 
     /// 模块图标。同一业务拆分出的模块暂沿用原业务图标，独立图标待设计补齐。
-    var iconName: String? {
+    ///
+    /// 渲染色与背景色未配置时，分别沿用图片原色与单元格默认背景。
+    var icon: WSPluginIcon {
         switch self {
         case .todoList, .todoUserListTask, .todoSmartListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoCustomTask:
-            return "sideMenu_todo_40"
-        case .text, .separator, .action:
-            /// 暂无专属图标，暂时复用工作台图标
-            return "sideMenu_workspace_40"
+            return WSPluginIcon(name: "sideMenu_todo_40")
+        case .text:
+            return .empty
         default:
-            return "sideMenu_\(rawValue)_40"
+            return WSPluginIcon(name: "plugin_\(rawValue)_48")
         }
     }
 
@@ -176,8 +177,8 @@ struct WSPluginModuleVariant {
     /// 行标题
     let title: String
 
-    /// 行图标。为 nil 时沿用模块图标
-    let iconName: String?
+    /// 行图标。为 nil 时沿用模块图标，非 nil 字段覆盖模块图标的对应字段
+    let icon: WSPluginIcon?
 
     /// 添加时写入的组件配置 JSON
     let configJSON: String?

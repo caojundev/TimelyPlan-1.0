@@ -41,9 +41,6 @@
 "By Day" = "Day";
 "By Week" = "Week";
 
-// 工作台正文组件
-"Headline Style" = "Headline";
-
 // 工作台组件工具栏
 "Add Above" = "Add Above";
 "Add Below" = "Add Below";

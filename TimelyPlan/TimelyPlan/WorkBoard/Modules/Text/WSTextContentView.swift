@@ -22,8 +22,8 @@ class WSTextContentView: WSPluginContentView {
         /// 内容与组件边缘的间距
         static let padding = UIEdgeInsets(value: 12.0)
 
-        /// 默认文本字号
-        static let textFont = UIFont.preferredFont(forTextStyle: .body)
+        /// 默认文本字体
+        static let textFont = WSTextStyle.body.font
 
         /// 文本最大行数，避免长文本把组件撑得过高
         static let maximumNumberOfLines = 8
@@ -36,7 +36,6 @@ class WSTextContentView: WSPluginContentView {
         label.textColor = .label
         label.numberOfLines = Metrics.maximumNumberOfLines
         label.lineBreakMode = .byTruncatingTail
-        label.adjustsFontForContentSizeCategory = true
         return label
     }()
 

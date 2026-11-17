@@ -25,30 +25,54 @@ class WSPluginModuleCollectionCellItem: TPCollectionCellItem {
         return config
     }()
     
-    /// 图标内容
-    var imageContent: TPImageContent?
-    
-    /// 图标名称
-    var imageName: String? {
-        get {
-            return imageContent?.name
-        }
-        
-        set {
-            imageContent = .withName(newValue)
+    /// 图标：名称、渲染色、背景色与尺寸统一配置
+    var icon: WSPluginIcon = .empty {
+        didSet {
+            imageContent = .withName(icon.name)
+            imageConfig = icon.imageConfig
+            imageConfig.size = icon.size ?? WSPluginModuleCollectionCellItem.defaultIconSize
         }
     }
+    
+    /// 图标内容
+    var imageContent: TPImageContent?
     
     /// 图标配置
     var imageConfig: TPImageAccessoryConfig = {
         let config = TPImageAccessoryConfig()
-        config.size = .large
+        config.size = WSPluginModuleCollectionCellItem.defaultIconSize
         config.shouldRenderImageWithColor = false
         return config
     }()
     
-    /// 图标右上角展示的数目，为 0 时不展示
+    /// 图标未指定尺寸时使用的默认尺寸
+    private static let defaultIconSize: CGSize = .size(11)
+    
+    /// 组件数目，为 0 时不展示
     var count: Int = 0
+
+    /// 标题与数目组合后的展示文本，数目以弱化样式跟在标题后
+    var displayTitle: TextRepresentable? {
+        guard let title = title else {
+            return nil
+        }
+
+        guard count > 0 else {
+            return title
+        }
+
+        let titleString: ASAttributedString
+        if let attributedText = title as? ASAttributedString {
+            titleString = attributedText
+        } else {
+            let config = titleConfig
+            titleString = "\(title as? String ?? "", .font(config.font), .foreground(config.textColor ?? .label))"
+        }
+
+        let suffix = "•\(count)"
+        let countString: ASAttributedString = "\(suffix, .font(WSPluginModuleCollectionCell.Metrics.countFont), .foreground(UIColor.tertiaryLabel))"
+        return titleString + countString
+    }
     
     override init() {
         super.init()
@@ -58,15 +82,12 @@ class WSPluginModuleCollectionCellItem: TPCollectionCellItem {
 
 // MARK: - 模块网格单元格
 
-/// 模块网格单元格：上方图标方块，下方标题
+/// 模块网格单元格：上方图标圆形，下方标题
 class WSPluginModuleCollectionCell: TPCollectionCell {
     
     enum Metrics {
         
-        /// 图标方块圆角
-        static let cornerRadius = 18.0
-        
-        /// 图标方块边框宽度
+        /// 图标圆形边框宽度
         static let borderWidth = 0.5
         
         /// 标题与图标的间距
@@ -83,41 +104,23 @@ class WSPluginModuleCollectionCell: TPCollectionCell {
             return titleTop + titleHeight
         }
         
-        /// 数目标签与图标方块右上角的间距
-        static let countMargin = 6.0
+        /// 标题后数目的字体
+        static let countFont = UIFont.systemFont(ofSize: 12.0, weight: .semibold)
         
-        /// 数目标签字体
-        static let countFont = UIFont.systemFont(ofSize: 11.0, weight: .semibold)
-        
-        /// 数目标签内边距
-        static let countEdgeInsets = UIEdgeInsets(horizontal: 5.0, vertical: 2.0)
+        /// 图标区域默认背景色
+        static let defaultIconBackgroundColor: UIColor = .secondarySystemGroupedBackground
     }
     
-    /// 图标方块
+    /// 图标圆形
     private lazy var iconContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .secondarySystemGroupedBackground
-        view.layer.cornerRadius = Metrics.cornerRadius
+        view.backgroundColor = Metrics.defaultIconBackgroundColor
         view.layer.borderWidth = Metrics.borderWidth
         return view
     }()
     
     /// 图标
     private let imageView = TPImageView()
-    
-    /// 图标右上角数目
-    private lazy var countLabel: TPLabel = {
-        let label = TPLabel()
-        label.font = Metrics.countFont
-        label.textColor = .secondaryLabel
-        label.textAlignment = .center
-        label.numberOfLines = 1
-        label.edgeInsets = Metrics.countEdgeInsets
-        label.backgroundColor = .tertiarySystemFill
-        label.clipsToBounds = true
-        label.isHidden = true
-        return label
-    }()
     
     /// 标题
     private lazy var titleLabel: TPLabel = {
@@ -126,6 +129,7 @@ class WSPluginModuleCollectionCell: TPCollectionCell {
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.8
+        label.lineBreakMode = .byTruncatingMiddle
         return label
     }()
     
@@ -141,10 +145,9 @@ class WSPluginModuleCollectionCell: TPCollectionCell {
             imageConfig = cellItem.imageConfig
             imageView.update(content: cellItem.imageContent, config: imageConfig)
             titleLabel.updateConfig(cellItem.titleConfig)
-            titleLabel.updateContent(.withText(cellItem.title))
+            titleLabel.updateContent(.withText(cellItem.displayTitle))
+            iconContainerView.backgroundColor = cellItem.icon.backgroundColor ?? Metrics.defaultIconBackgroundColor
             
-            countLabel.text = "\(cellItem.count)"
-            countLabel.isHidden = cellItem.count <= 0
             setNeedsLayout()
         }
     }
@@ -152,7 +155,6 @@ class WSPluginModuleCollectionCell: TPCollectionCell {
     override func setupContentSubviews() {
         super.setupContentSubviews()
         iconContainerView.addSubview(imageView)
-        iconContainerView.addSubview(countLabel)
         contentView.addSubview(iconContainerView)
         contentView.addSubview(titleLabel)
     }
@@ -161,25 +163,30 @@ class WSPluginModuleCollectionCell: TPCollectionCell {
         super.layoutSubviews()
         let layoutFrame = contentView.layoutFrame()
         
-        /// 图标方块为正方形，边长取单元格宽度
+        /// 图标区域为正方形，边长取单元格宽度
         iconContainerView.width = layoutFrame.width
         iconContainerView.height = layoutFrame.width
         iconContainerView.top = layoutFrame.minY
         iconContainerView.left = layoutFrame.minX
+        iconContainerView.layer.cornerRadius = iconContainerView.halfWidth
         iconContainerView.layer.borderColor = UIColor.separator.cgColor
         
         imageView.size = imageConfig.size
         imageView.center = iconContainerView.bounds.center
         
-        /// 数目标签靠图标方块右上角，全圆角
-        countLabel.sizeToFit()
-        countLabel.layer.cornerRadius = countLabel.height / 2.0
-        countLabel.top = Metrics.countMargin
-        countLabel.right = iconContainerView.width - Metrics.countMargin
-        
         titleLabel.width = layoutFrame.width
         titleLabel.height = Metrics.titleHeight
         titleLabel.top = iconContainerView.bottom + Metrics.titleTop
         titleLabel.left = layoutFrame.minX
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else {
+            return
+        }
+        
+        /// 边框色为 CGColor，深浅色切换后需要重新解析
+        setNeedsLayout()
     }
 }

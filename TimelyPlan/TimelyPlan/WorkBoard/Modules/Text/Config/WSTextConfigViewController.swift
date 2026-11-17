@@ -34,6 +34,10 @@ class WSTextConfigViewController: WSPluginConfigViewController {
         self.title = resGetString("Text")
         contentViewController = editingViewController
     }
+    
+    override func handleFirstAppearance() {
+        editingViewController.beginEditing()
+    }
 }
 
 // MARK: - 编辑界面
@@ -76,7 +80,7 @@ class WSTextEditingViewController: UIViewController, UITextViewDelegate {
     private let contentView = UIScrollView()
 
     /// 文本输入框
-    private let textView = UITextView()
+    private let textView = TPTextView()
 
     /// 文本样式选择视图
     private let styleSelectView = WSTextStyleSelectView()
@@ -99,7 +103,7 @@ class WSTextEditingViewController: UIViewController, UITextViewDelegate {
             self.didChangeConfiguration?(self.configuration)
         }
 
-        view.menuItems = WSTextAlignment.segmentedMenuItems(style: .title)
+        view.menuItems = WSTextAlignment.segmentedMenuItems(style: .icon)
         return view
     }()
 
@@ -128,9 +132,9 @@ class WSTextEditingViewController: UIViewController, UITextViewDelegate {
         self.view.backgroundColor = .clear
         self.view.padding = Metrics.padding
         
-        textView.text = configuration.text
         textView.font = selectedTextStyle.font
         textView.textAlignment = selectedTextAlignment.textAlignment
+        textView.text = configuration.text
         textView.textColor = .label
         textView.backgroundColor = .secondarySystemGroupedBackground
         textView.layer.cornerRadius = Metrics.textViewCornerRadius
@@ -190,6 +194,12 @@ class WSTextEditingViewController: UIViewController, UITextViewDelegate {
         contentView.contentSize = CGSize(width: contentWidth, height: alignmentMenuView.bottom)
     }
 
+    // MARK: - Public Methods
+    
+    func beginEditing() {
+        textView.becomeFirstResponder()
+    }
+    
     // MARK: - UITextViewDelegate
     func textViewDidChange(_ textView: UITextView) {
         configuration.text = textView.text
