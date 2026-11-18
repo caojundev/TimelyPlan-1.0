@@ -34,6 +34,7 @@
 "Overlapping %ld" = "重叠%ld个";
 "No All-Day Events" = "无全天事项";
 "No Upcoming Events" = "无临近事项";
+"No Events Today" = "本日无事项";
 "More %ld" = "更多%ld个";
 "Selected Countdown" = "自选倒数日";
 "Select Countdown" = "选择倒数日";

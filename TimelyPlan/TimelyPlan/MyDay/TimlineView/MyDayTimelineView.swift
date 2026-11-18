@@ -13,6 +13,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     /// 习惯记录供应器
     weak var habitRecordProvider: MyDayHabitRecordProvider?
     
+    /// 事项
     weak var eventAddController: EventAddController?
     
     private let eventViewModel = MyDayTimelineViewModel()
@@ -27,11 +28,20 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
         /// 全天区块展开状态保存在 `MyDayState` 中
         self.isAllDayExpanded = MyDayState.shared.isAllDayExpanded
         delegate = self
+        setupPlaceholder()
         setupBindings()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+        /// 占位视图：使用视图模型的加载状态
+    private func setupPlaceholder() {
+        let placeholderProvider = eventViewModel.placeholderProvider
+        placeholderProvider.emptyImage = resGetImage("myDay_80")
+        placeholderProvider.emptyTitle = resGetString("No Events Today")
+        self.placeholderProvider = placeholderProvider
     }
     
     private func setupBindings() {
@@ -43,7 +53,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     private func handleEventsChanged() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.reloadData()
+            self.performUpdate()
         }
     }
     
@@ -79,6 +89,11 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     func loadEvents(on date: Date) {
         eventViewModel.startObserving()
         eventViewModel.loadEvents(on: date)
+        
+        /// 加载状态，更新占位视图
+        updatePlaceholderView()
+        
+        /// 开始更新计时器
         startUpdateTimer()
     }
     
@@ -89,11 +104,12 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
         reloadData()
     }
     
-    // MARK: - TimelineViewDelegate
-    func timelineViewEvents(_ timelineView: TimelineView) -> [MyDayEvent]? {
-        return eventViewModel.events
+    // MARK: - TimelineViewDataSource
+    override func timelineViewEvents() -> [MyDayEvent] {
+        return eventViewModel.events ?? []
     }
     
+    // MARK: - TimelineViewDelegate
     func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent) {
         eventProcessor.clickEvent(event)
     }

@@ -200,7 +200,7 @@ class WSMyDayTimelineView: UIView {
         var visibleEventCount = 0
         for item in fittingItems {
             usedHeight += itemHeight(of: item)
-            if case .event = item {
+            if item is TimelineItem {
                 visibleEventCount += 1
             }
             
@@ -220,12 +220,15 @@ class WSMyDayTimelineView: UIView {
     
     /// 数据项高度
     private func itemHeight(of item: TimelineDataItem) -> CGFloat {
-        switch item {
-        case .event(let eventItem):
-            return WSMyDayTimelineLayoutManager.cellHeight(for: eventItem)
-        case .connection(let connectionItem):
-            return WSMyDayTimelineLayoutManager.connectionHeight(for: connectionItem)
+        if let item = item as? TimelineItem {
+            return WSMyDayTimelineLayoutManager.cellHeight(for: item)
         }
+        
+        if let item = item as? TimelineConnectionItem {
+            return WSMyDayTimelineLayoutManager.connectionHeight(for: item)
+        }
+        
+        return 0.0
     }
     
     /// 依次堆叠数据项视图
@@ -282,19 +285,22 @@ class WSMyDayTimelineView: UIView {
     
     /// 创建数据项视图并绑定数据
     private func makeItemView(for item: TimelineDataItem) -> UIView {
-        switch item {
-        case .event(let eventItem):
+        if let item = item as? TimelineItem {
             let rowView = WSMyDayTimelineEventRowView()
-            rowView.update(with: eventItem)
+            rowView.update(with: item)
             rowView.didSelectHandler = { [weak self] event in
                 self?.didSelectEventHandler?(event)
             }
             return rowView
-        case .connection(let connectionItem):
+        }
+        
+        if let item = item as? TimelineConnectionItem {
             let connectionView = WSMyDayTimelineConnectionView()
-            connectionView.configure(with: connectionItem)
+            connectionView.configure(with: item)
             return connectionView
         }
+        
+        return UIView()
     }
     
     // MARK: - 时间进度

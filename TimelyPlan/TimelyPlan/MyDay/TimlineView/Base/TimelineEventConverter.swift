@@ -12,16 +12,13 @@ struct TimelineAllDayEventConverter {
     static func convert(events: [MyDayEvent]) -> [TimelineDataItem] {
         let allDayEvents = events.filter { $0.isAllDay }
         guard !allDayEvents.isEmpty else { return [] }
-        let orderedEvents = allDayEvents.orderedEvents
-        let dataItems = orderedEvents.map { event -> TimelineDataItem in
-            let item = TimelineItem(event: event,
-                                    type: .point,
-                                    position: .only,
-                                    nodeStyle: .independent)
-            return .event(item)
-        }
         
-        return dataItems
+        return allDayEvents.orderedEvents.map { event -> TimelineDataItem in
+            TimelineItem(event: event,
+                         type: .point,
+                         position: .only,
+                         nodeStyle: .independent)
+        }
     }
 }
 
@@ -254,7 +251,7 @@ struct TimelineTimedEventConverter {
         var result: [TimelineDataItem] = []
         
         for (index, item) in items.enumerated() {
-            result.append(.event(item))
+            result.append(item)
             
             guard index + 1 < items.count else { continue }
             
@@ -282,7 +279,7 @@ struct TimelineTimedEventConverter {
                 bottomColor: nextItem.nodeColor
             )
             
-            result.append(.connection(connection))
+            result.append(connection)
         }
         
         return result

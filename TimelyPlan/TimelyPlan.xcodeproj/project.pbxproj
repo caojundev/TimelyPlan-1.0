@@ -1221,6 +1221,8 @@
 		E55E78032D8ABB09005E3DED /* quadrant_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55E77FD2D8ABB08005E3DED /* quadrant_option_layout_24@2x.png */; };
 		E55E78042D8ABB09005E3DED /* quadrant_option_edit_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55E77FE2D8ABB08005E3DED /* quadrant_option_edit_24@3x.png */; };
 		E55E78052D8ABB09005E3DED /* quadrant_option_showCompleted_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55E77FF2D8ABB09005E3DED /* quadrant_option_showCompleted_24@2x.png */; };
+		E55F6EFF30ADCEE20017491E /* myDay_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55F6EFD30ADCEE10017491E /* myDay_80@2x.png */; };
+		E55F6F0030ADCEE20017491E /* myDay_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55F6EFE30ADCEE20017491E /* myDay_80@3x.png */; };
 		E562D3BA307A8A0B0029441C /* TPDotLoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E562D3B9307A8A0B0029441C /* TPDotLoadingIndicatorView.swift */; };
 		E56341FA2F947C2F00E120BF /* TodoFilterSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56341F92F947C2F00E120BF /* TodoFilterSectionController.swift */; };
 		E56341FC2F947C6400E120BF /* TodoFilterHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56341FB2F947C6400E120BF /* TodoFilterHomeCell.swift */; };
@@ -4349,6 +4351,8 @@
 		E55E77FD2D8ABB08005E3DED /* quadrant_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_layout_24@2x.png"; sourceTree = "<group>"; };
 		E55E77FE2D8ABB08005E3DED /* quadrant_option_edit_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_edit_24@3x.png"; sourceTree = "<group>"; };
 		E55E77FF2D8ABB09005E3DED /* quadrant_option_showCompleted_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_showCompleted_24@2x.png"; sourceTree = "<group>"; };
+		E55F6EFD30ADCEE10017491E /* myDay_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myDay_80@2x.png"; sourceTree = "<group>"; };
+		E55F6EFE30ADCEE20017491E /* myDay_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myDay_80@3x.png"; sourceTree = "<group>"; };
 		E562D3B9307A8A0B0029441C /* TPDotLoadingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDotLoadingIndicatorView.swift; sourceTree = "<group>"; };
 		E56341F92F947C2F00E120BF /* TodoFilterSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterSectionController.swift; sourceTree = "<group>"; };
 		E56341FB2F947C6400E120BF /* TodoFilterHomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterHomeCell.swift; sourceTree = "<group>"; };
@@ -7458,6 +7462,8 @@
 				E5259B0D30184EA500A6D253 /* myDay_repeat_24@3x.png */,
 				E51350A2302B1A8A000E9871 /* myDay_calendar_24@2x.png */,
 				E51350A1302B1A8A000E9871 /* myDay_calendar_24@3x.png */,
+				E55F6EFD30ADCEE10017491E /* myDay_80@2x.png */,
+				E55F6EFE30ADCEE20017491E /* myDay_80@3x.png */,
 				E5259B133018730900A6D253 /* eventAdd */,
 			);
 			path = myDay;
@@ -18016,6 +18022,7 @@
 				E5BB9A8A2D3BEF0D0089667A /* todo_smartlist_completed_24@3x.png in Resources */,
 				E56B94832F8CDB42001E488B /* todo_sort_type_dueDate_24@3x.png in Resources */,
 				E50D94D62D45268B00F57957 /* chart_pie_24@2x.png in Resources */,
+				E55F6EFF30ADCEE20017491E /* myDay_80@2x.png in Resources */,
 				E50D94D52D45268B00F57957 /* chart_bar_24@3x.png in Resources */,
 				E54A0696303C2C71001FF4A1 /* ganttTimeScale_month_24@2x.png in Resources */,
 				E54E633E2F5B1BFD00FCBCAE /* habit_menu_skip_24@3x.png in Resources */,
@@ -18317,6 +18324,7 @@
 				E5BB9AB02D3BEF0D0089667A /* todo_task_step_addNext_24@3x.png in Resources */,
 				E53AC84D2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png in Resources */,
 				E5168BDD2F5481660000A760 /* bell_add_20@3x.png in Resources */,
+				E55F6F0030ADCEE20017491E /* myDay_80@3x.png in Resources */,
 				E5320C2E2FCA87CE001DFE98 /* todo_list_option_manageSection_24@2x.png in Resources */,
 				E5D7D8F32D43933600EC877A /* NegativeCircleFill@2x.png in Resources */,
 				E55A7B8F2D46000E000D224C /* placeholder_noSearchResult_80@2x.png in Resources */,
