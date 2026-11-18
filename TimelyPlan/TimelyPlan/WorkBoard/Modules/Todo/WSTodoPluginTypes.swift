@@ -37,7 +37,7 @@ extension WSPluginType {
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoList, size: size)
+            return WSPluginType(rawValue, module: .todoListGroup, size: size)
         }
     }
 
@@ -111,7 +111,7 @@ extension WSPluginType {
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoTag, size: size)
+            return WSPluginType(rawValue, module: .todoTagGroup, size: size)
         }
     }
 
@@ -185,7 +185,7 @@ extension WSPluginType {
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoFilter, size: size)
+            return WSPluginType(rawValue, module: .todoFilterGroup, size: size)
         }
     }
 

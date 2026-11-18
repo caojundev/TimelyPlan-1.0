@@ -33,6 +33,7 @@ class WSDashboardInteractor {
     
     init(dashboard: WSDashboard) {
         self.dashboard = dashboard
+        self.placeholderProvider.emptyImage = resGetImage("plugin_placeholder_80")
         self.placeholderProvider.emptyTitle = resGetString("No Plugin")
         self.placeholderProvider.state = self.loadingState
         WorkspaceRepository.addUpdater(self, for: [.plugin])

@@ -19,12 +19,13 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     case myDay      /// 我的一天
     case calendar   /// 日历
     
-    case todoList   /// 待办清单
+    case todoListGroup   /// 待办清单组
+    case todoTagGroup    /// 待办标签组
+    case todoFilterGroup /// 待办过滤器组
+    
     case todoUserListTask /// 待办用户清单任务
     case todoSmartListTask /// 待办智能清单任务
-    case todoTag    /// 待办标签
     case todoTagTask /// 待办标签任务
-    case todoFilter /// 待办过滤器
     case todoFilterTask /// 待办过滤器任务
     case todoCustomTask /// 待办自定义任务
     
@@ -43,12 +44,12 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         switch self {
         case .myDay: return resGetString("My Day")
         case .calendar: return resGetString("Calendar")
-        case .todoList: return resGetString("Lists")
+        case .todoListGroup: return resGetString("Lists")
         case .todoUserListTask: return resGetString("List Tasks")
         case .todoSmartListTask: return resGetString("Smart List Tasks")
-        case .todoTag: return resGetString("Tags")
+        case .todoTagGroup: return resGetString("Tags")
         case .todoTagTask: return resGetString("Tag Tasks")
-        case .todoFilter: return resGetString("Filters")
+        case .todoFilterGroup: return resGetString("Filters")
         case .todoFilterTask: return resGetString("Filter Tasks")
         case .todoCustomTask: return resGetString("Custom Tasks")
         case .timeline: return resGetString("Timeline")
@@ -68,8 +69,6 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 渲染色与背景色未配置时，分别沿用图片原色与单元格默认背景。
     var icon: WSPluginIcon {
         switch self {
-        case .todoList, .todoUserListTask, .todoSmartListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoCustomTask:
-            return WSPluginIcon(name: "sideMenu_todo_40")
         case .text:
             return .empty
         default:
@@ -85,8 +84,8 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 所属模块组。选择器按组划分 section，组内按模块逐行展示。
     var group: WSPluginModuleGroup {
         switch self {
-        case .todoList, .todoTag, .todoFilter:
-            return .todo
+        case .todoListGroup, .todoTagGroup, .todoFilterGroup:
+            return .todoGroup
         case .todoUserListTask, .todoSmartListTask, .todoTagTask, .todoFilterTask, .todoCustomTask:
             return .todoTask
         case .text, .separator:
@@ -101,12 +100,12 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         switch self {
         case .myDay: return WSPluginType.MyDay.all
         case .calendar: return WSPluginType.Calendar.all
-        case .todoList: return WSPluginType.TodoList.all
+        case .todoListGroup: return WSPluginType.TodoList.all
         case .todoUserListTask: return WSPluginType.TodoUserListTask.all
         case .todoSmartListTask: return WSPluginType.TodoSmartListTask.all
-        case .todoTag: return WSPluginType.TodoTag.all
+        case .todoTagGroup: return WSPluginType.TodoTag.all
         case .todoTagTask: return WSPluginType.TodoTagTask.all
-        case .todoFilter: return WSPluginType.TodoFilter.all
+        case .todoFilterGroup: return WSPluginType.TodoFilter.all
         case .todoFilterTask: return WSPluginType.TodoFilterTask.all
         case .todoCustomTask: return WSPluginType.TodoCustomTask.all
         case .timeline: return WSPluginType.Timeline.all
@@ -204,16 +203,16 @@ enum WSPluginModulePickerStyle {
 /// 待办按「清单/标签/过滤器」与「任务」拆成两个组，文本与分割线归入 `content`，
 /// 其余模块统一归入 `others`；后续需要单独成组时，新增 case 并把对应模块的 `group` 指过来即可。
 public enum WSPluginModuleGroup: String, CaseIterable {
-    case content   /// 内容
-    case todo      /// 待办
-    case todoTask  /// 待办任务
+    case content    /// 内容
+    case todoGroup  /// 待办
+    case todoTask   /// 待办任务
     case others    /// 其它
 
     /// 组标题
     var title: String {
         switch self {
         case .content: return resGetString("Content")
-        case .todo: return resGetString("Todo")
+        case .todoGroup: return resGetString("Todo Groups")
         case .todoTask: return resGetString("Todo Tasks")
         case .others: return resGetString("Others")
         }

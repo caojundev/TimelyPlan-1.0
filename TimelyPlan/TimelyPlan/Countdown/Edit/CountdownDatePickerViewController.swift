@@ -99,10 +99,9 @@ class CountdownDatePickerViewController: TPTableSectionsViewController {
     lazy var todayButton: TPDefaultButton = {
         let button = TPDefaultButton()
         button.title = resGetString("Today")
+        button.normalBackgroundColor = .primary
         button.titleConfig.font = UIFont.boldSystemFont(ofSize: 15.0)
-        button.titleConfig.textColor = resGetColor(.tint)
-        button.titleConfig.highlightedTextColor = resGetColor(.tint).withAlphaComponent(0.6)
-        button.normalBackgroundColor = resGetColor(.tint).withAlphaComponent(0.12)
+        button.titleConfig.textColor = .white
         button.cornerRadius = todayButtonHeight / 2.0
         button.padding = UIEdgeInsets(horizontal: 16.0)
         button.didClickHandler = { [weak self] in

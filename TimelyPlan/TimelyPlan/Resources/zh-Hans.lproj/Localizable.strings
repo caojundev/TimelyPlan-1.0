@@ -179,6 +179,7 @@
 "My Day" = "我的一天";
 "Todo" = "待办";
 "Todo Tasks" = "待办任务";
+"Todo Groups" = "待办分组";
 "Timeline" = "时间线";
 "Quadrants" = "四象限";
 "Calendar" = "日历";
@@ -374,6 +375,7 @@
 "Focus Timer" = "专注计时器";
 
 ///**********************时间线*********************///
+"No Event" = "无事项";
 "W%ld" = "第%ld周";
 
 "Daily Gantt" = "每日甘特图";

@@ -963,6 +963,12 @@
 		E552FBB22DBD20A40072703F /* CalendarStripMoreTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB12DBD20A40072703F /* CalendarStripMoreTextLayer.swift */; };
 		E552FBB42DBDDCA70072703F /* CalendarMonthWeekBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */; };
 		E552FBB62DBE30630072703F /* CalendarMonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */; };
+		E554308830AD4E04004C4AC1 /* plugin_todoTagTask_48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E554308430AD4E03004C4AC1 /* plugin_todoTagTask_48@2x.png */; };
+		E554308930AD4E04004C4AC1 /* plugin_todoFilterTask_48@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E554308530AD4E03004C4AC1 /* plugin_todoFilterTask_48@3x.png */; };
+		E554308A30AD4E04004C4AC1 /* plugin_todoFilterTask_48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E554308630AD4E04004C4AC1 /* plugin_todoFilterTask_48@2x.png */; };
+		E554308B30AD4E04004C4AC1 /* plugin_todoTagTask_48@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E554308730AD4E04004C4AC1 /* plugin_todoTagTask_48@3x.png */; };
+		E554308F30AD5310004C4AC1 /* plugin_placeholder_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E554308D30AD5310004C4AC1 /* plugin_placeholder_80@3x.png */; };
+		E554309030AD5310004C4AC1 /* plugin_placeholder_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E554308E30AD5310004C4AC1 /* plugin_placeholder_80@2x.png */; };
 		E55528182FB55D230093DD7E /* CalendarEventAlertEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */; };
 		E555281C2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555281A2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png */; };
 		E555281D2FB5C3200093DD7E /* todo_smartlist_inbox_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555281B2FB5C3200093DD7E /* todo_smartlist_inbox_80@2x.png */; };
@@ -2696,6 +2702,18 @@
 		E5DA03B72FA3A3A700A58ACC /* HabitDayPeriodItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA03B62FA3A3A500A58ACC /* HabitDayPeriodItemViewModel.swift */; };
 		E5DA03B92FA3A42F00A58ACC /* HabitWeekPeriodItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA03B82FA3A42F00A58ACC /* HabitWeekPeriodItemViewModel.swift */; };
 		E5DAF27F2D4913F2006CC85A /* TPImageInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DAF27E2D4913F2006CC85A /* TPImageInfoTableCell.swift */; };
+		E5DC6E5F30AC8BA300581B10 /* plugin_todoListGroup_48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E5930AC8BA200581B10 /* plugin_todoListGroup_48@2x.png */; };
+		E5DC6E6030AC8BA300581B10 /* plugin_todoFilterGroup_48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E5A30AC8BA200581B10 /* plugin_todoFilterGroup_48@2x.png */; };
+		E5DC6E6130AC8BA300581B10 /* plugin_todoFilterGroup_48@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E5B30AC8BA200581B10 /* plugin_todoFilterGroup_48@3x.png */; };
+		E5DC6E6230AC8BA300581B10 /* plugin_todoListGroup_48@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E5C30AC8BA200581B10 /* plugin_todoListGroup_48@3x.png */; };
+		E5DC6E6330AC8BA300581B10 /* plugin_todoTagGroup_48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E5D30AC8BA200581B10 /* plugin_todoTagGroup_48@2x.png */; };
+		E5DC6E6430AC8BA300581B10 /* plugin_todoTagGroup_48@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E5E30AC8BA200581B10 /* plugin_todoTagGroup_48@3x.png */; };
+		E5DC6E6B30ACA03200581B10 /* plugin_todoSmartListTask_48@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E6930ACA03100581B10 /* plugin_todoSmartListTask_48@3x.png */; };
+		E5DC6E6C30ACA03200581B10 /* plugin_todoSmartListTask_48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E6A30ACA03200581B10 /* plugin_todoSmartListTask_48@2x.png */; };
+		E5DC6E7230ACA4EC00581B10 /* plugin_todoUserListTask_48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E7130ACA4EC00581B10 /* plugin_todoUserListTask_48@2x.png */; };
+		E5DC6E7430ACA4F500581B10 /* plugin_todoUserListTask_48@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E7330ACA4F500581B10 /* plugin_todoUserListTask_48@3x.png */; };
+		E5DC6E7730ACA56100581B10 /* plugin_todoCustomTask_48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E7530ACA56000581B10 /* plugin_todoCustomTask_48@2x.png */; };
+		E5DC6E7830ACA56100581B10 /* plugin_todoCustomTask_48@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6E7630ACA56000581B10 /* plugin_todoCustomTask_48@3x.png */; };
 		E5DCC4062DC49BA2004DE7A5 /* CalendarTimelineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DCC4052DC49BA2004DE7A5 /* CalendarTimelineLayout.swift */; };
 		E5DE23D8306A088D000BBE3F /* GoalStatsMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE23D7306A088D000BBE3F /* GoalStatsMainViewController.swift */; };
 		E5DE23DA306A4CC8000BBE3F /* FocusStatsCalendarMonthSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE23D9306A4CC7000BBE3F /* FocusStatsCalendarMonthSectionController.swift */; };
@@ -4071,6 +4089,12 @@
 		E552FBB12DBD20A40072703F /* CalendarStripMoreTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStripMoreTextLayer.swift; sourceTree = "<group>"; };
 		E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthWeekBackgroundLayer.swift; sourceTree = "<group>"; };
 		E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthViewController.swift; sourceTree = "<group>"; };
+		E554308430AD4E03004C4AC1 /* plugin_todoTagTask_48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoTagTask_48@2x.png"; sourceTree = "<group>"; };
+		E554308530AD4E03004C4AC1 /* plugin_todoFilterTask_48@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoFilterTask_48@3x.png"; sourceTree = "<group>"; };
+		E554308630AD4E04004C4AC1 /* plugin_todoFilterTask_48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoFilterTask_48@2x.png"; sourceTree = "<group>"; };
+		E554308730AD4E04004C4AC1 /* plugin_todoTagTask_48@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoTagTask_48@3x.png"; sourceTree = "<group>"; };
+		E554308D30AD5310004C4AC1 /* plugin_placeholder_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_placeholder_80@3x.png"; sourceTree = "<group>"; };
+		E554308E30AD5310004C4AC1 /* plugin_placeholder_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_placeholder_80@2x.png"; sourceTree = "<group>"; };
 		E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventAlertEditViewController.swift; sourceTree = "<group>"; };
 		E555281A2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_inbox_80@3x.png"; sourceTree = "<group>"; };
 		E555281B2FB5C3200093DD7E /* todo_smartlist_inbox_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_inbox_80@2x.png"; sourceTree = "<group>"; };
@@ -5821,6 +5845,18 @@
 		E5DA03B62FA3A3A500A58ACC /* HabitDayPeriodItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDayPeriodItemViewModel.swift; sourceTree = "<group>"; };
 		E5DA03B82FA3A42F00A58ACC /* HabitWeekPeriodItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitWeekPeriodItemViewModel.swift; sourceTree = "<group>"; };
 		E5DAF27E2D4913F2006CC85A /* TPImageInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoTableCell.swift; sourceTree = "<group>"; };
+		E5DC6E5930AC8BA200581B10 /* plugin_todoListGroup_48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoListGroup_48@2x.png"; sourceTree = "<group>"; };
+		E5DC6E5A30AC8BA200581B10 /* plugin_todoFilterGroup_48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoFilterGroup_48@2x.png"; sourceTree = "<group>"; };
+		E5DC6E5B30AC8BA200581B10 /* plugin_todoFilterGroup_48@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoFilterGroup_48@3x.png"; sourceTree = "<group>"; };
+		E5DC6E5C30AC8BA200581B10 /* plugin_todoListGroup_48@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoListGroup_48@3x.png"; sourceTree = "<group>"; };
+		E5DC6E5D30AC8BA200581B10 /* plugin_todoTagGroup_48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoTagGroup_48@2x.png"; sourceTree = "<group>"; };
+		E5DC6E5E30AC8BA200581B10 /* plugin_todoTagGroup_48@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoTagGroup_48@3x.png"; sourceTree = "<group>"; };
+		E5DC6E6930ACA03100581B10 /* plugin_todoSmartListTask_48@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoSmartListTask_48@3x.png"; sourceTree = "<group>"; };
+		E5DC6E6A30ACA03200581B10 /* plugin_todoSmartListTask_48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoSmartListTask_48@2x.png"; sourceTree = "<group>"; };
+		E5DC6E7130ACA4EC00581B10 /* plugin_todoUserListTask_48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoUserListTask_48@2x.png"; sourceTree = "<group>"; };
+		E5DC6E7330ACA4F500581B10 /* plugin_todoUserListTask_48@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoUserListTask_48@3x.png"; sourceTree = "<group>"; };
+		E5DC6E7530ACA56000581B10 /* plugin_todoCustomTask_48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoCustomTask_48@2x.png"; sourceTree = "<group>"; };
+		E5DC6E7630ACA56000581B10 /* plugin_todoCustomTask_48@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todoCustomTask_48@3x.png"; sourceTree = "<group>"; };
 		E5DCC4052DC49BA2004DE7A5 /* CalendarTimelineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineLayout.swift; sourceTree = "<group>"; };
 		E5DE23D7306A088D000BBE3F /* GoalStatsMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatsMainViewController.swift; sourceTree = "<group>"; };
 		E5DE23D9306A4CC7000BBE3F /* FocusStatsCalendarMonthSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusStatsCalendarMonthSectionController.swift; sourceTree = "<group>"; };
@@ -9717,6 +9753,15 @@
 				E52EF61B2FB153E6002CF355 /* PageView */,
 			);
 			path = Week;
+			sourceTree = "<group>";
+		};
+		E554308C30AD52FF004C4AC1 /* placeholder */ = {
+			isa = PBXGroup;
+			children = (
+				E554308E30AD5310004C4AC1 /* plugin_placeholder_80@2x.png */,
+				E554308D30AD5310004C4AC1 /* plugin_placeholder_80@3x.png */,
+			);
+			path = placeholder;
 			sourceTree = "<group>";
 		};
 		E55528192FB5C3140093DD7E /* 80 */ = {
@@ -16117,6 +16162,29 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
+		E5DC6E5830AC8BA200581B10 /* todo */ = {
+			isa = PBXGroup;
+			children = (
+				E5DC6E5A30AC8BA200581B10 /* plugin_todoFilterGroup_48@2x.png */,
+				E5DC6E5B30AC8BA200581B10 /* plugin_todoFilterGroup_48@3x.png */,
+				E5DC6E5930AC8BA200581B10 /* plugin_todoListGroup_48@2x.png */,
+				E5DC6E5C30AC8BA200581B10 /* plugin_todoListGroup_48@3x.png */,
+				E5DC6E5D30AC8BA200581B10 /* plugin_todoTagGroup_48@2x.png */,
+				E5DC6E5E30AC8BA200581B10 /* plugin_todoTagGroup_48@3x.png */,
+				E5DC6E7130ACA4EC00581B10 /* plugin_todoUserListTask_48@2x.png */,
+				E5DC6E7330ACA4F500581B10 /* plugin_todoUserListTask_48@3x.png */,
+				E5DC6E6A30ACA03200581B10 /* plugin_todoSmartListTask_48@2x.png */,
+				E5DC6E6930ACA03100581B10 /* plugin_todoSmartListTask_48@3x.png */,
+				E5DC6E7530ACA56000581B10 /* plugin_todoCustomTask_48@2x.png */,
+				E5DC6E7630ACA56000581B10 /* plugin_todoCustomTask_48@3x.png */,
+				E554308630AD4E04004C4AC1 /* plugin_todoFilterTask_48@2x.png */,
+				E554308530AD4E03004C4AC1 /* plugin_todoFilterTask_48@3x.png */,
+				E554308430AD4E03004C4AC1 /* plugin_todoTagTask_48@2x.png */,
+				E554308730AD4E04004C4AC1 /* plugin_todoTagTask_48@3x.png */,
+			);
+			path = todo;
+			sourceTree = "<group>";
+		};
 		E5DC930E2F5D2CC5005180C3 /* indicator */ = {
 			isa = PBXGroup;
 			children = (
@@ -17355,6 +17423,8 @@
 		E5FEC5F430AC082400138DBF /* plugin */ = {
 			isa = PBXGroup;
 			children = (
+				E554308C30AD52FF004C4AC1 /* placeholder */,
+				E5DC6E5830AC8BA200581B10 /* todo */,
 				E5FEC5F530AC082400138DBF /* plugin_title_48@2x.png */,
 				E5FEC5F630AC082400138DBF /* plugin_body_48@2x.png */,
 				E5FEC5F730AC082400138DBF /* plugin_title_48@3x.png */,
@@ -17651,6 +17721,7 @@
 				E5423C4E307D204700B1DB3E /* goal_task_progress_weight_24@3x.png in Resources */,
 				E5259B22301A3CFE00A6D253 /* triangle_up_12@3x.png in Resources */,
 				E50D94DF2D4528E500F57957 /* ellipsis_circle_fill_24@3x.png in Resources */,
+				E5DC6E6130AC8BA300581B10 /* plugin_todoFilterGroup_48@3x.png in Resources */,
 				E5D7D9772D43E05700EC877A /* focus_running_screenAlwaysOnEnabled_24@3x.png in Resources */,
 				E50D02552F55860B00E93977 /* habit_time_morning_24@3x.png in Resources */,
 				E5BBCAD83091A97700E35B41 /* inbox_24@2x.png in Resources */,
@@ -17762,10 +17833,12 @@
 				E5320C2B2FCA87CE001DFE98 /* todo_list_option_importTask_24@3x.png in Resources */,
 				E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */,
 				E56B946A2F8CD822001E488B /* todo_group_type_list_24@2x.png in Resources */,
+				E554308A30AD4E04004C4AC1 /* plugin_todoFilterTask_48@2x.png in Resources */,
 				E5FAA9CF304AA0C800C9CCD8 /* goal_24@2x.png in Resources */,
 				E5259B1A3018732300A6D253 /* myDayEventAdd_todo_24@3x.png in Resources */,
 				E5BB9ADD2D3BEF0D0089667A /* xmark_circle_fill_24@2x.png in Resources */,
 				E5D8339B2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@3x.png in Resources */,
+				E5DC6E7230ACA4EC00581B10 /* plugin_todoUserListTask_48@2x.png in Resources */,
 				E500DE5B2DB09D4500EAEAF7 /* todo_filter_indicator_priority_12@3x.png in Resources */,
 				E555282A2FB5C81E0093DD7E /* todo_smartlist_overdue_80@2x.png in Resources */,
 				E515AD6D2D3CC49800AA9AF2 /* fullscreen_exit_24@3x.png in Resources */,
@@ -17779,6 +17852,7 @@
 				E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */,
 				E55E4BD22F9336170068E032 /* calendar_16_24@3x.png in Resources */,
 				E533529C2FF8C9CC00546986 /* calendar_week_24@3x.png in Resources */,
+				E5DC6E6330AC8BA300581B10 /* plugin_todoTagGroup_48@2x.png in Resources */,
 				E56B94852F8CDB42001E488B /* todo_sort_type_modificationDate_24@2x.png in Resources */,
 				E50D94EF2D452DD700F57957 /* focus_record_timeline_start_24@3x.png in Resources */,
 				E55A7B7A2D45F873000D224C /* timer_next_24@2x.png in Resources */,
@@ -17788,6 +17862,7 @@
 				E5F2BAD22D532316007DDCD4 /* xmark_circle_fill_12@2x.png in Resources */,
 				E50D94CA2D45224500F57957 /* archive_24@3x.png in Resources */,
 				E55897983056D5AE001F8F22 /* sideMenu_countdown_40@2x.png in Resources */,
+				E554308930AD4E04004C4AC1 /* plugin_todoFilterTask_48@3x.png in Resources */,
 				E5BB9A932D3BEF0D0089667A /* todo_smartlist_upcoming_24@2x.png in Resources */,
 				E5FEC60930AC3C4E00138DBF /* plugin_myDay_48@2x.png in Resources */,
 				E526D4072F6D7479005C1DED /* habit_menu_editLog_24@2x.png in Resources */,
@@ -17844,11 +17919,13 @@
 				E55E4BCD2F9336170068E032 /* calendar_10_24@3x.png in Resources */,
 				E526D40F2F6D76EA005C1DED /* habit_report_24@2x.png in Resources */,
 				E5D9D59F3076A17E00479B2E /* calnedar_panelStyle_5_2_twoColumn@2x.png in Resources */,
+				E554308F30AD5310004C4AC1 /* plugin_placeholder_80@3x.png in Resources */,
 				E500DE582DB09D4500EAEAF7 /* todo_filter_indicator_priority_12@2x.png in Resources */,
 				E54155392F48B541000B2972 /* focus_record_showDetail_24@3x.png in Resources */,
 				E563F1DD2FE9184300DF86BB /* setting_abount_32@2x.png in Resources */,
 				E556BCC42F5D6C7000CA20D9 /* habit_indicator_status_failed_16@2x.png in Resources */,
 				E555493D2F75590100C9460D /* focus_timer_custom_24@3x.png in Resources */,
+				E5DC6E7730ACA56100581B10 /* plugin_todoCustomTask_48@2x.png in Resources */,
 				E5FAA9ED304E4B5D00C9CCD8 /* goal_task_completionStatus_24@2x.png in Resources */,
 				E5BB9A812D3BEF0D0089667A /* schedule_reminder_24@2x.png in Resources */,
 				E5BB9ABF2D3BEF0D0089667A /* todo_task_action_undone_24@3x.png in Resources */,
@@ -17882,7 +17959,9 @@
 				E50D94F02D452DD700F57957 /* focus_record_timeline_start_24@2x.png in Resources */,
 				E5BB9A792D3BEF0D0089667A /* todo_home_setting_24@2x.png in Resources */,
 				E5BB9AEE2D3BEF0D0089667A /* keyboard_dismiss_24@2x.png in Resources */,
+				E5DC6E6B30ACA03200581B10 /* plugin_todoSmartListTask_48@3x.png in Resources */,
 				E5D7D9652D43DBE000EC877A /* focus_timer_stopwatch_32@3x.png in Resources */,
+				E5DC6E6430AC8BA300581B10 /* plugin_todoTagGroup_48@3x.png in Resources */,
 				E52A4FDF2F62B9BF009EC01B /* habit_week_day_checkmark_40@3x.png in Resources */,
 				E53ABEC23007C37600EB8632 /* myDay_add_24@3x.png in Resources */,
 				E547C7242F3DA2F00095918C /* sort_order_ascending_24@3x.png in Resources */,
@@ -17932,6 +18011,7 @@
 				E50D94F52D452DD700F57957 /* focus_record_timeline_ended_24@2x.png in Resources */,
 				E5BB9AE32D3BEF0D0089667A /* checkmark_24@3x.png in Resources */,
 				E5FEC5FA30AC082500138DBF /* plugin_body_48@2x.png in Resources */,
+				E5DC6E6030AC8BA300581B10 /* plugin_todoFilterGroup_48@2x.png in Resources */,
 				E54A06B8303DD0DD001FF4A1 /* gantt_backToday_24@2x.png in Resources */,
 				E5BB9A8A2D3BEF0D0089667A /* todo_smartlist_completed_24@3x.png in Resources */,
 				E56B94832F8CDB42001E488B /* todo_sort_type_dueDate_24@3x.png in Resources */,
@@ -17988,6 +18068,7 @@
 				E524C7882F9B6855005CCEBD /* todo_smartlist_myDay_24@2x.png in Resources */,
 				E5BB9A972D3BEF0D0089667A /* todo_list_24@2x.png in Resources */,
 				E5FC6BA52F64EFBC00D5A5EA /* habit_status_completed_36@3x.png in Resources */,
+				E554308830AD4E04004C4AC1 /* plugin_todoTagTask_48@2x.png in Resources */,
 				E5FF4ECA2FEB70B300282416 /* setting_language_32@2x.png in Resources */,
 				E55549402F75590100C9460D /* focus_timer_custom_24@2x.png in Resources */,
 				E515AD7D2D3CF87F00AA9AF2 /* triangle_right_12@3x.png in Resources */,
@@ -18072,6 +18153,7 @@
 				E53632CF2FAF63480095DFEC /* quadrant_IV_60@3x.png in Resources */,
 				E5BB9AC52D3BEF0D0089667A /* todo_task_action_restore_24@3x.png in Resources */,
 				E5BB9AEA2D3BEF0D0089667A /* copy_24@3x.png in Resources */,
+				E5DC6E6230AC8BA300581B10 /* plugin_todoListGroup_48@3x.png in Resources */,
 				E55CE3642D8BC4BB0083316E /* quadrant_circle_II@2x.png in Resources */,
 				E53A15E22D45DF0300474F94 /* archivedList_24@2x.png in Resources */,
 				E55528412FB5D37C0093DD7E /* todo_tag_80@3x.png in Resources */,
@@ -18101,6 +18183,7 @@
 				E5E9F7932FC03FCA00717004 /* todo_step_copyAsMarkdown_24@3x.png in Resources */,
 				E5FEC61E30AC4B3700138DBF /* plugin_habit_48@3x.png in Resources */,
 				E556BCD22F5D746400CA20D9 /* HabitRecordTypeAutoAdd@3x.png in Resources */,
+				E554308B30AD4E04004C4AC1 /* plugin_todoTagTask_48@3x.png in Resources */,
 				E55CE3662D8BC4BB0083316E /* quadrant_circle_I@2x.png in Resources */,
 				E549B18D2F89ECB70014BE85 /* todo_home_expand_18@3x.png in Resources */,
 				E5BB9AE52D3BEF0D0089667A /* checkmark_12@2x.png in Resources */,
@@ -18118,6 +18201,7 @@
 				E5BB9AE92D3BEF0D0089667A /* copy_24@2x.png in Resources */,
 				E522FE343067BAB800C6B581 /* gantt_timeline_24@3x.png in Resources */,
 				E5FAA9CE304AA0C800C9CCD8 /* goal_placeholder_80@2x.png in Resources */,
+				E5DC6E6C30ACA03200581B10 /* plugin_todoSmartListTask_48@2x.png in Resources */,
 				E505D93D2F9A4EBA004469DC /* reorderControl_24@3x.png in Resources */,
 				E586DA772FE2D39F00758ED6 /* placeholder_calendar_80@2x.png in Resources */,
 				E55E78012D8ABB09005E3DED /* quadrant_option_edit_24@2x.png in Resources */,
@@ -18224,6 +18308,7 @@
 				E544106630317F9200E398BE /* todo_task_step_addSubstep_24@2x.png in Resources */,
 				E565BE533072912400E851DB /* setting_unlockPro_32@2x.png in Resources */,
 				E555494C2F7629CA00C9460D /* focus_timer_bind_countdown_32@2x.png in Resources */,
+				E5DC6E7430ACA4F500581B10 /* plugin_todoUserListTask_48@3x.png in Resources */,
 				E55E4BE22F9336170068E032 /* calendar_29_24@3x.png in Resources */,
 				E5B926D82D3FF04A0065FA79 /* arrow_up_24@2x.png in Resources */,
 				E55A7B7D2D45F873000D224C /* timer_pause_24@3x.png in Resources */,
@@ -18336,6 +18421,7 @@
 				E5BB9A9A2D3BEF0D0089667A /* todo_list_layout_list_96@2x.png in Resources */,
 				E5FEC61130AC472300138DBF /* plugin_quadrants_48@3x.png in Resources */,
 				E5CAC2D130AA9C620058CF8B /* arrow_right_24@2x.png in Resources */,
+				E5DC6E7830ACA56100581B10 /* plugin_todoCustomTask_48@3x.png in Resources */,
 				E526D4062F6D7479005C1DED /* habit_menu_editLog_24@3x.png in Resources */,
 				E55E4BE92F9336170068E032 /* calendar_8_24@2x.png in Resources */,
 				E5BB9A9C2D3BEF0D0089667A /* todo_board_24@2x.png in Resources */,
@@ -18407,6 +18493,7 @@
 				E541553A2F48B541000B2972 /* focus_record_showDetail_24@2x.png in Resources */,
 				E51F94093000993300734910 /* calendar_list_24@3x.png in Resources */,
 				E50D94CF2D45248D00F57957 /* gear_24@3x.png in Resources */,
+				E5DC6E5F30AC8BA300581B10 /* plugin_todoListGroup_48@2x.png in Resources */,
 				E5BB9AE72D3BEF0D0089667A /* trash_24@3x.png in Resources */,
 				E563F1CE2FE8E42E00DF86BB /* sideMenu_todo_40@3x.png in Resources */,
 				E500DE592DB09D4500EAEAF7 /* todo_filter_indicator_myDay_12@2x.png in Resources */,
@@ -18424,6 +18511,7 @@
 				E5BB9A822D3BEF0D0089667A /* schedule_repeat_24@2x.png in Resources */,
 				E5CAA9682D700ABD00A0539C /* todo_task_quadrant_fill_24@2x.png in Resources */,
 				E55A7B9D2D463917000D224C /* bell_fill_16@2x.png in Resources */,
+				E554309030AD5310004C4AC1 /* plugin_placeholder_80@2x.png in Resources */,
 				E5C92F4E2FD164FA0051F355 /* todo_section_24@2x.png in Resources */,
 				E5FEC61230AC472300138DBF /* plugin_quadrants_48@2x.png in Resources */,
 				E5BA9A8B3052431C0044106F /* goal_task_action_move_24@3x.png in Resources */,

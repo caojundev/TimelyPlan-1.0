@@ -92,7 +92,13 @@ class MyDayCountdownTimelineCell: TimelineEventCell {
         infoView.subtitle = event.myDayDetail(on: item.startDate)
         
         let timeResult = event.remainingTimeResult(with: item.startDate)
-        valueView.setResult(timeResult)
+        if timeResult.totalDays == 0 {
+            /// 两天相距 0 天，显示 “今天”
+            valueView.title = resGetString("Today")
+        } else {
+            valueView.setResult(timeResult)
+        }
+        
         setNeedsLayout()
     }
     
