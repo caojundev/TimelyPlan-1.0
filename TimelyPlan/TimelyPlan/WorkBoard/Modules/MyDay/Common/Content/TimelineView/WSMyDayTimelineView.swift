@@ -12,7 +12,7 @@ import UIKit
 
 /// 我的一天时间线视图，中、大尺寸组件共用。
 ///
-/// 数据由 `TimelineTimedEventConverter` 转换为事项与连接线，因此事项顺序、
+/// 数据由 `MyDayTimelineTimedEventConverter` 转换为事项与连接线，因此事项顺序、
 /// 实线 / 虚线 / 重叠连接线的样式与当前时间进度都与时间线一致；
 /// 行视图为组件专用的简化版本，不使用时间列，超出可见范围的最后一项由外层裁剪。
 class WSMyDayTimelineView: UIView {
@@ -36,7 +36,7 @@ class WSMyDayTimelineView: UIView {
     private(set) var overflowCount: Int = 0
     
     /// 布局数据项，由 `displayedEvents` 转换而来
-    private var dataItems: [TimelineDataItem] = []
+    private var dataItems: [MyDayTimelineDataItem] = []
     
     /// 已创建的数据项视图
     private var itemViews: [UIView] = []
@@ -194,13 +194,13 @@ class WSMyDayTimelineView: UIView {
         
         /// 先按全部事项推演一次，确定可见高度内可容纳的事项数，该结果不用于布局
         /// 允许最后一个事项跨出可见区域，因此累计高度达到可用高度时才停止
-        let fittingItems = TimelineTimedEventConverter.convert(events: upcomingEvents)
+        let fittingItems = MyDayTimelineTimedEventConverter.convert(events: upcomingEvents)
         let limitHeight = max(bounds.height, 1.0)
         var usedHeight: CGFloat = 0.0
         var visibleEventCount = 0
         for item in fittingItems {
             usedHeight += itemHeight(of: item)
-            if item is TimelineItem {
+            if item is MyDayTimelineItem {
                 visibleEventCount += 1
             }
             
@@ -214,17 +214,17 @@ class WSMyDayTimelineView: UIView {
         overflowCount = upcomingEvents.count - displayedEvents.count
         
         /// 再按实际展示的事项转换一次，使首尾节点的连接线样式与展示范围一致
-        dataItems = TimelineTimedEventConverter.convert(events: displayedEvents)
+        dataItems = MyDayTimelineTimedEventConverter.convert(events: displayedEvents)
         removeItemViews()
     }
     
     /// 数据项高度
-    private func itemHeight(of item: TimelineDataItem) -> CGFloat {
-        if let item = item as? TimelineItem {
+    private func itemHeight(of item: MyDayTimelineDataItem) -> CGFloat {
+        if let item = item as? MyDayTimelineItem {
             return WSMyDayTimelineLayoutManager.cellHeight(for: item)
         }
         
-        if let item = item as? TimelineConnectionItem {
+        if let item = item as? MyDayTimelineConnectionItem {
             return WSMyDayTimelineLayoutManager.connectionHeight(for: item)
         }
         
@@ -284,8 +284,8 @@ class WSMyDayTimelineView: UIView {
     }
     
     /// 创建数据项视图并绑定数据
-    private func makeItemView(for item: TimelineDataItem) -> UIView {
-        if let item = item as? TimelineItem {
+    private func makeItemView(for item: MyDayTimelineDataItem) -> UIView {
+        if let item = item as? MyDayTimelineItem {
             let rowView = WSMyDayTimelineEventRowView()
             rowView.update(with: item)
             rowView.didSelectHandler = { [weak self] event in
@@ -294,7 +294,7 @@ class WSMyDayTimelineView: UIView {
             return rowView
         }
         
-        if let item = item as? TimelineConnectionItem {
+        if let item = item as? MyDayTimelineConnectionItem {
             let connectionView = WSMyDayTimelineConnectionView()
             connectionView.configure(with: item)
             return connectionView
@@ -322,7 +322,7 @@ class WSMyDayTimelineView: UIView {
     /// 更新节点与连接线的当前时间进度
     private func updateTimeProgress() {
         for itemView in itemViews {
-            (itemView as? TimelineProgressUpdatable)?.updateTimeProgress()
+            (itemView as? MyDayTimelineProgressUpdatable)?.updateTimeProgress()
         }
     }
 }

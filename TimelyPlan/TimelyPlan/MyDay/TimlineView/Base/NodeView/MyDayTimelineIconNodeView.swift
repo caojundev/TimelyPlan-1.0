@@ -1,5 +1,5 @@
 //
-//  TimelineIconNodeView.swift
+//  MyDayTimelineIconNodeView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/8/14.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TimelineIconNodeView: TimelineNodeView {
+class MyDayTimelineIconNodeView: MyDayTimelineNodeView {
     
     // MARK: 子视图
     let iconImageView = UIImageView()
@@ -30,9 +30,9 @@ class TimelineIconNodeView: TimelineNodeView {
         super.layoutSubviews()
         iconImageView.frame = CGRect(
             x: 0,
-            y: contentView.centerY - TimelineConfig.iconSize / 2.0,
-            width: TimelineConfig.centerNodeWidth,
-            height: TimelineConfig.iconSize
+            y: contentView.centerY - MyDayTimelineStyle.iconSize / 2.0,
+            width: MyDayTimelineStyle.centerNodeWidth,
+            height: MyDayTimelineStyle.iconSize
         )
     }
 }

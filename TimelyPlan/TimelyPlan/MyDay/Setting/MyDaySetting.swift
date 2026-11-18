@@ -30,7 +30,7 @@ class MyDaySetting {
     var firstWeekday: Weekday
     
     @CloudStored(key: Key.allDayEventsDisplayOption.name, defaultValue: .show3)
-    var allDayEventsDisplayOption: TimelineAllDayEventsDisplayOption
+    var allDayEventsDisplayOption: MyDayTimelineAllDayEventsDisplayOption
     
     @CloudStored(key: Key.showLunar.name, defaultValue: true)
     var showLunar: Bool

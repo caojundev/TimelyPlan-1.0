@@ -1,5 +1,5 @@
 //
-//  TimelineEventConverter.swift
+//  MyDayTimelineEventConverter.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/21.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct TimelineAllDayEventConverter {
+struct MyDayTimelineAllDayEventConverter {
     
-    static func convert(events: [MyDayEvent]) -> [TimelineDataItem] {
+    static func convert(events: [MyDayEvent]) -> [MyDayTimelineDataItem] {
         let allDayEvents = events.filter { $0.isAllDay }
         guard !allDayEvents.isEmpty else { return [] }
         
-        return allDayEvents.orderedEvents.map { event -> TimelineDataItem in
-            TimelineItem(event: event,
+        return allDayEvents.orderedEvents.map { event -> MyDayTimelineDataItem in
+            MyDayTimelineItem(event: event,
                          type: .point,
                          position: .only,
                          nodeStyle: .independent)
@@ -24,14 +24,14 @@ struct TimelineAllDayEventConverter {
 
 // MARK: - 事件转换器
 
-struct TimelineTimedEventConverter {
+struct MyDayTimelineTimedEventConverter {
     
-    static func convert(events: [MyDayEvent]) -> [TimelineDataItem] {
+    static func convert(events: [MyDayEvent]) -> [MyDayTimelineDataItem] {
         let nonAllDayEvents = events.filter { !$0.isAllDay }
         guard !nonAllDayEvents.isEmpty else { return [] }
         
         let nodeStyles = calculateNodeStyles(events: nonAllDayEvents)
-        let timelineItems = nonAllDayEvents.enumerated().map { index, event -> TimelineItem in
+        let timelineItems = nonAllDayEvents.enumerated().map { index, event -> MyDayTimelineItem in
             // 计算位置
             let position = calculatePosition(index: index, totalCount: nonAllDayEvents.count)
             return convertToTimelineItem(event: event, nodeStyle: nodeStyles[index], position: position)
@@ -41,7 +41,7 @@ struct TimelineTimedEventConverter {
     }
     
     /// 根据索引和总数计算位置
-    private static func calculatePosition(index: Int, totalCount: Int) -> TimelineItemPosition {
+    private static func calculatePosition(index: Int, totalCount: Int) -> MyDayTimelineItemPosition {
         switch totalCount {
         case 1:
             return .only
@@ -58,9 +58,9 @@ struct TimelineTimedEventConverter {
 
     // MARK: - 节点样式计算
     
-    private static func calculateNodeStyles(events: [MyDayEvent]) -> [TimeLineNodeStyle] {
+    private static func calculateNodeStyles(events: [MyDayEvent]) -> [MyDayTimelineNodeStyle] {
         let n = events.count
-        var styles: [TimeLineNodeStyle] = Array(repeating: .independent, count: n)
+        var styles: [MyDayTimelineNodeStyle] = Array(repeating: .independent, count: n)
         
         // 首先构建直接重叠关系图
         var directOverlap: [[Bool]] = Array(repeating: Array(repeating: false, count: n), count: n)
@@ -247,8 +247,8 @@ struct TimelineTimedEventConverter {
     
     // MARK: - 连接线插入
     
-    private static func insertConnections(items: [TimelineItem]) -> [TimelineDataItem] {
-        var result: [TimelineDataItem] = []
+    private static func insertConnections(items: [MyDayTimelineItem]) -> [MyDayTimelineDataItem] {
+        var result: [MyDayTimelineDataItem] = []
         
         for (index, item) in items.enumerated() {
             result.append(item)
@@ -270,7 +270,7 @@ struct TimelineTimedEventConverter {
                 timeInterval: timeInterval
             )
             
-            let connection = TimelineConnectionItem(
+            let connection = MyDayTimelineConnectionItem(
                 style: style,
                 height: height,
                 topDate: item.endDate,
@@ -288,11 +288,11 @@ struct TimelineTimedEventConverter {
     // MARK: - 连接样式判断
     
     private static func determineConnectionStyle(
-        from topItem: TimelineItem,
-        to bottomItem: TimelineItem,
-        items: [TimelineItem],
+        from topItem: MyDayTimelineItem,
+        to bottomItem: MyDayTimelineItem,
+        items: [MyDayTimelineItem],
         currentIndex: Int
-    ) -> TimelineConnectionStyle {
+    ) -> MyDayTimelineConnectionStyle {
         // 检查两个事件是否直接重叠
         let topEvent = topItem.event
         let bottomEvent = bottomItem.event
@@ -308,7 +308,7 @@ struct TimelineTimedEventConverter {
         
         // 根据时间间隔判断
         let timeInterval = bottomItem.startDate.timeIntervalSince(topItem.endDate)
-        if timeInterval >= TimelineConfig.dashedThresholdMinutes {
+        if timeInterval >= MyDayTimelineStyle.dashedThresholdMinutes {
             return .dashed
         }
         
@@ -318,25 +318,25 @@ struct TimelineTimedEventConverter {
     // MARK: - 连接线高度计算
     
     private static func calculateConnectionHeight(
-        style: TimelineConnectionStyle,
+        style: MyDayTimelineConnectionStyle,
         timeInterval: TimeInterval
     ) -> CGFloat {
         switch style {
         case .overlapping:
-            return TimelineConfig.overlappingConnectionHeight
+            return MyDayTimelineStyle.overlappingConnectionHeight
             
         case .solid:
             return calculateProportionalHeight(timeInterval: timeInterval)
             
         case .dashed:
-            return TimelineConfig.dashedConnectionHeight
+            return MyDayTimelineStyle.dashedConnectionHeight
         }
     }
     
     private static func calculateProportionalHeight(timeInterval: TimeInterval) -> CGFloat {
-        let threshold = TimelineConfig.dashedThresholdMinutes
-        let minHeight = TimelineConfig.solidConnectionMinHeight
-        let maxHeight = TimelineConfig.solidConnectionMaxHeight
+        let threshold = MyDayTimelineStyle.dashedThresholdMinutes
+        let minHeight = MyDayTimelineStyle.solidConnectionMinHeight
+        let maxHeight = MyDayTimelineStyle.solidConnectionMaxHeight
         let ratio = CGFloat(min(timeInterval, threshold) / threshold)
         return minHeight + (maxHeight - minHeight) * ratio
     }
@@ -344,10 +344,10 @@ struct TimelineTimedEventConverter {
     // MARK: - 事件转换
     
     static func convertToTimelineItem(event: MyDayEvent,
-                                      nodeStyle: TimeLineNodeStyle,
-                                      position: TimelineItemPosition) -> TimelineItem {
+                                      nodeStyle: MyDayTimelineNodeStyle,
+                                      position: MyDayTimelineItemPosition) -> MyDayTimelineItem {
         let type = determineTimelineType(for: event)
-        return TimelineItem(
+        return MyDayTimelineItem(
             event:event,
             type: type,
             position: position,
@@ -355,7 +355,7 @@ struct TimelineTimedEventConverter {
         )
     }
 
-    private static func determineTimelineType(for event: MyDayEvent) -> TimelineItemType {
+    private static func determineTimelineType(for event: MyDayEvent) -> MyDayTimelineItemType {
         let interval = event.endDate.timeIntervalSince(event.startDate)
         let hours = interval / 3600
         

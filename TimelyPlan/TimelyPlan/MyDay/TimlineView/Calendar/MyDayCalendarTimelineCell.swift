@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 import EventKit
 
-class MyDayCalendarTimelineCell: TimelineIconCell {
+class MyDayCalendarTimelineCell: MyDayTimelineIconCell {
 
-    private(set) var calendarItem: TimelineItem?
+    private(set) var calendarItem: MyDayTimelineItem?
 
     private let infoViewHeight = 50.0
     
@@ -39,7 +39,7 @@ class MyDayCalendarTimelineCell: TimelineIconCell {
         return infoViewHeight
     }
     
-    override func configure(with item: TimelineItem) {
+    override func configure(with item: MyDayTimelineItem) {
         super.configure(with: item)
         calendarItem = item
         configureIcon(with: item)
@@ -60,7 +60,7 @@ class MyDayCalendarTimelineCell: TimelineIconCell {
     }
     
     /// 更新图标
-    private func configureIcon(with item: TimelineItem) {
+    private func configureIcon(with item: MyDayTimelineItem) {
         let color: UIColor
         if item.startDate.isFutureDay {
             color = item.nodeColor

@@ -1,5 +1,5 @@
 //
-//  TimelineNodeView.swift
+//  MyDayTimelineNodeView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/21.
@@ -10,18 +10,18 @@ import UIKit
 
 // MARK: - 时间线节点容器组件
 /// 时间线节点视图组件（可复用的节点容器）
-class TimelineNodeView: UIView {
+class MyDayTimelineNodeView: UIView {
     
     private let topLineLayer = CALayer()
     private let bottomLineLayer = CALayer()
     
-    private var style: TimeLineNodeStyle = .independent
+    private var style: MyDayTimelineNodeStyle = .independent
     
-    private var position: TimelineItemPosition = .middle
+    private var position: MyDayTimelineItemPosition = .middle
     
-    var item: TimelineItem?
+    var item: MyDayTimelineItem?
     
-    let contentView = TimelineNodeProgressView()
+    let contentView = MyDayTimelineNodeProgressView()
     
     // MARK: 初始化
     override init(frame: CGRect) {
@@ -46,8 +46,8 @@ class TimelineNodeView: UIView {
         var contentFrame = bounds
         
         // 设置线条的固定位置
-        let lineX = (bounds.width - TimelineConfig.solidLineWidth) / 2.0
-        let lineWidth = TimelineConfig.solidLineWidth
+        let lineX = (bounds.width - MyDayTimelineStyle.solidLineWidth) / 2.0
+        let lineWidth = MyDayTimelineStyle.solidLineWidth
         
         // 上半部分线条（从顶部到中间）
         let topLineFrame = CGRect(x: lineX,
@@ -88,7 +88,7 @@ class TimelineNodeView: UIView {
     }
     
     // MARK: 配置方法
-    func configure(with item: TimelineItem) {
+    func configure(with item: MyDayTimelineItem) {
         self.item = item
         position = item.position
         applyNodeStyle(item.nodeStyle)
@@ -178,11 +178,11 @@ class TimelineNodeView: UIView {
     }
     
     /// 节点底色。默认按日期与事项颜色取值，子类可重写
-    func nodeBackgroundColor(for item: TimelineItem) -> UIColor {
+    func nodeBackgroundColor(for item: MyDayTimelineItem) -> UIColor {
         if item.startDate.isToday {
-            return TimelineConfig.todayNodeBackgroundColor
+            return MyDayTimelineStyle.todayNodeBackgroundColor
         } else if item.startDate.isFutureDay {
-            return TimelineConfig.futureNodeBackgroundColor
+            return MyDayTimelineStyle.futureNodeBackgroundColor
         } else {
             return item.nodeColor
         }
@@ -194,20 +194,20 @@ class TimelineNodeView: UIView {
     }
     
     /// 应用节点样式（圆角配置）
-    private func applyNodeStyle(_ style: TimeLineNodeStyle) {
+    private func applyNodeStyle(_ style: MyDayTimelineNodeStyle) {
         self.style = style
         contentView.layer.maskedCorners = []
         
         switch style {
         case .independent:
-            contentView.layer.cornerRadius = TimelineConfig.centerNodeWidth / 2
+            contentView.layer.cornerRadius = MyDayTimelineStyle.centerNodeWidth / 2
             contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner,
                                                .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         case .connectToPrevious:
-            contentView.layer.cornerRadius = TimelineConfig.centerNodeWidth / 2
+            contentView.layer.cornerRadius = MyDayTimelineStyle.centerNodeWidth / 2
             contentView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         case .connectToNext:
-            contentView.layer.cornerRadius = TimelineConfig.centerNodeWidth / 2
+            contentView.layer.cornerRadius = MyDayTimelineStyle.centerNodeWidth / 2
             contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         case .connectToBoth:
             contentView.layer.cornerRadius = 0
@@ -217,13 +217,13 @@ class TimelineNodeView: UIView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: TimelineConfig.centerNodeWidth, height: size.height)
+        return CGSize(width: MyDayTimelineStyle.centerNodeWidth, height: size.height)
     }
 }
 
-class TimelineNodeProgressView: UIView {
+class MyDayTimelineNodeProgressView: UIView {
     
-    private(set) var item: TimelineItem?
+    private(set) var item: MyDayTimelineItem?
     
     private let gradientLayer = CAGradientLayer()
     
@@ -312,7 +312,7 @@ class TimelineNodeProgressView: UIView {
     
     /// 配置连接线（子类可重写）
     // MARK: 配置方法
-    func configure(with item: TimelineItem) {
+    func configure(with item: MyDayTimelineItem) {
         self.item = item
         setNeedsLayout()
     }

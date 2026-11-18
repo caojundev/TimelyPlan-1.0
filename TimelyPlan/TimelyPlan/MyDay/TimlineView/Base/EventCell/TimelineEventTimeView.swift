@@ -9,15 +9,15 @@ import Foundation
 import UIKit
 
 // MARK: - 时间视图
-class TimelineEventTimeView: UIView {
+class MyDayTimelineEventTimeView: UIView {
     
     var onClickTime: (() -> Void)?
     
     // MARK: 时间标签
     private(set) lazy var startTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = TimelineConfig.timeFont
-        label.textColor = TimelineConfig.timeColor
+        label.font = MyDayTimelineStyle.timeFont
+        label.textColor = MyDayTimelineStyle.timeColor
         label.textAlignment = .center
         label.isUserInteractionEnabled = false
         return label
@@ -25,8 +25,8 @@ class TimelineEventTimeView: UIView {
     
     private(set) lazy var endTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = TimelineConfig.timeFont
-        label.textColor = TimelineConfig.timeColor
+        label.font = MyDayTimelineStyle.timeFont
+        label.textColor = MyDayTimelineStyle.timeColor
         label.textAlignment = .center
         label.isUserInteractionEnabled = false
         return label
@@ -34,7 +34,7 @@ class TimelineEventTimeView: UIView {
     
     private(set) lazy var currentTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = TimelineConfig.timeFont
+        label.font = MyDayTimelineStyle.timeFont
         label.textColor = .primary
         label.textAlignment = .center
         label.isUserInteractionEnabled = false
@@ -51,7 +51,7 @@ class TimelineEventTimeView: UIView {
     }()
     
     // MARK: 数据
-    private var currentItem: TimelineItem?
+    private var currentItem: MyDayTimelineItem?
     private var isAllDayEvent = false
     
     // MARK: 布局常量
@@ -142,7 +142,7 @@ class TimelineEventTimeView: UIView {
     }
     
     /// 配置时间视图
-    func configure(with item: TimelineItem) {
+    func configure(with item: MyDayTimelineItem) {
         currentItem = item
         isAllDayEvent = item.event.isAllDay
         

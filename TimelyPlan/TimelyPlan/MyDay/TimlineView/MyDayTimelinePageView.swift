@@ -42,7 +42,7 @@ class MyDayTimelinePageView: TPDayPageView {
         timelineView.loadEvents(on: cell.date)
     }
     
-    func setAllDayEventsDisplayOption(_ option: TimelineAllDayEventsDisplayOption) {
+    func setAllDayEventsDisplayOption(_ option: MyDayTimelineAllDayEventsDisplayOption) {
         guard let cells = adapter.visibleCells as? [MyDayTimelinePageCell] else {
             return
         }

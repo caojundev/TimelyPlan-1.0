@@ -29,7 +29,7 @@ struct WSMyDayTimelineEventItem: WSPluginDataItem {
 /// 我的一天·时间线的组件数据。
 ///
 /// 保存今天的全部事项，时间线视图内部再过滤出正在进行与将要发生的事项；
-/// 事项行与连接线由 `TimelineTimedEventConverter` 转换为与时间线一致的布局。
+/// 事项行与连接线由 `MyDayTimelineTimedEventConverter` 转换为与时间线一致的布局。
 class WSMyDayTimelineDataItem: NSObject, WSPluginDataItem {
     
     /// 日期

@@ -11,13 +11,13 @@ import UIKit
 // MARK: - 事项行视图
 
 /// 插件时间线的事项行：左侧节点（图标或表情）、右侧时间段、名称与详情
-class WSMyDayTimelineEventRowView: UIView, TimelineProgressUpdatable {
+class WSMyDayTimelineEventRowView: UIView, MyDayTimelineProgressUpdatable {
     
     /// 布局尺寸
     private enum Metrics {
         
         /// 节点列宽度，与连接线一致
-        static let nodeColumnWidth: CGFloat = TimelineConfig.centerNodeWidth
+        static let nodeColumnWidth: CGFloat = MyDayTimelineStyle.centerNodeWidth
         
         /// 节点与内容的间距
         static let nodeContentSpacing: CGFloat = 12.0
@@ -94,7 +94,7 @@ class WSMyDayTimelineEventRowView: UIView, TimelineProgressUpdatable {
     
     // MARK: - 渲染
     /// 更新展示的事项
-    func update(with item: TimelineItem) {
+    func update(with item: MyDayTimelineItem) {
         event = item.event
         nodeView.configure(with: item)
         nodeView.configureIcon(item.event.sourceIcon)
@@ -115,7 +115,7 @@ class WSMyDayTimelineEventRowView: UIView, TimelineProgressUpdatable {
     }
     
     /// 时间段文案：开始时间 - 结束时间(持续时长)
-    private func timeText(for item: TimelineItem) -> String {
+    private func timeText(for item: MyDayTimelineItem) -> String {
         let range = "\(item.startDate.timeString) - \(item.endDate.timeString)"
         let duration = Int(item.endDate.timeIntervalSince(item.startDate))
         guard let durationString = duration.hourMinuteDurationString else {
@@ -125,7 +125,7 @@ class WSMyDayTimelineEventRowView: UIView, TimelineProgressUpdatable {
         return "\(range)(\(durationString))"
     }
     
-    // MARK: - TimelineProgressUpdatable
+    // MARK: - MyDayTimelineProgressUpdatable
     func updateTimeProgress() {
         nodeView.updateTimeProgress()
     }

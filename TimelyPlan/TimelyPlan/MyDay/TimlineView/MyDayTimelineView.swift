@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MyDayTimelineView: TimelineView, TimelineViewDelegate {
+class MyDayTimelineView: MyDayTimelineBaseView, MyDayTimelineBaseViewDelegate {
     
     /// 习惯记录供应器
     weak var habitRecordProvider: MyDayHabitRecordProvider?
@@ -36,7 +36,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-        /// 占位视图：使用视图模型的加载状态
+    /// 占位视图：使用视图模型的加载状态
     private func setupPlaceholder() {
         let placeholderProvider = eventViewModel.placeholderProvider
         placeholderProvider.emptyImage = resGetImage("myDay_80")
@@ -62,7 +62,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
         MyDayState.shared.isAllDayExpanded = isAllDayExpanded
     }
     
-    override func eventCellClass(for item: TimelineItem) -> AnyClass {
+    override func eventCellClass(for item: MyDayTimelineItem) -> AnyClass {
         switch item.event.source {
         case .calendar:
             return MyDayCalendarTimelineCell.self
@@ -79,7 +79,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
         }
     }
     
-    override func configureEventCell(_ cell: TimelineEventCell, with item: TimelineItem) {
+    override func configureEventCell(_ cell: MyDayTimelineEventCell, with item: MyDayTimelineItem) {
         super.configureEventCell(cell, with: item)
         if let cell = cell as? MyDayHabitTimelineCell {
             cell.configure(with: item, recordProvider: habitRecordProvider)
@@ -109,15 +109,15 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
         return eventViewModel.events ?? []
     }
     
-    // MARK: - TimelineViewDelegate
-    func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent) {
+    // MARK: - MyDayTimelineBaseViewDelegate
+    func timelineView(_ timelineView: MyDayTimelineBaseView, didSelectEvent event: MyDayEvent) {
         eventProcessor.clickEvent(event)
     }
 }
 
-extension MyDayTimelineView: TimelineEventCellDelegate {
+extension MyDayTimelineView: MyDayTimelineEventCellDelegate {
     
-    func timelineEventCellDidClickTime(_ cell: TimelineEventCell) {
+    func timelineEventCellDidClickTime(_ cell: MyDayTimelineEventCell) {
         guard let event = cell.currentItem?.event else {
             return
         }
@@ -126,9 +126,9 @@ extension MyDayTimelineView: TimelineEventCellDelegate {
     }
 }
 
-extension MyDayTimelineView: TimelineDashedConnectionCellDelegate {
+extension MyDayTimelineView: MyDayTimelineDashedConnectionCellDelegate {
     
-    func timelineDashedConnectionCellDidClickAdd(_ cell: TimelineDashedConnectionCell) {
+    func timelineDashedConnectionCellDidClickAdd(_ cell: MyDayTimelineDashedConnectionCell) {
         TPImpactFeedback.impactWithSoftStyle()
         let menuController = MyDayEventAddMenuController(addTypes: eventAddTypes)
         menuController.didSelectMenuActionType = { [weak self] type in
@@ -142,12 +142,12 @@ extension MyDayTimelineView: TimelineDashedConnectionCellDelegate {
                                 isCovered: true)
     }
     
-    func timelineDashedConnectionCellDidClickBind(_ cell: TimelineDashedConnectionCell) {
+    func timelineDashedConnectionCellDidClickBind(_ cell: MyDayTimelineDashedConnectionCell) {
         TPImpactFeedback.impactWithSoftStyle()
         selectAddType(.bind, with: cell.item)
     }
     
-    private func selectAddType(_ addType: EventAddType, with connectionItem: TimelineConnectionItem?) {
+    private func selectAddType(_ addType: EventAddType, with connectionItem: MyDayTimelineConnectionItem?) {
         guard let eventAddController = eventAddController else {
             return
         }

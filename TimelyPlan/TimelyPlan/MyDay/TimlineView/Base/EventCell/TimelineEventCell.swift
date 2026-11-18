@@ -8,21 +8,21 @@
 import Foundation
 import UIKit
 
-protocol TimelineEventCellDelegate: AnyObject {
+protocol MyDayTimelineEventCellDelegate: AnyObject {
     /// 点击开始时间
-    func timelineEventCellDidClickTime(_ cell: TimelineEventCell)
+    func timelineEventCellDidClickTime(_ cell: MyDayTimelineEventCell)
 }
 
-extension TimelineEventCellDelegate {
-    func timelineEventCellDidClickTime(_ cell: TimelineEventCell) {}
+extension MyDayTimelineEventCellDelegate {
+    func timelineEventCellDidClickTime(_ cell: MyDayTimelineEventCell) {}
 }
 
-class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
+class MyDayTimelineEventCell: UICollectionViewCell, MyDayTimelineProgressUpdatable {
     
     weak var delegate: AnyObject?
     
-    private lazy var timeView: TimelineEventTimeView = {
-        let view = TimelineEventTimeView()
+    private lazy var timeView: MyDayTimelineEventTimeView = {
+        let view = MyDayTimelineEventTimeView()
         view.onClickTime = { [weak self] in
             self?.clickTime()
         }
@@ -30,24 +30,24 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
         return view
     }()
     
-    var nodeView: TimelineNodeView!
+    var nodeView: MyDayTimelineNodeView!
     
     private lazy var durationLabel: TPLabel = {
         let durationLabel = TPLabel()
         durationLabel.edgeInsets = UIEdgeInsets(horizontal: 6.0, vertical: 2.0)
-        durationLabel.font = TimelineConfig.durationFont
-        durationLabel.textColor = TimelineConfig.durationColor
+        durationLabel.font = MyDayTimelineStyle.durationFont
+        durationLabel.textColor = MyDayTimelineStyle.durationColor
         durationLabel.textAlignment = .center
-        durationLabel.layer.cornerRadius = TimelineConfig.durationCornerRadius
+        durationLabel.layer.cornerRadius = MyDayTimelineStyle.durationCornerRadius
         durationLabel.layer.masksToBounds = true
-        durationLabel.backgroundColor = TimelineConfig.durationBackgroundColor
+        durationLabel.backgroundColor = MyDayTimelineStyle.durationBackgroundColor
         return durationLabel
     }()
 
     // MARK: 事件内容容器（子类在此添加内容）
     let eventContentView = UIView()
     
-    private(set) var currentItem: TimelineItem?
+    private(set) var currentItem: MyDayTimelineItem?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,7 +68,7 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     }
     
     func setupNodeView() {
-        nodeView = TimelineNodeView()
+        nodeView = MyDayTimelineNodeView()
     }
     
     func setupEventContentSubviews() {
@@ -76,7 +76,7 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     }
     
     /// 配置基类公共属性
-    func configure(with item: TimelineItem) {
+    func configure(with item: MyDayTimelineItem) {
         currentItem = item
         nodeView.configure(with: item)
         timeView.configure(with: item)
@@ -100,7 +100,7 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     override func layoutSubviews() {
         super.layoutSubviews()
         let bounds = contentView.bounds
-        let nodeX = TimelineConfig.leftTimeWidth + TimelineConfig.margin + 8
+        let nodeX = MyDayTimelineStyle.leftTimeWidth + MyDayTimelineStyle.margin + 8
 
         timeView.frame = CGRect(
             x: 0.0,
@@ -113,13 +113,13 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
         nodeView.frame = CGRect(
             x: nodeX,
             y: 0,
-            width: TimelineConfig.centerNodeWidth,
+            width: MyDayTimelineStyle.centerNodeWidth,
             height: bounds.height
         )
         
         let eventContentWidth = eventContentWidth()
         let eventContentHeight = eventContentHeight()
-        let eventContentX = bounds.width - TimelineConfig.margin - eventContentWidth
+        let eventContentX = bounds.width - MyDayTimelineStyle.margin - eventContentWidth
         
         let eventContentY: CGFloat
         if !durationLabel.isHidden {
@@ -142,9 +142,9 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     }
     
     func eventContentWidth() -> CGFloat {
-        let centerX = TimelineConfig.leftTimeWidth + TimelineConfig.margin + 8.0
-        let eventContentX = centerX + TimelineConfig.centerNodeWidth + 12.0
-        return bounds.width - eventContentX - TimelineConfig.margin
+        let centerX = MyDayTimelineStyle.leftTimeWidth + MyDayTimelineStyle.margin + 8.0
+        let eventContentX = centerX + MyDayTimelineStyle.centerNodeWidth + 12.0
+        return bounds.width - eventContentX - MyDayTimelineStyle.margin
     }
     
     func eventContentHeight() -> CGFloat {
@@ -153,7 +153,7 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     
     /// 点击开始时间
     @objc func clickTime() {
-        if let delegate = delegate as? TimelineEventCellDelegate {
+        if let delegate = delegate as? MyDayTimelineEventCellDelegate {
             delegate.timelineEventCellDidClickTime(self)
         }
     }
@@ -166,15 +166,15 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
 
 // MARK: - 带图标的简单时间线 Cell
 
-class TimelineIconCell: TimelineEventCell {
+class MyDayTimelineIconCell: MyDayTimelineEventCell {
     
-    let iconNodeView = TimelineIconNodeView()
+    let iconNodeView = MyDayTimelineIconNodeView()
     
     override func setupNodeView() {
         self.nodeView = iconNodeView
     }
     
-    override func configure(with item: TimelineItem) {
+    override func configure(with item: MyDayTimelineItem) {
         super.configure(with: item)
         // 可以在这里添加额外配置
     }

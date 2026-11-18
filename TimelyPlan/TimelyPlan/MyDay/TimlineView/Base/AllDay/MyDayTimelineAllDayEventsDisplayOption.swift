@@ -1,5 +1,5 @@
 //
-//  TimelineAllDayEventsDisplayOption.swift
+//  MyDayTimelineAllDayEventsDisplayOption.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/8/21.
@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - 全天事项显示配置
 
-enum TimelineAllDayEventsDisplayOption: Int, Codable, TPMenuRepresentable {
+enum MyDayTimelineAllDayEventsDisplayOption: Int, Codable, TPMenuRepresentable {
     case show1 = 1
     case show2 = 2
     case show3 = 3
@@ -40,7 +40,7 @@ enum TimelineAllDayEventsDisplayOption: Int, Codable, TPMenuRepresentable {
         }
     }
     
-    static var defaultValue: TimelineAllDayEventsDisplayOption {
+    static var defaultValue: MyDayTimelineAllDayEventsDisplayOption {
         return .show3
     }
 }

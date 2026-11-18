@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-class MyDayHabitTimelineCell: TimelineEventCell {
+class MyDayHabitTimelineCell: MyDayTimelineEventCell {
     
     /// 习惯记录供应器
     weak var recordProvider: MyDayHabitRecordProvider?
     
-    private var habitItem: TimelineItem?
+    private var habitItem: MyDayTimelineItem?
     
     private var habitTask: HabitTask?
     
@@ -65,7 +65,7 @@ class MyDayHabitTimelineCell: TimelineEventCell {
         return infoViewHeight
     }
     
-    func configure(with item: TimelineItem, recordProvider: MyDayHabitRecordProvider?) {
+    func configure(with item: MyDayTimelineItem, recordProvider: MyDayHabitRecordProvider?) {
         configure(with: item)
         configureColor(with: item)
         
@@ -90,7 +90,7 @@ class MyDayHabitTimelineCell: TimelineEventCell {
         }
     }
     
-    func configureColor(with item: TimelineItem) {
+    func configureColor(with item: MyDayTimelineItem) {
         infoView.configureColor(item.nodeColor)
         iconNodeView.progressView.progressLineColor = item.nodeColor.lighterColor
         if item.startDate.isFutureDay {
@@ -345,7 +345,7 @@ class HabitTimelineInfoView: UIView {
     }
 }
 
-class HabitTimelineNodeView: TimelineNodeView {
+class HabitTimelineNodeView: MyDayTimelineNodeView {
 
     let iconSize = CGSize(width: 32.0, height: 32.0)
     

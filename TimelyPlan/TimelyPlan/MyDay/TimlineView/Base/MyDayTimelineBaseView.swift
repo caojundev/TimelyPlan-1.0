@@ -1,5 +1,5 @@
 //
-//  TimelineView.swift
+//  MyDayTimelineView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/21.
@@ -10,24 +10,24 @@ import UIKit
 
 // MARK: - 布局管理器
 
-struct TimelineLayoutManager {
+struct MyDayTimelineLayoutManager {
     
     static let footerHeight: CGFloat = 44.0
     
-    static func cellHeight(for item: TimelineItem) -> CGFloat {
+    static func cellHeight(for item: MyDayTimelineItem) -> CGFloat {
         switch item.type {
-        case .long: return TimelineConfig.longCellHeight
-        case .point: return TimelineConfig.pointCellHeight
-        case .short: return TimelineConfig.shortCellHeight
+        case .long: return MyDayTimelineStyle.longCellHeight
+        case .point: return MyDayTimelineStyle.pointCellHeight
+        case .short: return MyDayTimelineStyle.shortCellHeight
         }
     }
     
-    static func height(for item: TimelineDataItem) -> CGFloat {
-        if let item = item as? TimelineItem {
+    static func height(for item: MyDayTimelineDataItem) -> CGFloat {
+        if let item = item as? MyDayTimelineItem {
             return cellHeight(for: item)
         }
         
-        if let item = item as? TimelineConnectionItem {
+        if let item = item as? MyDayTimelineConnectionItem {
             return item.height
         }
         
@@ -35,31 +35,31 @@ struct TimelineLayoutManager {
     }
 }
 
-// MARK: - TimelineViewDelegate
+// MARK: - MyDayTimelineBaseViewDelegate
 
-protocol TimelineViewDelegate: AnyObject {
-    func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent)
-    func timelineViewWillBeginDragging(_ timelineView: TimelineView)
+protocol MyDayTimelineBaseViewDelegate: AnyObject {
+    func timelineView(_ timelineView: MyDayTimelineBaseView, didSelectEvent event: MyDayEvent)
+    func timelineViewWillBeginDragging(_ timelineView: MyDayTimelineBaseView)
 }
 
-extension TimelineViewDelegate {
-    func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent) {}
-    func timelineViewWillBeginDragging(_ timelineView: TimelineView) {}
+extension MyDayTimelineBaseViewDelegate {
+    func timelineView(_ timelineView: MyDayTimelineBaseView, didSelectEvent event: MyDayEvent) {}
+    func timelineViewWillBeginDragging(_ timelineView: MyDayTimelineBaseView) {}
 }
 
-// MARK: - TimelineView
+// MARK: - MyDayTimelineBaseView
 
-class TimelineView: UIView,
-                    TPCollectionViewAdapterDataSource,
-                    TPCollectionViewAdapterDelegate,
-                    TimelineProgressUpdatable {
+class MyDayTimelineBaseView: UIView,
+                             TPCollectionViewAdapterDataSource,
+                             TPCollectionViewAdapterDelegate,
+                             MyDayTimelineProgressUpdatable {
     
     // MARK: - Properties
     
     /// 集合视图适配器
     let adapter: TPCollectionViewAdapter = TPCollectionViewAdapter()
     
-    weak var delegate: TimelineViewDelegate?
+    weak var delegate: MyDayTimelineBaseViewDelegate?
     
     /// 提供占位视图
     var placeholderProvider: TPPlaceholderProviding? {
@@ -68,12 +68,12 @@ class TimelineView: UIView,
         }
     }
     
-    private(set) var dataSource: TimelineDataSource = TimelineDataSource(events: [])
+    private(set) var dataSource: MyDayTimelineDataSource = MyDayTimelineDataSource(events: [])
     
     private let timerUpdater = TPMinuteUpdater()
     
     /// 全天事项显示配置（可自定义）
-    var allDayEventsDisplayOption: TimelineAllDayEventsDisplayOption = .defaultValue {
+    var allDayEventsDisplayOption: MyDayTimelineAllDayEventsDisplayOption = .defaultValue {
         didSet {
             guard oldValue != allDayEventsDisplayOption else { return }
             reloadAllDaySection()
@@ -164,36 +164,36 @@ class TimelineView: UIView,
         return []
     }
     
-    /// 根据 TimelineConnectionItem 返回对应的连接线 Cell 类（子类可重写）
-    func connectionCellClass(for item: TimelineConnectionItem) -> AnyClass {
+    /// 根据 MyDayTimelineConnectionItem 返回对应的连接线 Cell 类（子类可重写）
+    func connectionCellClass(for item: MyDayTimelineConnectionItem) -> AnyClass {
         switch item.style {
         case .solid:
-            return TimelineSolidConnectionCell.self
+            return MyDayTimelineSolidConnectionCell.self
         case .dashed:
-            return TimelineDashedConnectionCell.self
+            return MyDayTimelineDashedConnectionCell.self
         case .overlapping:
-            return TimelineOverlappingConnectionCell.self
+            return MyDayTimelineOverlappingConnectionCell.self
         }
     }
         
-    /// 根据 TimelineItem 返回对应的 Cell 类（子类必须重写）
-    func eventCellClass(for item: TimelineItem) -> AnyClass {
+    /// 根据 MyDayTimelineItem 返回对应的 Cell 类（子类必须重写）
+    func eventCellClass(for item: MyDayTimelineItem) -> AnyClass {
         fatalError("Subclasses must override eventCellClass(for:)")
     }
     
     /// 配置事件 Cell（子类可重写以进行额外配置）
-    func configureEventCell(_ cell: TimelineEventCell, with item: TimelineItem) {
+    func configureEventCell(_ cell: MyDayTimelineEventCell, with item: MyDayTimelineItem) {
         cell.configure(with: item)
     }
     
     /// 配置连接线 Cell（子类可重写以进行额外配置）
-    func configureConnectionCell(_ cell: TimelineConnectionCell, with item: TimelineConnectionItem) {
+    func configureConnectionCell(_ cell: MyDayTimelineConnectionCell, with item: MyDayTimelineConnectionItem) {
         cell.configure(with: item)
     }
     
-    // MARK: - TimelineProgressUpdatable
+    // MARK: - MyDayTimelineProgressUpdatable
     func updateTimeProgress() {
-        guard let cells = adapter.visibleCells as? [TimelineProgressUpdatable] else {
+        guard let cells = adapter.visibleCells as? [MyDayTimelineProgressUpdatable] else {
             return
         }
         
@@ -204,7 +204,7 @@ class TimelineView: UIView,
     
     private func updateDataSource() {
         let events = timelineViewEvents()
-        dataSource = TimelineDataSource(events: events,
+        dataSource = MyDayTimelineDataSource(events: events,
                                         isAllDayExpanded: isAllDayExpanded,
                                         allDayMaxVisibleCount: allDayEventsDisplayOption.maxVisibleCount)
     }
@@ -247,14 +247,14 @@ class TimelineView: UIView,
 
 // MARK: - TPCollectionViewAdapterDataSource
 
-extension TimelineView {
+extension MyDayTimelineBaseView {
     
     func sectionObjects(for adapter: TPCollectionViewAdapter) -> [ListDiffable]? {
         return dataSource.sections
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
-        guard let section = sectionObject as? TimelineSectionObject else {
+        guard let section = sectionObject as? MyDayTimelineSectionObject else {
             return nil
         }
         
@@ -264,10 +264,10 @@ extension TimelineView {
 
 // MARK: - TPCollectionViewAdapterDelegate
 
-extension TimelineView {
+extension MyDayTimelineBaseView {
     
     func adapter(_ adapter: TPCollectionViewAdapter, didSelectItemAt indexPath: IndexPath) {
-        guard let item = adapter.item(at: indexPath) as? TimelineItem else {
+        guard let item = adapter.item(at: indexPath) as? MyDayTimelineItem else {
             return
         }
         
@@ -275,14 +275,14 @@ extension TimelineView {
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        guard let item = adapter.item(at: indexPath) as? TimelineDataItem else {
+        guard let item = adapter.item(at: indexPath) as? MyDayTimelineDataItem else {
             return nil
         }
         
         switch item {
-        case let item as TimelineItem:
+        case let item as MyDayTimelineItem:
             return eventCellClass(for: item)
-        case let item as TimelineConnectionItem:
+        case let item as MyDayTimelineConnectionItem:
             return connectionCellClass(for: item)
         default:
             return nil
@@ -290,47 +290,47 @@ extension TimelineView {
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        guard let item = adapter.item(at: indexPath) as? TimelineDataItem else {
+        guard let item = adapter.item(at: indexPath) as? MyDayTimelineDataItem else {
             return
         }
         
-        if let cell = cell as? TimelineEventCell, let item = item as? TimelineItem {
+        if let cell = cell as? MyDayTimelineEventCell, let item = item as? MyDayTimelineItem {
             cell.delegate = self
             configureEventCell(cell, with: item)
-        } else if let cell = cell as? TimelineConnectionCell, let item = item as? TimelineConnectionItem {
+        } else if let cell = cell as? MyDayTimelineConnectionCell, let item = item as? MyDayTimelineConnectionItem {
             cell.delegate = self
             configureConnectionCell(cell, with: item)
         }
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let item = adapter.item(at: indexPath) as? TimelineDataItem else {
+        guard let item = adapter.item(at: indexPath) as? MyDayTimelineDataItem else {
             return .zero
         }
         
         return CGSize(width: adapter.collectionViewSize().width,
-                      height: TimelineLayoutManager.height(for: item))
+                      height: MyDayTimelineLayoutManager.height(for: item))
     }
     
     // MARK: - Footer
     
     func adapter(_ adapter: TPCollectionViewAdapter, classForFooterInSection section: Int) -> AnyClass? {
-        guard let object = adapter.object(at: section) as? TimelineSectionObject,
+        guard let object = adapter.object(at: section) as? MyDayTimelineSectionObject,
               object.kind == .allDay else {
             return nil
         }
         
-        return TimelineAllDayFooterView.self
+        return MyDayTimelineAllDayFooterView.self
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForFooterInSection section: Int) -> CGSize {
-        guard let object = adapter.object(at: section) as? TimelineSectionObject,
+        guard let object = adapter.object(at: section) as? MyDayTimelineSectionObject,
               object.shouldShowFooter else {
             return .zero
         }
         
         return CGSize(width: adapter.collectionViewSize().width,
-                      height: TimelineLayoutManager.footerHeight)
+                      height: MyDayTimelineLayoutManager.footerHeight)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeFooter footerView: UICollectionReusableView, inSection section: Int) {
@@ -346,8 +346,8 @@ extension TimelineView {
     }
     
     private func configureFooter(_ footerView: UICollectionReusableView, inSection section: Int) {
-        guard let footerView = footerView as? TimelineAllDayFooterView,
-              let object = adapter.object(at: section) as? TimelineSectionObject else {
+        guard let footerView = footerView as? MyDayTimelineAllDayFooterView,
+              let object = adapter.object(at: section) as? MyDayTimelineSectionObject else {
             return
         }
         
@@ -366,25 +366,25 @@ extension TimelineView {
 
 // MARK: - 数据源
 
-struct TimelineDataSource {
+struct MyDayTimelineDataSource {
     
     /// 全天事项区块
-    let allDaySection: TimelineSectionObject
+    let allDaySection: MyDayTimelineSectionObject
     
     /// 按时间排列的事项区块
-    let timedSection: TimelineSectionObject
+    let timedSection: MyDayTimelineSectionObject
     
     init(events: [MyDayEvent],
          isAllDayExpanded: Bool = false,
          allDayMaxVisibleCount: Int? = nil) {
-        let allDaySection = TimelineSectionObject(kind: .allDay,
-                                                  items: TimelineAllDayEventConverter.convert(events: events))
+        let allDaySection = MyDayTimelineSectionObject(kind: .allDay,
+                                                  items: MyDayTimelineAllDayEventConverter.convert(events: events))
         allDaySection.isExpanded = isAllDayExpanded
         allDaySection.maxVisibleCount = allDayMaxVisibleCount
         self.allDaySection = allDaySection
         
-        self.timedSection = TimelineSectionObject(kind: .timed,
-                                                  items: TimelineTimedEventConverter.convert(events: events))
+        self.timedSection = MyDayTimelineSectionObject(kind: .timed,
+                                                  items: MyDayTimelineTimedEventConverter.convert(events: events))
     }
     
     /// 区块对象数组

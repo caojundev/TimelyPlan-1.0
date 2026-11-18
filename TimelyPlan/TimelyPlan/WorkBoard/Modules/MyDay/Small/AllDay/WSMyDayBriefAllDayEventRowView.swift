@@ -12,7 +12,7 @@ import UIKit
 
 /// 全天事项简略行视图，供小尺寸组件使用。
 ///
-/// 是 `TimelineEventCell` 的简略版：左侧为与时间线节点同色的圆点，
+/// 是 `MyDayTimelineEventCell` 的简略版：左侧为与时间线节点同色的圆点，
 /// 右侧为事项名称，不再展示图标、时间与详情。尺寸由外部决定。
 class WSMyDayBriefAllDayEventRowView: WSMyDayAllDayEventRowBaseView {
     

@@ -10,8 +10,8 @@ import UIKit
 
 // MARK: - 事项节点视图
 
-/// 插件时间线的事项节点：在 `TimelineNodeView` 的节点上叠加图标或表情
-class WSMyDayTimelineNodeView: TimelineNodeView {
+/// 插件时间线的事项节点：在 `MyDayTimelineNodeView` 的节点上叠加图标或表情
+class WSMyDayTimelineNodeView: MyDayTimelineNodeView {
     
     /// 图标尺寸
     private let iconSize = CGSize(width: 20.0, height: 20.0)
@@ -30,7 +30,7 @@ class WSMyDayTimelineNodeView: TimelineNodeView {
     }
     
     /// 节点底色固定使用深色，浅色模式下同样如此
-    override func nodeBackgroundColor(for item: TimelineItem) -> UIColor {
+    override func nodeBackgroundColor(for item: MyDayTimelineItem) -> UIColor {
         return WSMyDayTimelineLayoutManager.trackColor
     }
     

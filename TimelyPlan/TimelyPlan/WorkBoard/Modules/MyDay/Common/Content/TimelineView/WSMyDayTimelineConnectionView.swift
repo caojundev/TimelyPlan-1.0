@@ -10,10 +10,10 @@ import UIKit
 
 // MARK: - 连接线行视图
 
-/// 插件时间线的连接线行，移植自 `TimelineSolidConnectionCell`、
-/// `TimelineDashedConnectionCell` 与 `TimelineOverlappingConnectionCell`，
+/// 插件时间线的连接线行，移植自 `MyDayTimelineSolidConnectionCell`、
+/// `MyDayTimelineDashedConnectionCell` 与 `MyDayTimelineOverlappingConnectionCell`，
 /// 去掉添加 / 绑定按钮，仅保留线条、当前时间进度与重叠渐变。
-class WSMyDayTimelineConnectionView: UIView, TimelineProgressUpdatable {
+class WSMyDayTimelineConnectionView: UIView, MyDayTimelineProgressUpdatable {
     
     /// 背景渐变层，负责连接线的底色
     private let backgroundGradientLayer = CAGradientLayer()
@@ -28,10 +28,10 @@ class WSMyDayTimelineConnectionView: UIView, TimelineProgressUpdatable {
     private let progressShapeLayer = CAShapeLayer()
     
     /// 连接线数据
-    private var item: TimelineConnectionItem?
+    private var item: MyDayTimelineConnectionItem?
     
     /// 连接线样式
-    private var style: TimelineConnectionStyle = .solid
+    private var style: MyDayTimelineConnectionStyle = .solid
     
     /// 上下溢出量，覆盖相邻行因像素取整产生的缝隙
     private let overscan: CGFloat = 1.0
@@ -63,7 +63,7 @@ class WSMyDayTimelineConnectionView: UIView, TimelineProgressUpdatable {
     
     // MARK: - 配置
     /// 配置连接线
-    func configure(with item: TimelineConnectionItem) {
+    func configure(with item: MyDayTimelineConnectionItem) {
         self.item = item
         self.style = item.style
         
@@ -74,13 +74,13 @@ class WSMyDayTimelineConnectionView: UIView, TimelineProgressUpdatable {
         let dashPattern: [NSNumber]?
         switch item.style {
         case .solid:
-            lineWidth = TimelineConfig.solidLineWidth
+            lineWidth = MyDayTimelineStyle.solidLineWidth
             dashPattern = nil
         case .dashed:
-            lineWidth = TimelineConfig.dashedLineWidth
-            dashPattern = TimelineConfig.dashedPattern
+            lineWidth = MyDayTimelineStyle.dashedLineWidth
+            dashPattern = MyDayTimelineStyle.dashedPattern
         case .overlapping:
-            lineWidth = TimelineConfig.overlappingLineWidth
+            lineWidth = MyDayTimelineStyle.overlappingLineWidth
             dashPattern = nil
         }
         
@@ -94,7 +94,7 @@ class WSMyDayTimelineConnectionView: UIView, TimelineProgressUpdatable {
         setNeedsLayout()
     }
     
-    // MARK: - TimelineProgressUpdatable
+    // MARK: - MyDayTimelineProgressUpdatable
     func updateTimeProgress() {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
@@ -122,7 +122,7 @@ class WSMyDayTimelineConnectionView: UIView, TimelineProgressUpdatable {
         backgroundGradientLayer.frame = layerFrame
         progressGradientLayer.frame = layerFrame
         
-        let lineCenterX = TimelineConfig.centerNodeWidth / 2.0
+        let lineCenterX = MyDayTimelineStyle.centerNodeWidth / 2.0
         let path = UIBezierPath()
         path.move(to: CGPoint(x: lineCenterX, y: 0.0))
         path.addLine(to: CGPoint(x: lineCenterX, y: layerFrame.height))
@@ -173,7 +173,7 @@ class WSMyDayTimelineConnectionView: UIView, TimelineProgressUpdatable {
         
         let currentDate = Date()
         let totalHeight = bounds.height
-        let lineCenterX = TimelineConfig.centerNodeWidth / 2.0
+        let lineCenterX = MyDayTimelineStyle.centerNodeWidth / 2.0
         
         let progressEndY: CGFloat
         if currentDate >= item.bottomDate {

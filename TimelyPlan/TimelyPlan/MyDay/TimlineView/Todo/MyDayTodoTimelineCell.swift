@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MyDayTodoTimelineCell: TimelineIconCell {
+class MyDayTodoTimelineCell: MyDayTimelineIconCell {
         
     private let infoViewHeight = 60.0
     
@@ -22,7 +22,7 @@ class MyDayTodoTimelineCell: TimelineIconCell {
         return view
     }()
     
-    private var todoItem: TimelineItem?
+    private var todoItem: MyDayTimelineItem?
     private var todoTask: TodoTask?
     
     override func setupEventContentSubviews() {
@@ -45,7 +45,7 @@ class MyDayTodoTimelineCell: TimelineIconCell {
                                               .list,
                                               .note]
     
-    override func configure(with item: TimelineItem) {
+    override func configure(with item: MyDayTimelineItem) {
         super.configure(with: item)
         self.todoItem = item
         self.todoTask = item.event.sourceItem as? TodoTask
@@ -75,7 +75,7 @@ class MyDayTodoTimelineCell: TimelineIconCell {
     }
     
     /// 更新图标
-    private func configureIcon(with item: TimelineItem, task: TodoTask) {
+    private func configureIcon(with item: MyDayTimelineItem, task: TodoTask) {
         let color: UIColor
         if item.startDate.isFutureDay {
             color = item.nodeColor

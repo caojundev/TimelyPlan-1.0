@@ -287,8 +287,8 @@ class MyDaySettingViewController: BaseSettingViewController {
     
     private func editAllDayEventsDisplay() {
         let displayOption = MyDaySetting.shared.allDayEventsDisplayOption
-        let menuVC = TPMenuPickerViewController<TimelineAllDayEventsDisplayOption>()
-        menuVC.menuItems = TimelineAllDayEventsDisplayOption.allCases
+        let menuVC = TPMenuPickerViewController<MyDayTimelineAllDayEventsDisplayOption>()
+        menuVC.menuItems = MyDayTimelineAllDayEventsDisplayOption.allCases
         menuVC.selectedItem = displayOption
         menuVC.didPickItem = { selectedOption in
             print("Selected: \(selectedOption.title)")

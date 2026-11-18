@@ -304,8 +304,8 @@
 		E5146C8B302DBC91007A8BCB /* TaskTimePlanRegularSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C84302DBC8B007A8BCB /* TaskTimePlanRegularSectionController.swift */; };
 		E5146C8C302DBC91007A8BCB /* TaskTimePlanRegularScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C86302DBC8D007A8BCB /* TaskTimePlanRegularScheduler.swift */; };
 		E5146C8F302DBC91007A8BCB /* TaskTimePlanRegularRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C89302DBC8F007A8BCB /* TaskTimePlanRegularRule.swift */; };
-		E5146C91302F0BF1007A8BCB /* TimelineIconNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C90302F0BF0007A8BCB /* TimelineIconNodeView.swift */; };
-		E5146C9430300D59007A8BCB /* TimelineProgressUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C9330300D58007A8BCB /* TimelineProgressUpdatable.swift */; };
+		E5146C91302F0BF1007A8BCB /* MyDayTimelineIconNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C90302F0BF0007A8BCB /* MyDayTimelineIconNodeView.swift */; };
+		E5146C9430300D59007A8BCB /* MyDayTimelineProgressUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C9330300D58007A8BCB /* MyDayTimelineProgressUpdatable.swift */; };
 		E5146C9730305F54007A8BCB /* todo_task_step_convertToTask_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5146C9530305F53007A8BCB /* todo_task_step_convertToTask_24@2x.png */; };
 		E5146C9830305F54007A8BCB /* todo_task_step_convertToTask_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5146C9630305F53007A8BCB /* todo_task_step_convertToTask_24@3x.png */; };
 		E51501942D477962008B2333 /* TPTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501932D477962008B2333 /* TPTableViewAdapter.swift */; };
@@ -354,13 +354,13 @@
 		E5185057300CACD400112DFC /* MyDayTimelinePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185056300CACD400112DFC /* MyDayTimelinePageView.swift */; };
 		E518505B300E1FD400112DFC /* myDay_overlapping_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5185059300E1FD300112DFC /* myDay_overlapping_12@2x.png */; };
 		E518505C300E1FD400112DFC /* myDay_overlapping_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E518505A300E1FD300112DFC /* myDay_overlapping_12@3x.png */; };
-		E518505F300F0BA500112DFC /* TimelineNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518505E300F0BA500112DFC /* TimelineNodeView.swift */; };
+		E518505F300F0BA500112DFC /* MyDayTimelineNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518505E300F0BA500112DFC /* MyDayTimelineNodeView.swift */; };
 		E5185061300F0C0500112DFC /* TimelineEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185060300F0C0500112DFC /* TimelineEventCell.swift */; };
-		E5185063300F11E100112DFC /* TimelineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185062300F11E100112DFC /* TimelineItem.swift */; };
-		E5185067300F12B100112DFC /* TimelineEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185066300F12B100112DFC /* TimelineEventConverter.swift */; };
-		E5185069300F132200112DFC /* TimelineConnectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185068300F132200112DFC /* TimelineConnectionCell.swift */; };
-		E518506B300F138A00112DFC /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518506A300F138A00112DFC /* TimelineView.swift */; };
-		E518506D300F152300112DFC /* TimelineConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518506C300F152300112DFC /* TimelineConfig.swift */; };
+		E5185063300F11E100112DFC /* MyDayTimelineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185062300F11E100112DFC /* MyDayTimelineItem.swift */; };
+		E5185067300F12B100112DFC /* MyDayTimelineEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185066300F12B100112DFC /* MyDayTimelineEventConverter.swift */; };
+		E5185069300F132200112DFC /* MyDayTimelineConnectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185068300F132200112DFC /* MyDayTimelineConnectionCell.swift */; };
+		E518506B300F138A00112DFC /* MyDayTimelineBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518506A300F138A00112DFC /* MyDayTimelineBaseView.swift */; };
+		E518506D300F152300112DFC /* MyDayTimelineConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518506C300F152300112DFC /* MyDayTimelineConfig.swift */; };
 		E5185070300F5CE800112DFC /* MyDayFocusTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518506F300F5CE800112DFC /* MyDayFocusTimelineCell.swift */; };
 		E5185072300F5D3200112DFC /* MyDayTodoTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185071300F5D3200112DFC /* MyDayTodoTimelineCell.swift */; };
 		E5185077300F6DFD00112DFC /* todo_circle_normal_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5185073300F6DFB00112DFC /* todo_circle_normal_24@3x.png */; };
@@ -425,8 +425,8 @@
 		E51E5F823036BC4500ACF30C /* IAPReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F813036BC4400ACF30C /* IAPReminderView.swift */; };
 		E51E5F853036F0CB00ACF30C /* IAPActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */; };
 		E51E5F89303731F500ACF30C /* TPShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F88303731F500ACF30C /* TPShimmerView.swift */; };
-		E51E5F8B3037FE3C00ACF30C /* TimelineAllDayFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8A3037FE3C00ACF30C /* TimelineAllDayFooterView.swift */; };
-		E51E5F8E3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8D3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift */; };
+		E51E5F8B3037FE3C00ACF30C /* MyDayTimelineAllDayFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8A3037FE3C00ACF30C /* MyDayTimelineAllDayFooterView.swift */; };
+		E51E5F8E3038341F00ACF30C /* MyDayTimelineAllDayEventsDisplayOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8D3038341F00ACF30C /* MyDayTimelineAllDayEventsDisplayOption.swift */; };
 		E51E5F9030384DAF00ACF30C /* TPMenuPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8F30384DAE00ACF30C /* TPMenuPickerViewController.swift */; };
 		E51E5F9230384E7100ACF30C /* TPMenuPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F9130384E7100ACF30C /* TPMenuPickerView.swift */; };
 		E51E5F953038865400ACF30C /* HabitState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F943038865400ACF30C /* HabitState.swift */; };
@@ -3429,8 +3429,8 @@
 		E5146C84302DBC8B007A8BCB /* TaskTimePlanRegularSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlanRegularSectionController.swift; sourceTree = "<group>"; };
 		E5146C86302DBC8D007A8BCB /* TaskTimePlanRegularScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlanRegularScheduler.swift; sourceTree = "<group>"; };
 		E5146C89302DBC8F007A8BCB /* TaskTimePlanRegularRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlanRegularRule.swift; sourceTree = "<group>"; };
-		E5146C90302F0BF0007A8BCB /* TimelineIconNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineIconNodeView.swift; sourceTree = "<group>"; };
-		E5146C9330300D58007A8BCB /* TimelineProgressUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineProgressUpdatable.swift; sourceTree = "<group>"; };
+		E5146C90302F0BF0007A8BCB /* MyDayTimelineIconNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineIconNodeView.swift; sourceTree = "<group>"; };
+		E5146C9330300D58007A8BCB /* MyDayTimelineProgressUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineProgressUpdatable.swift; sourceTree = "<group>"; };
 		E5146C9530305F53007A8BCB /* todo_task_step_convertToTask_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_step_convertToTask_24@2x.png"; sourceTree = "<group>"; };
 		E5146C9630305F53007A8BCB /* todo_task_step_convertToTask_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_step_convertToTask_24@3x.png"; sourceTree = "<group>"; };
 		E51501932D477962008B2333 /* TPTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapter.swift; sourceTree = "<group>"; };
@@ -3482,13 +3482,13 @@
 		E5185056300CACD400112DFC /* MyDayTimelinePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelinePageView.swift; sourceTree = "<group>"; };
 		E5185059300E1FD300112DFC /* myDay_overlapping_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myDay_overlapping_12@2x.png"; sourceTree = "<group>"; };
 		E518505A300E1FD300112DFC /* myDay_overlapping_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myDay_overlapping_12@3x.png"; sourceTree = "<group>"; };
-		E518505E300F0BA500112DFC /* TimelineNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineNodeView.swift; sourceTree = "<group>"; };
+		E518505E300F0BA500112DFC /* MyDayTimelineNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineNodeView.swift; sourceTree = "<group>"; };
 		E5185060300F0C0500112DFC /* TimelineEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineEventCell.swift; sourceTree = "<group>"; };
-		E5185062300F11E100112DFC /* TimelineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineItem.swift; sourceTree = "<group>"; };
-		E5185066300F12B100112DFC /* TimelineEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineEventConverter.swift; sourceTree = "<group>"; };
-		E5185068300F132200112DFC /* TimelineConnectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineConnectionCell.swift; sourceTree = "<group>"; };
-		E518506A300F138A00112DFC /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
-		E518506C300F152300112DFC /* TimelineConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineConfig.swift; sourceTree = "<group>"; };
+		E5185062300F11E100112DFC /* MyDayTimelineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineItem.swift; sourceTree = "<group>"; };
+		E5185066300F12B100112DFC /* MyDayTimelineEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineEventConverter.swift; sourceTree = "<group>"; };
+		E5185068300F132200112DFC /* MyDayTimelineConnectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineConnectionCell.swift; sourceTree = "<group>"; };
+		E518506A300F138A00112DFC /* MyDayTimelineBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineBaseView.swift; sourceTree = "<group>"; };
+		E518506C300F152300112DFC /* MyDayTimelineConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineConfig.swift; sourceTree = "<group>"; };
 		E518506F300F5CE800112DFC /* MyDayFocusTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayFocusTimelineCell.swift; sourceTree = "<group>"; };
 		E5185071300F5D3200112DFC /* MyDayTodoTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTodoTimelineCell.swift; sourceTree = "<group>"; };
 		E5185073300F6DFB00112DFC /* todo_circle_normal_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_circle_normal_24@3x.png"; sourceTree = "<group>"; };
@@ -3553,8 +3553,8 @@
 		E51E5F813036BC4400ACF30C /* IAPReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPReminderView.swift; sourceTree = "<group>"; };
 		E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPActionsView.swift; sourceTree = "<group>"; };
 		E51E5F88303731F500ACF30C /* TPShimmerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPShimmerView.swift; sourceTree = "<group>"; };
-		E51E5F8A3037FE3C00ACF30C /* TimelineAllDayFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineAllDayFooterView.swift; sourceTree = "<group>"; };
-		E51E5F8D3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineAllDayEventsDisplayOption.swift; sourceTree = "<group>"; };
+		E51E5F8A3037FE3C00ACF30C /* MyDayTimelineAllDayFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineAllDayFooterView.swift; sourceTree = "<group>"; };
+		E51E5F8D3038341F00ACF30C /* MyDayTimelineAllDayEventsDisplayOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineAllDayEventsDisplayOption.swift; sourceTree = "<group>"; };
 		E51E5F8F30384DAE00ACF30C /* TPMenuPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMenuPickerViewController.swift; sourceTree = "<group>"; };
 		E51E5F9130384E7100ACF30C /* TPMenuPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMenuPickerView.swift; sourceTree = "<group>"; };
 		E51E5F943038865400ACF30C /* HabitState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitState.swift; sourceTree = "<group>"; };
@@ -7321,8 +7321,8 @@
 		E5146C92302F0C14007A8BCB /* NodeView */ = {
 			isa = PBXGroup;
 			children = (
-				E518505E300F0BA500112DFC /* TimelineNodeView.swift */,
-				E5146C90302F0BF0007A8BCB /* TimelineIconNodeView.swift */,
+				E518505E300F0BA500112DFC /* MyDayTimelineNodeView.swift */,
+				E5146C90302F0BF0007A8BCB /* MyDayTimelineIconNodeView.swift */,
 			);
 			path = NodeView;
 			sourceTree = "<group>";
@@ -7472,14 +7472,14 @@
 		E518505D300F039F00112DFC /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				E518506C300F152300112DFC /* TimelineConfig.swift */,
-				E5185062300F11E100112DFC /* TimelineItem.swift */,
-				E518506A300F138A00112DFC /* TimelineView.swift */,
+				E518506C300F152300112DFC /* MyDayTimelineConfig.swift */,
+				E5185062300F11E100112DFC /* MyDayTimelineItem.swift */,
+				E518506A300F138A00112DFC /* MyDayTimelineBaseView.swift */,
 				E51E5F8C303833C000ACF30C /* AllDay */,
-				E5185066300F12B100112DFC /* TimelineEventConverter.swift */,
+				E5185066300F12B100112DFC /* MyDayTimelineEventConverter.swift */,
 				E54410673031B5F300E398BE /* EventCell */,
-				E5185068300F132200112DFC /* TimelineConnectionCell.swift */,
-				E5146C9330300D58007A8BCB /* TimelineProgressUpdatable.swift */,
+				E5185068300F132200112DFC /* MyDayTimelineConnectionCell.swift */,
+				E5146C9330300D58007A8BCB /* MyDayTimelineProgressUpdatable.swift */,
 				E5146C92302F0C14007A8BCB /* NodeView */,
 			);
 			path = Base;
@@ -7705,8 +7705,8 @@
 		E51E5F8C303833C000ACF30C /* AllDay */ = {
 			isa = PBXGroup;
 			children = (
-				E51E5F8A3037FE3C00ACF30C /* TimelineAllDayFooterView.swift */,
-				E51E5F8D3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift */,
+				E51E5F8A3037FE3C00ACF30C /* MyDayTimelineAllDayFooterView.swift */,
+				E51E5F8D3038341F00ACF30C /* MyDayTimelineAllDayEventsDisplayOption.swift */,
 			);
 			path = AllDay;
 			sourceTree = "<group>";
@@ -18793,7 +18793,7 @@
 				E57CC5AC2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift in Sources */,
 				E5B33D652F80E66E00939C3E /* TaskScheduleEditInfoView.swift in Sources */,
 				E57CC5BA2F7F9E0000ADDBA4 /* TodoListOption.swift in Sources */,
-				E518505F300F0BA500112DFC /* TimelineNodeView.swift in Sources */,
+				E518505F300F0BA500112DFC /* MyDayTimelineNodeView.swift in Sources */,
 				E5B499622FDC2ED800F3A9BD /* TodoTask+Calendar.swift in Sources */,
 				E5BB9E9A2D3BF0C80089667A /* ChartAxisView.swift in Sources */,
 				E50D607B2F7A2EE500D5E0A4 /* TodoConstant.swift in Sources */,
@@ -19020,7 +19020,7 @@
 				E5B3BAB630136BAD00D908B6 /* FocusTimerInfoMenuController.swift in Sources */,
 				E54155642F49A415000B2972 /* FocusRecordListBasicCell.swift in Sources */,
 				E55549432F755FDD00C9460D /* FocusStatsSpecificViewController.swift in Sources */,
-				E5185069300F132200112DFC /* TimelineConnectionCell.swift in Sources */,
+				E5185069300F132200112DFC /* MyDayTimelineConnectionCell.swift in Sources */,
 				E5F155252F83681E00116091 /* TodoGroupSelectingHeaderView.swift in Sources */,
 				E5D7D91E2D43933700EC877A /* FocusStatsHistorySessionSectionController.swift in Sources */,
 				E590CA992F4DD02900E66041 /* FocusState.swift in Sources */,
@@ -19286,7 +19286,7 @@
 				E5BB9B4B2D3BEF920089667A /* Extension.swift in Sources */,
 				E518D6A32FBF2E850045D456 /* TodoTaskStepBulkMenuActionType.swift in Sources */,
 				E5DA03B32FA3348B00A58ACC /* HabitActiveTaskViewModel.swift in Sources */,
-				E518506B300F138A00112DFC /* TimelineView.swift in Sources */,
+				E518506B300F138A00112DFC /* MyDayTimelineBaseView.swift in Sources */,
 				E51FF65F2F5832F0003CA953 /* HabitHomeWeekListCell.swift in Sources */,
 				E5BB9E532D3BF0C70089667A /* TPPreviousNextYearView.swift in Sources */,
 				E5291A9B30620DBA00017150 /* CountdownNotifiableEventProvider.swift in Sources */,
@@ -19607,7 +19607,7 @@
 				E5BB9E422D3BF0C70089667A /* TPStrikethroughTextView.swift in Sources */,
 				E5BB9ED62D3BF0C80089667A /* TPCheckmarkLayer.swift in Sources */,
 				E5BB9B3D2D3BEF920089667A /* UIColor+CIELAB.m in Sources */,
-				E5146C91302F0BF1007A8BCB /* TimelineIconNodeView.swift in Sources */,
+				E5146C91302F0BF1007A8BCB /* MyDayTimelineIconNodeView.swift in Sources */,
 				E50DD7B42D71502C00A85E87 /* TPCalendarSingleWeekCell.swift in Sources */,
 				E51B29032FA77A07006B3352 /* TodoTaskPageCheckCell.swift in Sources */,
 				E5BB9DD62D3BF0C60089667A /* UIResponder+Extension.swift in Sources */,
@@ -19644,7 +19644,7 @@
 				E58F46C72F7B9DCC0046FA96 /* TodoUpdaterOption.swift in Sources */,
 				E55549612F76899B00C9460D /* SearchHighlightable.swift in Sources */,
 				E541DC67305A33CC008BFAE0 /* CountdownRepeatCustomViewController.swift in Sources */,
-				E51E5F8B3037FE3C00ACF30C /* TimelineAllDayFooterView.swift in Sources */,
+				E51E5F8B3037FE3C00ACF30C /* MyDayTimelineAllDayFooterView.swift in Sources */,
 				E53632912FAB73C50095DFEC /* TodoFilterRule+Quadrant.swift in Sources */,
 				E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */,
 				E50D60622F7A186F00D5E0A4 /* TodoListEditViewController.swift in Sources */,
@@ -20060,7 +20060,7 @@
 				E598E9DE30A7367A00E63A53 /* WSActionMediumListPluginProvider.swift in Sources */,
 				E598E9E430A7367A00E63A53 /* WSActionLargeListPluginProvider.swift in Sources */,
 				E598E9E530A7367A00E63A53 /* WSActionLargeGridPluginProvider.swift in Sources */,
-				E5185063300F11E100112DFC /* TimelineItem.swift in Sources */,
+				E5185063300F11E100112DFC /* MyDayTimelineItem.swift in Sources */,
 				E518D6A12FBEC6610045D456 /* DateInterval+Calendar.swift in Sources */,
 				E5BB9F222D3BF2C20089667A /* AppInitializer.swift in Sources */,
 				E5892FEA307926E1009BDE81 /* IAPStorage.swift in Sources */,
@@ -20090,7 +20090,7 @@
 				E54155632F49A415000B2972 /* FocusRecordListDetailCellLayout.swift in Sources */,
 				E5BB9DFF2D3BF0C60089667A /* Array+Date.swift in Sources */,
 				E5D7D8D02D43933600EC877A /* FocusEndScoreCell.swift in Sources */,
-				E5185067300F12B100112DFC /* TimelineEventConverter.swift in Sources */,
+				E5185067300F12B100112DFC /* MyDayTimelineEventConverter.swift in Sources */,
 				E500E3AA2FC7E66D00252011 /* BarRankListChartCell.swift in Sources */,
 				E511E4FE305D29F000292511 /* CountdownDisplayEditSectionController.swift in Sources */,
 				E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */,
@@ -20153,7 +20153,7 @@
 				E57CC5FD2F7FF79F00ADDBA4 /* TodoEditProgress.swift in Sources */,
 				E5D7D8FA2D43933600EC877A /* OpenCircleAdjustSlider.swift in Sources */,
 				E56A7BF12FFE8A290068410D /* TPGrabberView.swift in Sources */,
-				E5146C9430300D59007A8BCB /* TimelineProgressUpdatable.swift in Sources */,
+				E5146C9430300D59007A8BCB /* MyDayTimelineProgressUpdatable.swift in Sources */,
 				E5D7D8D82D43933600EC877A /* FocusFlipClockViewController.swift in Sources */,
 				E57CC5DB2F7FCED300ADDBA4 /* TodoTaskQuickAddEditView.swift in Sources */,
 				E5087EB03042C7D400DCD85C /* GanttEventProcessor.swift in Sources */,
@@ -20610,7 +20610,7 @@
 				E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */,
 				E5B33D3C2F80B15E00939C3E /* TodoBaseListSelectViewController.swift in Sources */,
 				E5C92F5A2FD273570051F355 /* TodoTaskSectionSelectViewController.swift in Sources */,
-				E51E5F8E3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift in Sources */,
+				E51E5F8E3038341F00ACF30C /* MyDayTimelineAllDayEventsDisplayOption.swift in Sources */,
 				E5FF4EDC2FED150C00282416 /* TodoTask+LocalNotifiable.swift in Sources */,
 				E5BB9EF32D3BF0C80089667A /* TPPageMenuRepresentable.swift in Sources */,
 				E5BB9EFA2D3BF0C80089667A /* TPSlideTransitioningDelegate.swift in Sources */,
@@ -20642,7 +20642,7 @@
 				E5BB9E1F2D3BF0C70089667A /* NSPersistentStore+Setup.swift in Sources */,
 				E50D5FEA2F7A0F5100D5E0A4 /* TodoRepository.swift in Sources */,
 				E5BB9B3B2D3BEF920089667A /* IGListIndexPathResult.m in Sources */,
-				E518506D300F152300112DFC /* TimelineConfig.swift in Sources */,
+				E518506D300F152300112DFC /* MyDayTimelineConfig.swift in Sources */,
 				E5BB9F0D2D3BF0C90089667A /* TPBaseMenuController.swift in Sources */,
 				E5B2BC852F6E356A00DC1721 /* HabitRecordListCell.swift in Sources */,
 				E555492D2F74D2AC00C9460D /* FocusQuickStartTypeView.swift in Sources */,

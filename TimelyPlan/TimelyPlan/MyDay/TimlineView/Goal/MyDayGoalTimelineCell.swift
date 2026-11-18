@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MyDayGoalTimelineCell: TimelineIconCell {
+class MyDayGoalTimelineCell: MyDayTimelineIconCell {
     
     private let infoViewHeight = 60.0
     
@@ -37,7 +37,7 @@ class MyDayGoalTimelineCell: TimelineIconCell {
         return infoViewHeight
     }
     
-    override func configure(with item: TimelineItem) {
+    override func configure(with item: MyDayTimelineItem) {
         super.configure(with: item)
         self.goalTask = item.event.sourceItem as? GoalTask
         
@@ -60,7 +60,7 @@ class MyDayGoalTimelineCell: TimelineIconCell {
     }
     
     /// 更新图标
-    private func configureIcon(with item: TimelineItem, task: GoalTask) {
+    private func configureIcon(with item: MyDayTimelineItem, task: GoalTask) {
         let color: UIColor
         if item.startDate.isFutureDay {
             color = item.nodeColor

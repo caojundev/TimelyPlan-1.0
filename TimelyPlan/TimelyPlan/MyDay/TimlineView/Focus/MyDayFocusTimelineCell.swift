@@ -8,15 +8,15 @@
 import Foundation
 import UIKit
 
-protocol MyDayFocusTimelineCellDelegate: TimelineEventCellDelegate {
+protocol MyDayFocusTimelineCellDelegate: MyDayTimelineEventCellDelegate {
     
     /// 点击开始专注
     func myDayFocusTimelineCellDidClickStart(_ cell: MyDayFocusTimelineCell)
 }
 
-class MyDayFocusTimelineCell: TimelineIconCell {
+class MyDayFocusTimelineCell: MyDayTimelineIconCell {
 
-    private(set) var focusItem: TimelineItem?
+    private(set) var focusItem: MyDayTimelineItem?
     
     /// 开始按钮
     lazy var startButton: TPDefaultButton = {
@@ -57,7 +57,7 @@ class MyDayFocusTimelineCell: TimelineIconCell {
         return infoViewHeight
     }
     
-    override func configure(with item: TimelineItem) {
+    override func configure(with item: MyDayTimelineItem) {
         super.configure(with: item)
         self.focusItem = item
         startButton.isHidden = item.startDate.isFutureDay
@@ -77,7 +77,7 @@ class MyDayFocusTimelineCell: TimelineIconCell {
     }
     
     /// 更新图标
-    private func configureIcon(with item: TimelineItem, timer: FocusTimer) {
+    private func configureIcon(with item: MyDayTimelineItem, timer: FocusTimer) {
         let color: UIColor
         if item.startDate.isFutureDay {
             color = item.nodeColor

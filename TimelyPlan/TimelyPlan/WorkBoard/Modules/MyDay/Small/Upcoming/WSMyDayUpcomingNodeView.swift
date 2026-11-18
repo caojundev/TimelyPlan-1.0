@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - 事项节点视图
 
-/// 临近事项的节点视图，参照 `TimelineNodeView` 的节点绘制方式。
+/// 临近事项的节点视图，参照 `MyDayTimelineNodeView` 的节点绘制方式。
 ///
 /// 竖向胶囊以时间线今日节点的暗色为底色，中间展示事项来源图标；
 /// 事件颜色按当前时间进度自顶部覆盖，进度末端渐隐过渡到暗色底色。
@@ -40,7 +40,7 @@ class WSMyDayUpcomingNodeView: UIView {
         
         clipsToBounds = true
         /// 底色与时间线今日节点一致
-        backgroundColor = TimelineConfig.todayNodeBackgroundColor
+        backgroundColor = MyDayTimelineStyle.todayNodeBackgroundColor
         
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)

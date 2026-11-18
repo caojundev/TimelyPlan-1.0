@@ -12,8 +12,8 @@ import UIKit
 
 /// 插件时间线的布局尺寸。
 ///
-/// 组件高度有限，事项行与连接线高度都在 `TimelineLayoutManager` 的基础上缩小，
-/// 连接样式与顺序仍由 `TimelineTimedEventConverter` 决定。
+/// 组件高度有限，事项行与连接线高度都在 `MyDayTimelineLayoutManager` 的基础上缩小，
+/// 连接样式与顺序仍由 `MyDayTimelineTimedEventConverter` 决定。
 struct WSMyDayTimelineLayoutManager {
     
     /// 节点与连接线的底色
@@ -22,7 +22,7 @@ struct WSMyDayTimelineLayoutManager {
     static let trackColor = Color(0x262626)
     
     /// 事项行高度
-    static func cellHeight(for item: TimelineItem) -> CGFloat {
+    static func cellHeight(for item: MyDayTimelineItem) -> CGFloat {
         switch item.type {
         case .point:
             return 56.0
@@ -34,7 +34,7 @@ struct WSMyDayTimelineLayoutManager {
     }
     
     /// 连接线行高度：按原高度等比缩小，并保证最小高度
-    static func connectionHeight(for item: TimelineConnectionItem) -> CGFloat {
+    static func connectionHeight(for item: MyDayTimelineConnectionItem) -> CGFloat {
         return clampedValue(item.height * 0.4, 12.0, 24.0)
     }
 }

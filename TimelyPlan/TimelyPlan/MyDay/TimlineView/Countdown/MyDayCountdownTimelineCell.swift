@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class MyDayCountdownTimelineCell: TimelineEventCell {
+class MyDayCountdownTimelineCell: MyDayTimelineEventCell {
     
-    private var countdownItem: TimelineItem?
+    private var countdownItem: MyDayTimelineItem?
     
     private let iconNodeView = CountdownTimelineNodeView()
     
@@ -76,7 +76,7 @@ class MyDayCountdownTimelineCell: TimelineEventCell {
         return infoViewHeight
     }
     
-    override func configure(with item: TimelineItem) {
+    override func configure(with item: MyDayTimelineItem) {
         super.configure(with: item)
         countdownItem = item
         
@@ -103,13 +103,13 @@ class MyDayCountdownTimelineCell: TimelineEventCell {
     }
     
     /// 更新节点（展示表情）
-    private func configureNode(with item: TimelineItem, event: CountdownEvent) {
+    private func configureNode(with item: MyDayTimelineItem, event: CountdownEvent) {
         iconNodeView.configure(icon: TPIcon(text: event.emoji ?? event.type.emoji))
     }
 }
 
 /// 倒数日事项时间线节点（展示表情，类似 HabitTimelineNodeView）
-class CountdownTimelineNodeView: TimelineNodeView {
+class CountdownTimelineNodeView: MyDayTimelineNodeView {
     
     let iconSize = CGSize(width: 32.0, height: 32.0)
     

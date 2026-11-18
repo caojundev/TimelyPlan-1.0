@@ -1,5 +1,5 @@
 //
-//  TimelineAllDayFooterView.swift
+//  MyDayTimelineAllDayFooterView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/8/21.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TimelineAllDayFooterView: UICollectionReusableView {
+class MyDayTimelineAllDayFooterView: UICollectionReusableView {
     
     var onToggleTapped: (() -> Void)?
     

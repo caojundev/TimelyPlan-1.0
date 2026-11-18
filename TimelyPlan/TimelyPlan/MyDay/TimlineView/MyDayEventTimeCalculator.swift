@@ -128,7 +128,7 @@ class MyDayEventTimeCalculator {
     }
     
     /// 批量计算多个连接条目的建议时间
-    func calculateSuggestedTimes(connections: [TimelineConnectionItem]) -> [SuggestedEventTime?] {
+    func calculateSuggestedTimes(connections: [MyDayTimelineConnectionItem]) -> [SuggestedEventTime?] {
         return connections.map { connection in
             calculateSuggestedTime(topDate: connection.topDate, bottomDate: connection.bottomDate)
         }

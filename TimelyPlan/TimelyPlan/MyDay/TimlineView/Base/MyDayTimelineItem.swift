@@ -1,5 +1,5 @@
 //
-//  TimelineItem.swift
+//  MyDayTimelineItem.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/21.
@@ -10,34 +10,34 @@ import UIKit
 
 // MARK: - 数据模型
 
-enum TimeLineNodeStyle {
+enum MyDayTimelineNodeStyle {
     case independent
     case connectToPrevious
     case connectToNext
     case connectToBoth
 }
 
-enum TimelineItemPosition {
+enum MyDayTimelineItemPosition {
     case first      // 第一个节点
     case middle     // 中间节点
     case last       // 最后一个节点
     case only       // 唯一节点（只有一个事件时）
 }
 
-enum TimelineItemType: Equatable {
+enum MyDayTimelineItemType: Equatable {
     case point
     case short
     case long
 }
 
-enum TimelineConnectionStyle {
+enum MyDayTimelineConnectionStyle {
     case solid
     case dashed
     case overlapping
 }
 
 /// 时间线区块
-enum TimelineSection: Int {
+enum MyDayTimelineSection: Int {
     case allDay = 0
     case timed
 }
@@ -46,7 +46,7 @@ enum TimelineSection: Int {
 
 /// 时间线条目基类
 /// - Note: 需遵循 `ListDiffable` 协议，供 `TPCollectionViewAdapter` 做差异计算
-class TimelineDataItem: NSObject {
+class MyDayTimelineDataItem: NSObject {
     
     /// 唯一标识
     let identifier: String
@@ -63,7 +63,7 @@ class TimelineDataItem: NSObject {
     }
     
     override func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? TimelineDataItem else { return false }
+        guard let other = object as? MyDayTimelineDataItem else { return false }
         if self === other { return true }
         return identifier == other.identifier
     }
@@ -81,17 +81,17 @@ class TimelineDataItem: NSObject {
 
 // MARK: - 事件条目
 
-class TimelineItem: TimelineDataItem {
+class MyDayTimelineItem: MyDayTimelineDataItem {
     
     let event: MyDayEvent
-    let type: TimelineItemType
-    let position: TimelineItemPosition
-    let nodeStyle: TimeLineNodeStyle
+    let type: MyDayTimelineItemType
+    let position: MyDayTimelineItemPosition
+    let nodeStyle: MyDayTimelineNodeStyle
     
     init(event: MyDayEvent,
-         type: TimelineItemType,
-         position: TimelineItemPosition,
-         nodeStyle: TimeLineNodeStyle) {
+         type: MyDayTimelineItemType,
+         position: MyDayTimelineItemPosition,
+         nodeStyle: MyDayTimelineNodeStyle) {
         self.event = event
         self.type = type
         self.position = position
@@ -112,7 +112,7 @@ class TimelineItem: TimelineDataItem {
     }
     
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let other = object as? TimelineItem else { return false }
+        guard let other = object as? MyDayTimelineItem else { return false }
         if self === other { return true }
         
         guard identifier == other.identifier,
@@ -131,16 +131,16 @@ class TimelineItem: TimelineDataItem {
 
 // MARK: - 连接线条目
 
-class TimelineConnectionItem: TimelineDataItem {
+class MyDayTimelineConnectionItem: MyDayTimelineDataItem {
     
-    let style: TimelineConnectionStyle
+    let style: MyDayTimelineConnectionStyle
     let height: CGFloat
     let topDate: Date /// 顶部日期
     let bottomDate: Date /// 底部日期
     let topColor: UIColor
     let bottomColor: UIColor
     
-    init(style: TimelineConnectionStyle,
+    init(style: MyDayTimelineConnectionStyle,
          height: CGFloat,
          topDate: Date,
          bottomDate: Date,
@@ -160,7 +160,7 @@ class TimelineConnectionItem: TimelineDataItem {
     }
     
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let other = object as? TimelineConnectionItem else { return false }
+        guard let other = object as? MyDayTimelineConnectionItem else { return false }
         if self === other { return true }
         
         return identifier == other.identifier
@@ -172,12 +172,12 @@ class TimelineConnectionItem: TimelineDataItem {
 // MARK: - 区块对象
 
 /// 时间线区块对象（供适配器作为 `objects` 使用）
-class TimelineSectionObject: NSObject {
+class MyDayTimelineSectionObject: NSObject {
     
-    let kind: TimelineSection
+    let kind: MyDayTimelineSection
     
     /// 区块内全部条目
-    private(set) var items: [TimelineDataItem]
+    private(set) var items: [MyDayTimelineDataItem]
     
     /// 是否展开（仅全天区块使用）
     var isExpanded: Bool = false
@@ -185,7 +185,7 @@ class TimelineSectionObject: NSObject {
     /// 最多显示的条目数量，`nil` 表示不限制（仅全天区块使用）
     var maxVisibleCount: Int?
     
-    init(kind: TimelineSection, items: [TimelineDataItem] = []) {
+    init(kind: MyDayTimelineSection, items: [MyDayTimelineDataItem] = []) {
         self.kind = kind
         self.items = items
         super.init()
@@ -194,7 +194,7 @@ class TimelineSectionObject: NSObject {
     // MARK: - 条目
     
     /// 当前显示的条目（全天区块收起时按配置数量截断）
-    func visibleItems() -> [TimelineDataItem] {
+    func visibleItems() -> [MyDayTimelineDataItem] {
         let count = visibleItemCount
         guard count < items.count else {
             return items
@@ -238,7 +238,7 @@ class TimelineSectionObject: NSObject {
     }
     
     override func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? TimelineSectionObject else { return false }
+        guard let other = object as? MyDayTimelineSectionObject else { return false }
         if self === other { return true }
         return kind == other.kind
     }

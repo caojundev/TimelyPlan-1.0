@@ -1,5 +1,5 @@
 //
-//  TimelineConnectionCell.swift
+//  MyDayTimelineConnectionCell.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/21.
@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - 连接线基类 Cell
 
-class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
+class MyDayTimelineConnectionCell: UICollectionViewCell, MyDayTimelineProgressUpdatable {
     
     weak var delegate: AnyObject?
     
@@ -22,7 +22,7 @@ class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
     
     let timeView = UIView()
     
-    var item: TimelineConnectionItem?
+    var item: MyDayTimelineConnectionItem?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,7 +60,7 @@ class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
     }
     
     /// 配置连接线（子类可重写）
-    func configure(with item: TimelineConnectionItem) {
+    func configure(with item: MyDayTimelineConnectionItem) {
         self.item = item
         setNeedsLayout()
     }
@@ -72,7 +72,7 @@ class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
         gradientLayer.frame = bounds
         updateGradientColors()
         
-        let lineCenterX = TimelineConfig.leftTimeWidth + TimelineConfig.margin + 8.0 + TimelineConfig.centerNodeWidth / 2
+        let lineCenterX = MyDayTimelineStyle.leftTimeWidth + MyDayTimelineStyle.margin + 8.0 + MyDayTimelineStyle.centerNodeWidth / 2
         
         let path = UIBezierPath()
         path.move(to: CGPoint(x: lineCenterX, y: 0))
@@ -84,13 +84,13 @@ class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
         timeView.frame = CGRect(
             x: 0.0,
             y: 0.0,
-            width: lineCenterX - TimelineConfig.centerNodeWidth / 2.0,
+            width: lineCenterX - MyDayTimelineStyle.centerNodeWidth / 2.0,
             height: bounds.height
         )
         
         // 布局连接线内容容器
-        let contentX = lineCenterX + TimelineConfig.centerNodeWidth / 2 + 12
-        let contentWidth = bounds.width - contentX - TimelineConfig.margin
+        let contentX = lineCenterX + MyDayTimelineStyle.centerNodeWidth / 2 + 12
+        let contentWidth = bounds.width - contentX - MyDayTimelineStyle.margin
         connectionContentView.frame = CGRect(
             x: contentX,
             y: 0,
@@ -107,8 +107,8 @@ class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
         }
         
         if item.topDate.isFutureDay {
-            gradientLayer.colors = [TimelineConfig.futureNodeBackgroundColor.cgColor,
-                                    TimelineConfig.futureNodeBackgroundColor.cgColor]
+            gradientLayer.colors = [MyDayTimelineStyle.futureNodeBackgroundColor.cgColor,
+                                    MyDayTimelineStyle.futureNodeBackgroundColor.cgColor]
         } else {
             gradientLayer.colors = [item.topColor.cgColor, item.bottomColor.cgColor]
         }
@@ -128,7 +128,7 @@ class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
 
 // MARK: - 线性连接线基类（带进度效果）
 
-class TimelineLineConnectionCell: TimelineConnectionCell {
+class MyDayTimelineLineConnectionCell: MyDayTimelineConnectionCell {
     
     let progressShapeLayer = CAShapeLayer() // 进度线条层
     let progressGradientLayer = CAGradientLayer() // 进度渐变层
@@ -171,9 +171,9 @@ class TimelineLineConnectionCell: TimelineConnectionCell {
         
         let backColor: UIColor
         if item.topDate.isFutureDay {
-            backColor = TimelineConfig.futureNodeBackgroundColor
+            backColor = MyDayTimelineStyle.futureNodeBackgroundColor
         } else {
-            backColor = TimelineConfig.todayNodeBackgroundColor
+            backColor = MyDayTimelineStyle.todayNodeBackgroundColor
         }
         
         gradientLayer.colors = [backColor.cgColor, backColor.cgColor]
@@ -187,7 +187,7 @@ class TimelineLineConnectionCell: TimelineConnectionCell {
         }
         
         let currentDate = Date()
-        let lineCenterX = TimelineConfig.leftTimeWidth + TimelineConfig.margin + 8.0 + TimelineConfig.centerNodeWidth / 2
+        let lineCenterX = MyDayTimelineStyle.leftTimeWidth + MyDayTimelineStyle.margin + 8.0 + MyDayTimelineStyle.centerNodeWidth / 2
         
         // 计算进度范围
         let totalHeight = bounds.height
@@ -221,8 +221,8 @@ class TimelineLineConnectionCell: TimelineConnectionCell {
         
         // 设置进度渐变色
         if item.topDate.isFutureDay {
-            progressGradientLayer.colors = [TimelineConfig.futureNodeBackgroundColor.cgColor,
-                                           TimelineConfig.futureNodeBackgroundColor.cgColor]
+            progressGradientLayer.colors = [MyDayTimelineStyle.futureNodeBackgroundColor.cgColor,
+                                           MyDayTimelineStyle.futureNodeBackgroundColor.cgColor]
         } else {
             progressGradientLayer.colors = [item.topColor.cgColor, item.bottomColor.cgColor]
         }
@@ -242,17 +242,17 @@ class TimelineLineConnectionCell: TimelineConnectionCell {
 
 // MARK: - 实线连接线 Cell
 
-class TimelineSolidConnectionCell: TimelineLineConnectionCell {
+class MyDayTimelineSolidConnectionCell: MyDayTimelineLineConnectionCell {
     
-    override func configure(with item: TimelineConnectionItem) {
+    override func configure(with item: MyDayTimelineConnectionItem) {
         super.configure(with: item)
         
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
-        shapeLayer.lineWidth = TimelineConfig.solidLineWidth
+        shapeLayer.lineWidth = MyDayTimelineStyle.solidLineWidth
         shapeLayer.lineDashPattern = nil
-        progressShapeLayer.lineWidth = TimelineConfig.solidLineWidth
+        progressShapeLayer.lineWidth = MyDayTimelineStyle.solidLineWidth
         progressShapeLayer.lineDashPattern = nil
         
         CATransaction.commit()
@@ -260,14 +260,14 @@ class TimelineSolidConnectionCell: TimelineLineConnectionCell {
 }
 
 // MARK: - 虚线连接线 Cell
-protocol TimelineDashedConnectionCellDelegate: AnyObject {
+protocol MyDayTimelineDashedConnectionCellDelegate: AnyObject {
     
-    func timelineDashedConnectionCellDidClickAdd(_ cell: TimelineDashedConnectionCell)
+    func timelineDashedConnectionCellDidClickAdd(_ cell: MyDayTimelineDashedConnectionCell)
     
-    func timelineDashedConnectionCellDidClickBind(_ cell: TimelineDashedConnectionCell)
+    func timelineDashedConnectionCellDidClickBind(_ cell: MyDayTimelineDashedConnectionCell)
 }
 
-class TimelineDashedConnectionCell: TimelineLineConnectionCell {
+class MyDayTimelineDashedConnectionCell: MyDayTimelineLineConnectionCell {
     
     lazy var titleView: TPImageTitleView = {
         let view = TPImageTitleView()
@@ -319,7 +319,7 @@ class TimelineDashedConnectionCell: TimelineLineConnectionCell {
         bindButton.left = addButton.right + 8.0
     }
     
-    override func configure(with item: TimelineConnectionItem) {
+    override func configure(with item: MyDayTimelineConnectionItem) {
         super.configure(with: item)
         let interval = item.timeInterval
         if interval > 0 {
@@ -331,10 +331,10 @@ class TimelineDashedConnectionCell: TimelineLineConnectionCell {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
-        shapeLayer.lineWidth = TimelineConfig.dashedLineWidth
-        shapeLayer.lineDashPattern = TimelineConfig.dashedPattern
-        progressShapeLayer.lineWidth = TimelineConfig.dashedLineWidth
-        progressShapeLayer.lineDashPattern = TimelineConfig.dashedPattern
+        shapeLayer.lineWidth = MyDayTimelineStyle.dashedLineWidth
+        shapeLayer.lineDashPattern = MyDayTimelineStyle.dashedPattern
+        progressShapeLayer.lineWidth = MyDayTimelineStyle.dashedLineWidth
+        progressShapeLayer.lineDashPattern = MyDayTimelineStyle.dashedPattern
         
         CATransaction.commit()
     }
@@ -345,13 +345,13 @@ class TimelineDashedConnectionCell: TimelineLineConnectionCell {
     }
     
     @objc func clickAdd() {
-        if let delegate = delegate as? TimelineDashedConnectionCellDelegate {
+        if let delegate = delegate as? MyDayTimelineDashedConnectionCellDelegate {
             delegate.timelineDashedConnectionCellDidClickAdd(self)
         }
     }
     
     @objc func clickBind() {
-        if let delegate = delegate as? TimelineDashedConnectionCellDelegate {
+        if let delegate = delegate as? MyDayTimelineDashedConnectionCellDelegate {
             delegate.timelineDashedConnectionCellDidClickBind(self)
         }
     }
@@ -382,7 +382,7 @@ class TimelineDashedConnectionCell: TimelineLineConnectionCell {
 
 // MARK: - 重叠连接线 Cell
 
-class TimelineOverlappingConnectionCell: TimelineConnectionCell {
+class MyDayTimelineOverlappingConnectionCell: MyDayTimelineConnectionCell {
     
     lazy var titleView: TPImageTitleView = {
         let view = TPImageTitleView()
@@ -403,7 +403,7 @@ class TimelineOverlappingConnectionCell: TimelineConnectionCell {
         super.layoutSubviews()
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        shapeLayer.lineWidth = TimelineConfig.overlappingLineWidth
+        shapeLayer.lineWidth = MyDayTimelineStyle.overlappingLineWidth
         shapeLayer.lineDashPattern = nil
         CATransaction.commit()
     }
@@ -415,9 +415,9 @@ class TimelineOverlappingConnectionCell: TimelineConnectionCell {
         
         let backColor: UIColor
         if item.topDate.isFutureDay {
-            backColor = TimelineConfig.futureNodeBackgroundColor
+            backColor = MyDayTimelineStyle.futureNodeBackgroundColor
         } else {
-            backColor = TimelineConfig.todayNodeBackgroundColor
+            backColor = MyDayTimelineStyle.todayNodeBackgroundColor
         }
         
         let currentDate = Date()

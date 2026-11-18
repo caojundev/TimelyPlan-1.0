@@ -1,5 +1,5 @@
 //
-//  TimelineConfig.swift
+//  MyDayTimelineConfig.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/21.
@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - 配置
 
-struct TimelineConfig {
+struct MyDayTimelineStyle {
     // MARK: 布局常量
     static let leftTimeWidth: CGFloat = 36
     static let margin: CGFloat = 16
