@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class TPCollectionSectionLayout {
-    
+
     /// 单元格限制尺寸
     private var _constraintCellSize: CGSize?
     var constraintCellSize: CGSize? {
@@ -59,6 +59,17 @@ class TPCollectionSectionLayout {
     /// 最大行条目数
     var maximumItemsCountPerRow: Int = 1
     
+    /// 内容对齐方式
+    enum Alignment {
+        /// 内容居中
+        case center
+        /// 内容靠左
+        case leading
+    }
+    
+    /// 内容对齐方式
+    var alignment: Alignment = .center
+    
     /// 是否需要计算布局
     private var shouldLayout: Bool = true
     
@@ -97,11 +108,23 @@ class TPCollectionSectionLayout {
         }
         
         let contentWidth = CGFloat(itemsCountPerRow) * (itemWidth + interitemSpacing) - interitemSpacing
-        let edgeMargin = (collectionViewSize.width - contentWidth) / 2.0
-        _sectionInset = UIEdgeInsets(top: edgeMargins.top,
-                                     left: edgeMargin,
-                                     bottom: edgeMargins.bottom,
-                                     right: edgeMargin)
+        
+        if alignment == .center {
+            /// 内容居中
+            let horizontalMargin = (collectionViewSize.width - contentWidth) / 2.0
+            _sectionInset = UIEdgeInsets(top: edgeMargins.top,
+                                         left: horizontalMargin,
+                                         bottom: edgeMargins.bottom,
+                                         right: horizontalMargin)
+        } else {
+            /// 内容居左
+            let rightMargin = collectionViewSize.width - contentWidth - edgeMargins.left
+            _sectionInset = UIEdgeInsets(top: edgeMargins.top,
+                                         left: edgeMargins.left,
+                                         bottom: edgeMargins.bottom,
+                                         right: rightMargin)
+        }
+        
         _itemWidth = itemWidth
         _constraintCellSize = CGSize(width: _itemWidth, height: preferredItemHeight)
     }

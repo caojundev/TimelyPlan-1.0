@@ -360,7 +360,7 @@
 		E5185067300F12B100112DFC /* MyDayTimelineEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185066300F12B100112DFC /* MyDayTimelineEventConverter.swift */; };
 		E5185069300F132200112DFC /* MyDayTimelineConnectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185068300F132200112DFC /* MyDayTimelineConnectionCell.swift */; };
 		E518506B300F138A00112DFC /* MyDayTimelineBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518506A300F138A00112DFC /* MyDayTimelineBaseView.swift */; };
-		E518506D300F152300112DFC /* MyDayTimelineConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518506C300F152300112DFC /* MyDayTimelineConfig.swift */; };
+		E518506D300F152300112DFC /* MyDayTimelineStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518506C300F152300112DFC /* MyDayTimelineStyle.swift */; };
 		E5185070300F5CE800112DFC /* MyDayFocusTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518506F300F5CE800112DFC /* MyDayFocusTimelineCell.swift */; };
 		E5185072300F5D3200112DFC /* MyDayTodoTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185071300F5D3200112DFC /* MyDayTodoTimelineCell.swift */; };
 		E5185077300F6DFD00112DFC /* todo_circle_normal_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5185073300F6DFB00112DFC /* todo_circle_normal_24@3x.png */; };
@@ -3488,7 +3488,7 @@
 		E5185066300F12B100112DFC /* MyDayTimelineEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineEventConverter.swift; sourceTree = "<group>"; };
 		E5185068300F132200112DFC /* MyDayTimelineConnectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineConnectionCell.swift; sourceTree = "<group>"; };
 		E518506A300F138A00112DFC /* MyDayTimelineBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineBaseView.swift; sourceTree = "<group>"; };
-		E518506C300F152300112DFC /* MyDayTimelineConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineConfig.swift; sourceTree = "<group>"; };
+		E518506C300F152300112DFC /* MyDayTimelineStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineStyle.swift; sourceTree = "<group>"; };
 		E518506F300F5CE800112DFC /* MyDayFocusTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayFocusTimelineCell.swift; sourceTree = "<group>"; };
 		E5185071300F5D3200112DFC /* MyDayTodoTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTodoTimelineCell.swift; sourceTree = "<group>"; };
 		E5185073300F6DFB00112DFC /* todo_circle_normal_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_circle_normal_24@3x.png"; sourceTree = "<group>"; };
@@ -7472,7 +7472,7 @@
 		E518505D300F039F00112DFC /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				E518506C300F152300112DFC /* MyDayTimelineConfig.swift */,
+				E518506C300F152300112DFC /* MyDayTimelineStyle.swift */,
 				E5185062300F11E100112DFC /* MyDayTimelineItem.swift */,
 				E518506A300F138A00112DFC /* MyDayTimelineBaseView.swift */,
 				E51E5F8C303833C000ACF30C /* AllDay */,
@@ -20642,7 +20642,7 @@
 				E5BB9E1F2D3BF0C70089667A /* NSPersistentStore+Setup.swift in Sources */,
 				E50D5FEA2F7A0F5100D5E0A4 /* TodoRepository.swift in Sources */,
 				E5BB9B3B2D3BEF920089667A /* IGListIndexPathResult.m in Sources */,
-				E518506D300F152300112DFC /* MyDayTimelineConfig.swift in Sources */,
+				E518506D300F152300112DFC /* MyDayTimelineStyle.swift in Sources */,
 				E5BB9F0D2D3BF0C90089667A /* TPBaseMenuController.swift in Sources */,
 				E5B2BC852F6E356A00DC1721 /* HabitRecordListCell.swift in Sources */,
 				E555492D2F74D2AC00C9460D /* FocusQuickStartTypeView.swift in Sources */,

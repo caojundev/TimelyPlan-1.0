@@ -22,6 +22,7 @@ class WSPluginModuleCollectionCellItem: TPCollectionCellItem {
         config.font = WSPluginModuleCollectionCell.Metrics.titleFont
         config.textColor = .secondaryLabel
         config.textAlignment = .center
+        config.lineBreakMode = .byTruncatingMiddle
         return config
     }()
     
@@ -129,7 +130,6 @@ class WSPluginModuleCollectionCell: TPCollectionCell {
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.8
-        label.lineBreakMode = .byTruncatingMiddle
         return label
     }()
     

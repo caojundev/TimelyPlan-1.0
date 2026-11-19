@@ -523,7 +523,7 @@
 "No List" = "无列表";
 "Shows todo lists in a list" = "以列表展示待办清单";
 "Shows todo lists in a grid" = "以网格展示待办清单";
-"List Tasks" = "清单任务";
+"User List" = "用户清单";
 "Shows uncompleted tasks of a selected list" = "展示所选清单的未完成任务";
 "Shows uncompleted tasks of a selected list in a grid" = "以网格展示所选清单的未完成任务";
 "Select List" = "选择列表";
@@ -750,11 +750,10 @@
 "Todo Settings" = "待办设置";
 "Display" = "显示";
 "Home" = "主页";
-"Smart List" = "智能列表";
+"Smart List" = "智能清单";
 "Home Display" = "主页显示";
 "Smart List Display" = "智能列表显示";
 "Auto-Hide Empty Smart List" = "自动隐藏空白智能清单";
-"Smart List Tasks" = "智能清单任务";
 "Shows uncompleted tasks of a selected smart list" = "展示所选智能清单的未完成任务";
 "Shows uncompleted tasks of a selected smart list in a grid" = "以网格展示所选智能清单的未完成任务";
 "Select Smart List" = "选择智能清单";

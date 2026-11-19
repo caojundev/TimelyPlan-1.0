@@ -1,5 +1,5 @@
 //
-//  MyDayTimelineConfig.swift
+//  MyDayTimelineStyle.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/21.

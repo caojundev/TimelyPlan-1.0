@@ -35,7 +35,8 @@ class WSPluginPickerViewController: TPCollectionSectionsViewController {
         self.title = resGetString("Add Plugin")
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         self.collectionView.showsVerticalScrollIndicator = false
-        /// 网格样式由单元格内容自行绘制，去掉列表默认背景
+        self.collectionView.contentInset = UIEdgeInsets(bottom: 24.0)
+        
         self.adapter.cellStyle.backgroundColor = .clear
         self.adapter.cellStyle.selectedBackgroundColor = .clear
         self.sectionControllers = makeSectionControllers()

@@ -66,11 +66,11 @@ extension WSPluginType {
 
         /// 模块内全部组件配置
         static let catalog: [WSPluginConfiguration] = [
-            .init(WSTodoUserListSmallTasksPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list"),
-            .init(WSTodoUserListMediumTasksListPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list"),
-            .init(WSTodoUserListLargeTasksListPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list"),
-            .init(WSTodoUserListMediumTasksGridPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list in a grid"),
-            .init(WSTodoUserListLargeTasksGridPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list in a grid"),
+            .init(WSTodoUserListSmallTasksPluginProvider(), title: "User List", subtitle: "Shows uncompleted tasks of a selected list"),
+            .init(WSTodoUserListMediumTasksListPluginProvider(), title: "User List", subtitle: "Shows uncompleted tasks of a selected list"),
+            .init(WSTodoUserListLargeTasksListPluginProvider(), title: "User List", subtitle: "Shows uncompleted tasks of a selected list"),
+            .init(WSTodoUserListMediumTasksGridPluginProvider(), title: "User List", subtitle: "Shows uncompleted tasks of a selected list in a grid"),
+            .init(WSTodoUserListLargeTasksGridPluginProvider(), title: "User List", subtitle: "Shows uncompleted tasks of a selected list in a grid"),
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
@@ -264,11 +264,11 @@ extension WSPluginType {
 
         /// 模块内全部组件配置
         static let catalog: [WSPluginConfiguration] = [
-            .init(WSTodoSmartListSmallTasksPluginProvider(), title: "Smart List Tasks", subtitle: "Shows uncompleted tasks of a selected smart list"),
-            .init(WSTodoSmartListMediumTasksListPluginProvider(), title: "Smart List Tasks", subtitle: "Shows uncompleted tasks of a selected smart list"),
-            .init(WSTodoSmartListLargeTasksListPluginProvider(), title: "Smart List Tasks", subtitle: "Shows uncompleted tasks of a selected smart list"),
-            .init(WSTodoSmartListMediumTasksGridPluginProvider(), title: "Smart List Tasks", subtitle: "Shows uncompleted tasks of a selected smart list in a grid"),
-            .init(WSTodoSmartListLargeTasksGridPluginProvider(), title: "Smart List Tasks", subtitle: "Shows uncompleted tasks of a selected smart list in a grid"),
+            .init(WSTodoSmartListSmallTasksPluginProvider(), title: "Smart List", subtitle: "Shows uncompleted tasks of a selected smart list"),
+            .init(WSTodoSmartListMediumTasksListPluginProvider(), title: "Smart List", subtitle: "Shows uncompleted tasks of a selected smart list"),
+            .init(WSTodoSmartListLargeTasksListPluginProvider(), title: "Smart List", subtitle: "Shows uncompleted tasks of a selected smart list"),
+            .init(WSTodoSmartListMediumTasksGridPluginProvider(), title: "Smart List", subtitle: "Shows uncompleted tasks of a selected smart list in a grid"),
+            .init(WSTodoSmartListLargeTasksGridPluginProvider(), title: "Smart List", subtitle: "Shows uncompleted tasks of a selected smart list in a grid"),
             .init(WSTodoTaskMediumTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows tasks for today and tomorrow"),
             .init(WSTodoTaskLargeTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows tasks for today and tomorrow"),
             .init(WSTodoTaskSmallNextTrendsPluginProvider(), title: "Upcoming", subtitle: "Shows the task load of the next 7 days"),

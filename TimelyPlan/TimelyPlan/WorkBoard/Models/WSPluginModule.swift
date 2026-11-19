@@ -44,14 +44,17 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         switch self {
         case .myDay: return resGetString("My Day")
         case .calendar: return resGetString("Calendar")
+    
         case .todoListGroup: return resGetString("Lists")
-        case .todoUserListTask: return resGetString("List Tasks")
-        case .todoSmartListTask: return resGetString("Smart List Tasks")
         case .todoTagGroup: return resGetString("Tags")
-        case .todoTagTask: return resGetString("Tag Tasks")
         case .todoFilterGroup: return resGetString("Filters")
+    
+        case .todoUserListTask: return resGetString("User List")
+        case .todoSmartListTask: return resGetString("Smart List")
+        case .todoTagTask: return resGetString("Tag Tasks")
         case .todoFilterTask: return resGetString("Filter Tasks")
         case .todoCustomTask: return resGetString("Custom Tasks")
+            
         case .timeline: return resGetString("Timeline")
         case .quadrants: return resGetString("Quadrants")
         case .goal: return resGetString("Goal")
