@@ -181,7 +181,7 @@ class AppSideMenuSettingCellItem: TPSwitchTableCellItem {
     init(menuType: SideMenuType) {
         self.menuType = menuType
         super.init()
-        var imageConfig = TPImageAccessoryConfig()
+        let imageConfig = TPImageAccessoryConfig()
         imageConfig.size = .default
         imageConfig.shouldRenderImageWithColor = false
         

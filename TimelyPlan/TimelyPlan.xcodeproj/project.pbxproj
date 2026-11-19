@@ -11811,20 +11811,44 @@
 		E5A6258A3089B3CD003EB8BC /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				E5A6258B3089B3CD003EB8BC /* WSDashboardInteractor.swift */,
-				E5A6258C3089B3CD003EB8BC /* WSDashboardCollectionViewLayout.swift */,
-				E5A6258D3089B3CD003EB8BC /* WSPluginContentInteractor.swift */,
-				E5A6258E3089B3CD003EB8BC /* WSDashboardGridLayout.swift */,
-				E5A6258F3089B3CD003EB8BC /* WSPluginCell.swift */,
-				E5A625903089B3CD003EB8BC /* WSPluginDefaultPlaceholderView.swift */,
-				E5A625913089B3CD003EB8BC /* WSPluginEmptyPlaceholderView.swift */,
 				E5A625923089B3CD003EB8BC /* WSDashboardViewController.swift */,
-				E5A625943089B3CD003EB8BC /* WSDashboardView.swift */,
-				E5C5E1A630A4AFC400E7D1F3 /* WSDashboardReorder.swift */,
-				E5A625933089B3CD003EB8BC /* WSPluginContentView.swift */,
 				E5A625E13089B3D0003EB8BC /* WSPluginMenuActionType.swift */,
+				E5FEC61030AC39C600138DBF /* Views */,
+				E5FEC61130AC39C600138DBF /* Layout */,
+				E5FEC61230AC39C600138DBF /* Interactor */,
 			);
 			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		E5FEC61030AC39C600138DBF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E5A625943089B3CD003EB8BC /* WSDashboardView.swift */,
+				E5C5E1A630A4AFC400E7D1F3 /* WSDashboardReorder.swift */,
+				E5A6258F3089B3CD003EB8BC /* WSPluginCell.swift */,
+				E5A625933089B3CD003EB8BC /* WSPluginContentView.swift */,
+				E5A625903089B3CD003EB8BC /* WSPluginDefaultPlaceholderView.swift */,
+				E5A625913089B3CD003EB8BC /* WSPluginEmptyPlaceholderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E5FEC61130AC39C600138DBF /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				E5A6258C3089B3CD003EB8BC /* WSDashboardCollectionViewLayout.swift */,
+				E5A6258E3089B3CD003EB8BC /* WSDashboardGridLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		E5FEC61230AC39C600138DBF /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5A6258B3089B3CD003EB8BC /* WSDashboardInteractor.swift */,
+				E5A6258D3089B3CD003EB8BC /* WSPluginContentInteractor.swift */,
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		E5A625973089B3CD003EB8BC /* Registry */ = {

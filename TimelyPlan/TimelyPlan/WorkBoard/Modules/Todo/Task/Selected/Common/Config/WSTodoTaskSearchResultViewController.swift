@@ -106,11 +106,7 @@ class WSTodoTaskSearchResultViewController: TPTableSectionsViewController,
 
     // MARK: - UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController) {
-        guard let sectionController = resultSectionController as? UISearchResultsUpdating else {
-            return
-        }
-
-        sectionController.updateSearchResults(for: searchController)
+        resultSectionController.updateSearchResults(for: searchController)
     }
 
     // MARK: - TPTableSectionControllerDelegate
