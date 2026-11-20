@@ -23,6 +23,14 @@
         <attribute name="timePlanJSON" optional="YES" attributeType="String"/>
         <attribute name="timeUnit" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="CDDashboard" representedClassName="CDDashboard" syncable="YES" codeGenerationType="class">
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="plugins" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDPlugin" inverseName="dashboard" inverseEntity="CDPlugin"/>
+    </entity>
     <entity name="CDFocusSession" representedClassName="CDFocusSession" syncable="YES" codeGenerationType="class">
         <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -151,6 +159,15 @@
         <attribute name="timePlanRuleJSON" optional="YES" attributeType="String"/>
         <relationship name="records" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDHabitRecord" inverseName="task" inverseEntity="CDHabitRecord"/>
     </entity>
+    <entity name="CDPlugin" representedClassName="CDPlugin" syncable="YES" codeGenerationType="class">
+        <attribute name="configJSON" optional="YES" attributeType="String"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="typeRawValue" optional="YES" attributeType="String"/>
+        <relationship name="dashboard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDashboard" inverseName="plugins" inverseEntity="CDDashboard"/>
+    </entity>
     <entity name="CDTodoFilter" representedClassName="CDTodoFilter" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -234,5 +251,7 @@
         <element name="CDTodoTag" positionX="45" positionY="261" width="128" height="119"/>
         <element name="CDTodoTask" positionX="54" positionY="270" width="128" height="389"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
+        <element name="CDDashboard" positionX="45" positionY="261" width="128" height="119"/>
+        <element name="CDPlugin" positionX="54" positionY="270" width="128" height="134"/>
     </elements>
 </model>
