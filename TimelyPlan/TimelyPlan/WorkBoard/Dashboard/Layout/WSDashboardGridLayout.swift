@@ -10,72 +10,88 @@ import UIKit
 
 /// 工作台仪表盘布局计算。
 ///
-/// 与系统小组件一致，以小号组件作为网格单元（1x1）：
+/// 以小号组件作为网格单元（1x1）：
 /// - 小号：1 列 1 行
-/// - 中号：2 列 1 行
-/// - 大号：2 列 2 行
-/// - 自适应：2 列，高度由组件按宽度计算
+/// - 中号：整行宽度，1 行高
+/// - 大号：整行宽度，2 行高
+/// - 自适应：整行宽度，高度由组件按宽度计算
 ///
-/// 所有组件尺寸都由容器宽度推导，`interitemSpacing` 与 `lineSpacing` 保持固定值，
-/// 不随容器宽度变化；`sectionInset` 则由内容宽度在容器内居中反推得出。
+/// 行条目数随容器宽度在 2 ~ 6 之间变化且始终为偶数；网格宽度以 `preferredGridWidth` 为基准，
+/// 铺满可用宽度的同时不超过 `maximumGridWidth`，内容整体不超过 `maximumContentWidth`，
+/// 剩余空间由 `sectionInset` 居中吸收。
 class WSDashboardGridLayout {
     
-    /// 网格列数。小号组件占 1 列，中号 / 大号组件占满 2 列。
-    static let columnCount: CGFloat = 2
+    /// 最小行条目数
+    static let minimumItemsCountPerRow: Int = 2
     
-    /// 组件间距。固定值，不随容器宽度变化。
+    /// 最大行条目数
+    static let maximumItemsCountPerRow: Int = 6
+    
+    /// 组件间距。固定值，不随容器宽度变化
     let interitemSpacing: CGFloat
     
-    /// 行间距。固定值，不随容器宽度变化。
+    /// 行间距。固定值，不随容器宽度变化
     let lineSpacing: CGFloat
     
-    /// 外部边距。用于限制组件与容器边缘的距离。
+    /// 外部边距。内容与容器边缘的最小距离
     let edgeMargins: UIEdgeInsets
     
-    /// 单元格尺寸计算，复用列表页统一的区块布局
-    private let sectionLayout = TPCollectionSectionLayout()
+    /// 首选网格宽度。行条目数以它为基准推导
+    let preferredGridWidth: CGFloat
     
-    init(edgeMargins: UIEdgeInsets = UIEdgeInsets(horizontal: 16.0, vertical: 16.0),
-         interitemSpacing: CGFloat = 8.0,
-         lineSpacing: CGFloat = 8.0) {
-        self.edgeMargins = edgeMargins
-        self.interitemSpacing = interitemSpacing
-        self.lineSpacing = lineSpacing
-        
-        sectionLayout.edgeMargins = edgeMargins
-        sectionLayout.interitemSpacing = interitemSpacing
-        sectionLayout.lineSpacing = lineSpacing
-        /// 列数固定为 columnCount，列宽则由容器宽度反推
-        sectionLayout.minimumItemsCountPerRow = Int(Self.columnCount)
-        sectionLayout.maximumItemsCountPerRow = Int(Self.columnCount)
-        sectionLayout.preferredItemWidth = .greatestFiniteMagnitude
-        /// 每个条目的高度取决于组件尺寸，不使用统一的 constraintCellSize
-        sectionLayout.preferredItemHeight = .greatestFiniteMagnitude
-    }
+    /// 网格宽度上限。避免超大容器把组件拉得过大
+    let maximumGridWidth: CGFloat
+    
+    /// 内容宽度上限。避免超大容器下内容被继续拉宽
+    let maximumContentWidth: CGFloat
     
     /// 容器尺寸。赋值后会在下次取用时重新计算各尺寸。
     var containerSize: CGSize? {
-        get {
-            return sectionLayout.collectionViewSize
-        }
-        
-        set {
-            sectionLayout.collectionViewSize = newValue
+        didSet {
+            guard containerSize != oldValue else {
+                return
+            }
+            
+            setNeedsLayout()
         }
     }
     
-    /// 网格单元的边长（等于小号组件的宽 / 高）
-    var unitLength: CGFloat {
-        return sectionLayout.itemWidth
+    init(edgeMargins: UIEdgeInsets = UIEdgeInsets(horizontal: 16.0, vertical: 16.0),
+         interitemSpacing: CGFloat = 8.0,
+         lineSpacing: CGFloat = 8.0,
+         preferredGridWidth: CGFloat = 160.0,
+         maximumGridWidth: CGFloat = 200.0,
+         maximumContentWidth: CGFloat = 680.0) {
+        self.edgeMargins = edgeMargins
+        self.interitemSpacing = interitemSpacing
+        self.lineSpacing = lineSpacing
+        self.preferredGridWidth = preferredGridWidth
+        self.maximumGridWidth = maximumGridWidth
+        self.maximumContentWidth = maximumContentWidth
     }
     
-    /// 区块内边距。
-    ///
-    /// 左右内边距由「内容宽度在容器内居中」反推而来：
-    /// 内容宽度 = 2 * 单元边长 + interitemSpacing = 容器宽度 - 2 * 左右内边距。
-    /// 因此无论容器宽度如何变化，组件之间的 `interitemSpacing` 始终等于固定值。
+    // MARK: - 布局结果
+    /// 实际行条目数。始终为 2 ~ 6 之间的偶数
+    var itemsCountPerRow: Int {
+        layoutIfNeeded()
+        return _itemsCountPerRow
+    }
+    
+    /// 网格单元边长（等于小号组件的宽 / 高）
+    var gridWidth: CGFloat {
+        layoutIfNeeded()
+        return _gridWidth
+    }
+    
+    /// 区块内边距。内容不足整行占满时，剩余空间由左右内边距均分
     var sectionInset: UIEdgeInsets {
-        return sectionLayout.sectionInset
+        layoutIfNeeded()
+        return _sectionInset
+    }
+    
+    /// 整行内容宽度（自适应组件占满整行时的宽度）
+    private var contentWidth: CGFloat {
+        return calculateContentWidth(gridWidth: gridWidth, itemsCountPerRow: itemsCountPerRow)
     }
     
     /// 容器尺寸变化后重新计算布局
@@ -83,24 +99,102 @@ class WSDashboardGridLayout {
         self.containerSize = containerSize
     }
     
+    // MARK: - 布局计算
+    private var _itemsCountPerRow: Int = WSDashboardGridLayout.minimumItemsCountPerRow
+    
+    private var _gridWidth: CGFloat = 0.0
+    
+    private var _sectionInset: UIEdgeInsets = .zero
+    
+    /// 是否需要重新计算
+    private var shouldLayout: Bool = true
+    
+    func setNeedsLayout() {
+        shouldLayout = true
+    }
+    
+    func layoutIfNeeded() {
+        guard shouldLayout else {
+            return
+        }
+        
+        shouldLayout = false
+        layout()
+    }
+    
+    private func layout() {
+        guard let containerSize = containerSize, containerSize.width > 0.0 else {
+            _itemsCountPerRow = Self.minimumItemsCountPerRow
+            _gridWidth = 0.0
+            _sectionInset = edgeMargins
+            return
+        }
+        
+        /// 内容宽度不超过上限，超出部分由 sectionInset 居中吸收
+        let availableWidth = max(containerSize.width - edgeMargins.horizontalLength, 0.0)
+        let usableWidth = min(availableWidth, maximumContentWidth)
+        let itemsCountPerRow = calculateItemsCountPerRow(usableWidth: usableWidth)
+        let gridWidth = calculateGridWidth(usableWidth: usableWidth, itemsCountPerRow: itemsCountPerRow)
+        
+        _itemsCountPerRow = itemsCountPerRow
+        _gridWidth = gridWidth
+        _sectionInset = calculateSectionInset(containerSize: containerSize,
+                                              contentWidth: calculateContentWidth(gridWidth: gridWidth,
+                                                                                  itemsCountPerRow: itemsCountPerRow))
+    }
+    
+    /// 行条目数：按首选网格宽度能容纳的列数向下取偶，
+    /// 保证网格宽度不小于首选宽度；容器过窄时由最小条目数兜底，过宽时由最大条目数收敛。
+    private func calculateItemsCountPerRow(usableWidth: CGFloat) -> Int {
+        let baseWidth = max(preferredGridWidth, 1.0)
+        let fittingCount = Int(((usableWidth + interitemSpacing) / (baseWidth + interitemSpacing)).rounded(.down))
+        let clampedCount = min(max(fittingCount, Self.minimumItemsCountPerRow), Self.maximumItemsCountPerRow)
+        return clampedCount - clampedCount % 2
+    }
+    
+    /// 网格宽度：优先铺满可用宽度，但不超过最大网格宽度
+    private func calculateGridWidth(usableWidth: CGFloat, itemsCountPerRow: Int) -> CGFloat {
+        let count = CGFloat(itemsCountPerRow)
+        let filledWidth = (usableWidth - (count - 1.0) * interitemSpacing) / count
+        return max(min(filledWidth, maximumGridWidth), 0.0)
+    }
+    
+    /// 整行内容宽度
+    private func calculateContentWidth(gridWidth: CGFloat, itemsCountPerRow: Int) -> CGFloat {
+        let count = CGFloat(itemsCountPerRow)
+        return count * gridWidth + (count - 1.0) * interitemSpacing
+    }
+    
+    /// 区块内边距：可用区域中扣除内容宽度后，剩余空间均分到左右两侧
+    private func calculateSectionInset(containerSize: CGSize, contentWidth: CGFloat) -> UIEdgeInsets {
+        let centeredMargin = max((containerSize.width - edgeMargins.horizontalLength - contentWidth) / 2.0, 0.0)
+        return UIEdgeInsets(top: edgeMargins.top,
+                            left: edgeMargins.left + centeredMargin,
+                            bottom: edgeMargins.bottom,
+                            right: edgeMargins.right + centeredMargin)
+    }
+    
+    // MARK: - 条目尺寸
     /// 指定尺寸组件的条目尺寸
     func itemSize(for size: WSPluginSize) -> CGSize {
-        let unitLength = self.unitLength
-        guard unitLength > 0.0 else {
+        let gridWidth = self.gridWidth
+        guard gridWidth > 0.0 else {
             return .zero
         }
         
+        /// 大号高度：2 个网格单元加中间间距
+        let doubleGridWidth = 2.0 * gridWidth + interitemSpacing
+        
         switch size {
         case .small:
-            return CGSize(width: unitLength, height: unitLength)
+            return CGSize(width: gridWidth, height: gridWidth)
         case .medium:
-            return CGSize(width: rowLength(unitLength: unitLength), height: unitLength)
+            return CGSize(width: contentWidth, height: gridWidth)
         case .large:
-            let length = rowLength(unitLength: unitLength)
-            return CGSize(width: length, height: length)
+            return CGSize(width: contentWidth, height: doubleGridWidth)
         case .flexible:
-            /// 缺少插件信息时无法计算高度，按整行宽度与默认高度返回
-            return CGSize(width: rowLength(unitLength: unitLength), height: unitLength)
+            /// 缺少插件信息时无法计算高度，按整行宽度与一个网格单元高度返回
+            return CGSize(width: contentWidth, height: gridWidth)
         }
     }
     
@@ -111,13 +205,8 @@ class WSDashboardGridLayout {
             return itemSize(for: plugin.type.size)
         }
         
-        let width = rowLength(unitLength: unitLength)
+        let width = contentWidth
         return CGSize(width: width, height: flexibleHeight(for: plugin, width: width))
-    }
-    
-    /// 占满整行的长度（中号 / 大号 / 自适应的宽度）
-    private func rowLength(unitLength: CGFloat) -> CGFloat {
-        return Self.columnCount * unitLength + interitemSpacing
     }
     
     // MARK: - 自适应高度
@@ -133,7 +222,7 @@ class WSDashboardGridLayout {
     
     /// flexible 组件缺少高度计算对象时的默认高度，等于一个网格单元
     private var defaultFlexibleHeight: CGFloat {
-        return unitLength
+        return gridWidth
     }
     
     /// flexible 组件算出非正高度时的兜底高度。

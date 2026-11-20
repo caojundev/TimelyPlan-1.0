@@ -186,7 +186,14 @@ class WSDashboardView: UIView,
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        /// 宽度变化会改变网格单元与条目尺寸，必须让列表重新计算，否则会沿用旧尺寸导致错乱
+        let widthDidChange = abs(collectionView.frame.width - bounds.width) > 0.5
         collectionView.frame = bounds
+        
+        if widthDidChange {
+            collectionViewLayout.invalidateLayout()
+        }
     }
     
     // MARK: - Public Methods
@@ -421,7 +428,9 @@ class WSDashboardView: UIView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        dashboardLayout.updateLayoutIfNeeded(containerSize: adapter.collectionViewSize())
+        /// 尺寸按列表 bounds 推导，与流式布局的校验口径一致：转场过程中 bounds 可能先于 frame 更新，
+        /// 若按 frame 计算会出现条目宽度大于可用宽度的问题
+        dashboardLayout.updateLayoutIfNeeded(containerSize: collectionView.bounds.size)
         guard let plugin = self.plugin(at: indexPath) else {
             return .zero
         }
@@ -431,7 +440,7 @@ class WSDashboardView: UIView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, insetForSectionAt section: Int) -> UIEdgeInsets {
         /// 内边距会先于条目尺寸被查询，先同步容器尺寸以保证本趟布局拿到正确的内边距
-        dashboardLayout.updateLayoutIfNeeded(containerSize: adapter.collectionViewSize())
+        dashboardLayout.updateLayoutIfNeeded(containerSize: collectionView.bounds.size)
         return dashboardLayout.sectionInset
     }
     

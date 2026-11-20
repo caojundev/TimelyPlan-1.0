@@ -77,17 +77,18 @@ final class WSDashboardCollectionViewLayout: UICollectionViewLeftAlignedLayout {
         super.invalidateLayout()
     }
     
+    /// 上一次布局时的容器尺寸。用于判断容器尺寸是否真正变化
+    private var lastLayoutSize: CGSize = .zero
+    
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        /// 仅在容器尺寸变化时重算，滚动引起的偏移变化不触发失效，避免频繁重算
-        guard let collectionView = collectionView else {
-            return super.shouldInvalidateLayout(forBoundsChange: newBounds)
-        }
-        
-        return newBounds.size != collectionView.bounds.size
+        /// 仅在容器尺寸变化时重算，滚动引起的偏移变化不触发失效，避免频繁重算。
+        /// 与上次布局时的尺寸比较：bounds 在回调时已经更新，不能与 collectionView.bounds 比较
+        return newBounds.size != lastLayoutSize
     }
     
     override func prepare() {
         super.prepare()
+        lastLayoutSize = collectionView?.bounds.size ?? .zero
         prepareGapLayoutAttributes()
     }
     
@@ -147,7 +148,9 @@ final class WSDashboardCollectionViewLayout: UICollectionViewLeftAlignedLayout {
             let contentMaxX = collectionView.bounds.width - inset.right
             
             let rows = groupRows(cellAttributes)
-            for (rowIndex, row) in rows.enumerated() {
+            /// 空白装饰视图的索引在分区内自增，保证同一行存在多个空白时互不覆盖
+            var gapIndex = 0
+            for row in rows {
                 guard let first = row.first else {
                     continue
                 }
@@ -164,7 +167,7 @@ final class WSDashboardCollectionViewLayout: UICollectionViewLeftAlignedLayout {
                     let gapWidth = min(unitLength, contentMaxX - gapMinX)
                     let attributes = WSDashboardGapDecorationAttributes(
                         forDecorationViewOfKind: Self.gapDecorationKind,
-                        with: IndexPath(item: rowIndex, section: section)
+                        with: IndexPath(item: gapIndex, section: section)
                     )
                     attributes.frame = CGRect(x: gapMinX,
                                               y: rowMinY,
@@ -177,6 +180,7 @@ final class WSDashboardCollectionViewLayout: UICollectionViewLeftAlignedLayout {
                     attributes.previousItemIndexPath = precedingIndexPath
                     gapLayoutAttributes[attributes.indexPath] = attributes
                     
+                    gapIndex += 1
                     gapMinX += gapWidth + spacing
                 }
             }
