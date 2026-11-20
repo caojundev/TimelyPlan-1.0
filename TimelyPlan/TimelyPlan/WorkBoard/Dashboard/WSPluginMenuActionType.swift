@@ -28,17 +28,17 @@ enum WSPluginMenuActionType: Int, CaseIterable, TPMenuRepresentable {
         }
     }
     
-    /// 菜单图标
-    var iconImage: UIImage? {
+    /// 菜单图标名称
+    var iconName: String? {
         switch self {
         case .addPreviousPlugin:
-            return UIImage(systemName: "arrow.up.square")
+            return "plugin_action_addPrevious_24"
         case .addNextPlugin:
-            return UIImage(systemName: "arrow.down.square")
+            return "plugin_action_addNext_24"
         case .configPlugin:
-            return UIImage(systemName: "slider.horizontal.3")
+            return "plugin_action_config_24"
         case .removePlugin:
-            return UIImage(systemName: "trash")
+            return "plugin_action_trash_24"
         }
     }
     

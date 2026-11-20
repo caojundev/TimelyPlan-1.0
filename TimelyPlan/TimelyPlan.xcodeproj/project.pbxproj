@@ -880,6 +880,14 @@
 		E547C7252F3DA2F00095918C /* sort_order_descending_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C7212F3DA2EF0095918C /* sort_order_descending_24@3x.png */; };
 		E547C7262F3DA2F00095918C /* sort_order_ascending_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C7222F3DA2EF0095918C /* sort_order_ascending_24@2x.png */; };
 		E547C7272F3DA2F00095918C /* sort_order_descending_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C7232F3DA2F00095918C /* sort_order_descending_24@2x.png */; };
+		E549437D30B000BE006EC04B /* plugin_action_addNext_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549437730B000BE006EC04B /* plugin_action_addNext_24@2x.png */; };
+		E549437E30B000BE006EC04B /* plugin_action_addNext_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549437830B000BE006EC04B /* plugin_action_addNext_24@3x.png */; };
+		E549437F30B000BE006EC04B /* plugin_action_addPrevious_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549437930B000BE006EC04B /* plugin_action_addPrevious_24@2x.png */; };
+		E549438030B000BE006EC04B /* plugin_action_addPrevious_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549437A30B000BE006EC04B /* plugin_action_addPrevious_24@3x.png */; };
+		E549438130B000BE006EC04B /* plugin_action_trash_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549437B30B000BE006EC04B /* plugin_action_trash_24@3x.png */; };
+		E549438230B000BE006EC04B /* plugin_action_trash_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549437C30B000BE006EC04B /* plugin_action_trash_24@2x.png */; };
+		E549438530B00365006EC04B /* plugin_action_config_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549438330B00364006EC04B /* plugin_action_config_24@3x.png */; };
+		E549438630B00365006EC04B /* plugin_action_config_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549438430B00365006EC04B /* plugin_action_config_24@2x.png */; };
 		E549B14D2F85F53C0014BE85 /* CDTodoTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B14C2F85F53B0014BE85 /* CDTodoTask+Extensions.swift */; };
 		E549B14F2F85F5D70014BE85 /* TodoTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B14E2F85F5D70014BE85 /* TodoTaskManager.swift */; };
 		E549B1512F85F6030014BE85 /* TodoTaskProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B1502F85F6030014BE85 /* TodoTaskProcessorUpdater.swift */; };
@@ -4008,6 +4016,14 @@
 		E547C7212F3DA2EF0095918C /* sort_order_descending_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sort_order_descending_24@3x.png"; sourceTree = "<group>"; };
 		E547C7222F3DA2EF0095918C /* sort_order_ascending_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sort_order_ascending_24@2x.png"; sourceTree = "<group>"; };
 		E547C7232F3DA2F00095918C /* sort_order_descending_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sort_order_descending_24@2x.png"; sourceTree = "<group>"; };
+		E549437730B000BE006EC04B /* plugin_action_addNext_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_addNext_24@2x.png"; sourceTree = "<group>"; };
+		E549437830B000BE006EC04B /* plugin_action_addNext_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_addNext_24@3x.png"; sourceTree = "<group>"; };
+		E549437930B000BE006EC04B /* plugin_action_addPrevious_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_addPrevious_24@2x.png"; sourceTree = "<group>"; };
+		E549437A30B000BE006EC04B /* plugin_action_addPrevious_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_addPrevious_24@3x.png"; sourceTree = "<group>"; };
+		E549437B30B000BE006EC04B /* plugin_action_trash_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_trash_24@3x.png"; sourceTree = "<group>"; };
+		E549437C30B000BE006EC04B /* plugin_action_trash_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_trash_24@2x.png"; sourceTree = "<group>"; };
+		E549438330B00364006EC04B /* plugin_action_config_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_config_24@3x.png"; sourceTree = "<group>"; };
+		E549438430B00365006EC04B /* plugin_action_config_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_config_24@2x.png"; sourceTree = "<group>"; };
 		E549B14C2F85F53B0014BE85 /* CDTodoTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTodoTask+Extensions.swift"; sourceTree = "<group>"; };
 		E549B14E2F85F5D70014BE85 /* TodoTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskManager.swift; sourceTree = "<group>"; };
 		E549B1502F85F6030014BE85 /* TodoTaskProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskProcessorUpdater.swift; sourceTree = "<group>"; };
@@ -9527,6 +9543,21 @@
 			path = Timeline;
 			sourceTree = "<group>";
 		};
+		E549437630B000BE006EC04B /* action */ = {
+			isa = PBXGroup;
+			children = (
+				E549437730B000BE006EC04B /* plugin_action_addNext_24@2x.png */,
+				E549437830B000BE006EC04B /* plugin_action_addNext_24@3x.png */,
+				E549437930B000BE006EC04B /* plugin_action_addPrevious_24@2x.png */,
+				E549437A30B000BE006EC04B /* plugin_action_addPrevious_24@3x.png */,
+				E549437B30B000BE006EC04B /* plugin_action_trash_24@3x.png */,
+				E549437C30B000BE006EC04B /* plugin_action_trash_24@2x.png */,
+				E549438430B00365006EC04B /* plugin_action_config_24@2x.png */,
+				E549438330B00364006EC04B /* plugin_action_config_24@3x.png */,
+			);
+			path = action;
+			sourceTree = "<group>";
+		};
 		E549B1582F87CF4B0014BE85 /* QuickAdd */ = {
 			isa = PBXGroup;
 			children = (
@@ -11818,37 +11849,6 @@
 				E5FEC61230AC39C600138DBF /* Interactor */,
 			);
 			path = Dashboard;
-			sourceTree = "<group>";
-		};
-		E5FEC61030AC39C600138DBF /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				E5A625943089B3CD003EB8BC /* WSDashboardView.swift */,
-				E5C5E1A630A4AFC400E7D1F3 /* WSDashboardReorder.swift */,
-				E5A6258F3089B3CD003EB8BC /* WSPluginCell.swift */,
-				E5A625933089B3CD003EB8BC /* WSPluginContentView.swift */,
-				E5A625903089B3CD003EB8BC /* WSPluginDefaultPlaceholderView.swift */,
-				E5A625913089B3CD003EB8BC /* WSPluginEmptyPlaceholderView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		E5FEC61130AC39C600138DBF /* Layout */ = {
-			isa = PBXGroup;
-			children = (
-				E5A6258C3089B3CD003EB8BC /* WSDashboardCollectionViewLayout.swift */,
-				E5A6258E3089B3CD003EB8BC /* WSDashboardGridLayout.swift */,
-			);
-			path = Layout;
-			sourceTree = "<group>";
-		};
-		E5FEC61230AC39C600138DBF /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				E5A6258B3089B3CD003EB8BC /* WSDashboardInteractor.swift */,
-				E5A6258D3089B3CD003EB8BC /* WSPluginContentInteractor.swift */,
-			);
-			path = Interactor;
 			sourceTree = "<group>";
 		};
 		E5A625973089B3CD003EB8BC /* Registry */ = {
@@ -17453,6 +17453,7 @@
 		E5FEC5F430AC082400138DBF /* plugin */ = {
 			isa = PBXGroup;
 			children = (
+				E549437630B000BE006EC04B /* action */,
 				E554308C30AD52FF004C4AC1 /* placeholder */,
 				E5DC6E5830AC8BA200581B10 /* todo */,
 				E5FEC5F530AC082400138DBF /* plugin_title_48@2x.png */,
@@ -17481,6 +17482,37 @@
 				E5FEC61C30AC4B3600138DBF /* plugin_timeline_48@3x.png */,
 			);
 			path = plugin;
+			sourceTree = "<group>";
+		};
+		E5FEC61030AC39C600138DBF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E5A625943089B3CD003EB8BC /* WSDashboardView.swift */,
+				E5C5E1A630A4AFC400E7D1F3 /* WSDashboardReorder.swift */,
+				E5A6258F3089B3CD003EB8BC /* WSPluginCell.swift */,
+				E5A625933089B3CD003EB8BC /* WSPluginContentView.swift */,
+				E5A625903089B3CD003EB8BC /* WSPluginDefaultPlaceholderView.swift */,
+				E5A625913089B3CD003EB8BC /* WSPluginEmptyPlaceholderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E5FEC61130AC39C600138DBF /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				E5A6258C3089B3CD003EB8BC /* WSDashboardCollectionViewLayout.swift */,
+				E5A6258E3089B3CD003EB8BC /* WSDashboardGridLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		E5FEC61230AC39C600138DBF /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5A6258B3089B3CD003EB8BC /* WSDashboardInteractor.swift */,
+				E5A6258D3089B3CD003EB8BC /* WSPluginContentInteractor.swift */,
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		E5FF12E82D5DE78800340DCC /* Common */ = {
@@ -17878,6 +17910,7 @@
 				E5FD1921307FC2E900E87402 /* sideMenu_workspace_40@3x.png in Resources */,
 				E563F1C72FE8E42E00DF86BB /* sideMenu_quadrants_40@2x.png in Resources */,
 				E5168BD32F545B400000A760 /* dateRange_background_start@3x.png in Resources */,
+				E549438230B000BE006EC04B /* plugin_action_trash_24@2x.png in Resources */,
 				E524C79B2F9F499F005CCEBD /* todo_home_list_24@2x.png in Resources */,
 				E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */,
 				E55E4BD22F9336170068E032 /* calendar_16_24@3x.png in Resources */,
@@ -17951,6 +17984,7 @@
 				E5D9D59F3076A17E00479B2E /* calnedar_panelStyle_5_2_twoColumn@2x.png in Resources */,
 				E554308F30AD5310004C4AC1 /* plugin_placeholder_80@3x.png in Resources */,
 				E500DE582DB09D4500EAEAF7 /* todo_filter_indicator_priority_12@2x.png in Resources */,
+				E549438030B000BE006EC04B /* plugin_action_addPrevious_24@3x.png in Resources */,
 				E54155392F48B541000B2972 /* focus_record_showDetail_24@3x.png in Resources */,
 				E563F1DD2FE9184300DF86BB /* setting_abount_32@2x.png in Resources */,
 				E556BCC42F5D6C7000CA20D9 /* habit_indicator_status_failed_16@2x.png in Resources */,
@@ -18025,6 +18059,7 @@
 				E5185077300F6DFD00112DFC /* todo_circle_normal_24@3x.png in Resources */,
 				E5E277202D3E099C004EC522 /* todo_list_option_showCompleted_24@2x.png in Resources */,
 				E55E4BDF2F9336170068E032 /* calendar_11_24@3x.png in Resources */,
+				E549438530B00365006EC04B /* plugin_action_config_24@3x.png in Resources */,
 				E522FE333067BAB800C6B581 /* gantt_timeline_24@2x.png in Resources */,
 				E5DA03A52FA0A59800A58ACC /* todo_group_type_completionDate_24@2x.png in Resources */,
 				E54A0693303C2C71001FF4A1 /* ganttTimeScale_week_24@3x.png in Resources */,
@@ -18086,6 +18121,7 @@
 				E5E2771F2D3E099C004EC522 /* todo_list_option_select_24@2x.png in Resources */,
 				E53352972FF8C9CC00546986 /* calendar_day_24@2x.png in Resources */,
 				E5D7D9882D43E35000EC877A /* focus_timer_stepMode_focus_24@3x.png in Resources */,
+				E549437D30B000BE006EC04B /* plugin_action_addNext_24@2x.png in Resources */,
 				E56B94602F8CD6D0001E488B /* todo_group_type_default_24@3x.png in Resources */,
 				E500DE572DB09D4500EAEAF7 /* todo_filter_indicator_tag_12@2x.png in Resources */,
 				E54A067E303BDC69001FF4A1 /* sideMenu_goal_40@2x.png in Resources */,
@@ -18151,6 +18187,7 @@
 				E5D7D9602D43DBE000EC877A /* focus_timer_pomodoro_32@3x.png in Resources */,
 				E5D7D9762D43E05700EC877A /* focus_running_screenAlwaysOnEnabled_24@2x.png in Resources */,
 				E5D833962DAB64D60012ABF3 /* todo_task_progress_recordType_24@3x.png in Resources */,
+				E549438130B000BE006EC04B /* plugin_action_trash_24@3x.png in Resources */,
 				E55B893A30774F1F00ADCED5 /* mindMap_24@2x.png in Resources */,
 				E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */,
 				E53632D22FAF63480095DFEC /* quadrant_IV_60@2x.png in Resources */,
@@ -18304,6 +18341,7 @@
 				E5E4D14B2D92AF2C00813B6C /* todo_filter_tag_36@2x.png in Resources */,
 				E53352992FF8C9CC00546986 /* calendar_week_24@2x.png in Resources */,
 				E5E58CEC307C780E00121283 /* memberBanner_crown_46@3x.png in Resources */,
+				E549438630B00365006EC04B /* plugin_action_config_24@2x.png in Resources */,
 				E55E4BE02F9336170068E032 /* calendar_22_24@2x.png in Resources */,
 				E5BBCAD93091A97700E35B41 /* inbox_24@3x.png in Resources */,
 				E5BB9A802D3BEF0D0089667A /* schedule_reminder_24@3x.png in Resources */,
@@ -18351,6 +18389,7 @@
 				E55F6F0030ADCEE20017491E /* myDay_80@3x.png in Resources */,
 				E5320C2E2FCA87CE001DFE98 /* todo_list_option_manageSection_24@2x.png in Resources */,
 				E5D7D8F32D43933600EC877A /* NegativeCircleFill@2x.png in Resources */,
+				E549437F30B000BE006EC04B /* plugin_action_addPrevious_24@2x.png in Resources */,
 				E55A7B8F2D46000E000D224C /* placeholder_noSearchResult_80@2x.png in Resources */,
 				E5BB9A9D2D3BEF0D0089667A /* todo_task_tag_24@3x.png in Resources */,
 				E5E4D1492D92AF2C00813B6C /* todo_filter_list_36@3x.png in Resources */,
@@ -18392,6 +18431,7 @@
 				E563F1D92FE9184200DF86BB /* setting_share_32@3x.png in Resources */,
 				E515AD622D3CC04A00AA9AF2 /* chevron_down_24@3x.png in Resources */,
 				E56B94802F8CDB42001E488B /* todo_sort_type_creationDate_24@2x.png in Resources */,
+				E549437E30B000BE006EC04B /* plugin_action_addNext_24@3x.png in Resources */,
 				E58D47942F911F0A00CF8C9E /* task_type_todo_24@3x.png in Resources */,
 				E5D7D9662D43DBE000EC877A /* focus_timer_stopwatch_32@2x.png in Resources */,
 				E56B945D2F8CD6D0001E488B /* todo_group_type_default_24@2x.png in Resources */,
