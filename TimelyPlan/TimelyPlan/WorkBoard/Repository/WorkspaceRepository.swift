@@ -28,9 +28,30 @@ class WorkspaceRepository {
     
     private static let pluginManager = WorkspacePluginManager()
     
+    // MARK: - 注册远程数据变更
+    private static var isRemoteChangeObserved = false
+    private static func observeRemoteChangeIfNeeded() {
+        if isRemoteChangeObserved {
+            return
+        }
+        
+        isRemoteChangeObserved = true
+        HandyRecord.observeRemoteChange { changeInfo in
+            if changeInfo.hasChanges(for: .dashboard) {
+                dashboardManager.updater.didChangeRemoteWorkspaceDashbaord()
+            }
+            
+            if changeInfo.hasChanges(for: .plugin) {
+                pluginManager.updater.didChangeRemoteWorkspacePlugin()
+            }
+        }
+    }
+    
     // MARK: - 更新器
     /// 添加更新器代理对象
     static func addUpdater(_ updater: AnyObject, for option: WorkspaceUpdaterOption = .all) {
+        observeRemoteChangeIfNeeded()
+        
         if option.contains(.dashboard) {
             dashboardManager.updater.addDelegate(updater)
         }
@@ -47,7 +68,12 @@ class WorkspaceRepository {
     }
     
     // MARK: - 获取面板
-    /// 所有面板，按排序因子升序返回。不存在时创建默认面板
+    /// 异步获取所有面板
+    static func fetchDashboards(completion: @escaping ([WSDashboard]?) -> Void) {
+        dashboardManager.fetchDashboards(completion: completion)
+    }
+    
+    /// 所有面板，按排序因子升序返回。无自定义面板时由收件箱面板兜底
     static func getDashboards() -> [WSDashboard] {
         return dashboardManager.getDashboards()
     }
@@ -87,11 +113,6 @@ class WorkspaceRepository {
         return pluginManager.getPlugins(in: dashboard)
     }
     
-    /// 面板下特定标识的插件
-    static func getPlugin(withIdentifier identifier: String, in dashboard: WSDashboard) -> WSPlugin? {
-        return pluginManager.getPlugin(withIdentifier: identifier, in: dashboard)
-    }
-    
     // MARK: - 处理插件
     /// 创建插件
     /// - Parameter index: 插入位置。为 nil 时追加到末尾
@@ -109,25 +130,18 @@ class WorkspaceRepository {
     /// 更新插件配置
     @discardableResult
     static func updatePlugin(_ plugin: WSPlugin,
-                             in dashboard: WSDashboard,
                              configJSON: String?) -> WSPlugin? {
         return pluginManager.updatePlugin(plugin,
-                                          in: dashboard,
                                           configJSON: configJSON)
     }
     
     /// 删除插件
-    static func deletePlugin(_ plugin: WSPlugin, in dashboard: WSDashboard) {
-        pluginManager.deletePlugin(plugin, in: dashboard)
-    }
-    
-    /// 删除面板下的所有插件
-    static func deletePlugins(in dashboard: WSDashboard) {
-        pluginManager.deletePlugins(in: dashboard)
+    static func deletePlugin(_ plugin: WSPlugin) {
+        pluginManager.deletePlugin(plugin)
     }
     
     /// 排序插件
-    static func didEndReorderPlugins(with orderedPlugins: [WSPlugin], in dashboard: WSDashboard) {
-        pluginManager.didEndReorderPlugins(with: orderedPlugins, in: dashboard)
+    static func didEndReorderPlugins(with orderedPlugins: [WSPlugin]) {
+        pluginManager.didEndReorderPlugins(with: orderedPlugins)
     }
 }

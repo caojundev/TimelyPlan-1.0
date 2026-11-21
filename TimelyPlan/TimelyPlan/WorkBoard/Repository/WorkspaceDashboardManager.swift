@@ -6,79 +6,93 @@
 //
 
 import Foundation
+import CoreData
 
-class WorkspaceDashboardManager: SettingAgentObserver {
+class WorkspaceDashboardManager {
 
-    let key = "WorkspaceDashboard"
-    
+    /// 数据更新器
     let updater = WorkspaceDashboardProcessorUpdater()
     
-    /// 仪表盘字典。暂未接入持久化，先以内存字典模拟：键为标识，值为对应仪表盘
-    private var dashboards: [String: WSDashboard] = [:]
-    
-    init() {
-        KeyValueStorage.shared.addObserver(self, forKey: key)
+    /// 默认上下文对象
+    var context: NSManagedObjectContext {
+        return .defaultContext
     }
     
-    // MARK: - SettingAgentObserver
-    func settingAgentDidChangeRemoteValue(for keyName: String) {
-        debugPrint("Workspace Dashboard 远程数据更新: \(keyName)")
-        updater.didChangeRemoteWorkspaceDashbaord()
+    // MARK: - 异步获取面板
+    /// 异步获取所有面板
+    func fetchDashboards(completion: @escaping ([WSDashboard]?) -> Void) {
+        CDDashboard.fetchDashboards { results in
+            completion(results?.toWSDashboards)
+        }
     }
     
-    // MARK: - 获取仪表盘
-    /// 所有仪表盘，按排序因子升序返回。不存在时创建默认仪表盘
+    // MARK: - 同步获取面板
+    /// 所有面板，按排序因子升序返回。无自定义面板时由收件箱面板兜底
     func getDashboards() -> [WSDashboard] {
-        createDefaultDashboardIfNeeded()
-        return Array(dashboards.values).orderedElements()
+        return CDDashboard.getDashboards()?.toWSDashboards ?? []
     }
     
-    /// 特定标识的仪表盘
+    /// 特定标识的面板
     func getDashboard(withIdentifier identifier: String) -> WSDashboard? {
-        return dashboards[identifier]
+        guard let content = CDDashboard.getDashboard(withIdentifier: identifier) else {
+            return nil
+        }
+        
+        return WSDashboard(content: content)
     }
     
-    // MARK: - 处理仪表盘
-    /// 创建仪表盘
+    // MARK: - 处理面板
+    /// 创建面板
     @discardableResult
     func createDashboard(name: String? = nil,
                          colorHex: String? = nil) -> WSDashboard {
-        let dashboard = WSDashboard(identifier: UUID().uuidString)
-        dashboard.name = name
-        dashboard.colorHex = colorHex
-        dashboard.order = Array(dashboards.values).insertOrder()
-        dashboard.creationDate = .now
-        dashboard.modificationDate = .now
+        let order = (CDDashboard.getDashboards() ?? []).insertOrder()
+        let content = CDDashboard.newDashboard(name: name, colorHex: colorHex)
+        content.order = order
         
-        dashboards[dashboard.identifier] = dashboard
+        let dashboard = WSDashboard(content: content)
         updater.didCreateWorkspaceDashbaord(dashboard)
+        HandyRecord.updateChangeCount()
         return dashboard
     }
     
-    /// 更新仪表盘名称
+    /// 更新面板名称
     @discardableResult
     func updateDashboard(_ dashboard: WSDashboard, name: String?) -> WSDashboard? {
         guard dashboard.name != name else {
             return nil
         }
         
+        guard let content = CDDashboard.getDashboard(withIdentifier: dashboard.identifier) else {
+            return nil
+        }
+        
         let change: WorkspaceDashboardChange = .name(oldValue: dashboard.name, newValue: name)
+        content.update(name: name, colorHex: dashboard.colorHex)
+        
+        /// 同步外部持有的模型实例，避免界面继续读到旧值
         dashboard.name = name
-        dashboard.modificationDate = .now
+        dashboard.modificationDate = content.modificationDate
+        
         updater.didUpdateWorkspaceDashbaord(dashboard, with: change)
+        HandyRecord.updateChangeCount()
         return dashboard
     }
     
-    /// 删除仪表盘
+    /// 删除面板
+    /// - Note: 面板与插件为级联删除关系，先同步落库再通知，保证通知后不再查到待删除的插件
     func deleteDashboard(_ dashboard: WSDashboard) {
-        guard dashboards.removeValue(forKey: dashboard.identifier) != nil else {
+        guard let content = CDDashboard.getDashboard(withIdentifier: dashboard.identifier) else {
             return
         }
+        
+        context.delete(content)
+        HandyRecord.saveSynchronously()
         
         updater.didDeleteWorkspaceDashbaord(dashboard)
     }
     
-    /// 排序仪表盘
+    /// 排序面板
     func didEndReorderDashboards(with orderedDashboards: [WSDashboard]) {
         guard orderedDashboards.count > 0 else {
             return
@@ -86,16 +100,11 @@ class WorkspaceDashboardManager: SettingAgentObserver {
         
         /// 拖动结束后仅调整顺序因子，数组顺序即最新的展示顺序
         orderedDashboards.updateOrders()
-        updater.didReorderWorkspaceDashbaord()
-    }
-    
-    // MARK: - Helper
-    /// 不存在仪表盘时创建默认仪表盘
-    private func createDefaultDashboardIfNeeded() {
-        guard dashboards.isEmpty else {
+        guard CDDashboard.syncOrders(for: orderedDashboards) else {
             return
         }
         
-        createDashboard(name: WSDashboard.defaultName)
+        updater.didReorderWorkspaceDashbaord()
+        HandyRecord.updateChangeCount()
     }
 }

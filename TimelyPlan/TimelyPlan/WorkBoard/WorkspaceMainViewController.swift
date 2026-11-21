@@ -85,6 +85,7 @@ class WorkspaceMainViewController: TPContainerViewController,
     func updateNavigationBarItems() {
         /// 标题视图展示当前面板，面板未命名时使用默认标题
         titleView.dashboard = coordinator.dashboard
+        
         /// 侧边栏按钮
         if let sidebarButtonItem = sidebarController?.newMenuButtonItem() {
             navigationItem.leftBarButtonItems = [sidebarButtonItem]

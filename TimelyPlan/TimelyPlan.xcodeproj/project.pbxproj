@@ -888,6 +888,9 @@
 		E549438230B000BE006EC04B /* plugin_action_trash_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549437C30B000BE006EC04B /* plugin_action_trash_24@2x.png */; };
 		E549438530B00365006EC04B /* plugin_action_config_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549438330B00364006EC04B /* plugin_action_config_24@3x.png */; };
 		E549438630B00365006EC04B /* plugin_action_config_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E549438430B00365006EC04B /* plugin_action_config_24@2x.png */; };
+		E549438930B07BDC006EC04B /* CDDashboard+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549438830B07BDC006EC04B /* CDDashboard+Extensions.swift */; };
+		E549438B30B07C35006EC04B /* CDPlugin+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549438A30B07C35006EC04B /* CDPlugin+Extensions.swift */; };
+		E549438D30B08AD1006EC04B /* WSDashboardManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549438C30B08AD0006EC04B /* WSDashboardManageViewModel.swift */; };
 		E549B14D2F85F53C0014BE85 /* CDTodoTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B14C2F85F53B0014BE85 /* CDTodoTask+Extensions.swift */; };
 		E549B14F2F85F5D70014BE85 /* TodoTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B14E2F85F5D70014BE85 /* TodoTaskManager.swift */; };
 		E549B1512F85F6030014BE85 /* TodoTaskProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B1502F85F6030014BE85 /* TodoTaskProcessorUpdater.swift */; };
@@ -4024,6 +4027,9 @@
 		E549437C30B000BE006EC04B /* plugin_action_trash_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_trash_24@2x.png"; sourceTree = "<group>"; };
 		E549438330B00364006EC04B /* plugin_action_config_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_config_24@3x.png"; sourceTree = "<group>"; };
 		E549438430B00365006EC04B /* plugin_action_config_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_action_config_24@2x.png"; sourceTree = "<group>"; };
+		E549438830B07BDC006EC04B /* CDDashboard+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDDashboard+Extensions.swift"; sourceTree = "<group>"; };
+		E549438A30B07C35006EC04B /* CDPlugin+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPlugin+Extensions.swift"; sourceTree = "<group>"; };
+		E549438C30B08AD0006EC04B /* WSDashboardManageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSDashboardManageViewModel.swift; sourceTree = "<group>"; };
 		E549B14C2F85F53B0014BE85 /* CDTodoTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTodoTask+Extensions.swift"; sourceTree = "<group>"; };
 		E549B14E2F85F5D70014BE85 /* TodoTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskManager.swift; sourceTree = "<group>"; };
 		E549B1502F85F6030014BE85 /* TodoTaskProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskProcessorUpdater.swift; sourceTree = "<group>"; };
@@ -9558,6 +9564,15 @@
 			path = action;
 			sourceTree = "<group>";
 		};
+		E549438730B07B7F006EC04B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E549438830B07BDC006EC04B /* CDDashboard+Extensions.swift */,
+				E549438A30B07C35006EC04B /* CDPlugin+Extensions.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		E549B1582F87CF4B0014BE85 /* QuickAdd */ = {
 			isa = PBXGroup;
 			children = (
@@ -11782,6 +11797,7 @@
 		E5A625783089B3CD003EB8BC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E549438730B07B7F006EC04B /* CoreData */,
 				E5A625793089B3CD003EB8BC /* WSPlugin.swift */,
 				E5A6257A3089B3CD003EB8BC /* WSDashboard.swift */,
 			);
@@ -11865,6 +11881,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A6259D3089B3CD003EB8BC /* WSDashboardManageViewController.swift */,
+				E549438C30B08AD0006EC04B /* WSDashboardManageViewModel.swift */,
 			);
 			path = Manage;
 			sourceTree = "<group>";
@@ -19731,6 +19748,7 @@
 				E500E3BC2FC9C6C700252011 /* TPGroupTableView.swift in Sources */,
 				E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */,
 				E57CC5DC2F7FCED300ADDBA4 /* TodoTaskQuickAddView.swift in Sources */,
+				E549438B30B07C35006EC04B /* CDPlugin+Extensions.swift in Sources */,
 				E5371DEB2FF372C300BA9DEF /* HabitTask+Calendar.swift in Sources */,
 				E5BB9EC62D3BF0C80089667A /* TPButtonAction.swift in Sources */,
 				E53735F42D9C1C0E00C5A001 /* TPSliderViewController.swift in Sources */,
@@ -20314,6 +20332,7 @@
 				E500E3912FC5D73600252011 /* TodoStatsWeeklyViewController.swift in Sources */,
 				E5D7D9082D43933600EC877A /* PomodoroTimerEditView.swift in Sources */,
 				E5E9F7842FBFF6F700717004 /* TodoStepImporterViewController.swift in Sources */,
+				E549438930B07BDC006EC04B /* CDDashboard+Extensions.swift in Sources */,
 				E5BB9F0B2D3BF0C90089667A /* TPMultipleItemSelection.swift in Sources */,
 				E50179582FD6533A00DC544D /* TodoTaskSectionViewModel.swift in Sources */,
 				E5371DEF2FF4C03100BA9DEF /* CalendarHabitSettingSectionController.swift in Sources */,
@@ -20769,6 +20788,7 @@
 				E521E3592F6A50110071DA12 /* HabitReportYearlyMonthRender.swift in Sources */,
 				E5E5BDB72FE3E698008D3F64 /* CoreDataEntityName.swift in Sources */,
 				E5BB9E7E2D3BF0C70089667A /* StatsBarChartSectionController.swift in Sources */,
+				E549438D30B08AD1006EC04B /* WSDashboardManageViewModel.swift in Sources */,
 				E556BCEA2F5E5EB500CA20D9 /* HabitRecordController.swift in Sources */,
 				E5320C312FCA949E001DFE98 /* TodoImportInputViewController.swift in Sources */,
 				E5BB9E6E2D3BF0C70089667A /* TPCollectionItemSectionController.swift in Sources */,

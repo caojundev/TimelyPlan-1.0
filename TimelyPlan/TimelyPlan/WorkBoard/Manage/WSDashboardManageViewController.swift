@@ -31,8 +31,11 @@ class WSDashboardManageViewController: TPTableSectionsViewController {
     /// 数据视图模型
     private let viewModel: WSDashboardManageViewModel
     
-    /// 面板列表区块控制器
-    private lazy var sectionController = WSDashboardManageSectionController(viewModel: viewModel)
+    /// 收件箱面板区块控制器。仅展示收件箱，不支持编辑、删除与排序
+    private lazy var inboxSectionController = WSDashboardInboxSectionController(viewModel: viewModel)
+    
+    /// 用户面板区块控制器。支持编辑、删除与排序
+    private lazy var userSectionController = WSDashboardManageSectionController(viewModel: viewModel)
     
     init(currentDashboardIdentifier: String?) {
         self.viewModel = WSDashboardManageViewModel(currentDashboardIdentifier: currentDashboardIdentifier)
@@ -50,13 +53,26 @@ class WSDashboardManageViewController: TPTableSectionsViewController {
         wrapperView.placeholderProvider = viewModel.placeholderProvider
         setupReorder()
         setupActionsBar(actions: [addDashboardAction])
-        sectionControllers = [sectionController]
+        sectionControllers = [inboxSectionController, userSectionController]
         reloadData()
-        sectionController.didSelectDashboard = { [weak self] dashboard in
+        inboxSectionController.didSelectDashboard = { [weak self] dashboard in
+            self?.selectDashboard(dashboard)
+        }
+        userSectionController.didSelectDashboard = { [weak self] dashboard in
             self?.selectDashboard(dashboard)
         }
         viewModel.onDashboardsChanged = { [weak self] change in
             self?.dashboardsChanged(with: change)
+        }
+        viewModel.loadDashboards()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        /// 异步加载可能在界面未挂载到窗口时完成，此处补一次刷新
+        if adapter.needsReload {
+            wrapperView.reloadData()
         }
     }
     
@@ -71,8 +87,8 @@ class WSDashboardManageViewController: TPTableSectionsViewController {
     // MARK: - Private Methods
     private func dashboardsChanged(with change: WSDashboardManageChange?) {
         DispatchQueue.main.async {
-            self.sectionController.dashboards = self.viewModel.dashboards
-            self.wrapperView.performUpdate(with: .top)
+            self.userSectionController.dashboards = self.viewModel.dashboards
+            self.wrapperView.performUpdate(with: .fade)
             
             guard let change = change else {
                 return
@@ -97,18 +113,18 @@ class WSDashboardManageViewController: TPTableSectionsViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    /// 初始化排序管理器
+    /// 初始化排序管理器。仅用户面板区块支持排序
     private func setupReorder() {
         let reorder = TPTableDragInsertReorder(tableView: adapter.tableView)
         reorder.indicatorBackColor = Color(0xFFFFFF, 0.1)
         reorder.isEnabled = true
-        reorder.delegate = sectionController
+        reorder.delegate = userSectionController
         self.reorder = reorder
     }
     
     // MARK: - 新建面板
     private func clickAddDashboard() {
-        sectionController.createNewDashboard()
+        userSectionController.createNewDashboard()
     }
 }
 
@@ -134,121 +150,14 @@ extension WSDashboardManageViewController {
     }
 }
 
-// MARK: - 面板变化
-/// 面板列表变化类型
-enum WSDashboardManageChange {
-    
-    /// 新建面板
-    case create(WSDashboard)
-    
-    /// 更新面板
-    case update(WSDashboard)
-}
-
-/// 面板管理数据视图模型
-class WSDashboardManageViewModel: WorkspaceDashboardProcessorDelegate {
-    
-    /// 面板列表改变
-    var onDashboardsChanged: ((WSDashboardManageChange?) -> Void)?
-    
-    /// 占位视图
-    private(set) lazy var placeholderProvider: TPDefaultPlaceholderProvider = {
-        let provider = TPDefaultPlaceholderProvider()
-        provider.emptyTitle = resGetString("No Dashboard")
-        return provider
-    }()
-    
-    /// 所有面板
-    private(set) var dashboards: [WSDashboard] = []
-    
-    /// 工作台当前展示的面板标识，用于标记选中状态
-    private(set) var currentDashboardIdentifier: String?
-    
-    init(currentDashboardIdentifier: String?) {
-        self.currentDashboardIdentifier = currentDashboardIdentifier
-        updateDashboards()
-        WorkspaceRepository.addUpdater(self, for: [.dashboard])
-    }
-    
-    deinit {
-        WorkspaceRepository.removeUpdater(self)
-    }
-    
-    // MARK: - 处理面板
-    /// 创建面板
-    func createDashboard(with name: String) {
-        WorkspaceRepository.createDashboard(name: name)
-    }
-    
-    /// 更新面板名称
-    func updateDashboard(_ dashboard: WSDashboard, with name: String) {
-        WorkspaceRepository.updateDashboard(dashboard, name: name)
-    }
-    
-    /// 删除面板
-    func deleteDashboard(_ dashboard: WSDashboard) {
-        WorkspaceRepository.deleteDashboard(dashboard)
-    }
-    
-    /// 排序面板
-    func reorderDashboard(fromIndex: Int, toIndex: Int) -> Bool {
-        guard dashboards.moveObject(fromIndex: fromIndex, toIndex: toIndex) else {
-            return false
-        }
-        
-        WorkspaceRepository.didEndReorderDashboards(with: dashboards)
-        return true
-    }
-    
-    private func updateDashboards() {
-        dashboards = WorkspaceRepository.getDashboards()
-    }
-    
-    /// 当前面板已被删除时，工作台会回落到首个面板，此处同步选中状态
-    private func updateCurrentDashboardIdentifierIfNeeded() {
-        guard let identifier = currentDashboardIdentifier,
-              !dashboards.contains(where: { $0.identifier == identifier }) else {
-            return
-        }
-        
-        currentDashboardIdentifier = dashboards.first?.identifier
-    }
-    
-    // MARK: - WorkspaceDashboardProcessorDelegate
-    func didChangeRemoteWorkspaceDashbaord() {
-        updateDashboards()
-        updateCurrentDashboardIdentifierIfNeeded()
-        onDashboardsChanged?(nil)
-    }
-    
-    func didCreateWorkspaceDashbaord(_ board: WSDashboard) {
-        updateDashboards()
-        onDashboardsChanged?(.create(board))
-    }
-    
-    func didDeleteWorkspaceDashbaord(_ board: WSDashboard) {
-        updateDashboards()
-        updateCurrentDashboardIdentifierIfNeeded()
-        onDashboardsChanged?(nil)
-    }
-    
-    func didUpdateWorkspaceDashbaord(_ board: WSDashboard,
-                                     with change: WorkspaceDashboardChange) {
-        updateDashboards()
-        onDashboardsChanged?(.update(board))
-    }
-}
-
 // MARK: - 面板列表区块
-class WSDashboardManageSectionController: TPTableBaseSectionController,
-                                          TPTableDragInsertReorderDelegate {
-    
-    /// 面板列表
-    var dashboards: [WSDashboard]?
+/// 面板区块公共逻辑。收件箱与用户面板使用相同的单元格与选中状态
+class WSDashboardSectionController: TPTableBaseSectionController {
     
     /// 选中面板回调
     var didSelectDashboard: ((WSDashboard) -> Void)?
     
+    /// 数据视图模型
     let viewModel: WSDashboardManageViewModel
     
     let cellStyle = TPTableCellStyle()
@@ -256,16 +165,16 @@ class WSDashboardManageSectionController: TPTableBaseSectionController,
     init(viewModel: WSDashboardManageViewModel) {
         self.viewModel = viewModel
         super.init()
-        self.dashboards = viewModel.dashboards
         self.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.cellStyle.selectedBackgroundColor = .tertiarySystemFill
     }
     
-    override var items: [ListDiffable]? {
-        return dashboards
-    }
-    
     override func heightForHeader() -> CGFloat {
+        /// 无条目时不展示区块间距
+        guard let items = items, items.count > 0 else {
+            return 0.0
+        }
+        
         return 15.0
     }
     
@@ -305,6 +214,36 @@ class WSDashboardManageSectionController: TPTableBaseSectionController,
         /// 点击面板表示选中，由外部切换工作台展示的面板
         didSelectDashboard?(dashboard)
     }
+}
+
+// MARK: - 收件箱面板区块
+/// 收件箱面板区块。仅一个单元格，不支持编辑、删除与排序
+class WSDashboardInboxSectionController: WSDashboardSectionController {
+    
+    /// 收件箱面板
+    private let inboxDashboard = WSDashboard.inboxDashboard
+    
+    override var items: [ListDiffable]? {
+        return [inboxDashboard]
+    }
+}
+
+// MARK: - 用户面板区块
+/// 用户面板区块。支持编辑、删除与排序
+class WSDashboardManageSectionController: WSDashboardSectionController,
+                                          TPTableDragInsertReorderDelegate {
+    
+    /// 面板列表
+    var dashboards: [WSDashboard]?
+    
+    override init(viewModel: WSDashboardManageViewModel) {
+        super.init(viewModel: viewModel)
+        self.dashboards = viewModel.dashboards
+    }
+    
+    override var items: [ListDiffable]? {
+        return dashboards
+    }
     
     override func trailingSwipeActionsConfigurationForRow(at index: Int) -> UISwipeActionsConfiguration? {
         guard let dashboard = item(at: index) as? WSDashboard else {
@@ -321,11 +260,7 @@ class WSDashboardManageSectionController: TPTableBaseSectionController,
         editAction.backgroundColor = Color(0x0091FF)
         editAction.image = resGetImage("edit_24", color: .white)
         
-        ///< 删除。仅剩一个面板时不允许删除，避免工作台面板全部消失
-        guard let dashboards = dashboards, dashboards.count > 1 else {
-            return UISwipeActionsConfiguration(actions: [editAction])
-        }
-        
+        ///< 删除。删除最后一个面板后工作台回落到收件箱
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in
             TPImpactFeedback.impactWithSoftStyle()
             self.deleteDashboard(dashboard)
@@ -386,8 +321,18 @@ class WSDashboardManageSectionController: TPTableBaseSectionController,
     }
     
     // MARK: - TPTableDragInsertReorderDelegate
+    /// 当前区块在列表中的索引
+    private var currentSection: Int? {
+        return adapter?.section(of: self)
+    }
+    
     func tableDragReorder(_ reorder: TPTableDragReorder, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
+        guard let sectionIndex = currentSection else {
+            return false
+        }
+        
+        /// 仅允许拖动用户面板
+        return indexPath.section == sectionIndex
     }
     
     func tableDragReorder(_ reorder: TPTableDragReorder, willBeginAt indexPath: IndexPath) {
@@ -397,14 +342,23 @@ class WSDashboardManageSectionController: TPTableBaseSectionController,
     func tableDragInsertReorder(_ reorder: TPTableDragInsertReorder,
                                 canInsertRowTo targetIndexPath: IndexPath,
                                 from sourceIndexPath: IndexPath) -> Bool {
-        return true
+        guard let sectionIndex = currentSection else {
+            return false
+        }
+        
+        /// 排序仅在用户面板区块内进行
+        return sourceIndexPath.section == sectionIndex
+            && targetIndexPath.section == sectionIndex
     }
     
     func tableDragInsertReorder(_ reorder: TPTableDragInsertReorder,
                                 inserRowTo targetIndexPath: IndexPath,
                                 from sourceIndexPath: IndexPath,
                                 depth: Int) -> IndexPath? {
-        guard targetIndexPath.row != sourceIndexPath.row else {
+        guard let sectionIndex = currentSection,
+              sourceIndexPath.section == sectionIndex,
+              targetIndexPath.section == sectionIndex,
+              targetIndexPath.row != sourceIndexPath.row else {
             return nil
         }
         

@@ -6,9 +6,20 @@
 //
 
 import Foundation
+import CoreData
 import UIKit
 
-class WSDashboard: NSObject, Sortable, TPHexColorConvertible {
+class WSDashboard: NSObject, SortableIdentifiable, TPHexColorConvertible {
+    
+    /// 收件箱标识。收件箱不持久化，插件未归属任何面板时即位于收件箱
+    static let inboxIdentifier = "inbox"
+    
+    /// 收件箱面板
+    static var inboxDashboard: WSDashboard {
+        let dashboard = WSDashboard(identifier: inboxIdentifier)
+        dashboard.name = resGetString("Inbox")
+        return dashboard
+    }
     
     /// 唯一标识
     let identifier: String
@@ -37,6 +48,16 @@ class WSDashboard: NSObject, Sortable, TPHexColorConvertible {
         super.init()
     }
     
+    // MARK: - SortableIdentifiable
+    var identifiableKey: String {
+        return identifier
+    }
+    
+    /// 是否收件箱
+    var isInbox: Bool {
+        return identifier == WSDashboard.inboxIdentifier
+    }
+    
     override func diffIdentifier() -> NSObjectProtocol {
         return identifier as NSString
     }
@@ -62,5 +83,25 @@ class WSDashboard: NSObject, Sortable, TPHexColorConvertible {
             && order == dashboard.order
             && creationDate == dashboard.creationDate
             && modificationDate == dashboard.modificationDate
+    }
+}
+
+extension WSDashboard {
+    
+    /// 根据 CoreData 面板创建模型
+    convenience init(content: CDDashboard) {
+        self.init(identifier: content.identifier ?? UUID().uuidString)
+        order = content.order
+        name = content.name
+        colorHex = content.colorHex
+        creationDate = content.creationDate
+        modificationDate = content.modificationDate
+    }
+}
+
+extension Array where Element == CDDashboard {
+    
+    var toWSDashboards: [WSDashboard] {
+        return self.map { WSDashboard(content: $0) }
     }
 }

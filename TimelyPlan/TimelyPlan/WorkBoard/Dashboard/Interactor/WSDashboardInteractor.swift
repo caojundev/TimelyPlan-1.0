@@ -90,18 +90,17 @@ class WSDashboardInteractor {
     @discardableResult
     func updatePlugin(_ plugin: WSPlugin, configJSON: String?) -> WSPlugin? {
         return WorkspaceRepository.updatePlugin(plugin,
-                                                in: dashboard,
                                                 configJSON: configJSON)
     }
     
     /// 删除插件
     func deletePlugin(_ plugin: WSPlugin) {
-        WorkspaceRepository.deletePlugin(plugin, in: dashboard)
+        WorkspaceRepository.deletePlugin(plugin)
     }
     
     /// 排序插件
     func didEndReorderPlugins(with orderedPlugins: [WSPlugin]) {
-        WorkspaceRepository.didEndReorderPlugins(with: orderedPlugins, in: dashboard)
+        WorkspaceRepository.didEndReorderPlugins(with: orderedPlugins)
     }
 }
 

@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import CoreData
 
-class WSPlugin: NSObject, Sortable {
+class WSPlugin: NSObject, SortableIdentifiable {
     
     /// 排序因子
     var order: Int64 = 0
@@ -31,6 +32,11 @@ class WSPlugin: NSObject, Sortable {
         self.identifier = identifier
         self.type = type
         super.init()
+    }
+    
+    // MARK: - SortableIdentifiable
+    var identifiableKey: String {
+        return identifier
     }
     
     override func diffIdentifier() -> NSObjectProtocol {
@@ -64,7 +70,7 @@ extension WSPlugin {
     
     /// 内容标识。类型或配置变化时需要刷新对应内容
     var contentKey: String {
-        return "\(identifier)|\(type.rawValue)|\(configJSON ?? "")"
+        return "\(identifier)-\(type.rawValue)-\(configJSON ?? "")"
     }
     
     /// 组件是否支持配置。由组件提供者决定
@@ -93,5 +99,29 @@ extension WSPlugin {
     /// 用配置模型更新配置 JSON，保留更高版本写入的字段
     func configurationJSON<T: Encodable>(updatingWith configuration: T) -> String? {
         return WSPluginConfigJSONMerger.merging(base: configJSON, model: configuration)
+    }
+}
+
+extension WSPlugin {
+    
+    /// 根据 CoreData 插件创建模型。类型标识无法识别时返回 nil
+    convenience init?(content: CDPlugin) {
+        guard let identifier = content.identifier,
+              let type = content.type else {
+            return nil
+        }
+        
+        self.init(identifier: identifier, type: type)
+        order = content.order
+        configJSON = content.configJSON
+        creationDate = content.creationDate
+        modificationDate = content.modificationDate
+    }
+}
+
+extension Array where Element == CDPlugin {
+    
+    var toWSPlugins: [WSPlugin] {
+        return self.compactMap { WSPlugin(content: $0) }
     }
 }

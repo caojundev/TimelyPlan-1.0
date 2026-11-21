@@ -63,9 +63,9 @@ class WorkspaceCoordinator {
         containerViewController.updateNavigationBarItems()
     }
     
-    /// 默认展示的面板。面板不存在时会自动创建
+    /// 默认展示的面板。无自定义面板时展示收件箱
     private func defaultDashboard() -> WSDashboard {
-        return WorkspaceRepository.getDashboards().first ?? WorkspaceRepository.createDashboard()
+        return WorkspaceRepository.getDashboards().first ?? WSDashboard.inboxDashboard
     }
     
     // MARK: - 面板交互
@@ -98,13 +98,20 @@ extension WorkspaceCoordinator: WSDashboardViewControllerDelegate {
 extension WorkspaceCoordinator: WorkspaceDashboardProcessorDelegate {
     
     func didChangeRemoteWorkspaceDashbaord() {
-        guard let dashboard = dashboard,
-              WorkspaceRepository.getDashboard(withIdentifier: dashboard.identifier) == nil else {
+        guard let identifier = dashboard?.identifier,
+              !(dashboard?.isInbox ?? false) else {
             return
         }
         
-        /// 当前面板已不存在，回落到默认面板
-        showDashboard(defaultDashboard())
+        guard let latestDashboard = WorkspaceRepository.getDashboard(withIdentifier: identifier) else {
+            /// 当前面板已不存在，回落到默认面板
+            showDashboard(defaultDashboard())
+            return
+        }
+        
+        /// 远程改名等变化时同步导航栏标题
+        dashboard = latestDashboard
+        containerViewController?.updateNavigationBarItems()
     }
     
     func didDeleteWorkspaceDashbaord(_ board: WSDashboard) {
@@ -122,7 +129,8 @@ extension WorkspaceCoordinator: WorkspaceDashboardProcessorDelegate {
             return
         }
         
-        /// 名称变化时同步导航栏标题
+        /// 面板模型由各界面分别持有，重新取回最新数据后再刷新导航栏标题
+        dashboard = WorkspaceRepository.getDashboard(withIdentifier: board.identifier) ?? board
         containerViewController?.updateNavigationBarItems()
     }
 }

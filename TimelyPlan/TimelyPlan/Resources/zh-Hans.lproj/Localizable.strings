@@ -19,8 +19,12 @@
 "Workspace" = "工作台";
 "Add Plugin" = "添加插件";
 "Edit Plugin" = "编辑";
+
+"Add Previous" = "上方添加";
+"Add Next" = "下方添加";
 "Remove Plugin" = "移除";
-"Config Plugin" = "配置插件";
+"Config Plugin" = "配置";
+
 "No Configurable Items" = "暂无可配置项";
 "Done Editing" = "完成编辑";
 "Edit Dashboard" = "编辑面板";
@@ -173,8 +177,6 @@
 "New Semester" = "新学期";
 "Graduation" = "毕业";
 "Annual Plan" = "年度计划";
-"Add Above" = "上方添加";
-"Add Below" = "下方添加";
 
 ///**************************侧边栏**************************///
 "My Day" = "我的一天";
