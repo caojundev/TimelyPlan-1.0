@@ -45,6 +45,9 @@ class WorkspaceCoordinator {
             return
         }
         
+        /// 记录当前选中的面板，下次启动时恢复
+        WorkspaceState.shared.currentDashboardID = dashboard.identifier
+        
         /// 同一面板已在展示时仅刷新数据与导航栏，避免重建视图控制器丢失状态
         if let viewController = dashboardViewController,
            self.dashboard?.identifier == dashboard.identifier {
@@ -63,9 +66,15 @@ class WorkspaceCoordinator {
         containerViewController.updateNavigationBarItems()
     }
     
-    /// 默认展示的面板。无自定义面板时展示收件箱
+    /// 默认展示的面板。恢复上一次选中的面板，无记录或面板已不存在时展示收件箱
     private func defaultDashboard() -> WSDashboard {
-        return WorkspaceRepository.getDashboards().first ?? WSDashboard.inboxDashboard
+        guard let identifier = WorkspaceState.shared.currentDashboardID,
+              identifier != WSDashboard.inboxIdentifier,
+              let dashboard = WorkspaceRepository.getDashboard(withIdentifier: identifier) else {
+            return .inboxDashboard
+        }
+        
+        return dashboard
     }
     
     // MARK: - 面板交互

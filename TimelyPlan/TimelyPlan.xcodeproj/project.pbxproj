@@ -71,6 +71,7 @@
 		E501795C2FD6A12D00DC544D /* TodoTaskMoveSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E501795B2FD6A12D00DC544D /* TodoTaskMoveSearchResultsViewController.swift */; };
 		E501795E2FD6AAF500DC544D /* TodoTaskMoveSearchResultsSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E501795D2FD6AAF500DC544D /* TodoTaskMoveSearchResultsSectionController.swift */; };
 		E50179602FD6B75900DC544D /* TodoTaskMoveSectionSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E501795F2FD6B75900DC544D /* TodoTaskMoveSectionSearchResultCell.swift */; };
+		E503CA3830B1896C0013A17D /* WorkspaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E503CA3730B1896B0013A17D /* WorkspaceState.swift */; };
 		E505A14E2DA7717F00595B5D /* Date+Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505A14D2DA7717F00595B5D /* Date+Year.swift */; };
 		E505A1502DA771F200595B5D /* Date+Hour.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505A14F2DA771F200595B5D /* Date+Hour.swift */; };
 		E505D9312F990B60004469DC /* TodoHomeAddMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */; };
@@ -3206,6 +3207,7 @@
 		E501795B2FD6A12D00DC544D /* TodoTaskMoveSearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskMoveSearchResultsViewController.swift; sourceTree = "<group>"; };
 		E501795D2FD6AAF500DC544D /* TodoTaskMoveSearchResultsSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskMoveSearchResultsSectionController.swift; sourceTree = "<group>"; };
 		E501795F2FD6B75900DC544D /* TodoTaskMoveSectionSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskMoveSectionSearchResultCell.swift; sourceTree = "<group>"; };
+		E503CA3730B1896B0013A17D /* WorkspaceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceState.swift; sourceTree = "<group>"; };
 		E505A14D2DA7717F00595B5D /* Date+Year.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Year.swift"; sourceTree = "<group>"; };
 		E505A14F2DA771F200595B5D /* Date+Hour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Hour.swift"; sourceTree = "<group>"; };
 		E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeAddMenuController.swift; sourceTree = "<group>"; };
@@ -6524,6 +6526,14 @@
 				E501795F2FD6B75900DC544D /* TodoTaskMoveSectionSearchResultCell.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		E503CA3630B188FF0013A17D /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E503CA3730B1896B0013A17D /* WorkspaceState.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		E505D92F2F990B2F004469DC /* Menu */ = {
@@ -11770,6 +11780,7 @@
 				E5A625893089B3CD003EB8BC /* WorkspaceMainViewController.swift */,
 				E5A625963089B3CD003EB8BC /* WorkspaceTitleView.swift */,
 				E5A6259B3089B3CD003EB8BC /* WorkspaceCoordinator.swift */,
+				E503CA3630B188FF0013A17D /* Setting */,
 				E5A625863089B3CD003EB8BC /* Models */,
 				E5A625973089B3CD003EB8BC /* Registry */,
 				E5A625743089B3CD003EB8BC /* Repository */,
@@ -18739,6 +18750,7 @@
 				E5D0C1180000000000000000 /* WSTodoListRowsContentInteractor.swift in Sources */,
 				E5D0C1190000000000000000 /* WSTodoListDetailPresenter.swift in Sources */,
 				E5D0C1200000000000000000 /* WSTodoListSmallListPluginProvider.swift in Sources */,
+				E503CA3830B1896C0013A17D /* WorkspaceState.swift in Sources */,
 				E5D0C1210000000000000000 /* WSTodoListMediumListPluginProvider.swift in Sources */,
 				E5D0C1220000000000000000 /* WSTodoListLargeListPluginProvider.swift in Sources */,
 				E5D0FA810000000000000000 /* WSTodoUserListSmallTasksPluginProvider.swift in Sources */,

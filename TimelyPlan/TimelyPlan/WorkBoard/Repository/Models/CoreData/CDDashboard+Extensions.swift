@@ -39,14 +39,6 @@ extension CDDashboard: SortableIdentifiable {
         }
     }
     
-    /// 同步获取所有面板
-    static func getDashboards() -> [CDDashboard]? {
-        let dashboards: [CDDashboard]? = getAll(sortBy: ElementOrderKey,
-                                                ascending: true,
-                                                in: .defaultContext)
-        return dashboards
-    }
-    
     /// 获取特定标识的面板
     static func getDashboard(withIdentifier identifier: String) -> CDDashboard? {
         return getItem(with: identifier)

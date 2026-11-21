@@ -73,11 +73,6 @@ class WorkspaceRepository {
         dashboardManager.fetchDashboards(completion: completion)
     }
     
-    /// 所有面板，按排序因子升序返回。无自定义面板时由收件箱面板兜底
-    static func getDashboards() -> [WSDashboard] {
-        return dashboardManager.getDashboards()
-    }
-    
     /// 特定标识的面板
     static func getDashboard(withIdentifier identifier: String) -> WSDashboard? {
         return dashboardManager.getDashboard(withIdentifier: identifier)

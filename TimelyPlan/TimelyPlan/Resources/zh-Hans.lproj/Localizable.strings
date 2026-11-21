@@ -20,8 +20,8 @@
 "Add Plugin" = "添加插件";
 "Edit Plugin" = "编辑";
 
-"Add Previous" = "上方添加";
-"Add Next" = "下方添加";
+"Add Above" = "上方添加";
+"Add Below" = "下方添加";
 "Remove Plugin" = "移除";
 "Config Plugin" = "配置";
 

@@ -27,11 +27,7 @@ class WorkspaceDashboardManager {
     }
     
     // MARK: - 同步获取面板
-    /// 所有面板，按排序因子升序返回。无自定义面板时由收件箱面板兜底
-    func getDashboards() -> [WSDashboard] {
-        return CDDashboard.getDashboards()?.toWSDashboards ?? []
-    }
-    
+ 
     /// 特定标识的面板
     func getDashboard(withIdentifier identifier: String) -> WSDashboard? {
         guard let content = CDDashboard.getDashboard(withIdentifier: identifier) else {
@@ -46,9 +42,8 @@ class WorkspaceDashboardManager {
     @discardableResult
     func createDashboard(name: String? = nil,
                          colorHex: String? = nil) -> WSDashboard {
-        let order = (CDDashboard.getDashboards() ?? []).insertOrder()
         let content = CDDashboard.newDashboard(name: name, colorHex: colorHex)
-        content.order = order
+        content.order = CDDashboard.maximumOrder + kOrderedStep
         
         let dashboard = WSDashboard(content: content)
         updater.didCreateWorkspaceDashbaord(dashboard)
