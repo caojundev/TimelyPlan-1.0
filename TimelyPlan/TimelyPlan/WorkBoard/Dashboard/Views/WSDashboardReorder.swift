@@ -185,7 +185,7 @@ final class WSDashboardReorder: NSObject, UIGestureRecognizerDelegate {
         guard let collectionView = collectionView,
               let draggingCell = collectionView.cellForItem(at: indexPath),
               let draggingCellSuperView = draggingCell.superview,
-              let rootView = UIWindow.keyWindow else {
+              let containerView = collectionView.superview else {
             return
         }
         
@@ -194,11 +194,12 @@ final class WSDashboardReorder: NSObject, UIGestureRecognizerDelegate {
         let backgroundViewCornerRadius = draggingCell.backgroundView?.layer.cornerRadius ?? 0.0
         let radius = max(contentViewCornerRadius, backgroundViewCornerRadius)
         
-        let cellCenter = draggingCellSuperView.convert(draggingCell.center, toViewOrWindow: rootView)
+        /// 快照与列表同层级，中心坐标转换到列表的父视图
+        let cellCenter = draggingCellSuperView.convert(draggingCell.center, toViewOrWindow: containerView)
         draggingView = draggingCell.tp_snapshotView(cornerRadius: radius)
         draggingView?.center = cellCenter
         if let draggingView = draggingView {
-            rootView.addSubview(draggingView)
+            containerView.addSubview(draggingView)
         }
         
         /// 隐藏被拖动的单元格

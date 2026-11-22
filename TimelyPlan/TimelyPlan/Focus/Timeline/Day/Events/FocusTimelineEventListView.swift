@@ -108,6 +108,37 @@ class FocusTimelineEventListView: UIView, UIGestureRecognizerDelegate {
         self.setupEventViews()
     }
     
+    // MARK: - 事项指示
+    /// 检查指定区域上方是否有事项
+    /// - Parameter visibleFrame: 可视区域（本视图坐标系）
+    func hasEventAbove(visibleFrame: CGRect) -> Bool {
+        layoutIfNeeded()
+        let frame = contentView.convert(visibleFrame, from: self)
+        for eventView in eventViews {
+            /// 事项完全在可视区域上方
+            if eventView.frame.maxY <= frame.minY {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    /// 检查指定区域下方是否有事项
+    /// - Parameter visibleFrame: 可视区域（本视图坐标系）
+    func hasEventBelow(visibleFrame: CGRect) -> Bool {
+        layoutIfNeeded()
+        let frame = contentView.convert(visibleFrame, from: self)
+        for eventView in eventViews {
+            /// 事项完全在可视区域下方
+            if eventView.frame.minY >= frame.maxY {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     /// 设置长按手势识别器
     private func setupLongPressGesture() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))

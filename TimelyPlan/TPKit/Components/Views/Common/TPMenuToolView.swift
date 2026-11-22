@@ -28,6 +28,7 @@ fileprivate class TPMenuToolButton<T: Hashable & TPMenuRepresentable>: TPDefault
 
 class TPMenuToolView<T: Hashable & TPMenuRepresentable>: UIView {
 
+    
     /// 禁用类型
     var disabledTypes: [T]? {
         didSet {
@@ -63,6 +64,8 @@ class TPMenuToolView<T: Hashable & TPMenuRepresentable>: UIView {
 
     /// 是否需要更新按钮
     private var shouldUpdateButtons: Bool = true
+        
+    private let imageMargins = UIEdgeInsets(bottom: 5.0)
     
     /// 当前选中菜单动作类型
     var actionTypes: [T] {
@@ -185,7 +188,8 @@ class TPMenuToolView<T: Hashable & TPMenuRepresentable>: UIView {
     
     /// 更新按钮样式
     private func updateStyle(for button: TPDefaultButton, with type: T? = nil) {
-        button.titleConfig.font = BOLD_SMALL_SYSTEM_FONT
+        button.titleConfig.font = .boldSystemFont(ofSize: 11.0)
+        button.imageConfig.margins = imageMargins
         if let type = type, type.actionStyle == .destructive {
             button.imageConfig.color = .danger6
             button.titleConfig.textColor = .danger6

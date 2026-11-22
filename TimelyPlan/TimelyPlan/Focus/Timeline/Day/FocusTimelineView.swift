@@ -57,6 +57,7 @@ class FocusTimelineView: UIView {
         
         set {
             contentView.contentOffset = newValue
+            updateEventIndicators()
         }
     }
     
@@ -78,7 +79,16 @@ class FocusTimelineView: UIView {
     /// 当前小时指示器
     private let indicatorViewHeight = 30.0
     private var indicatorView: CalendarTimelineLabelIndicator?
-
+    
+    /// 上方事项指示器
+    private lazy var topIndicator = makeEventIndicator(position: .top)
+    
+    /// 下方事项指示器
+    private lazy var bottomIndicator = makeEventIndicator(position: .bottom)
+    
+    /// 事项指示器高度
+    private let eventIndicatorHeight = 12.0
+    
     /// 时间线背景图层
     private let backgroundLayer = FocusTimelineBackLayer()
     
@@ -107,6 +117,7 @@ class FocusTimelineView: UIView {
         
         eventListView.events = viewModel.events
         eventListView.reloadData()
+        updateEventIndicators()
     }
     
     private func setupContentView() {
@@ -118,7 +129,22 @@ class FocusTimelineView: UIView {
         contentView.layer.addSublayer(backgroundLayer)
         contentView.addSubview(hoursView)
         contentView.addSubview(eventListView)
+        setupEventIndicators()
         setupIndicatorView()
+    }
+    
+    /// 创建事项指示器
+    private func makeEventIndicator(position: CalendarEventIndicatorPosition) -> CalendarEventIndicatorBar {
+        let view = CalendarEventIndicatorBar(position: position)
+        view.backgroundColor = .clear
+        view.isHidden = true
+        view.isUserInteractionEnabled = false
+        return view
+    }
+    
+    private func setupEventIndicators() {
+        addSubview(topIndicator)
+        addSubview(bottomIndicator)
     }
     
     private func setupIndicatorView() {
@@ -168,6 +194,34 @@ class FocusTimelineView: UIView {
         backgroundLayer.updateColors()
         CATransaction.commit()
         updateIndicator()
+        layoutEventIndicators()
+    }
+    
+    // MARK: - 事项指示器
+    /// 布局事项指示器
+    private func layoutEventIndicators() {
+        topIndicator.frame = CGRect(x: eventListView.left,
+                                    y: 0.0,
+                                    width: eventListView.width,
+                                    height: eventIndicatorHeight)
+        bottomIndicator.frame = CGRect(x: eventListView.left,
+                                       y: bounds.height - eventIndicatorHeight,
+                                       width: eventListView.width,
+                                       height: eventIndicatorHeight)
+        updateEventIndicators()
+    }
+    
+    /// 更新事项指示器（上/下方是否有事项）
+    private func updateEventIndicators() {
+        let visibleY = contentView.contentOffset.y + contentView.contentInset.top
+        let visibleHeight = bounds.height - contentView.contentInset.top
+        let visibleFrame = CGRect(x: 0.0,
+                                  y: visibleY,
+                                  width: eventListView.width,
+                                  height: visibleHeight)
+        
+        topIndicator.isHidden = !eventListView.hasEventAbove(visibleFrame: visibleFrame)
+        bottomIndicator.isHidden = !eventListView.hasEventBelow(visibleFrame: visibleFrame)
     }
     
     private func updateIndicator() {
@@ -187,6 +241,7 @@ class FocusTimelineView: UIView {
     func reset() {
         eventListView.clear()
         timerUpdater.stop()
+        updateEventIndicators()
     }
     
     func loadEvents(for date: Date) {
