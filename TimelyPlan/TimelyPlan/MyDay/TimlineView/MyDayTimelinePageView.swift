@@ -27,6 +27,19 @@ class MyDayTimelinePageView: TPDayPageView {
         return MyDayTimelinePageCell.self
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        /// 尺寸变化（旋转 / 分屏）后分页单元格沿用旧尺寸，需要重新计算并回到当前日期所在页
+        guard abs(collectionView.frame.width - bounds.width) > 0.5 else {
+            return
+        }
+        
+        collectionView.frame = bounds
+        flowLayout.invalidateLayout()
+        updateContentOffset(animated: false)
+    }
+    
     override func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         super.adapter(adapter, didDequeCell: cell, at: indexPath)
         guard let cell = cell as? MyDayTimelinePageCell else {

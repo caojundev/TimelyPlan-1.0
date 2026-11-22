@@ -139,7 +139,16 @@ class MyDayTimelineBaseView: UIView,
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        collectionView.frame = layoutFrame()
+        
+        let frame = layoutFrame()
+        
+        /// 宽度变化会改变单元格尺寸，必须让列表重新计算，否则会沿用旧尺寸导致错乱
+        let widthDidChange = abs(collectionView.frame.width - frame.width) > 0.5
+        collectionView.frame = frame
+        
+        if widthDidChange {
+            collectionViewLayout.invalidateLayout()
+        }
     }
     
     override func didMoveToWindow() {
