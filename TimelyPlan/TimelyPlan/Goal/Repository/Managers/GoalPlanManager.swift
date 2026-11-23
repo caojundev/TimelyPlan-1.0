@@ -89,10 +89,16 @@ class GoalPlanManager {
         }
         
         if let content = CDGoalPlan.getGoalPlan(withIdentifier: goalPlan.identifier) {
+            /// 更新前记录旧内容，用于生成改变内容
+            let oldEditingPlan = GoalPlan(content: content).editingPlan
             content.update(with: editingPlan)
-            updater.didUpdateGoalPlan(goalPlan)
+            
+            let updatedGoalPlan = GoalPlan(content: content)
+            let change: GoalPlanChange = .content(oldValue: oldEditingPlan,
+                                                  newValue: editingPlan)
+            updater.didUpdateGoalPlan(updatedGoalPlan, with: change)
             HandyRecord.updateChangeCount()
-            return GoalPlan(content: content)
+            return updatedGoalPlan
         }
         
         return nil

@@ -269,7 +269,7 @@ extension WSGoalTaskMultiSelectionViewController: GoalPlanProcessorDelegate {
         loadTasks()
     }
     
-    func didUpdateGoalPlan(_ goalPlan: GoalPlan) {
+    func didUpdateGoalPlan(_ goalPlan: GoalPlan, with change: GoalPlanChange) {
         loadTasks()
     }
     

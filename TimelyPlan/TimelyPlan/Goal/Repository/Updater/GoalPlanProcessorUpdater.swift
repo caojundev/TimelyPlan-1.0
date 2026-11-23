@@ -17,7 +17,7 @@ protocol GoalPlanProcessorDelegate: AnyObject {
     func didCreateGoalPlan(_ goalPlan: GoalPlan)
     
     /// 更新目标计划
-    func didUpdateGoalPlan(_ goalPlan: GoalPlan)
+    func didUpdateGoalPlan(_ goalPlan: GoalPlan, with change: GoalPlanChange)
     
     /// 删除目标计划
     func didDeleteGoalPlan(_ goalPlan: GoalPlan)
@@ -40,7 +40,7 @@ extension GoalPlanProcessorDelegate {
     
     func didCreateGoalPlan(_ goalPlan: GoalPlan) {}
     
-    func didUpdateGoalPlan(_ goalPlan: GoalPlan) {}
+    func didUpdateGoalPlan(_ goalPlan: GoalPlan, with change: GoalPlanChange) {}
     
     func didDeleteGoalPlan(_ goalPlan: GoalPlan) {}
     
@@ -68,9 +68,9 @@ class GoalPlanProcessorUpdater: NSObject,
         }
     }
     
-    func didUpdateGoalPlan(_ goalPlan: GoalPlan) {
+    func didUpdateGoalPlan(_ goalPlan: GoalPlan, with change: GoalPlanChange) {
         notifyDelegates { (delegate: GoalPlanProcessorDelegate) in
-            delegate.didUpdateGoalPlan(goalPlan)
+            delegate.didUpdateGoalPlan(goalPlan, with: change)
         }
     }
     

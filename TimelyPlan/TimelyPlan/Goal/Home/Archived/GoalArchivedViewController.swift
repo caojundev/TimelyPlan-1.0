@@ -56,7 +56,7 @@ class GoalArchivedViewController: TPViewController,
     }
     
     /// 处理目标计划变更
-    private func goalPlansChanged(_ change: GoalPlanChange?) {
+    private func goalPlansChanged(_ change: GoalPlanListChange?) {
         DispatchQueue.main.async { [weak self] in
             self?.reloadGoalPlans()
         }

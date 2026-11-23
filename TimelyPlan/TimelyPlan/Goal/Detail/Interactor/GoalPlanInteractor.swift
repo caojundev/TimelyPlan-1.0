@@ -228,7 +228,7 @@ extension GoalPlanInteractor: GoalPlanProcessorDelegate {
         didChangeGoalInfo?()
     }
     
-    func didUpdateGoalPlan(_ goalPlan: GoalPlan) {
+    func didUpdateGoalPlan(_ goalPlan: GoalPlan, with change: GoalPlanChange) {
         guard let configuration = configuration as? GoalPlanConfiguration,
               goalPlan.identifier == configuration.identifier,
               let goalPlan = GoalRepository.getGoalPlan(withIdentifier: goalPlan.identifier) else {

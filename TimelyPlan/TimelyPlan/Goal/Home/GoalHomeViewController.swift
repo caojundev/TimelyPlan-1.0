@@ -223,7 +223,7 @@ class GoalHomeViewController: TPViewController,
     }
     
     /// 处理目标计划变更
-    private func goalPlansChanged(_ change: GoalPlanChange?) {
+    private func goalPlansChanged(_ change: GoalPlanListChange?) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
@@ -236,8 +236,14 @@ class GoalHomeViewController: TPViewController,
             var revealGoalPlan: GoalPlan?
             if let change = change {
                 switch change {
-                case .create(let goalPlan), .update(let goalPlan):
+                case .create(let goalPlan):
                     revealGoalPlan = goalPlan
+                    
+                case let .update(goalPlan, planChange):
+                    /// 仅进度改变时不滚动定位，其它改变仍定位到对应目标
+                    if planChange?.isProgress != true {
+                        revealGoalPlan = goalPlan
+                    }
                 }
             }
             

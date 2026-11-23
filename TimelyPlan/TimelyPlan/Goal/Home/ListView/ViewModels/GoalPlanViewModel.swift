@@ -7,10 +7,12 @@
 
 import Foundation
 
-/// 目标计划变更
-enum GoalPlanChange {
+/// 目标计划列表变更
+enum GoalPlanListChange {
     case create(GoalPlan)
-    case update(GoalPlan)
+    
+    /// 更新目标计划，附带改变内容（归档等无具体改变时为 nil）
+    case update(GoalPlan, GoalPlanChange?)
 }
 
 class GoalPlanViewModel: GoalPlanProcessorDelegate {
@@ -18,7 +20,7 @@ class GoalPlanViewModel: GoalPlanProcessorDelegate {
     private(set) var goalPlans: [GoalPlan]?
     
     /// 目标计划改变
-    var goalPlansDidChange: ((GoalPlanChange?) -> Void)?
+    var goalPlansDidChange: ((GoalPlanListChange?) -> Void)?
     
     /// 筛选类型改变
     var filterTypeDidChange: (() -> Void)?
@@ -65,7 +67,7 @@ class GoalPlanViewModel: GoalPlanProcessorDelegate {
     }
     
     // MARK: - 加载数据
-    func loadGoalPlans(with change: GoalPlanChange? = nil, completion: (() -> Void)? = nil) {
+    func loadGoalPlans(with change: GoalPlanListChange? = nil, completion: (() -> Void)? = nil) {
         let change = change
         let requestID = requestManager.executeRequest()
         loadGoalPlansIfNeeded { [weak self] goalPlans in
@@ -135,9 +137,9 @@ class GoalPlanViewModel: GoalPlanProcessorDelegate {
         loadGoalPlans(with: .create(goalPlan))
     }
     
-    func didUpdateGoalPlan(_ goalPlan: GoalPlan) {
+    func didUpdateGoalPlan(_ goalPlan: GoalPlan, with change: GoalPlanChange) {
         setNeedsRefresh()
-        loadGoalPlans(with: .update(goalPlan))
+        loadGoalPlans(with: .update(goalPlan, change))
     }
     
     func didDeleteGoalPlan(_ goalPlan: GoalPlan) {
@@ -147,12 +149,12 @@ class GoalPlanViewModel: GoalPlanProcessorDelegate {
     
     func didArchiveGoalPlan(_ goalPlan: GoalPlan) {
         setNeedsRefresh()
-        loadGoalPlans(with: .update(goalPlan))
+        loadGoalPlans(with: .update(goalPlan, nil))
     }
     
     func didUnarchiveGoalPlan(_ goalPlan: GoalPlan) {
         setNeedsRefresh()
-        loadGoalPlans(with: .update(goalPlan))
+        loadGoalPlans(with: .update(goalPlan, nil))
     }
     
     func didReorderGoalPlan(in goalPlans: [GoalPlan], fromIndex: Int, toIndex: Int) {

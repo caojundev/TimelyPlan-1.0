@@ -350,6 +350,23 @@ extension MyDayEventChangeObserver: GoalPlanProcessorDelegate,
         updater.myDayEventsDidChange(in: [.infiniteInterval])
     }
     
+    /// 更新目标计划
+    func didUpdateGoalPlan(_ goalPlan: GoalPlan, with change: GoalPlanChange) {
+        switch change {
+        case let .content(oldValue, newValue):
+            /// 仅名称、颜色变化影响“我的一天”事件的展示
+            guard oldValue.name != newValue.name || oldValue.color != newValue.color else {
+                return
+            }
+            
+            updater.myDayEventsDidChange(in: [.infiniteInterval])
+            
+        case .progress(_, _):
+            /// 仅整体进度变化不影响事件的日期分布
+            return
+        }
+    }
+    
     /// 远程目标任务改变
     func didChangeRemoteGoalTask(with results: EntityChangeResults<GoalTask>?) {
         updater.myDayEventsDidChange(in: [.infiniteInterval])

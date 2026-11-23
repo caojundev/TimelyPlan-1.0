@@ -453,11 +453,15 @@ class GoalTaskManager {
             return
         }
         
+        /// 更新前记录旧进度，用于生成改变内容
+        let oldProgress = planContent.progress
         guard planContent.updateProgress() else {
             return
         }
         
-        planUpdater?.didUpdateGoalPlan(GoalPlan(content: planContent))
+        let change: GoalPlanChange = .progress(oldValue: oldProgress,
+                                               newValue: planContent.progress)
+        planUpdater?.didUpdateGoalPlan(GoalPlan(content: planContent), with: change)
         HandyRecord.updateChangeCount()
     }
 }

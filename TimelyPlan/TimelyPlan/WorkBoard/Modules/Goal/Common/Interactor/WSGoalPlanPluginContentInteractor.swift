@@ -53,7 +53,7 @@ class WSGoalPlanPluginContentInteractor: WSPluginContentInteractor,
         pluginDataDidChange()
     }
     
-    func didUpdateGoalPlan(_ goalPlan: GoalPlan) {
+    func didUpdateGoalPlan(_ goalPlan: GoalPlan, with change: GoalPlanChange) {
         guard isAffected(by: goalPlan) else {
             return
         }

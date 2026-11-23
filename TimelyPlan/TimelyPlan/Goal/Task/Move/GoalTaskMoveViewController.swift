@@ -69,7 +69,7 @@ class GoalTaskMoveViewController: TPViewController,
     }
     
     /// 目标计划数据改变，刷新列表
-    private func goalPlansChanged(_ change: GoalPlanChange?) {
+    private func goalPlansChanged(_ change: GoalPlanListChange?) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return

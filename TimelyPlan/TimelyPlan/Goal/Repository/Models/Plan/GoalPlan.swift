@@ -186,6 +186,28 @@ struct GoalEditingPlan: Equatable {
     }
 }
 
+/// 目标计划改变
+enum GoalPlanChange: Equatable {
+    
+    /// 内容（名称、颜色、起止日期、备注等整体更新）
+    case content(oldValue: GoalEditingPlan, newValue: GoalEditingPlan)
+    
+    /// 进度（目标任务进度改变时重新计算的整体进度）
+    case progress(oldValue: Double, newValue: Double)
+}
+
+extension GoalPlanChange {
+    
+    /// 是否为进度改变
+    var isProgress: Bool {
+        if case .progress(_, _) = self {
+            return true
+        }
+        
+        return false
+    }
+}
+
 // MARK: - 编辑目标
 extension GoalPlan {
     
