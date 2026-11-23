@@ -124,6 +124,7 @@ extension GoalPlan {
     
     /// 根据 CoreData 目标计划创建模型
     convenience init(content: CDGoalPlan) {
+        let tasksCount = content.tasks?.count ?? 0
         self.init(identifier: content.identifier ?? UUID().uuidString,
                   order: content.order,
                   name: content.name,
@@ -131,6 +132,7 @@ extension GoalPlan {
                   startDate: content.startDate,
                   endDate: content.endDate,
                   note: content.note,
+                  tasksCount: tasksCount,
                   progress: content.progress,
                   isArchived: content.isArchived,
                   modificationDate: content.modificationDate)

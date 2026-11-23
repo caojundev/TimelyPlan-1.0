@@ -42,6 +42,9 @@ class GoalPlan: NSObject, TPHexColorConvertible, SortableIdentifiable {
     /// 备注
     var note: String?
     
+    /// 任务数目
+    var tasksCount: Int
+    
     /// 进度（0.0 ~ 1.0）
     var progress: Double
     
@@ -58,6 +61,7 @@ class GoalPlan: NSObject, TPHexColorConvertible, SortableIdentifiable {
          startDate: Date? = nil,
          endDate: Date? = nil,
          note: String? = nil,
+         tasksCount: Int = 0,
          progress: Double = 0.0,
          isArchived: Bool = false,
          modificationDate: Date? = nil) {
@@ -68,6 +72,7 @@ class GoalPlan: NSObject, TPHexColorConvertible, SortableIdentifiable {
         self.startDate = startDate
         self.endDate = endDate
         self.note = note
+        self.tasksCount = tasksCount
         self.progress = min(max(progress, 0.0), 1.0)
         self.isArchived = isArchived
         self.modificationDate = modificationDate
@@ -92,7 +97,11 @@ class GoalPlan: NSObject, TPHexColorConvertible, SortableIdentifiable {
     }
     
     /// 计划状态（只读，依据进度与起止日期实时判定）
-    var status: GoalPlanStatus {
+    var status: GoalPlanStatus? {
+        guard tasksCount > 0 else {
+            return nil
+        }
+        
         return GoalPlanStatus(progress: progress,
                               startDate: startDate,
                               endDate: endDate)

@@ -35,7 +35,7 @@ class WSGoalPlanDataItem: NSObject, WSPluginDataItem {
     let dateRange: DateRange
     
     /// 计划状态
-    let status: GoalPlanStatus
+    var status: GoalPlanStatus?
     
     /// 进度总结状态（进行中时的细分状态）
     let summaryStatus: GoalSummaryStatus
@@ -46,7 +46,7 @@ class WSGoalPlanDataItem: NSObject, WSPluginDataItem {
          progress: CGFloat,
          progressText: String,
          dateRange: DateRange,
-         status: GoalPlanStatus,
+         status: GoalPlanStatus?,
          summaryStatus: GoalSummaryStatus) {
         self.planIdentifier = planIdentifier
         self.title = title
@@ -78,12 +78,20 @@ class WSGoalPlanDataItem: NSObject, WSPluginDataItem {
     }
     
     /// 状态文案。进行中时取进度总结状态，比「进行中」更有信息量
-    var statusText: String {
+    var statusText: String? {
+        guard let status = status else {
+            return nil
+        }
+
         return status == .inProgress ? summaryStatus.title : status.title
     }
     
     /// 状态背景色
     var statusColor: UIColor {
+        guard let status = status else {
+            return .clear
+        }
+
         return status == .inProgress ? summaryStatus.backgroundColor : status.backgroundColor
     }
 }

@@ -138,13 +138,14 @@ class WSGoalPlanDetailRowView: WSGoalPlanBriefRowView {
             return
         }
         
-        statusLabel.isHidden = dataItem.statusText.isEmpty
-        statusLabel.text = dataItem.statusText
+        let statusText = dataItem.statusText ?? ""
+        statusLabel.isHidden = statusText.isEmpty
+        statusLabel.text = statusText
         statusLabel.layer.backgroundColor = dataItem.statusColor.cgColor
         percentageLabel.text = dataItem.progressText
         
         /// 状态文案变化会改变标签宽度，同步给信息视图，避免压缩名称
-        let statusSize = dataItem.statusText.isEmpty ? .zero : statusLabel.sizeThatFits(.unlimited)
+        let statusSize = statusText.isEmpty ? .zero : statusLabel.sizeThatFits(.unlimited)
         statusLabel.size = statusSize
         infoView.rightAccessorySize = statusSize
         infoView.rightAccessoryMargins = statusSize.width > 0.0 ? Metrics.statusMargins : .zero
