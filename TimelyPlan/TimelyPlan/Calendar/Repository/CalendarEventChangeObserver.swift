@@ -430,6 +430,13 @@ extension CalendarEventChangeObserver: FocusTimerProcessorDelegate {
         
         let oldInterval = timer.interval
         let newInterval = editingTimer.dateRange.interval
+        
+        if timer.isAddedToMyDay != editingTimer.isAddedToMyDay {
+            /// 添加到我的一天改变
+            updater.calendarEventsDidChange(in: [oldInterval, newInterval])
+            return
+        }
+        
         guard oldInterval != newInterval ||
                 timer.timePlan != editingTimer.timePlan ||
                 timer.startTime != editingTimer.startTime ||

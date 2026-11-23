@@ -244,6 +244,7 @@ class FocusStatsCalendarMonthDayCell: TPCollectionCell {
         super.setupContentSubviews()
         scaleWhenHighlighted = false
         levelBackView.clipsToBounds = true
+        contentView.backgroundColor = .secondarySystemGroupedBackground
         contentView.addSubview(levelBackView)
         contentView.addSubview(dayLabel)
         contentView.addSubview(durationLabel)

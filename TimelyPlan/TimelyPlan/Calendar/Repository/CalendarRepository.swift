@@ -11,7 +11,6 @@ class CalendarRepository {
     
     // 可动态注册多个 Provider
     private var providers: [CalendarEventProvider] = []
-    
     private var todoProvider = CalendarTodoEventProvider()
     private var habitProvider = CalendarHabitEventProvider()
     private var goalProvider = CalendarGoalEventProvider()
