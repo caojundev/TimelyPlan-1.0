@@ -47,7 +47,7 @@ struct GoalSummaryTheme {
     func accent(for status: GoalSummaryStatus) -> UIColor {
         switch status {
         case .ahead:    return UIColor(hex: 0x34C759)
-        case .normal:   return UIColor(hex: 0x27D3FF)
+        case .normal:   return UIColor(hex: 0x34C759)
         case .behind:   return UIColor(hex: 0xFF9500)
         case .critical: return UIColor(hex: 0xFF3B30)
         case .overdue:  return danger

@@ -20,7 +20,8 @@ enum GoalTaskActionType: Int, TPMenuRepresentable {
 }
 
 class GoalTaskActionViewController: TPContainerViewController,
-                                    GoalTaskActionFooterViewDelegate {
+                                    GoalTaskActionFooterViewDelegate,
+                                    GoalTaskEditInteractorObserver {
     
     private let infoViewHeight = 82.0
     private let segmentedMenuTopMargin = 15.0
@@ -131,7 +132,7 @@ class GoalTaskActionViewController: TPContainerViewController,
     init(task: GoalTask) {
         self.interactor = GoalTaskEditInteractor(task: task)
         super.init(nibName: nil, bundle: nil)
-        self.configureInteractor()
+        self.interactor.addObserver(self)
     }
     
     required init?(coder: NSCoder) {
@@ -174,16 +175,20 @@ class GoalTaskActionViewController: TPContainerViewController,
         footerView.updateDateInfo()
     }
     
-    /// 配置交互器回调：任务改变刷新信息视图，任务删除则关闭当前视图
-    private func configureInteractor() {
-        interactor.onTaskChange = { [weak self] _ in
-            self?.updateCheckInfoView()
-        }
-        
-        interactor.onTaskDeleted = { [weak self] in
-            self?.dismissActionViewController()
-        }
+    // MARK: - GoalTaskEditInteractorObserver
+    
+    /// 任务改变：刷新顶部信息视图
+    func goalTaskEditInteractor(_ interactor: GoalTaskEditInteractor,
+                                didUpdateTask task: GoalTask,
+                                with change: GoalTaskChange?) {
+        updateCheckInfoView()
     }
+    
+    /// 任务被删除：关闭当前视图
+    func goalTaskEditInteractorDidDeleteTask(_ interactor: GoalTaskEditInteractor) {
+        dismissActionViewController()
+    }
+    
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()

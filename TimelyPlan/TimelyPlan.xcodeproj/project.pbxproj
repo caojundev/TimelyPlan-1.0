@@ -13432,7 +13432,7 @@
 		E5BB9BF82D3BF0C40089667A /* Stdlib */ = {
 			isa = PBXGroup;
 			children = (
-				E5BB9C042D3BF0C40089667A /* String */,
+				E5BB9C042D3BF0C40089667A /* ui */,
 				E5BB9BFB2D3BF0C40089667A /* Array */,
 				E5BB9BF92D3BF0C40089667A /* Int+Extensions.swift */,
 				E5BB9BFA2D3BF0C40089667A /* CaseIterable+Extensions.swift */,
@@ -13457,7 +13457,7 @@
 			path = Array;
 			sourceTree = "<group>";
 		};
-		E5BB9C042D3BF0C40089667A /* String */ = {
+		E5BB9C042D3BF0C40089667A /* ui */ = {
 			isa = PBXGroup;
 			children = (
 				E5BB9C052D3BF0C40089667A /* String+Extensions.swift */,
@@ -13469,7 +13469,7 @@
 				E5BB9C0A2D3BF0C40089667A /* String+DaysCount.swift */,
 				E5BB9C0B2D3BF0C40089667A /* String+Emoji.swift */,
 			);
-			path = String;
+			path = ui;
 			sourceTree = "<group>";
 		};
 		E5BB9C0D2D3BF0C40089667A /* Quartz */ = {

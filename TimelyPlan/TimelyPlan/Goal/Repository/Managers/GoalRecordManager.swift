@@ -323,14 +323,15 @@ class GoalRecordManager {
             return
         }
         
-        /// 更新前记录旧进度，用于生成改变内容
         let oldProgress = planContent.progress
-        guard planContent.updateProgress() else {
+        planContent.updateProgress()
+        let newProgress = planContent.progress
+        guard oldProgress != newProgress else {
             return
         }
         
         let change: GoalPlanChange = .progress(oldValue: oldProgress,
-                                               newValue: planContent.progress)
+                                               newValue: newProgress)
         planUpdater?.didUpdateGoalPlan(GoalPlan(content: planContent), with: change)
         HandyRecord.updateChangeCount()
     }

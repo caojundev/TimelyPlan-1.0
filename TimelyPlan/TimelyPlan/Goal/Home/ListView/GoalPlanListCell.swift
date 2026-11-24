@@ -131,28 +131,12 @@ class GoalPlanListCell: TPCollectionCell {
         progressView.setProgress(goalPlan.progress, animated: false)
         infoView.color = goalPlan.color
         infoView.title = goalPlan.displayName
-        
-        /// 状态标签：标题与背景色取自目标计划状态；
-        /// 进行中时改用进度总结状态（领先 / 正常 / 落后…），比「进行中」更有信息量
-        if let status = goalPlan.status {
-            statusLabel.isHidden = false
-            if status == .inProgress {
-                let summaryStatus = goalPlan.summaryStatus
-                statusLabel.text = summaryStatus.title
-                statusLabel.layer.backgroundColor = summaryStatus.backgroundColor.cgColor
-            } else {
-                statusLabel.text = status.title
-                statusLabel.layer.backgroundColor = status.backgroundColor.cgColor
-            }
-        } else {
-            statusLabel.isHidden = true
-            statusLabel.text = nil
-            statusLabel.layer.backgroundColor = nil
-        }
-        
-        /// 副标题：由 GoalPlanDetailProvider 统一计算（日期区间 + 进度百分比）
         infoView.subtitle = GoalPlanDetailProvider.detail(for: goalPlan)
-        
+    
+        let status = goalPlan.status
+        statusLabel.text = status.title
+        statusLabel.layer.backgroundColor = status.backgroundColor.cgColor
+    
         /// 标签宽度随状态文案变化，需要重新布局
         setNeedsLayout()
     }

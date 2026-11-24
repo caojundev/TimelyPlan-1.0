@@ -9,6 +9,7 @@ import Foundation
 
 /// 目标计划列表变更
 enum GoalPlanListChange {
+    
     case create(GoalPlan)
     
     /// 更新目标计划，附带改变内容（归档等无具体改变时为 nil）

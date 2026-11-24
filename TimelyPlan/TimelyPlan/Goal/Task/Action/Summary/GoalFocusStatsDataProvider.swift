@@ -7,13 +7,11 @@
 
 import Foundation
 
-/// 目标任务专注统计数据提供者
-final class GoalFocusStatsDataProvider: FocusDurationDataProvider,
-                                            FocusSessionProcessorDelegate {
+/// 目标任务专注时长数据提供者
+final class GoalFocusStatsDataProvider: FocusSessionProcessorDelegate {
 
-    var onSessionChanged: (([DateInterval]) -> Void)?
-    
-    // MARK: - 数据
+    /// 专注时长更新回调，参数为任务的总专注时长（秒）
+    var onDurationChanged: ((Int64) -> Void)?
 
     /// 目标任务
     var task: GoalTask
@@ -25,44 +23,46 @@ final class GoalFocusStatsDataProvider: FocusDurationDataProvider,
         FocusRepository.addUpdater(self, for: [.session])
     }
 
-    // MARK: - FocusDurationDataProvider
+    // MARK: - 获取时长
 
-    func fetchFocusStatsDataItem(dateRange: DateRange,
-                                 completion: @escaping (FocusStatsDataItem) -> Void) {
-        /// 指定任务时为特定统计模式，需包含已归档计时器的会话
-        FocusRepository.fetchStats(forTask: task,
-                                   dateRange: dateRange,
-                                   includeArchivedTimer: true,
-                                   completion: completion)
+    /// 异步获取目标任务的总专注时长
+    func fetchDuration() {
+        FocusRepository.fetchDuration(forTask: task) { [weak self] duration in
+            self?.onDurationChanged?(duration)
+        }
     }
-    
+
     // MARK: - FocusSessionProcessorDelegate
+
     func didAddFocusSessions(_ sessions: [FocusSession]) {
-        /// 仅保留当前目标任务的会话
-        let filteredSessions = sessions.filter { session in
-            return session.taskID == task.identifier
-        }
-        guard filteredSessions.count > 0 else {
+        /// 仅当前任务的会话变化才会影响时长
+        guard sessions.contains(where: isRelated(_:)) else {
             return
         }
 
-        let intervals = FocusSession.dateIntervals(from: filteredSessions)
-        onSessionChanged?(intervals)
+        fetchDuration()
     }
-    
+
     func didUpdateFocusSession(_ session: FocusSession) {
-        guard session.taskID == task.identifier else {
+        guard isRelated(session) else {
             return
         }
-        
-        onSessionChanged?([session.dateInterval])
+
+        fetchDuration()
     }
-    
+
     func didDeleteFocusSession(_ session: FocusSession) {
-        guard session.taskID == task.identifier else {
+        guard isRelated(session) else {
             return
         }
-        
-        onSessionChanged?([session.dateInterval])
+
+        fetchDuration()
+    }
+
+    // MARK: - 判断
+
+    /// 会话是否属于当前任务
+    private func isRelated(_ session: FocusSession) -> Bool {
+        return session.taskID == task.identifier
     }
 }

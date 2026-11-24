@@ -138,8 +138,7 @@ class WSGoalPlanDetailRowView: WSGoalPlanBriefRowView {
             return
         }
         
-        let statusText = dataItem.statusText ?? ""
-        statusLabel.isHidden = statusText.isEmpty
+        let statusText = dataItem.statusText
         statusLabel.text = statusText
         statusLabel.layer.backgroundColor = dataItem.statusColor.cgColor
         percentageLabel.text = dataItem.progressText

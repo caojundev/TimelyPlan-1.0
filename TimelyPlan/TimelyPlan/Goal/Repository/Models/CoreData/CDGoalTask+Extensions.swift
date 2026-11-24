@@ -306,16 +306,6 @@ extension CDGoalTask {
         return true
     }
     
-    /// 删除目标任务
-    static func deleteGoalTasks(_ goalTasks: [GoalTask]) -> Bool {
-        guard let cdTasks = getIdentifiableGoalTasks(with: goalTasks), cdTasks.count > 0 else {
-            return false
-        }
-        
-        NSManagedObjectContext.defaultContext.deleteObjects(cdTasks)
-        return true
-    }
-    
     // MARK: - 排序任务
     static func reorderTask(_ sourceTask: GoalTask,
                             postion: TodoTaskInsertPosition,
@@ -397,12 +387,6 @@ extension CDGoalTask {
                                             ascending: true,
                                             in: .defaultContext)
         return results
-    }
-    
-    /// 未完成目标任务数目
-    static func numberOfActiveGoalTasks() -> Int {
-        let count = countOfEntries(with: activeGoalTaskPredicate, in: .defaultContext)
-        return count
     }
     
     // MARK: - 异步获取

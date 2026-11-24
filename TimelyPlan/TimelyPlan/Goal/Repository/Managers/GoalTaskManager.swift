@@ -41,11 +41,6 @@ class GoalTaskManager {
         return GoalTask(content: content)
     }
     
-    /// 未完成目标任务数目
-    func numberOfActiveGoalTasks() -> Int {
-        return CDGoalTask.numberOfActiveGoalTasks()
-    }
-    
     // MARK: - 异步获取目标任务
     func fetchGoalTasks(of goalPlan: GoalPlan,
                         completion: @escaping ([GoalTask]?) -> Void) {
@@ -348,30 +343,19 @@ class GoalTaskManager {
     
     // MARK: - 删除目标任务
     func deleteGoalTask(_ goalTask: GoalTask) {
-        deleteGoalTasks([goalTask])
-    }
-    
-    func deleteGoalTasks(_ goalTasks: [GoalTask]) {
-        /// 删除前记录任务所属目标，用于删除后刷新目标整体进度
-        var goalPlans = Set<CDGoalPlan>()
-        for goalTask in goalTasks {
-            if let content = CDGoalTask.getGoalTask(withIdentifier: goalTask.identifier),
-               let goalPlan = content.goalPlan {
-                goalPlans.insert(goalPlan)
-            }
-        }
-        
-        guard CDGoalTask.deleteGoalTasks(goalTasks) else {
+        guard  let cdTask = CDGoalTask.getGoalTask(withIdentifier: goalTask.identifier) else {
             return
         }
+   
+        let planContent = cdTask.goalPlan
         
-        updater.didDeleteGoalTasks(goalTasks)
+        /// 从计划删除
+        planContent?.removeFromTasks(cdTask)
+        NSManagedObjectContext.defaultContext.delete(cdTask)
+        
+        refreshGoalPlanProgress(with: planContent)
+        updater.didDeleteGoalTasks([goalTask])
         HandyRecord.updateChangeCount()
-        
-        /// 删除任务后刷新相关目标整体进度
-        for goalPlan in goalPlans {
-            refreshGoalPlanProgress(with: goalPlan)
-        }
     }
     
     // MARK: - 移动目标任务
@@ -436,7 +420,7 @@ class GoalTaskManager {
         updater.didReorderGoalTask(sourceTask, in: goalPlan)
         HandyRecord.updateChangeCount()
     }
-    
+
     // MARK: - 目标进度刷新
     /// 按目标计划刷新整体进度
     private func refreshGoalPlanProgress(in goalPlan: GoalPlan) {
@@ -453,14 +437,15 @@ class GoalTaskManager {
             return
         }
         
-        /// 更新前记录旧进度，用于生成改变内容
         let oldProgress = planContent.progress
-        guard planContent.updateProgress() else {
+        planContent.updateProgress()
+        let newProgress = planContent.progress
+        guard oldProgress != newProgress else {
             return
         }
         
         let change: GoalPlanChange = .progress(oldValue: oldProgress,
-                                               newValue: planContent.progress)
+                                               newValue: newProgress)
         planUpdater?.didUpdateGoalPlan(GoalPlan(content: planContent), with: change)
         HandyRecord.updateChangeCount()
     }

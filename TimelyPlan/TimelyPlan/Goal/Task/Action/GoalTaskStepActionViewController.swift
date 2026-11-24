@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 /// 目标任务「步骤」操作内容视图控制器
-class GoalTaskStepActionViewController: TPTableSectionsViewController {
+class GoalTaskStepActionViewController: TPTableSectionsViewController,
+                                        GoalTaskEditInteractorObserver {
     
     /// 区块上方普通间距高度
     private static let normalHeaderHeight = 5.0
@@ -42,11 +43,17 @@ class GoalTaskStepActionViewController: TPTableSectionsViewController {
         self.interactor = interactor
         self.steps = interactor.task.steps ?? []
         super.init(style: .insetGrouped)
+        interactor.addObserver(self)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    deinit {
+        interactor.removeObserver(self)
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +74,39 @@ class GoalTaskStepActionViewController: TPTableSectionsViewController {
         self.reorder = reorder
     }
     
+    // MARK: - GoalTaskEditInteractorObserver
+
+    /// 任务改变：步骤变化时刷新列表
+    func goalTaskEditInteractor(_ interactor: GoalTaskEditInteractor,
+                                didUpdateTask task: GoalTask,
+                                with change: GoalTaskChange?) {
+        let steps = task.steps ?? []
+
+        /// 与当前步骤一致时无需刷新，避免打断正在进行的步骤编辑
+        guard !GoalTaskStepActionViewController.isSameSteps(steps, self.steps) else {
+            return
+        }
+
+        updateSteps(steps)
+    }
+
+    /// 用最新步骤刷新列表
+    private func updateSteps(_ steps: [TodoStep]) {
+        self.steps = steps
+        stepSectionController.steps = steps
+        adapter.reloadData()
+    }
+
+    /// 判断两组步骤是否一致（含子步骤）
+    /// - Note: 步骤以 Markdown 存储，转为 Markdown 字符串比较，
+    ///         既覆盖层级关系，也避免解析产生的新标识影响判断
+    private static func isSameSteps(_ lhs: [TodoStep], _ rhs: [TodoStep]) -> Bool {
+        let parser = TodoStepParser()
+        let lhsMarkdown = parser.toMarkdown(lhs, forceExpanded: true)
+        let rhsMarkdown = parser.toMarkdown(rhs, forceExpanded: true)
+        return lhsMarkdown == rhsMarkdown
+    }
+
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }

@@ -34,7 +34,6 @@ enum GoalPlanFilterType: Int, TPMenuRepresentable {
     /// 目标计划是否匹配该筛选状态
     func matches(_ goalPlan: GoalPlan) -> Bool {
         let isCompleted = goalPlan.progress >= 1.0
-        
         switch self {
         case .all:
             return true
