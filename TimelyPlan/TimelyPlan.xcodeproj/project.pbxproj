@@ -10194,7 +10194,7 @@
 				E5B4994A2FD8FCB200F3A9BD /* Notification */,
 				E5BB9F272D3BF4330089667A /* Common */,
 				E5BB9F3F2D3BF45F0089667A /* Main */,
-				E5A625733089B3CD003EB8BC /* WorkBoard */,
+				E5A625733089B3CD003EB8BC /* Workspace */,
 				E51F941630049A2C00734910 /* MyDay */,
 				E51A43802DB73A0400DC84C9 /* Calendar */,
 				E54A0680303BDD3D001FF4A1 /* Goal */,
@@ -11774,7 +11774,7 @@
 			path = Text;
 			sourceTree = "<group>";
 		};
-		E5A625733089B3CD003EB8BC /* WorkBoard */ = {
+		E5A625733089B3CD003EB8BC /* Workspace */ = {
 			isa = PBXGroup;
 			children = (
 				E5A625893089B3CD003EB8BC /* WorkspaceMainViewController.swift */,
@@ -11789,7 +11789,7 @@
 				E5A6258A3089B3CD003EB8BC /* Dashboard */,
 				E5A6259E3089B3CD003EB8BC /* Modules */,
 			);
-			path = WorkBoard;
+			path = Workspace;
 			sourceTree = "<group>";
 		};
 		E5A625743089B3CD003EB8BC /* Repository */ = {
@@ -11901,9 +11901,9 @@
 			isa = PBXGroup;
 			children = (
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
+				E5A50C8D30A357AB009B24D2 /* Text */,
 				E598E93430A7366C00E63A53 /* Action */,
 				E5097C2030A413750080ECCF /* Separator */,
-				E5A50C8D30A357AB009B24D2 /* Text */,
 				E539C86F308CAE6C0077FE8A /* UIComponents */,
 				E52628633097711A00B87016 /* Calendar */,
 				E52628623097711300B87016 /* Todo */,
