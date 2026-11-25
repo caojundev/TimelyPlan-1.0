@@ -352,23 +352,19 @@ class FocusTracker: NSObject {
         }
         
         let stepDuration = FocusSetting.shared.validatedAdjustStepDuration
-        event.adjustDuration(by: -TimeInterval(20))
+        event.adjustDuration(by: -TimeInterval(stepDuration))
         saveEvent()
         updateTimer()
         scheduleNotificationHandler?()
     }
     
     func canIncrease(remainDuration: TimeInterval) -> Bool {
-        return true
-        
         let stepDuration = FocusSetting.shared.validatedAdjustStepDuration
         let maximumDuration = 10 * SECONDS_PER_MINUTE
         return remainDuration < TimeInterval(maximumDuration - stepDuration)
     }
     
     func canDecrease(remainDuration: TimeInterval) -> Bool {
-        return true
-        
         let stepDuration = FocusSetting.shared.validatedAdjustStepDuration
         let minimumDuration = SECONDS_PER_MINUTE
         return remainDuration > TimeInterval(minimumDuration + stepDuration)

@@ -388,9 +388,7 @@ class GoalTaskListView: UIView,
     /// 获取目标任务对应的布局
     private func layout(for goalTask: GoalTask) -> GoalTaskInfoLayout {
         let collectionSize = adapter.collectionViewSize()
-        let sectionInset = Config.sectionInset
-        layoutManager.width = min(GoalConfig.goalPlanListContentMaxWidth,
-                                  collectionSize.width - sectionInset.horizontalLength)
+        layoutManager.width = collectionSize.width - Config.sectionInset.horizontalLength
         return layoutManager.layout(for: goalTask)
     }
     

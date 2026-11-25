@@ -94,7 +94,6 @@ class FocusSetting {
     private init() {}
     
     var validatedMinimumRecordDuration: Duration {
-        return 5
         return clampedValue(minimumRecordDuration,
                             Self.minimumRecordMinuteRange.lowerBound * SECONDS_PER_MINUTE,
                             Self.minimumRecordMinuteRange.upperBound * SECONDS_PER_MINUTE)
