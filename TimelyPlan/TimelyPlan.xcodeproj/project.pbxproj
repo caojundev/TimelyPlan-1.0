@@ -2553,6 +2553,7 @@
 		E5D7D8C52D43933600EC877A /* FocusTimerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8092D43933100EC877A /* FocusTimerInfo.swift */; };
 		E5D7D8C62D43933600EC877A /* FocusStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80A2D43933100EC877A /* FocusStep.swift */; };
 		E5D7D8C72D43933600EC877A /* FocusTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80B2D43933100EC877A /* FocusTracker.swift */; };
+		E5F0C0DF2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C0DE2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift */; };
 		E5D7D8C82D43933600EC877A /* FocusEndDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80C2D43933100EC877A /* FocusEndDataItem.swift */; };
 		E5D7D8C92D43933600EC877A /* FocusTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80D2D43933100EC877A /* FocusTrackingViewController.swift */; };
 		E5D7D8CA2D43933600EC877A /* FocusEndSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80F2D43933100EC877A /* FocusEndSectionController.swift */; };
@@ -5723,6 +5724,7 @@
 		E5D7D8092D43933100EC877A /* FocusTimerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerInfo.swift; sourceTree = "<group>"; };
 		E5D7D80A2D43933100EC877A /* FocusStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStep.swift; sourceTree = "<group>"; };
 		E5D7D80B2D43933100EC877A /* FocusTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTracker.swift; sourceTree = "<group>"; };
+		E5F0C0DE2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerIntervalCalculator.swift; sourceTree = "<group>"; };
 		E5D7D80C2D43933100EC877A /* FocusEndDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusEndDataItem.swift; sourceTree = "<group>"; };
 		E5D7D80D2D43933100EC877A /* FocusTrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTrackingViewController.swift; sourceTree = "<group>"; };
 		E5D7D80F2D43933100EC877A /* FocusEndSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusEndSectionController.swift; sourceTree = "<group>"; };
@@ -15722,6 +15724,7 @@
 				E5D7D8092D43933100EC877A /* FocusTimerInfo.swift */,
 				E5D7D80A2D43933100EC877A /* FocusStep.swift */,
 				E5D7D80B2D43933100EC877A /* FocusTracker.swift */,
+				E5F0C0DE2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift */,
 				E5D7D80C2D43933100EC877A /* FocusEndDataItem.swift */,
 			);
 			path = Tracker;
@@ -19233,6 +19236,7 @@
 				E549B1702F88DF550014BE85 /* TodoTaskEditProgressSectionController.swift in Sources */,
 				E5B4994C2FD8FD9F00F3A9BD /* TaskNotificationManager.swift in Sources */,
 				E5D7D8C72D43933600EC877A /* FocusTracker.swift in Sources */,
+				E5F0C0DF2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift in Sources */,
 				E50D60422F7A12B500D5E0A4 /* RepeatSpecificDateSectionController.swift in Sources */,
 				E57B2B5530467DEE00BA4D56 /* GoalPlanManager.swift in Sources */,
 				E5BB9EF92D3BF0C80089667A /* TPSlidePresentationController.swift in Sources */,

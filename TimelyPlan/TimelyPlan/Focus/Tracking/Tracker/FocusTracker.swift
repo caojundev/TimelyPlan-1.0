@@ -274,6 +274,9 @@ class FocusTracker: NSObject {
         }
         
         checkStateAndNotifyDelegatesIfNeeded()
+
+        /// 步骤切换、时长微调、暂停/恢复后可能需要调整刷新频率
+        updateTimerIntervalIfNeeded(for: timerInfo)
     }
     
     /// 检查当前状态，如果状态改变则通知所有代理对象
@@ -396,16 +399,49 @@ class FocusTracker: NSObject {
     
     
     // MARK: - 定时器
-    #warning("优化计时器触发时间间隔")
+
+    /// 触发间隔计算器
+    private let timerIntervalCalculator = FocusTimerIntervalCalculator()
+
+    /// 当前定时器触发间隔
+    private var currentTimerInterval: TimeInterval = FocusTimerIntervalCalculator.fallbackInterval
+
+    /// 间隔比较容差
+    private static let timerIntervalTolerance: TimeInterval = 0.0001
+
     private func startTimer() {
-        timer?.invalidate()
-        timer = Timer(timeInterval: 0.5,
-                      target: self,
-                      selector: #selector(updateTimer),
-                      userInfo: nil,
-                      repeats: true)
-        RunLoop.current.add(timer!, forMode: .common)
+        let duration = event?.currentStep?.duration ?? 0.0
+        let interval = timerIntervalCalculator.interval(forDuration: duration)
+        restartTimer(withInterval: interval)
         timer?.fire()
+    }
+
+    /// 以指定间隔重建定时器（不立即触发）
+    private func restartTimer(withInterval interval: TimeInterval) {
+        timer?.invalidate()
+        currentTimerInterval = interval
+
+        let timer = Timer(timeInterval: interval,
+                          target: self,
+                          selector: #selector(updateTimer),
+                          userInfo: nil,
+                          repeats: true)
+        RunLoop.current.add(timer, forMode: .common)
+        self.timer = timer
+    }
+
+    /// 步骤时长或运行状态变化时，重新计算触发间隔
+    private func updateTimerIntervalIfNeeded(for timerInfo: FocusTimerInfo) {
+        guard timer != nil else {
+            return
+        }
+
+        let interval = timerIntervalCalculator.interval(for: timerInfo)
+        guard abs(interval - currentTimerInterval) > Self.timerIntervalTolerance else {
+            return
+        }
+
+        restartTimer(withInterval: interval)
     }
        
     private func stopTimer() {
