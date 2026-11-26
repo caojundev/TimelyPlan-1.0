@@ -165,9 +165,9 @@ class WSDashboardViewController: TPViewController,
         return interactor.createPlugin(type: plugin.type, configJSON: plugin.configJSON, at: index)
     }
 
-    /// 添加后立即进入配置。仅模块声明了「添加后配置」时生效
+    /// 添加后立即进入配置。仅组件类型声明了「添加后配置」时生效
     private func showConfigIfNeeded(for plugin: WSPlugin) {
-        guard plugin.type.module.opensConfigAfterAdd else {
+        guard plugin.type.opensConfigAfterAdd else {
             return
         }
 

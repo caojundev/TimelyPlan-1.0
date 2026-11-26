@@ -6,7 +6,7 @@ extension WSPluginType {
     enum Separator {
 
         /// 分割线·自适应·分割线：占满整行，使用固定高度。
-        static let flexibleLine = make("separatorFlexibleLine", .flexible)
+        static let flexibleLine = make("separator", .flexible)
 
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [

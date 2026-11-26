@@ -743,6 +743,14 @@
 		E537BCBD308B4B5900C308E3 /* WSCountdownEventsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCA2308B4B5800C308E3 /* WSCountdownEventsContentInteractor.swift */; };
 		E537BCC4308B4B5900C308E3 /* WSCountdownEventsSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */; };
 		E537BCC6308B4B5900C308E3 /* CountdownEventSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */; };
+		E539474830B8138E00BE40FD /* plugin_todo_list_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474230B8138C00BE40FD /* plugin_todo_list_32@3x.png */; };
+		E539474930B8138E00BE40FD /* plugin_todo_list_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474330B8138C00BE40FD /* plugin_todo_list_32@2x.png */; };
+		E539474A30B8138E00BE40FD /* plugin_todo_tag_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474430B8138D00BE40FD /* plugin_todo_tag_32@2x.png */; };
+		E539474B30B8138E00BE40FD /* plugin_todo_filter_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474530B8138D00BE40FD /* plugin_todo_filter_32@3x.png */; };
+		E539474C30B8138E00BE40FD /* plugin_todo_tag_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474630B8138D00BE40FD /* plugin_todo_tag_32@3x.png */; };
+		E539474D30B8138E00BE40FD /* plugin_todo_filter_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474730B8138E00BE40FD /* plugin_todo_filter_32@2x.png */; };
+		E539475030B8157400BE40FD /* plugin_info_circle_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474E30B8157200BE40FD /* plugin_info_circle_32@3x.png */; };
+		E539475130B8157400BE40FD /* plugin_info_circle_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474F30B8157300BE40FD /* plugin_info_circle_32@2x.png */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
 		E53966E52D671D66008CC13B /* todo_list_option_layout_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E32D671D66008CC13B /* todo_list_option_layout_24@3x.png */; };
 		E539C878308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E539C877308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift */; };
@@ -1039,6 +1047,7 @@
 		E555495F2F76870D00C9460D /* HabitTaskBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555495E2F76870D00C9460D /* HabitTaskBindSearchResultSectionController.swift */; };
 		E55549612F76899B00C9460D /* SearchHighlightable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549602F76899B00C9460D /* SearchHighlightable.swift */; };
 		E55549652F76C10A00C9460D /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549642F76C10A00C9460D /* AppSettingsViewController.swift */; };
+		E555A93E30B714DA00D7FFA2 /* TPIconInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555A93D30B714DA00D7FFA2 /* TPIconInfoView.swift */; };
 		E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */; };
 		E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */; };
 		E556BCBE2F5D6C7000CA20D9 /* habit_indicator_status_skipped_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */; };
@@ -2417,7 +2426,7 @@
 		E5D0C70F0000000000000000 /* WSTodoTagMediumGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C60F0000000000000000 /* WSTodoTagMediumGridPluginProvider.swift */; };
 		E5D0C7100000000000000000 /* WSTodoTagLargeListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6100000000000000000 /* WSTodoTagLargeListPluginProvider.swift */; };
 		E5D0C7110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift */; };
-		E5D0CA010000000000000000 /* WSTodoRowsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9010000000000000000 /* WSTodoRowsContentView.swift */; };
+		E5D0CA010000000000000000 /* WSTodoGroupRowsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9010000000000000000 /* WSTodoGroupRowsContentView.swift */; };
 		E5D0CA020000000000000000 /* WSTodoListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9020000000000000000 /* WSTodoListContentView.swift */; };
 		E5D0CA030000000000000000 /* WSTodoTagContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9030000000000000000 /* WSTodoTagContentView.swift */; };
 		E5D0CD010000000000000000 /* WSTodoFilterRowsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0CC010000000000000000 /* WSTodoFilterRowsPluginProvider.swift */; };
@@ -3883,6 +3892,14 @@
 		E537BCA2308B4B5800C308E3 /* WSCountdownEventsContentInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsContentInteractor.swift; sourceTree = "<group>"; };
 		E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsSelectionViewController.swift; sourceTree = "<group>"; };
 		E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventSelectionViewModel.swift; sourceTree = "<group>"; };
+		E539474230B8138C00BE40FD /* plugin_todo_list_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todo_list_32@3x.png"; sourceTree = "<group>"; };
+		E539474330B8138C00BE40FD /* plugin_todo_list_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todo_list_32@2x.png"; sourceTree = "<group>"; };
+		E539474430B8138D00BE40FD /* plugin_todo_tag_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todo_tag_32@2x.png"; sourceTree = "<group>"; };
+		E539474530B8138D00BE40FD /* plugin_todo_filter_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todo_filter_32@3x.png"; sourceTree = "<group>"; };
+		E539474630B8138D00BE40FD /* plugin_todo_tag_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todo_tag_32@3x.png"; sourceTree = "<group>"; };
+		E539474730B8138E00BE40FD /* plugin_todo_filter_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todo_filter_32@2x.png"; sourceTree = "<group>"; };
+		E539474E30B8157200BE40FD /* plugin_info_circle_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_info_circle_32@3x.png"; sourceTree = "<group>"; };
+		E539474F30B8157300BE40FD /* plugin_info_circle_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_info_circle_32@2x.png"; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
 		E53966E32D671D66008CC13B /* todo_list_option_layout_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@3x.png"; sourceTree = "<group>"; };
 		E539C877308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimersPluginProvider.swift; sourceTree = "<group>"; };
@@ -4179,6 +4196,7 @@
 		E555495E2F76870D00C9460D /* HabitTaskBindSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskBindSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E55549602F76899B00C9460D /* SearchHighlightable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHighlightable.swift; sourceTree = "<group>"; };
 		E55549642F76C10A00C9460D /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
+		E555A93D30B714DA00D7FFA2 /* TPIconInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPIconInfoView.swift; sourceTree = "<group>"; };
 		E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditViewController.swift; sourceTree = "<group>"; };
 		E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_checked_16@2x.png"; sourceTree = "<group>"; };
 		E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_skipped_16@2x.png"; sourceTree = "<group>"; };
@@ -5574,7 +5592,7 @@
 		E5D0C60F0000000000000000 /* WSTodoTagMediumGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagMediumGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0C6100000000000000000 /* WSTodoTagLargeListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagLargeListPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0C6110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagLargeGridPluginProvider.swift; sourceTree = "<group>"; };
-		E5D0C9010000000000000000 /* WSTodoRowsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoRowsContentView.swift; sourceTree = "<group>"; };
+		E5D0C9010000000000000000 /* WSTodoGroupRowsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoGroupRowsContentView.swift; sourceTree = "<group>"; };
 		E5D0C9020000000000000000 /* WSTodoListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListContentView.swift; sourceTree = "<group>"; };
 		E5D0C9030000000000000000 /* WSTodoTagContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagContentView.swift; sourceTree = "<group>"; };
 		E5D0CC010000000000000000 /* WSTodoFilterRowsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoFilterRowsPluginProvider.swift; sourceTree = "<group>"; };
@@ -6658,12 +6676,10 @@
 			children = (
 				E5A7C30130A3370700FE6914 /* WSSeparatorPluginTypes.swift */,
 				E5A7C30230A3370700FE6914 /* WSSeparatorStyle.swift */,
-				E5A7C30330A3370700FE6914 /* WSSeparatorLineView.swift */,
 				E5A7C30430A3370700FE6914 /* WSSeparatorDataItem.swift */,
-				E5A7C30530A3370700FE6914 /* WSSeparatorContentView.swift */,
 				E5A7C30630A3370700FE6914 /* WSSeparatorPluginProvider.swift */,
-				E5A7C30730A3370700FE6914 /* WSSeparatorConfigViewController.swift */,
-				E5A7C30830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift */,
+				E555A93730B6FDF600D7FFA2 /* ContentView */,
+				E555A93630B6FDCC00D7FFA2 /* Config */,
 			);
 			path = Separator;
 			sourceTree = "<group>";
@@ -7959,11 +7975,12 @@
 			isa = PBXGroup;
 			children = (
 				E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */,
+				E589E0F1309CCB1100E3C813 /* WSTodoTaskItem.swift */,
+				E589E0F0309CCB1100E3C813 /* WSTodoTaskRowView.swift */,
+				E5D0F8150000000000000000 /* WSTodoTaskMoreRowListView.swift */,
+				E5D0D0000000000000000010 /* WSTodoTaskContentInteractor.swift */,
 				E52D3D93309C1C8F001BBAF9 /* Task */,
-				E52D3D91309B4441001BBAF9 /* Common */,
-				E5D0CB010000000000000000 /* Filter */,
-				E52D3D8C309B4227001BBAF9 /* Tag */,
-				E52D3D86309A14DA001BBAF9 /* List */,
+				E555A94030B71BC600D7FFA2 /* Group */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -8372,18 +8389,6 @@
 				E5D0C60D0000000000000000 /* WSTodoTagSmallListPluginProvider.swift */,
 			);
 			path = Small;
-			sourceTree = "<group>";
-		};
-		E52D3D91309B4441001BBAF9 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				E5D0C9010000000000000000 /* WSTodoRowsContentView.swift */,
-				E589E0F1309CCB1100E3C813 /* WSTodoTaskItem.swift */,
-				E589E0F0309CCB1100E3C813 /* WSTodoTaskRowView.swift */,
-				E5D0F8150000000000000000 /* WSTodoTaskMoreRowListView.swift */,
-				E5D0D0000000000000000010 /* WSTodoTaskContentInteractor.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		E52D3D93309C1C8F001BBAF9 /* Task */ = {
@@ -9028,6 +9033,21 @@
 			path = Selection;
 			sourceTree = "<group>";
 		};
+		E539474130B8136D00BE40FD /* empty */ = {
+			isa = PBXGroup;
+			children = (
+				E539474F30B8157300BE40FD /* plugin_info_circle_32@2x.png */,
+				E539474E30B8157200BE40FD /* plugin_info_circle_32@3x.png */,
+				E539474730B8138E00BE40FD /* plugin_todo_filter_32@2x.png */,
+				E539474530B8138D00BE40FD /* plugin_todo_filter_32@3x.png */,
+				E539474330B8138C00BE40FD /* plugin_todo_list_32@2x.png */,
+				E539474230B8138C00BE40FD /* plugin_todo_list_32@3x.png */,
+				E539474430B8138D00BE40FD /* plugin_todo_tag_32@2x.png */,
+				E539474630B8138D00BE40FD /* plugin_todo_tag_32@3x.png */,
+			);
+			path = empty;
+			sourceTree = "<group>";
+		};
 		E539C86E308CA9110077FE8A /* SystemTimer */ = {
 			isa = PBXGroup;
 			children = (
@@ -9050,7 +9070,6 @@
 				E5D0E0000000000000000016 /* WSCountBadgeView.swift */,
 				E5D0E0000000000000000017 /* WSInfoTextCountHeaderView.swift */,
 				E5D0E0000000000000000018 /* WSIconInfoTextValueContentView.swift */,
-				E5D0F7010000000000000000 /* WSWeekActivityView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -9945,6 +9964,58 @@
 				E5E58CEE307C8C3C00121283 /* AppBannerRepresentable.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		E555A93630B6FDCC00D7FFA2 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7C30730A3370700FE6914 /* WSSeparatorConfigViewController.swift */,
+				E5A7C30830A3370700FE6914 /* WSSeparatorStyleSelectCell.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		E555A93730B6FDF600D7FFA2 /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7C30330A3370700FE6914 /* WSSeparatorLineView.swift */,
+				E5A7C30530A3370700FE6914 /* WSSeparatorContentView.swift */,
+			);
+			path = ContentView;
+			sourceTree = "<group>";
+		};
+		E555A93830B6FF6F00D7FFA2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E555A93F30B7158700D7FFA2 /* ActivityView */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E555A93C30B7115F00D7FFA2 /* ------------------------------- */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "-------------------------------";
+			sourceTree = "<group>";
+		};
+		E555A93F30B7158700D7FFA2 /* ActivityView */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0F7010000000000000000 /* WSWeekActivityView.swift */,
+			);
+			path = ActivityView;
+			sourceTree = "<group>";
+		};
+		E555A94030B71BC600D7FFA2 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C9010000000000000000 /* WSTodoGroupRowsContentView.swift */,
+				E5D0CB010000000000000000 /* Filter */,
+				E52D3D8C309B4227001BBAF9 /* Tag */,
+				E52D3D86309A14DA001BBAF9 /* List */,
+			);
+			path = Group;
 			sourceTree = "<group>";
 		};
 		E556BCC52F5D746400CA20D9 /* recordType */ = {
@@ -11901,12 +11972,14 @@
 			isa = PBXGroup;
 			children = (
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
+				E555A93830B6FF6F00D7FFA2 /* Components */,
 				E5A50C8D30A357AB009B24D2 /* Text */,
-				E598E93430A7366C00E63A53 /* Action */,
 				E5097C2030A413750080ECCF /* Separator */,
+				E555A93C30B7115F00D7FFA2 /* ------------------------------- */,
 				E539C86F308CAE6C0077FE8A /* UIComponents */,
-				E52628633097711A00B87016 /* Calendar */,
 				E52628623097711300B87016 /* Todo */,
+				E598E93430A7366C00E63A53 /* Action */,
+				E52628633097711A00B87016 /* Calendar */,
 				E5F7E6353098208300C72E55 /* MyDay */,
 				E5E5380130946DF00096EBAC /* Quadrant */,
 				E5C0AEAA30933D3B00E487FC /* Gantt */,
@@ -13182,6 +13255,7 @@
 				E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */,
 				E5B98CE82D56064400E78261 /* TPImageInfoTextValueView.swift */,
 				E53E96AC2D53A3E200EC4872 /* TPInfoTextValueView.swift */,
+				E555A93D30B714DA00D7FFA2 /* TPIconInfoView.swift */,
 				E53E96AE2D53ADC300EC4872 /* TPColorInfoTextValueView.swift */,
 				E5B98CD92D55009800E78261 /* TPIconInfoTextValueView.swift */,
 			);
@@ -17481,6 +17555,7 @@
 		E5FEC5F430AC082400138DBF /* plugin */ = {
 			isa = PBXGroup;
 			children = (
+				E539474130B8136D00BE40FD /* empty */,
 				E549437630B000BE006EC04B /* action */,
 				E554308C30AD52FF004C4AC1 /* placeholder */,
 				E5DC6E5830AC8BA200581B10 /* todo */,
@@ -17494,6 +17569,7 @@
 				E5FEC60130AC10D800138DBF /* plugin_action_48@3x.png */,
 				E5FEC60730AC3C4C00138DBF /* plugin_myDay_48@2x.png */,
 				E5FEC60830AC3C4D00138DBF /* plugin_myDay_48@3x.png */,
+				E5FEC61C30AC4B3600138DBF /* plugin_timeline_48@3x.png */,
 				E5FEC60C30AC3EEA00138DBF /* plugin_calendar_48@2x.png */,
 				E5FEC60B30AC3EE900138DBF /* plugin_calendar_48@3x.png */,
 				E5FEC61030AC472200138DBF /* plugin_quadrants_48@2x.png */,
@@ -17507,7 +17583,6 @@
 				E5FEC61A30AC4B3500138DBF /* plugin_habit_48@2x.png */,
 				E5FEC61430AC4B3200138DBF /* plugin_habit_48@3x.png */,
 				E5FEC61630AC4B3300138DBF /* plugin_timeline_48@2x.png */,
-				E5FEC61C30AC4B3600138DBF /* plugin_timeline_48@3x.png */,
 			);
 			path = plugin;
 			sourceTree = "<group>";
@@ -17970,6 +18045,7 @@
 				E518505C300E1FD400112DFC /* myDay_overlapping_12@3x.png in Resources */,
 				E5BB9AF02D3BEF0D0089667A /* plus_24@2x.png in Resources */,
 				E5FC6BA62F64EFBC00D5A5EA /* habit_status_failed_36@3x.png in Resources */,
+				E539474930B8138E00BE40FD /* plugin_todo_list_32@2x.png in Resources */,
 				E5371DDF2FF1FD1C00BA9DEF /* notification_sound_24@3x.png in Resources */,
 				E55E4BCC2F9336170068E032 /* calendar_2_24@2x.png in Resources */,
 				E563F1AD2FE8082900DF86BB /* sideMenu_24@2x.png in Resources */,
@@ -18039,6 +18115,7 @@
 				E5FEC61F30AC4B3700138DBF /* plugin_goal_48@2x.png in Resources */,
 				E500E3822FC59BE600252011 /* todo_search_option_step_16@2x.png in Resources */,
 				E53F32CA2F699AC900B85B65 /* habit_report_notScheduled_20@3x.png in Resources */,
+				E539474A30B8138E00BE40FD /* plugin_todo_tag_32@2x.png in Resources */,
 				E5C18FBA2DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png in Resources */,
 				E563F1DA2FE9184300DF86BB /* setting_rate_32@3x.png in Resources */,
 				E524C7812F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png in Resources */,
@@ -18165,6 +18242,7 @@
 				E5FC6BA52F64EFBC00D5A5EA /* habit_status_completed_36@3x.png in Resources */,
 				E554308830AD4E04004C4AC1 /* plugin_todoTagTask_48@2x.png in Resources */,
 				E5FF4ECA2FEB70B300282416 /* setting_language_32@2x.png in Resources */,
+				E539474C30B8138E00BE40FD /* plugin_todo_tag_32@3x.png in Resources */,
 				E55549402F75590100C9460D /* focus_timer_custom_24@2x.png in Resources */,
 				E515AD7D2D3CF87F00AA9AF2 /* triangle_right_12@3x.png in Resources */,
 				E526D4152F6D7AE0005C1DED /* habit_plceholder_task_80@2x.png in Resources */,
@@ -18483,8 +18561,10 @@
 				E5E2771D2D3E099C004EC522 /* todo_list_option_sort_24@3x.png in Resources */,
 				E5BB9AB22D3BEF0D0089667A /* todo_task_addToMyDay_24@2x.png in Resources */,
 				E55CE34B2D8BBFE50083316E /* quadrant_I_32@2x.png in Resources */,
+				E539475030B8157400BE40FD /* plugin_info_circle_32@3x.png in Resources */,
 				E50DD7CF2D72BE5A00A85E87 /* todo_folder_24@3x.png in Resources */,
 				E524C7892F9B6855005CCEBD /* todo_smartlist_myDay_24@3x.png in Resources */,
+				E539474D30B8138E00BE40FD /* plugin_todo_filter_32@2x.png in Resources */,
 				E50CC61D3066B4C000D1BD3E /* countdown_type_24@3x.png in Resources */,
 				E5BB9A782D3BEF0D0089667A /* todo_home_setting_24@3x.png in Resources */,
 				E563F1D22FE8E97400DF86BB /* setting_hapticFeedback_32@2x.png in Resources */,
@@ -18524,6 +18604,7 @@
 				E5DC6E7830ACA56100581B10 /* plugin_todoCustomTask_48@3x.png in Resources */,
 				E526D4062F6D7479005C1DED /* habit_menu_editLog_24@3x.png in Resources */,
 				E55E4BE92F9336170068E032 /* calendar_8_24@2x.png in Resources */,
+				E539474830B8138E00BE40FD /* plugin_todo_list_32@3x.png in Resources */,
 				E5BB9A9C2D3BEF0D0089667A /* todo_board_24@2x.png in Resources */,
 				E5BB9AAC2D3BEF0D0089667A /* todo_task_checkbox_minus_20@2x.png in Resources */,
 				E5E58CED307C780E00121283 /* memberBanner_crown_46@2x.png in Resources */,
@@ -18532,6 +18613,7 @@
 				E5D7D96A2D43DCCE00EC877A /* triangle_right_32@3x.png in Resources */,
 				E5E2770A2D3DFC23004EC522 /* todo_folder_addList_24@2x.png in Resources */,
 				E5BB9AE12D3BEF0D0089667A /* moveToTop_24@3x.png in Resources */,
+				E539474B30B8138E00BE40FD /* plugin_todo_filter_32@3x.png in Resources */,
 				E53632D32FAF63480095DFEC /* quadrant_I_60@2x.png in Resources */,
 				E563F1C62FE8E42E00DF86BB /* sideMenu_settings_40@2x.png in Resources */,
 				E5D7D9742D43E05700EC877A /* focus_running_minimal_24@3x.png in Resources */,
@@ -18593,6 +18675,7 @@
 				E541553A2F48B541000B2972 /* focus_record_showDetail_24@2x.png in Resources */,
 				E51F94093000993300734910 /* calendar_list_24@3x.png in Resources */,
 				E50D94CF2D45248D00F57957 /* gear_24@3x.png in Resources */,
+				E539475130B8157400BE40FD /* plugin_info_circle_32@2x.png in Resources */,
 				E5DC6E5F30AC8BA300581B10 /* plugin_todoListGroup_48@2x.png in Resources */,
 				E5BB9AE72D3BEF0D0089667A /* trash_24@3x.png in Resources */,
 				E563F1CE2FE8E42E00DF86BB /* sideMenu_todo_40@3x.png in Resources */,
@@ -18704,7 +18787,7 @@
 				E5D0CD0D0000000000000000 /* WSTodoFilterMediumGridPluginProvider.swift in Sources */,
 				E5D0CD0E0000000000000000 /* WSTodoFilterLargeListPluginProvider.swift in Sources */,
 				E5D0CD0F0000000000000000 /* WSTodoFilterLargeGridPluginProvider.swift in Sources */,
-				E5D0CA010000000000000000 /* WSTodoRowsContentView.swift in Sources */,
+				E5D0CA010000000000000000 /* WSTodoGroupRowsContentView.swift in Sources */,
 				E5D0D0000000000000000020 /* WSTodoTaskContentInteractor.swift in Sources */,
 				E5D0D0000000000000000021 /* WSTodoTaskSelectedTasksConfiguration.swift in Sources */,
 				E5D0D0000000000000000022 /* WSTodoTaskSelectedDataItem.swift in Sources */,
@@ -20837,6 +20920,7 @@
 				E51F94153003508400734910 /* FocusRangeEventColorInfoFetcher.swift in Sources */,
 				E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */,
 				E50D60882F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift in Sources */,
+				E555A93E30B714DA00D7FFA2 /* TPIconInfoView.swift in Sources */,
 				E5D7D8CB2D43933600EC877A /* FocusEndBottomView.swift in Sources */,
 				E53632A12FAC25090095DFEC /* QuadrantListInteractor.swift in Sources */,
 				E5BB9E712D3BF0C70089667A /* TPCollectionHeaderFooterView.swift in Sources */,

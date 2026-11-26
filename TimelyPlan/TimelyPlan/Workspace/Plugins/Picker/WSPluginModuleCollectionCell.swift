@@ -83,13 +83,18 @@ class WSPluginModuleCollectionCellItem: TPCollectionCellItem {
 
 // MARK: - 模块网格单元格
 
-/// 模块网格单元格：上方图标圆形，下方标题
+/// 模块网格单元格：上方图标圆形，下方标题。
+///
+/// 按下时只缩放图标圆形，标题与单元格本身保持不动。
 class WSPluginModuleCollectionCell: TPCollectionCell {
     
     enum Metrics {
         
         /// 图标圆形边框宽度
         static let borderWidth = 0.5
+        
+        /// 按下时图标缩小的总宽度，与单元格按压缩放的幅度一致
+        static let highlightedScaleInset = 8.0
         
         /// 标题与图标的间距
         static let titleTop = 8.0
@@ -152,6 +157,42 @@ class WSPluginModuleCollectionCell: TPCollectionCell {
         }
     }
     
+    /// 按下缩放只作用于图标圆形，单元格本身不缩放
+    override var scaleWhenHighlighted: Bool {
+        get {
+            return false
+        }
+        
+        set {
+        }
+    }
+    
+    /// 按下时图标圆形略微缩小，松开后复原
+    override var isHighlighted: Bool {
+        didSet {
+            guard isHighlighted != oldValue else {
+                return
+            }
+            
+            let width = iconContainerView.bounds.width
+            let scale = width > 0.0 ? (width - Metrics.highlightedScaleInset) / width : 1.0
+            
+            UIView.animate(withDuration: 0.2,
+                           delay: 0.0,
+                           options: .beginFromCurrentState) {
+                self.iconContainerView.transform = self.isHighlighted
+                    ? CGAffineTransform(scaleX: scale, y: scale)
+                    : .identity
+            }
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        /// 复用前复原图标，避免带着按下缩放进入下一次展示
+        iconContainerView.transform = .identity
+    }
+    
     override func setupContentSubviews() {
         super.setupContentSubviews()
         iconContainerView.addSubview(imageView)
@@ -163,12 +204,13 @@ class WSPluginModuleCollectionCell: TPCollectionCell {
         super.layoutSubviews()
         let layoutFrame = contentView.layoutFrame()
         
-        /// 图标区域为正方形，边长取单元格宽度
-        iconContainerView.width = layoutFrame.width
-        iconContainerView.height = layoutFrame.width
-        iconContainerView.top = layoutFrame.minY
-        iconContainerView.left = layoutFrame.minX
-        iconContainerView.layer.cornerRadius = iconContainerView.halfWidth
+        /// 图标区域为正方形，边长取单元格宽度。
+        /// 使用 bounds 与 center 定位：按下缩放只改 transform，布局不会通过 frame 反过来改写尺寸
+        let iconSide = layoutFrame.width
+        iconContainerView.bounds = CGRect(origin: .zero, size: CGSize(width: iconSide, height: iconSide))
+        iconContainerView.center = CGPoint(x: layoutFrame.midX,
+                                           y: layoutFrame.minY + iconSide / 2.0)
+        iconContainerView.layer.cornerRadius = iconSide / 2.0
         iconContainerView.layer.borderColor = UIColor.separator.cgColor
         
         imageView.size = imageConfig.size
@@ -176,7 +218,7 @@ class WSPluginModuleCollectionCell: TPCollectionCell {
         
         titleLabel.width = layoutFrame.width
         titleLabel.height = Metrics.titleHeight
-        titleLabel.top = iconContainerView.bottom + Metrics.titleTop
+        titleLabel.top = layoutFrame.minY + iconSide + Metrics.titleTop
         titleLabel.left = layoutFrame.minX
     }
     

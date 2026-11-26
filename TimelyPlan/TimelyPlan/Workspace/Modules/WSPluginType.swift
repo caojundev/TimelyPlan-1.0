@@ -20,10 +20,19 @@ public struct WSPluginType: Hashable {
     /// 该组件固定的尺寸。
     public let size: WSPluginSize
 
-    init(_ rawValue: String, module: WSPluginModule, size: WSPluginSize) {
+    /// 添加后是否立即进入配置界面。由类型在所属模块的 `WS<模块>PluginTypes.swift` 中声明。
+    ///
+    /// 同一模块内不同组件对配置的依赖不同，因此该能力按类型声明而非按模块决定。
+    let opensConfigAfterAdd: Bool
+
+    init(_ rawValue: String,
+         module: WSPluginModule,
+         size: WSPluginSize,
+         opensConfigAfterAdd: Bool = false) {
         self.rawValue = rawValue
         self.module = module
         self.size = size
+        self.opensConfigAfterAdd = opensConfigAfterAdd
     }
 }
 

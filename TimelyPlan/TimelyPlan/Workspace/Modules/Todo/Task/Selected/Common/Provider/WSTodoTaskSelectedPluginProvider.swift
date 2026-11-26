@@ -82,7 +82,7 @@ class WSTodoTaskSelectedPluginProvider: WSPluginProvider {
     /// 未选择任务时提示配置
     func makeEmptyPlaceholderConfiguration() -> WSPluginEmptyPlaceholderConfiguration? {
         var configuration = WSPluginEmptyPlaceholderConfiguration()
-        configuration.iconName = "checklist"
+        configuration.iconName = "plugin_todo_list_32"
         configuration.title = resGetString("No Task Selected")
         return configuration
     }

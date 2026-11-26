@@ -20,13 +20,17 @@ class WSTextContentView: WSPluginContentView {
     private enum Metrics {
 
         /// 内容与组件边缘的间距
-        static let padding = UIEdgeInsets(value: 12.0)
-
+        static let padding = UIEdgeInsets(horizontal: 12.0, vertical: 4.0)
+        
         /// 默认文本字体
         static let textFont = WSTextStyle.body.font
 
         /// 文本最大行数，避免长文本把组件撑得过高
         static let maximumNumberOfLines = 8
+        
+        /// 最小高度
+        static let minimumHeight = 24.0
+
     }
 
     /// 文本
@@ -53,19 +57,7 @@ class WSTextContentView: WSPluginContentView {
     // MARK: - 布局
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        let contentFrame = layoutFrame()
-        guard contentFrame.width > 0.0, contentFrame.height > 0.0 else {
-            return
-        }
-
-        /// 文本按实际行数占位并自上而下排列，剩余高度留白
-        let textSize = textLabel.sizeThatFits(CGSize(width: contentFrame.width,
-                                                      height: .greatestFiniteMagnitude))
-        textLabel.frame = CGRect(x: contentFrame.minX,
-                                 y: contentFrame.minY,
-                                 width: contentFrame.width,
-                                 height: min(ceil(textSize.height), contentFrame.height))
+        textLabel.frame = layoutFrame()
     }
 
     // MARK: - 渲染
@@ -93,9 +85,9 @@ class WSTextContentView: WSPluginContentView {
     static func preferredHeight(forWidth width: CGFloat, dataItem: WSTextDataItem) -> CGFloat {
         let contentWidth = max(width - Metrics.padding.horizontalLength, 0.0)
         let font = dataItem.textStyle.font
-        let textHeight = min(measuredHeight(of: dataItem.text, font: font, width: contentWidth),
+        var textHeight = min(measuredHeight(of: dataItem.text, font: font, width: contentWidth),
                              ceil(font.lineHeight * CGFloat(Metrics.maximumNumberOfLines)))
-
+        textHeight = max(textHeight, Metrics.minimumHeight)
         return ceil(Metrics.padding.verticalLength + textHeight)
     }
 
@@ -104,12 +96,9 @@ class WSTextContentView: WSPluginContentView {
         guard !text.isEmpty, width > 0.0 else {
             return 0.0
         }
-
-        let boundingRect = (text as NSString).boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude),
-                                                            options: [.usesLineFragmentOrigin, .usesFontLeading],
-                                                            attributes: [.font: font],
-                                                            context: nil)
-        return ceil(boundingRect.height)
+        
+        let boundingSize = text.size(with: font, maxSize: CGSize(width: width, height: .greatestFiniteMagnitude))
+        return ceil(boundingSize.height)
     }
 }
 

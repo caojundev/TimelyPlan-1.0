@@ -6,7 +6,8 @@ extension WSPluginType {
     enum Text {
 
         /// 文本·自适应·文本块：占满整行，高度按文本的实际行数计算。
-        static let flexibleText = make("textFlexibleText", .flexible)
+        /// 添加后直接进入配置界面，便于立即输入文本。
+        static let flexibleText = make("text", .flexible)
 
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
@@ -28,8 +29,13 @@ extension WSPluginType {
             }
         }()
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .text, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = true) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .text,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 }

@@ -17,7 +17,7 @@ struct WSPluginEmptyPlaceholderConfiguration {
     
     // MARK: 图标
     /// 图标（系统符号名称）
-    var iconName: String = "info.circle"
+    var iconName: String = "plugin_info_circle_32"
     
     /// 图标尺寸
     var iconSize: CGSize = CGSize(width: 32.0, height: 32.0)
@@ -174,7 +174,7 @@ class WSPluginDefaultEmptyPlaceholderView: WSPluginEmptyPlaceholderView {
     // MARK: - 配置
     /// 把配置项应用到子视图
     private func setupSubviews() {
-        iconView.image = UIImage(systemName: configuration.iconName)
+        iconView.image = resGetImage(configuration.iconName)
         iconView.tintColor = configuration.iconColor
         
         titleLabel.text = configuration.title

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-/// 文本样式选择视图。按 3 列网格展示全部文本样式
+/// 文本样式选择视图
 class WSTextStyleSelectView: UIView {
 
     /// 选中文本样式回调

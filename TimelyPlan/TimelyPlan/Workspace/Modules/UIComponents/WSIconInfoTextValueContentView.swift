@@ -71,8 +71,8 @@ class WSIconInfoTextValueContentView: WSPluginContentView {
 
     // MARK: - 头部
     /// 头部信息视图
-    let headerView: TPIconInfoTextValueView = {
-        let view = TPIconInfoTextValueView()
+    let headerView: TPIconInfoView = {
+        let view = TPIconInfoView()
         view.titleConfig.font = .boldSystemFont(ofSize: 14.0)
         view.titleConfig.adjustsFontSizeToFitWidth = true
         view.titleConfig.minimumScaleFactor = 0.8

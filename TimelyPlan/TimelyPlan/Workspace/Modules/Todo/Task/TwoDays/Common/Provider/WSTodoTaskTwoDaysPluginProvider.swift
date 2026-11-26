@@ -54,7 +54,7 @@ class WSTodoTaskTwoDaysPluginProvider: WSPluginProvider {
     /// 没有任务时，沿用待办模块的空白文案
     func makeEmptyPlaceholderConfiguration() -> WSPluginEmptyPlaceholderConfiguration? {
         var configuration = WSPluginEmptyPlaceholderConfiguration()
-        configuration.iconName = "checklist"
+        configuration.iconName = "plugin_todo_list_32"
         configuration.title = resGetString("No Task")
         return configuration
     }

@@ -49,7 +49,7 @@ class WSTodoGroupTasksPluginProvider: WSPluginProvider {
     /// 未选择集合时提示配置
     func makeEmptyPlaceholderConfiguration() -> WSPluginEmptyPlaceholderConfiguration? {
         var configuration = WSPluginEmptyPlaceholderConfiguration()
-        configuration.iconName = "checklist"
+        configuration.iconName = "plugin_todo_list_32"
         configuration.title = emptyPlaceholderTitle
         return configuration
     }

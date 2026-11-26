@@ -145,16 +145,6 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         return types.first
     }
 
-    /// 直接添加后是否立即进入配置界面。默认不进入，由模块自行决定。
-    var opensConfigAfterAdd: Bool {
-        switch self {
-        case .text, .action:
-            return true
-        default:
-            return false
-        }
-    }
-
     /// 选择器中的预设变体。
     ///
     /// 非空时模块按变体展开成多行，每行直接添加同一组件并预设不同的配置，

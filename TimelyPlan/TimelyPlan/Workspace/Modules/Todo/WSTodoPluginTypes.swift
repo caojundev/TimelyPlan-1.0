@@ -36,8 +36,13 @@ extension WSPluginType {
             .init(WSTodoListLargeGridPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a grid"),
         ]
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoListGroup, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = true) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .todoListGroup,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 
@@ -73,8 +78,13 @@ extension WSPluginType {
             .init(WSTodoUserListLargeTasksGridPluginProvider(), title: "User List", subtitle: "Shows uncompleted tasks of a selected list in a grid"),
         ]
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoUserListTask, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = true) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .todoUserListTask,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 
@@ -110,8 +120,13 @@ extension WSPluginType {
             .init(WSTodoTagLargeGridPluginProvider(), title: "Tags", subtitle: "Shows todo tags in a grid"),
         ]
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoTagGroup, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = true) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .todoTagGroup,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 
@@ -147,8 +162,13 @@ extension WSPluginType {
             .init(WSTodoTagLargeTasksGridPluginProvider(), title: "Tag Tasks", subtitle: "Shows uncompleted tasks of a selected tag in a grid"),
         ]
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoTagTask, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = true) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .todoTagTask,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 
@@ -184,8 +204,13 @@ extension WSPluginType {
             .init(WSTodoFilterLargeGridPluginProvider(), title: "Filters", subtitle: "Shows todo filters in a grid"),
         ]
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoFilterGroup, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = true) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .todoFilterGroup,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 
@@ -221,8 +246,13 @@ extension WSPluginType {
             .init(WSTodoFilterLargeTasksGridPluginProvider(), title: "Filter Tasks", subtitle: "Shows uncompleted tasks of a selected filter in a grid"),
         ]
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoFilterTask, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = true) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .todoFilterTask,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 
@@ -275,8 +305,13 @@ extension WSPluginType {
             .init(WSTodoTaskMediumNextTrendsPluginProvider(), title: "Upcoming", subtitle: "Shows the next 7 days task load and upcoming tasks"),
         ]
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoSmartListTask, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = true) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .todoSmartListTask,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 
@@ -312,8 +347,13 @@ extension WSPluginType {
             .init(WSTodoTaskLargeTaskGridPluginProvider(), title: "Custom Tasks", subtitle: "Shows selected todo tasks in a grid"),
         ]
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoCustomTask, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = true) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .todoCustomTask,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 }

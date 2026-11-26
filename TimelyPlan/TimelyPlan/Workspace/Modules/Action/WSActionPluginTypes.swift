@@ -36,8 +36,13 @@ extension WSPluginType {
             .init(WSActionLargeGridPluginProvider(), title: "Actions", subtitle: "Shows custom actions in a grid"),
         ]
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .action, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = true) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .action,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 }
