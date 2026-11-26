@@ -13,7 +13,7 @@ import UIKit
 /// 今明两天中的单天任务列。
 ///
 /// 在 `WSTodoTaskMoreRowListView` 的基础上增加「日期 + 任务数」列头，
-/// 任务列表让出列头高度后由基类排布。
+/// 任务列表让出列头高度后由基类排布；点击列头与任务行以外的空白区域打开该天的智能清单详情。
 class WSTodoTaskTwoDaysColumnView: WSTodoTaskMoreRowListView {
 
     /// 列头高度及与任务列表的间距

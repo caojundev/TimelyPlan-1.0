@@ -49,16 +49,6 @@ class WSCalendarTwoDaysColumnView: WSMoreRowListView {
     /// 点击事项
     var didSelectEventHandler: ((WSCalendarEventRowItem) -> Void)?
 
-    /// 点击事项行以外的区域
-    var didTapHandler: (() -> Void)?
-
-    /// 列内点击手势
-    private lazy var tapGesture: UITapGestureRecognizer = {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(clickColumn))
-        gesture.delegate = self
-        return gesture
-    }()
-
     init(maximumRowCount: Int) {
         self.maximumRowCount = max(maximumRowCount, 1)
         super.init(frame: .zero)
@@ -68,7 +58,6 @@ class WSCalendarTwoDaysColumnView: WSMoreRowListView {
         padding = .zero
 
         addSubview(headerView)
-        addGestureRecognizer(tapGesture)
     }
 
     required init?(coder: NSCoder) {
@@ -158,30 +147,5 @@ class WSCalendarTwoDaysColumnView: WSMoreRowListView {
         super.layoutSubviews()
 
         headerView.frame = CGRect(x: 0.0, y: 0.0, width: width, height: Metrics.headerHeight)
-    }
-
-    // MARK: - 交互
-    @objc private func clickColumn() {
-        didTapHandler?()
-    }
-}
-
-// MARK: - UIGestureRecognizerDelegate
-
-extension WSCalendarTwoDaysColumnView: UIGestureRecognizerDelegate {
-
-    /// 事项行与按钮内的点击由它们自己处理，其余区域才响应打开事项列表
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldReceive touch: UITouch) -> Bool {
-        var view = touch.view
-        while let current = view, current !== self {
-            if current is WSRowView || current is UIControl {
-                return false
-            }
-
-            view = current.superview
-        }
-
-        return true
     }
 }

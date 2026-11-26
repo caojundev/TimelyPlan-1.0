@@ -67,7 +67,7 @@ class WSCalendarTwoDaysContentView: WSIconInfoTextValueContentView {
             columnView.didSelectEventHandler = selectHandler
 
             /// 点击事项行以外的区域打开该列日期的事项列表
-            columnView.didTapHandler = { [weak self, weak columnView] in
+            columnView.didTapOutsideRowsHandler = { [weak self, weak columnView] in
                 self?.openEventList(of: columnView)
             }
 

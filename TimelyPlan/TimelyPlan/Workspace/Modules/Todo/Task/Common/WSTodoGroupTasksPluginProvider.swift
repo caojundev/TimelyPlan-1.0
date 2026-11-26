@@ -21,15 +21,10 @@ class WSTodoGroupTasksPluginProvider: WSPluginProvider {
     /// 内容视图的布局配置
     let layoutConfiguration: WSTodoGroupTasksContentView.LayoutConfiguration
     
-    /// 未选择集合时的空白文案
-    private let emptyPlaceholderTitle: String
-    
     init(type: WSPluginType,
-         layoutConfiguration: WSTodoGroupTasksContentView.LayoutConfiguration,
-         emptyPlaceholderTitle: String) {
+         layoutConfiguration: WSTodoGroupTasksContentView.LayoutConfiguration) {
         self.type = type
         self.layoutConfiguration = layoutConfiguration
-        self.emptyPlaceholderTitle = emptyPlaceholderTitle
     }
     
     /// 该组件尺寸
@@ -50,7 +45,6 @@ class WSTodoGroupTasksPluginProvider: WSPluginProvider {
     func makeEmptyPlaceholderConfiguration() -> WSPluginEmptyPlaceholderConfiguration? {
         var configuration = WSPluginEmptyPlaceholderConfiguration()
         configuration.iconName = "plugin_todo_list_32"
-        configuration.title = emptyPlaceholderTitle
         return configuration
     }
     

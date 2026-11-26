@@ -60,12 +60,21 @@ class WSTodoTaskTwoDaysContentView: WSIconInfoTextValueContentView {
             columnView.didClickCheckboxHandler = checkboxHandler
         }
         
+        /// 点击「更多」、列头或空白区域：打开该天对应的智能清单详情
         todayColumnView.didSelectMoreHandler = { [weak self] in
-            (self?.interactor as? WSTodoTaskTwoDaysContentInteractor)?.selectTodayMore()
+            (self?.interactor as? WSTodoTaskTwoDaysContentInteractor)?.openTodayDetail()
+        }
+        
+        todayColumnView.didTapOutsideRowsHandler = { [weak self] in
+            (self?.interactor as? WSTodoTaskTwoDaysContentInteractor)?.openTodayDetail()
         }
         
         tomorrowColumnView.didSelectMoreHandler = { [weak self] in
-            (self?.interactor as? WSTodoTaskTwoDaysContentInteractor)?.selectTomorrowMore()
+            (self?.interactor as? WSTodoTaskTwoDaysContentInteractor)?.openTomorrowDetail()
+        }
+        
+        tomorrowColumnView.didTapOutsideRowsHandler = { [weak self] in
+            (self?.interactor as? WSTodoTaskTwoDaysContentInteractor)?.openTomorrowDetail()
         }
     }
 

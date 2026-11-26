@@ -15,11 +15,11 @@ import UIKit
 /// 各尺寸组件只需声明「类型 + 布局」，过滤器任务的取数与配置由基类统一提供。
 class WSTodoFilterTasksPluginProvider: WSTodoGroupTasksPluginProvider {
     
-    init(type: WSPluginType,
-         layoutConfiguration: WSTodoGroupTasksContentView.LayoutConfiguration) {
-        super.init(type: type,
-                   layoutConfiguration: layoutConfiguration,
-                   emptyPlaceholderTitle: resGetString("No Filter Selected"))
+    override func makeEmptyPlaceholderConfiguration() -> WSPluginEmptyPlaceholderConfiguration? {
+        var configuration = WSPluginEmptyPlaceholderConfiguration()
+        configuration.iconName = "plugin_todo_filter_32"
+        configuration.title = resGetString("No Filter Selected")
+        return configuration
     }
     
     override func makeContentInteractor(plugin: WSPlugin,

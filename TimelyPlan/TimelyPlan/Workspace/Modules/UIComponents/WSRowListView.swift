@@ -59,6 +59,29 @@ class WSRowListView: WSPluginContentView {
         }
     }
     
+    // MARK: - 点击
+    /// 点击行视图与控件以外区域的回调，例如标题、空白槽位。
+    /// 为 nil 时不拦截点击，事件继续交给单元格处理
+    var didTapOutsideRowsHandler: (() -> Void)?
+    
+    /// 行视图以外区域的点击手势
+    private lazy var tapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(clickOutsideRows))
+        gesture.delegate = self
+        return gesture
+    }()
+    
+    // MARK: - 初始化
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addGestureRecognizer(tapGesture)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - 行视图
     /// 行视图，顺序与索引一致。子类在 `update(with:)` 中按索引绑定数据
     private(set) var rowViews: [WSRowView] = []
@@ -79,7 +102,7 @@ class WSRowListView: WSPluginContentView {
     
     /// 创建空白视图，只在行数为 0 时调用一次，子类可重写以自定义空白内容
     func makeEmptyView() -> WSPluginEmptyPlaceholderView {
-        return WSPluginDefaultEmptyPlaceholderView()
+        return WSPluginEmptyPlaceholderView()
     }
     
     /// 是否展示空白视图
@@ -197,5 +220,36 @@ class WSRowListView: WSPluginContentView {
         let layoutFrame = rowsLayoutFrame
         emptyView.origin = layoutFrame.origin
         emptyView.size = layoutFrame.size
+    }
+    
+    // MARK: - 交互
+    /// 点击行视图以外的区域：先给出反馈，再交给外部回调处理
+    @objc private func clickOutsideRows() {
+        TPImpactFeedback.impactWithSoftStyle()
+        didTapOutsideRowsHandler?()
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension WSRowListView: UIGestureRecognizerDelegate {
+    
+    /// 未设置回调时不拦截点击；行视图与控件内的点击由它们自己处理
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldReceive touch: UITouch) -> Bool {
+        guard didTapOutsideRowsHandler != nil else {
+            return false
+        }
+        
+        var view = touch.view
+        while let current = view, current !== self {
+            if current is WSRowView || current is UIControl {
+                return false
+            }
+            
+            view = current.superview
+        }
+        
+        return true
     }
 }

@@ -307,6 +307,7 @@
 "Today & Tomorrow" = "今明两天";
 "Shows tasks for today and tomorrow" = "以两列展示今天和明天的任务";
 "Shows the task load of the next 7 days" = "展示接下来七天的任务负载";
+"Shows the next 7 days task load and upcoming tasks" = "展示接下来七天的任务负载与即将开始的任务";
 "%@ busiest" = "%@最忙";
 "Item(count)" = "项";
 "Items(count)" = "项";

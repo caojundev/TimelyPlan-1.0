@@ -15,11 +15,11 @@ import UIKit
 /// 各尺寸组件只需声明「类型 + 布局」，标签任务的取数与配置由基类统一提供。
 class WSTodoTagTasksPluginProvider: WSTodoGroupTasksPluginProvider {
     
-    init(type: WSPluginType,
-         layoutConfiguration: WSTodoGroupTasksContentView.LayoutConfiguration) {
-        super.init(type: type,
-                   layoutConfiguration: layoutConfiguration,
-                   emptyPlaceholderTitle: resGetString("No Tag Selected"))
+    override func makeEmptyPlaceholderConfiguration() -> WSPluginEmptyPlaceholderConfiguration? {
+        var configuration = WSPluginEmptyPlaceholderConfiguration()
+        configuration.iconName = "plugin_todo_tag_32"
+        configuration.title = resGetString("No Tag Selected")
+        return configuration
     }
     
     override func makeContentInteractor(plugin: WSPlugin,

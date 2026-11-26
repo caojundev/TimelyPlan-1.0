@@ -114,8 +114,7 @@ class WSTodoGroupTasksContentView: WSIconInfoTextValueContentView {
                      iconBackColor: dataItem?.group.color ?? .primary,
                      count: dataItem?.taskCount ?? 0)
         
-        /// 没有任务时隐藏列表，避免展示列表内部的空白占位
-        listView.isHidden = dataItem?.items.isEmpty ?? true
+        /// 没有任务时行数为 0，由列表内部的空白占位视图提示「暂无任务」
         listView.update(items: dataItem?.items ?? [])
     }
     

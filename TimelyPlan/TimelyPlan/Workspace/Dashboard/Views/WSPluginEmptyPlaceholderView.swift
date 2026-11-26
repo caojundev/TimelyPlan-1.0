@@ -113,26 +113,23 @@ class WSPluginEmptyPlaceholderView: UIView {
     }
 }
 
-// MARK: - 默认空白内容视图
+// MARK: - 图标 + 描述空白内容视图
 
-/// 工作台组件默认空白内容视图。
+/// 工作台组件图标 + 描述空白内容视图。
 ///
-/// 顶部图标、中间描述、底部「配置插件」按钮；组件不支持配置（未提供 `configActionHandler`）时
-/// 只展示图标与描述。图标、文案与按钮样式由初始化时传入的配置决定。
-class WSPluginDefaultEmptyPlaceholderView: WSPluginEmptyPlaceholderView {
+/// 只展示居中排布的图标与描述，用于没有操作入口的空白场景；
+/// 图标、文案样式由初始化时传入的配置决定，子类可在此基础上继续追加内容。
+class WSPluginIconTitleEmptyPlaceholderView: WSPluginEmptyPlaceholderView {
     
     /// 布局参数
     private enum Metrics {
         
         /// 图标与描述的间距
         static let iconTitleSpacing: CGFloat = 12.0
-        
-        /// 描述与按钮的间距
-        static let titleButtonSpacing: CGFloat = 12.0
     }
     
     /// 配置项
-    private let configuration: WSPluginEmptyPlaceholderConfiguration
+    let configuration: WSPluginEmptyPlaceholderConfiguration
     
     /// 图标
     private lazy var iconView: UIImageView = {
@@ -149,15 +146,6 @@ class WSPluginDefaultEmptyPlaceholderView: WSPluginEmptyPlaceholderView {
         return label
     }()
     
-    /// 配置插件按钮
-    private lazy var configButton: TPDefaultButton = {
-        let button = TPDefaultButton()
-        button.didClickHandler = { [weak self] in
-            self?.configActionHandler?()
-        }
-        return button
-    }()
-    
     /// 初始化空白内容视图
     /// - Parameter configuration: 配置项。传 nil 时使用默认配置
     init(configuration: WSPluginEmptyPlaceholderConfiguration? = nil) {
@@ -172,14 +160,92 @@ class WSPluginDefaultEmptyPlaceholderView: WSPluginEmptyPlaceholderView {
     }
     
     // MARK: - 配置
-    /// 把配置项应用到子视图
-    private func setupSubviews() {
+    /// 把配置项应用到子视图。子类覆写后追加自己的子视图
+    func setupSubviews() {
         iconView.image = resGetImage(configuration.iconName)
         iconView.tintColor = configuration.iconColor
         
         titleLabel.text = configuration.title
         titleLabel.font = configuration.titleFont
         titleLabel.textColor = configuration.titleColor
+        
+        addSubview(iconView)
+        addSubview(titleLabel)
+    }
+    
+    // MARK: - 布局
+    /// 图标与描述占用的高度
+    /// - Parameter layoutFrame: 已去掉 `contentInsets` 的可用区域
+    func iconTitleHeight(in layoutFrame: CGRect) -> CGFloat {
+        let iconHeight = min(configuration.iconSize.height, layoutFrame.height)
+        let titleSize = titleLabel.sizeThatFits(CGSize(width: layoutFrame.width,
+                                                       height: .greatestFiniteMagnitude))
+        return iconHeight + Metrics.iconTitleSpacing + titleSize.height
+    }
+    
+    /// 从指定顶部位置开始布局图标与描述
+    /// - Returns: 描述文字的底边位置，供子类在下方继续布局
+    @discardableResult
+    func layoutIconTitle(in layoutFrame: CGRect, top: CGFloat) -> CGFloat {
+        /// 图标尺寸不超过可用空间
+        let iconWidth = min(configuration.iconSize.width, layoutFrame.width)
+        let iconHeight = min(configuration.iconSize.height, layoutFrame.height)
+        let titleSize = titleLabel.sizeThatFits(CGSize(width: layoutFrame.width,
+                                                       height: .greatestFiniteMagnitude))
+        
+        iconView.frame = CGRect(x: layoutFrame.midX - iconWidth / 2.0,
+                                y: top,
+                                width: iconWidth,
+                                height: iconHeight)
+        
+        titleLabel.frame = CGRect(x: layoutFrame.minX,
+                                  y: iconView.frame.maxY + Metrics.iconTitleSpacing,
+                                  width: layoutFrame.width,
+                                  height: titleSize.height)
+        
+        return titleLabel.frame.maxY
+    }
+    
+    override func layoutContent(in layoutFrame: CGRect) {
+        guard layoutFrame.height > 0.0 else {
+            return
+        }
+        
+        /// 图标与描述整体垂直居中
+        let contentHeight = iconTitleHeight(in: layoutFrame)
+        let originY = layoutFrame.minY + max((layoutFrame.height - contentHeight) / 2.0, 0.0)
+        layoutIconTitle(in: layoutFrame, top: originY)
+    }
+}
+
+// MARK: - 默认空白内容视图
+
+/// 工作台组件默认空白内容视图。
+///
+/// 在图标与描述下方追加「配置插件」按钮，组件不支持配置（未提供 `configActionHandler`）时
+/// 只展示图标与描述。图标、文案与按钮样式由初始化时传入的配置决定。
+class WSPluginDefaultEmptyPlaceholderView: WSPluginIconTitleEmptyPlaceholderView {
+    
+    /// 布局参数
+    private enum Metrics {
+        
+        /// 描述与按钮的间距
+        static let titleButtonSpacing: CGFloat = 12.0
+    }
+    
+    /// 配置插件按钮
+    private lazy var configButton: TPDefaultButton = {
+        let button = TPDefaultButton()
+        button.didClickHandler = { [weak self] in
+            self?.configActionHandler?()
+        }
+        return button
+    }()
+    
+    // MARK: - 配置
+    /// 在图标与描述的基础上追加配置按钮
+    override func setupSubviews() {
+        super.setupSubviews()
         
         configButton.title = configuration.buttonTitle
         configButton.titleConfig.font = configuration.buttonTitleFont
@@ -189,8 +255,6 @@ class WSPluginDefaultEmptyPlaceholderView: WSPluginEmptyPlaceholderView {
         configButton.normalBackgroundColor = configuration.buttonBackgroundColor
         configButton.selectedBackgroundColor = configuration.buttonSelectedBackgroundColor
         
-        addSubview(iconView)
-        addSubview(titleLabel)
         addSubview(configButton)
     }
     
@@ -204,37 +268,23 @@ class WSPluginDefaultEmptyPlaceholderView: WSPluginEmptyPlaceholderView {
         let showsButton = configActionHandler != nil
         configButton.isHidden = !showsButton
         
-        /// 图标尺寸不超过可用空间
-        let iconWidth = min(configuration.iconSize.width, layoutFrame.width)
-        let iconHeight = min(configuration.iconSize.height, layoutFrame.height)
-        
-        let titleSize = titleLabel.sizeThatFits(CGSize(width: layoutFrame.width,
-                                                       height: .greatestFiniteMagnitude))
         let buttonHeight = min(configuration.buttonHeight, layoutFrame.height * 0.3)
         
         /// 图标、描述、按钮整体垂直居中
-        var contentHeight = iconHeight + Metrics.iconTitleSpacing + titleSize.height
+        var contentHeight = iconTitleHeight(in: layoutFrame)
         if showsButton {
             contentHeight += Metrics.titleButtonSpacing + buttonHeight
         }
         let originY = layoutFrame.minY + max((layoutFrame.height - contentHeight) / 2.0, 0.0)
         
-        iconView.frame = CGRect(x: layoutFrame.midX - iconWidth / 2.0,
-                                y: originY,
-                                width: iconWidth,
-                                height: iconHeight)
-        
-        titleLabel.frame = CGRect(x: layoutFrame.minX,
-                                  y: iconView.frame.maxY + Metrics.iconTitleSpacing,
-                                  width: layoutFrame.width,
-                                  height: titleSize.height)
+        let iconTitleBottom = layoutIconTitle(in: layoutFrame, top: originY)
         
         guard showsButton else {
             return
         }
         
         configButton.frame = CGRect(x: layoutFrame.minX,
-                                    y: titleLabel.frame.maxY + Metrics.titleButtonSpacing,
+                                    y: iconTitleBottom + Metrics.titleButtonSpacing,
                                     width: layoutFrame.width,
                                     height: buttonHeight)
         configButton.cornerRadius = configuration.buttonCornerRadius

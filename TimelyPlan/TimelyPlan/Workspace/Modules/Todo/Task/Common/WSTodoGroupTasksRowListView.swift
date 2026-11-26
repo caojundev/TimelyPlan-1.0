@@ -44,6 +44,13 @@ class WSTodoGroupTasksRowListView: WSTodoTaskMoreRowListView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func makeEmptyView() -> WSPluginEmptyPlaceholderView {
+        var configuration = WSPluginEmptyPlaceholderConfiguration()
+        configuration.iconName = "plugin_empty_todoTaskList_32"
+        configuration.title = resGetString("No Task")
+        return WSPluginIconTitleEmptyPlaceholderView(configuration: configuration)
+    }
+    
     // MARK: - 数据
     override func update(items: [WSTodoTaskRowItem]) {
         super.update(items: items)

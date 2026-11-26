@@ -15,7 +15,7 @@ class WSTodoTaskMediumTaskListPluginProvider: WSTodoTaskSelectedPluginProvider {
 
     init() {
         super.init(type: .TodoCustomTask.mediumTaskList,
-                   itemCount: WSTodoTaskItemCount.mediumList,
+                   itemCount: WSTodoTaskItemCount.mediumCustomList,
                    layoutConfiguration: .list)
     }
 }

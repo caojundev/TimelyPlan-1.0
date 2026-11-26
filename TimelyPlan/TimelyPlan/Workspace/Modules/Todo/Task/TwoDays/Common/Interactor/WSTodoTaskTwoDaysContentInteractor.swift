@@ -16,11 +16,14 @@ import UIKit
 /// 任务点击与完成状态点击沿用待办任务交互器基类。
 class WSTodoTaskTwoDaysContentInteractor: WSTodoTaskContentInteractor {
 
-    func selectTodayMore() {
+    // MARK: - 交互
+    /// 打开今天的智能清单详情。点击今天列的「更多」或列头、空白区域时触发
+    func openTodayDetail() {
         WSTodoListDetailPresenter.showDetail(for: TodoSmartList.today)
     }
     
-    func selectTomorrowMore() {
+    /// 打开明天的智能清单详情。点击明天列的「更多」或列头、空白区域时触发
+    func openTomorrowDetail() {
         WSTodoListDetailPresenter.showDetail(for: TodoSmartList.tomorrow)
     }
     

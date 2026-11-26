@@ -37,6 +37,13 @@ class WSTodoTaskMoreRowListView: WSMoreRowListView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func makeEmptyView() -> WSPluginEmptyPlaceholderView {
+        var configuration = WSPluginEmptyPlaceholderConfiguration()
+        configuration.iconName = "plugin_empty_todoTaskList_32"
+        configuration.title = resGetString("No Task")
+        return WSPluginIconTitleEmptyPlaceholderView(configuration: configuration)
+    }
+    
     // MARK: - 数据
     /// 更新任务列表。行数固定为最大展示行数，任务不足时保留空槽位，保证行高一致
     func update(items: [WSTodoTaskRowItem]) {

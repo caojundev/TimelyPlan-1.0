@@ -15,7 +15,7 @@ class WSTodoTaskSmallTaskListPluginProvider: WSTodoTaskSelectedPluginProvider {
 
     init() {
         super.init(type: .TodoCustomTask.smallTaskList,
-                   itemCount: WSTodoTaskItemCount.smallList,
+                   itemCount: WSTodoTaskItemCount.smallCustomList,
                    option: [.schedule, .step],
                    layoutConfiguration: .list)
     }

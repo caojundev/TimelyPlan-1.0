@@ -19,6 +19,12 @@ enum WSTodoTaskItemCount {
     /// 中号列表组件的展示条数
     static let mediumList = 3
 
+    /// 小号自定义列表组件的展示条数
+    static let smallCustomList = 4
+
+    /// 中号自定义列表组件的展示条数
+    static let mediumCustomList = 4
+    
     /// 大号列表组件的展示条数
     static let largeList = 6
 
@@ -82,7 +88,7 @@ class WSTodoTaskSelectedPluginProvider: WSPluginProvider {
     /// 未选择任务时提示配置
     func makeEmptyPlaceholderConfiguration() -> WSPluginEmptyPlaceholderConfiguration? {
         var configuration = WSPluginEmptyPlaceholderConfiguration()
-        configuration.iconName = "plugin_todo_list_32"
+        configuration.iconName = "plugin_empty_todoTaskList_32"
         configuration.title = resGetString("No Task Selected")
         return configuration
     }

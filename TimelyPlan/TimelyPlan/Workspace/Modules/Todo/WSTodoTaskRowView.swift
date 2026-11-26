@@ -131,10 +131,13 @@ class WSTodoTaskRowView: WSRowView {
             infoView.attributedDetail = nil
             normalBackColor = .clear
             highlightedBackColor = .clear
+            /// 空位不响应点击，事件穿透给单元格，与点击组件空白区域一致
+            isUserInteractionEnabled = false
             setNeedsLayout()
             return
         }
         
+        isUserInteractionEnabled = true
         infoView.isHidden = false
         infoView.name = dataItem.name
         infoView.checkType = dataItem.checkType

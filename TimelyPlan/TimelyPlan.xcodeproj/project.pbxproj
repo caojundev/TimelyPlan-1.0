@@ -751,6 +751,10 @@
 		E539474D30B8138E00BE40FD /* plugin_todo_filter_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474730B8138E00BE40FD /* plugin_todo_filter_32@2x.png */; };
 		E539475030B8157400BE40FD /* plugin_info_circle_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474E30B8157200BE40FD /* plugin_info_circle_32@3x.png */; };
 		E539475130B8157400BE40FD /* plugin_info_circle_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539474F30B8157300BE40FD /* plugin_info_circle_32@2x.png */; };
+		E539475430B8390E00BE40FD /* plugin_empty_todoTaskList_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539475230B8390D00BE40FD /* plugin_empty_todoTaskList_32@3x.png */; };
+		E539475530B8390E00BE40FD /* plugin_empty_todoTaskList_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539475330B8390E00BE40FD /* plugin_empty_todoTaskList_32@2x.png */; };
+		E539475830B84CCB00BE40FD /* plugin_empty_todoSmartList_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539475630B84CCA00BE40FD /* plugin_empty_todoSmartList_32@2x.png */; };
+		E539475930B84CCB00BE40FD /* plugin_empty_todoSmartList_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E539475730B84CCB00BE40FD /* plugin_empty_todoSmartList_32@3x.png */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
 		E53966E52D671D66008CC13B /* todo_list_option_layout_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E32D671D66008CC13B /* todo_list_option_layout_24@3x.png */; };
 		E539C878308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E539C877308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift */; };
@@ -3900,6 +3904,10 @@
 		E539474730B8138E00BE40FD /* plugin_todo_filter_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_todo_filter_32@2x.png"; sourceTree = "<group>"; };
 		E539474E30B8157200BE40FD /* plugin_info_circle_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_info_circle_32@3x.png"; sourceTree = "<group>"; };
 		E539474F30B8157300BE40FD /* plugin_info_circle_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_info_circle_32@2x.png"; sourceTree = "<group>"; };
+		E539475230B8390D00BE40FD /* plugin_empty_todoTaskList_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_empty_todoTaskList_32@3x.png"; sourceTree = "<group>"; };
+		E539475330B8390E00BE40FD /* plugin_empty_todoTaskList_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_empty_todoTaskList_32@2x.png"; sourceTree = "<group>"; };
+		E539475630B84CCA00BE40FD /* plugin_empty_todoSmartList_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_empty_todoSmartList_32@2x.png"; sourceTree = "<group>"; };
+		E539475730B84CCB00BE40FD /* plugin_empty_todoSmartList_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_empty_todoSmartList_32@3x.png"; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
 		E53966E32D671D66008CC13B /* todo_list_option_layout_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@3x.png"; sourceTree = "<group>"; };
 		E539C877308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimersPluginProvider.swift; sourceTree = "<group>"; };
@@ -9044,6 +9052,10 @@
 				E539474230B8138C00BE40FD /* plugin_todo_list_32@3x.png */,
 				E539474430B8138D00BE40FD /* plugin_todo_tag_32@2x.png */,
 				E539474630B8138D00BE40FD /* plugin_todo_tag_32@3x.png */,
+				E539475330B8390E00BE40FD /* plugin_empty_todoTaskList_32@2x.png */,
+				E539475230B8390D00BE40FD /* plugin_empty_todoTaskList_32@3x.png */,
+				E539475630B84CCA00BE40FD /* plugin_empty_todoSmartList_32@2x.png */,
+				E539475730B84CCB00BE40FD /* plugin_empty_todoSmartList_32@3x.png */,
 			);
 			path = empty;
 			sourceTree = "<group>";
@@ -18095,6 +18107,7 @@
 				E555493D2F75590100C9460D /* focus_timer_custom_24@3x.png in Resources */,
 				E5DC6E7730ACA56100581B10 /* plugin_todoCustomTask_48@2x.png in Resources */,
 				E5FAA9ED304E4B5D00C9CCD8 /* goal_task_completionStatus_24@2x.png in Resources */,
+				E539475830B84CCB00BE40FD /* plugin_empty_todoSmartList_32@2x.png in Resources */,
 				E5BB9A812D3BEF0D0089667A /* schedule_reminder_24@2x.png in Resources */,
 				E5BB9ABF2D3BEF0D0089667A /* todo_task_action_undone_24@3x.png in Resources */,
 				E547C7272F3DA2F00095918C /* sort_order_descending_24@2x.png in Resources */,
@@ -18388,6 +18401,7 @@
 				E5C18FBE2DB4FE1F008FAA13 /* todo_task_change_modified_16@2x.png in Resources */,
 				E5E2771C2D3E099C004EC522 /* todo_list_option_select_24@3x.png in Resources */,
 				E55528492FB5F3180093DD7E /* todo_board_80@3x.png in Resources */,
+				E539475430B8390E00BE40FD /* plugin_empty_todoTaskList_32@3x.png in Resources */,
 				E55E4BF92F9336170068E032 /* calendar_18_24@2x.png in Resources */,
 				E563420B2F948BCC00E120BF /* todo_home_filter_24@2x.png in Resources */,
 				E5168BD22F545B400000A760 /* dateRange_background_start@2x.png in Resources */,
@@ -18544,6 +18558,7 @@
 				E50D94BE2D451C1800F57957 /* placeholder_record_80@2x.png in Resources */,
 				E5C76BA62F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png in Resources */,
 				E5BB9A852D3BEF0D0089667A /* schedule_repeatEnd_24@3x.png in Resources */,
+				E539475930B84CCB00BE40FD /* plugin_empty_todoSmartList_32@3x.png in Resources */,
 				E533529D2FF8C9CC00546986 /* calendar_quarter_24@2x.png in Resources */,
 				E56B94622F8CD6D0001E488B /* todo_group_type_startDate_24@3x.png in Resources */,
 				E5FAA9D1304AA0C800C9CCD8 /* goal_placeholder_80@3x.png in Resources */,
@@ -18553,6 +18568,7 @@
 				E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */,
 				E5168BDE2F5481660000A760 /* bell_add_20@2x.png in Resources */,
 				E572C6AA30613AFF00624F65 /* xmark_32@3x.png in Resources */,
+				E539475530B8390E00BE40FD /* plugin_empty_todoTaskList_32@2x.png in Resources */,
 				E55E4BDE2F9336170068E032 /* calendar_8_24@3x.png in Resources */,
 				E555494D2F7629CA00C9460D /* focus_timer_bind_countdown_32@3x.png in Resources */,
 				E5FC6BA42F64EFBC00D5A5EA /* habit_status_failed_36@2x.png in Resources */,
