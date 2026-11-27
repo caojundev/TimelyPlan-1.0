@@ -41,7 +41,7 @@ class WSMyDayAllDayEventsContentView: WSPluginContentView {
     var moreLeadingInset: CGFloat = 18.0
     
     /// 头部：标题与日期
-    private let headerView = WSMyDayHeaderView()
+    let headerView = WSMyDayHeaderView()
     
     /// 空白提示：没有全天事项时展示在头部下方
     private let emptyView: WSPluginDefaultEmptyPlaceholderView = {

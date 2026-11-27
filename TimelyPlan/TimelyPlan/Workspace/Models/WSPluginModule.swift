@@ -16,9 +16,6 @@ import Foundation
 /// 组件较多的业务可以拆成多个模块（如待办下的清单、标签、过滤器），
 /// 拆分出的模块通过 `group` 归属到同一个 `WSPluginModuleGroup`。
 public enum WSPluginModule: String, Codable, TPMenuRepresentable {
-    case myDay      /// 我的一天
-    case calendar   /// 日历
-    
     case todoListGroup   /// 待办清单组
     case todoTagGroup    /// 待办标签组
     case todoFilterGroup /// 待办过滤器组
@@ -29,10 +26,14 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     case todoFilterTask /// 待办过滤器任务
     case todoCustomTask /// 待办自定义任务
     
+    case myDay      /// 我的一天
     case timeline   /// 时间线
     case quadrants  /// 四象限
-    case goal       /// 目标
     case focus      /// 专注
+    
+    case calendar   /// 日历
+    case goal       /// 目标
+    
     case habit      /// 习惯
     case countdown  /// 倒数日
     case text       /// 文本

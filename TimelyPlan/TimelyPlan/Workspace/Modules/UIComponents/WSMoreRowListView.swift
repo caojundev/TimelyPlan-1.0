@@ -57,7 +57,7 @@ class WSMoreRowListView: WSRowListView {
 
     // MARK: - 更多入口
     /// 更多入口。条目未展示完时占据最后一行
-    private let moreButton: TPDefaultButton = {
+    let moreButton: TPDefaultButton = {
         let button = TPDefaultButton()
         button.cornerRadius = .greatestFiniteMagnitude
         button.padding = UIEdgeInsets(top: 6.0, left: 10.0, bottom: 6.0, right: 10.0)
@@ -88,8 +88,9 @@ class WSMoreRowListView: WSRowListView {
         layoutMoreEntry()
     }
 
-    /// 布局更多入口。超出展示条数时隐藏最后一个条目位，把入口放在该条目位上
-    private func layoutMoreEntry() {
+    /// 布局更多入口。超出展示条数时隐藏最后一个条目位，把入口放在该条目位上。
+    /// 子类可覆写以调整入口的尺寸与样式
+    func layoutMoreEntry() {
         let showsMore = showsMoreEntry
         if moreButton.isHidden != !showsMore {
             moreButton.isHidden = !showsMore

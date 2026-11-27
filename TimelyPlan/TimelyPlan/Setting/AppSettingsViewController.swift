@@ -17,7 +17,7 @@ class AppSettingsViewController: BaseSettingViewController,
     lazy var imageConfig: TPImageAccessoryConfig = {
         var config = TPImageAccessoryConfig()
         config.shouldRenderImageWithColor = false
-        config.size = .size(8)
+        config.size = .size(9)
         return config
     }()
     

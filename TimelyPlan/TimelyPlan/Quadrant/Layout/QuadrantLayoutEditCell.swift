@@ -17,7 +17,7 @@ class QuadrantLayoutEditCell: TPCollectionCell {
         
         set {
             titleView.quadrant = newValue
-            imageView.image = resGetImage(quadrant.placeholderImageName)
+            imageView.image = quadrant.placeholderImage
             setNeedsLayout()
         }
     }

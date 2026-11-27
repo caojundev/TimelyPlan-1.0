@@ -27,7 +27,7 @@ class SideMenuCell: TPImageInfoTableCell {
     
     override func setupContentSubviews() {
         super.setupContentSubviews()
-        imageConfig.size = .default
+        imageConfig.size = .size(9)
         imageConfig.shouldRenderImageWithColor = false
         titleConfig.textColor = Color(0xC0E3F4)
         contentView.addSubview(indicatorView)

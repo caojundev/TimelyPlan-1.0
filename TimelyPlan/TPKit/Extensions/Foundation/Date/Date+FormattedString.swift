@@ -101,9 +101,11 @@ extension Date {
     
     func yearMonthDayWeekdaySymbolString(style: WeekdaySymbolStyle = .short,
                                          omitYear: Bool = true,
-                                         showRelativeDate: Bool = false) -> String {
+                                         showRelativeDate: Bool = false,
+                                         slashFormatted: Bool = false) -> String {
         let dateString = yearMonthDayString(omitYear: omitYear,
-                                            showRelativeDate: showRelativeDate)
+                                            showRelativeDate: showRelativeDate,
+                                            slashFormatted: slashFormatted)
         let weekdaySymbol = weekdaySymbol(style: style)
         return dateString + ", " + weekdaySymbol
     }

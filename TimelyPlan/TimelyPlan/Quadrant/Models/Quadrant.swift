@@ -55,8 +55,8 @@ enum Quadrant: String, Codable, Equatable, TPMenuRepresentable {
         }
     }
     
-    /// 占位图名称
-    var placeholderImageName: String {
+    /// 占位图名称前缀
+    private var placeholderPrefix: String {
         let iconName: String
         switch self {
         case .urgentImportant:
@@ -72,12 +72,16 @@ enum Quadrant: String, Codable, Equatable, TPMenuRepresentable {
         return iconName
     }
     
+    var smallPlaceholderImageName: String {
+        return placeholderPrefix + "_32"
+    }
+    
     var placeholderImage: UIImage? {
-        return resGetImage(placeholderImageName, size: .size(8))
+        return resGetImage(placeholderPrefix, size: .size(8))
     }
     
     var largePlaceholderImage: UIImage? {
-        return resGetImage(placeholderImageName, size: .size(15))
+        return resGetImage(placeholderPrefix, size: .size(15))
     }
     
     /// 象限对应的默认优先级

@@ -77,25 +77,22 @@ class WSQuadrantDetailLegendRowView: WSRowView {
     private enum Metrics {
         
         /// 内容与行边缘的间距
-        static let padding = UIEdgeInsets(horizontal: 8.0)
+        static let padding = UIEdgeInsets(horizontal: 4.0)
         
         /// 行按下高亮的圆角
         static let cornerRadius: CGFloat = 6.0
         
         /// 图标尺寸
-        static let iconSize = CGSize(value: 16.0)
+        static let iconSize: CGSize = .mini
         
         /// 图标与名称的间距
-        static let iconSpacing: CGFloat = 6.0
-        
-        /// 数目与占比的间距
-        static let percentSpacing: CGFloat = 6.0
+        static let iconSpacing: CGFloat = 4.0
         
         /// 名称字体
-        static let titleFont = UIFont.systemFont(ofSize: 12.0)
+        static let titleFont = UIFont.boldSystemFont(ofSize: 13.0)
         
         /// 数目字体
-        static let valueFont = UIFont.monospacedDigitSystemFont(ofSize: 12.0, weight: .semibold)
+        static let valueFont = UIFont.monospacedDigitSystemFont(ofSize: 13.0, weight: .semibold)
         
         /// 占比字体
         static let percentFont = UIFont.monospacedDigitSystemFont(ofSize: 11.0, weight: .regular)
@@ -104,29 +101,18 @@ class WSQuadrantDetailLegendRowView: WSRowView {
         static let highlightedBackgroundColorAlpha: CGFloat = 0.12
     }
     
-    /// 象限图标
-    private lazy var iconView: UIImageView = {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFit
-        return view
-    }()
-    
     /// 名称与未完成任务数
-    private lazy var infoView: TPInfoTextValueView = {
-        let view = TPInfoTextValueView()
+    private lazy var infoView: TPImageInfoTextValueView = {
+        let view = TPImageInfoTextValueView()
+        view.imageConfig.size = Metrics.iconSize
+        view.imageConfig.shouldRenderImageWithColor = true
+        view.imageConfig.margins = UIEdgeInsets(right: Metrics.iconSpacing)
         view.titleConfig = .withFont(Metrics.titleFont, textColor: .label)
+        view.subtitleConfig.font = Metrics.percentFont
+        view.subtitleConfig.textColor = .secondaryLabel
         return view
     }()
     
-    /// 占比
-    private lazy var percentLabel: UILabel = {
-        let label = UILabel()
-        label.font = Metrics.percentFont
-        label.textColor = .secondaryLabel
-        label.textAlignment = .right
-        label.numberOfLines = 1
-        return label
-    }()
     
     /// 当前展示的象限数据
     private(set) var dataItem: WSQuadrantCountsItem?
@@ -134,48 +120,23 @@ class WSQuadrantDetailLegendRowView: WSRowView {
     /// 点击象限回调
     var didSelectQuadrant: ((Quadrant) -> Void)?
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         self.padding = Metrics.padding
         self.contentCornerRadius = Metrics.cornerRadius
-        
-        addSubview(iconView)
         addSubview(infoView)
-        addSubview(percentLabel)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     // MARK: - 布局
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        let contentFrame = layoutFrame()
-        guard contentFrame.width > 0.0, contentFrame.height > 0.0 else {
-            return
-        }
-        
-        let percentWidth = ceil(percentLabel.sizeThatFits(.unlimited).width)
-        let infoLeft = contentFrame.minX + Metrics.iconSize.width + Metrics.iconSpacing
-        let infoRight = max(contentFrame.maxX - percentWidth - Metrics.percentSpacing, infoLeft)
-        
-        /// 图标贴左并垂直居中
-        iconView.size = Metrics.iconSize
-        iconView.left = contentFrame.minX
-        iconView.centerY = contentFrame.midY
-        
-        /// 名称与数目占中间区域，数目贴信息视图右侧
-        infoView.size = CGSize(width: infoRight - infoLeft, height: contentFrame.height)
-        infoView.left = infoLeft
-        infoView.top = contentFrame.minY
-        
-        /// 占比贴右
-        percentLabel.size = CGSize(width: percentWidth, height: contentFrame.height)
-        percentLabel.top = contentFrame.minY
-        percentLabel.right = contentFrame.maxX
+        infoView.frame = layoutFrame()
     }
     
     // MARK: - 渲染
@@ -184,10 +145,10 @@ class WSQuadrantDetailLegendRowView: WSRowView {
         self.dataItem = dataItem
         
         guard let dataItem = dataItem else {
-            iconView.image = nil
+            infoView.imageName = nil
             infoView.title = nil
+            infoView.subtitle = nil
             infoView.valueConfig = nil
-            percentLabel.text = nil
             normalBackColor = .clear
             highlightedBackColor = .clear
             setNeedsLayout()
@@ -195,29 +156,22 @@ class WSQuadrantDetailLegendRowView: WSRowView {
         }
         
         let color = dataItem.quadrant.color
-        iconView.image = iconImage(for: dataItem.quadrant)
-        iconView.tintColor = color
+        infoView.imageConfig.color = color
+        infoView.imageName = dataItem.quadrant.iconName
+        
         infoView.title = dataItem.quadrant.title
         infoView.valueConfig = .valueText("\(dataItem.count)",
                                           font: Metrics.valueFont,
                                           textColor: color)
         
         let percent = total > 0 ? Float(dataItem.count) / Float(total) : 0.0
-        percentLabel.text = percent.percentageString(decimalPlaces: 0)
+        infoView.subtitle = percent.percentageString(decimalPlaces: 0)
         
         normalBackColor = .clear
         highlightedBackColor = color.withAlphaComponent(Metrics.highlightedBackgroundColorAlpha)
         
+        infoView.setNeedsLayout()
         setNeedsLayout()
-    }
-    
-    /// 象限图标按象限颜色渲染
-    private func iconImage(for quadrant: Quadrant) -> UIImage? {
-        guard let iconName = quadrant.iconName else {
-            return nil
-        }
-        
-        return resGetImage(iconName)?.withRenderingMode(.alwaysTemplate)
     }
     
     // MARK: - 交互

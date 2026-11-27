@@ -105,6 +105,14 @@ class WSRowListView: WSPluginContentView {
         return WSPluginEmptyPlaceholderView()
     }
     
+    /// 重建空白视图。空白内容随组件状态（如图标）变化时，状态更新后调用
+    func reloadEmptyView() {
+        emptyView?.removeFromSuperview()
+        emptyView = nil
+        updateEmptyViewIfNeeded()
+        setNeedsLayout()
+    }
+    
     /// 是否展示空白视图
     var isShowingEmptyView: Bool {
         return numberOfItems == 0

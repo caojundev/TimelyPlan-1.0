@@ -34,12 +34,12 @@ class WSMyDaySmallAllDayEventsContentView: WSMyDayAllDayEventsContentView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         self.padding = Metrics.padding
         self.rowMinimumHeight = Metrics.rowMinimumHeight
         self.rowMaximumHeight = Metrics.rowMaximumHeight
         self.rowSpacing = Metrics.rowSpacing
         self.moreLeadingInset = Metrics.moreLeadingInset
+        self.headerView.title = resGetString("All-Day Events")
     }
     
     required init?(coder: NSCoder) {

@@ -55,7 +55,7 @@ class WSQuadrantTasksContentView: WSPluginContentView {
             quadrantView.didClickAddHandler = { [weak self] quadrant in
                 (self?.interactor as? WSQuadrantTasksContentInteractor)?.quickAddTask(for: quadrant, from: self)
             }
-            quadrantView.didSelectMoreHandler = { [weak self] quadrant in
+            quadrantView.didSelectMoreEntryHandler = { [weak self] quadrant in
                 self?.showDetail(for: quadrant)
             }
             quadrantView.didSelectTaskHandler = { [weak self] dataItem in
@@ -111,7 +111,7 @@ class WSQuadrantTasksContentView: WSPluginContentView {
         
         guard let dataItem = dataItem as? WSQuadrantTasksDataItem else {
             for quadrantView in quadrantViews.values {
-                quadrantView.update(with: nil)
+                quadrantView.update(withQuadrant: nil)
             }
             
             setNeedsLayout()
@@ -120,7 +120,7 @@ class WSQuadrantTasksContentView: WSPluginContentView {
         
         order = dataItem.quadrants.map { $0.quadrant }
         for item in dataItem.quadrants {
-            quadrantViews[item.quadrant]?.update(with: item)
+            quadrantViews[item.quadrant]?.update(withQuadrant: item)
         }
         
         setNeedsLayout()

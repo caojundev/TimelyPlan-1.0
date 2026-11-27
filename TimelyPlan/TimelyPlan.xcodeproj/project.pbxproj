@@ -434,8 +434,6 @@
 		E51E5F97303944B000ACF30C /* CalendarFocusEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F96303944B000ACF30C /* CalendarFocusEventProvider.swift */; };
 		E51E5F99303945CE00ACF30C /* FocusTimer+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F98303945CE00ACF30C /* FocusTimer+Calendar.swift */; };
 		E51E5F9B303957D700ACF30C /* CalendarFocusSettingSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F9A303957D700ACF30C /* CalendarFocusSettingSectionController.swift */; };
-		E51E5F9E303A8DBE00ACF30C /* sideMenu_timeline_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51E5F9C303A8DBD00ACF30C /* sideMenu_timeline_40@2x.png */; };
-		E51E5F9F303A8DBE00ACF30C /* sideMenu_timeline_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51E5F9D303A8DBD00ACF30C /* sideMenu_timeline_40@3x.png */; };
 		E51E5FA2303A932000ACF30C /* GanttTimelineMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */; };
 		E51F94002FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */; };
 		E51F94032FFF582000734910 /* CalendarRangeEventsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */; };
@@ -448,8 +446,6 @@
 		E51F941330033C7C00734910 /* HabitRangeEventColorInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F941230033C7B00734910 /* HabitRangeEventColorInfoFetcher.swift */; };
 		E51F94153003508400734910 /* FocusRangeEventColorInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94143003508300734910 /* FocusRangeEventColorInfoFetcher.swift */; };
 		E51F941830049A8500734910 /* MyDayMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F941730049A8400734910 /* MyDayMainViewController.swift */; };
-		E51F941B3004F20E00734910 /* sideMenu_myDay_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */; };
-		E51F941C3004F20E00734910 /* sideMenu_myDay_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */; };
 		E51F941E3005252900734910 /* MyDayEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F941D3005252800734910 /* MyDayEditSectionController.swift */; };
 		E51F94213006178F00734910 /* FocusTimerScheduleEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94203006178F00734910 /* FocusTimerScheduleEditSectionController.swift */; };
 		E51F94233006357B00734910 /* HabitTimeEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94223006357B00734910 /* HabitTimeEditSectionController.swift */; };
@@ -931,8 +927,6 @@
 		E549B1982F89F6A70014BE85 /* TodoTaskStepEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B1922F89F6A70014BE85 /* TodoTaskStepEditCell.swift */; };
 		E549B19D2F89F7C20014BE85 /* TodoStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B19C2F89F7C20014BE85 /* TodoStep.swift */; };
 		E549B19F2F8A01AE0014BE85 /* TodoStepAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B19E2F8A01AD0014BE85 /* TodoStepAddView.swift */; };
-		E54A067E303BDC69001FF4A1 /* sideMenu_goal_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A067C303BDC67001FF4A1 /* sideMenu_goal_40@2x.png */; };
-		E54A067F303BDC69001FF4A1 /* sideMenu_goal_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A067D303BDC69001FF4A1 /* sideMenu_goal_40@3x.png */; };
 		E54A0682303BE5A9001FF4A1 /* GanttTimelineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A0681303BE5A9001FF4A1 /* GanttTimelineChartView.swift */; };
 		E54A0685303BFBFB001FF4A1 /* GanttEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A0684303BFBFB001FF4A1 /* GanttEvent.swift */; };
 		E54A0687303BFD7F001FF4A1 /* GanttTimeScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A0686303BFD7F001FF4A1 /* GanttTimeScale.swift */; };
@@ -1090,8 +1084,6 @@
 		E558979030569BAD001F8F22 /* setting_flipClock_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E558978E30569BAB001F8F22 /* setting_flipClock_32@2x.png */; };
 		E558979130569BAD001F8F22 /* setting_flipClock_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E558978F30569BAD001F8F22 /* setting_flipClock_32@3x.png */; };
 		E55897943056A382001F8F22 /* FlipClockMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897933056A382001F8F22 /* FlipClockMainViewController.swift */; };
-		E55897983056D5AE001F8F22 /* sideMenu_countdown_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55897963056D5AE001F8F22 /* sideMenu_countdown_40@2x.png */; };
-		E55897993056D5AE001F8F22 /* sideMenu_countdown_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55897973056D5AE001F8F22 /* sideMenu_countdown_40@3x.png */; };
 		E558979C3056DF11001F8F22 /* CountdownMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558979B3056DF10001F8F22 /* CountdownMainViewController.swift */; };
 		E558979E3056E124001F8F22 /* TPBubbleMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558979D3056E124001F8F22 /* TPBubbleMenuView.swift */; };
 		E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */; };
@@ -1263,20 +1255,6 @@
 		E56342172F94C2E300E120BF /* TodoFilterRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56342132F94C2E100E120BF /* TodoFilterRule.swift */; };
 		E56342192F94C59100E120BF /* TimeOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56342182F94C59000E120BF /* TimeOffset.swift */; };
 		E563F1AA2FE7E9D200DF86BB /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563F1A92FE7E9D200DF86BB /* Bundle+Extension.swift */; };
-		E563F1AD2FE8082900DF86BB /* sideMenu_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1AB2FE8082900DF86BB /* sideMenu_24@2x.png */; };
-		E563F1AE2FE8082900DF86BB /* sideMenu_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1AC2FE8082900DF86BB /* sideMenu_24@3x.png */; };
-		E563F1C32FE8E42E00DF86BB /* sideMenu_habit_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1B72FE8E42500DF86BB /* sideMenu_habit_40@3x.png */; };
-		E563F1C42FE8E42E00DF86BB /* sideMenu_calendar_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1B82FE8E42600DF86BB /* sideMenu_calendar_40@2x.png */; };
-		E563F1C52FE8E42E00DF86BB /* sideMenu_settings_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1B92FE8E42800DF86BB /* sideMenu_settings_40@3x.png */; };
-		E563F1C62FE8E42E00DF86BB /* sideMenu_settings_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1BA2FE8E42900DF86BB /* sideMenu_settings_40@2x.png */; };
-		E563F1C72FE8E42E00DF86BB /* sideMenu_quadrants_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1BB2FE8E42900DF86BB /* sideMenu_quadrants_40@2x.png */; };
-		E563F1C82FE8E42E00DF86BB /* sideMenu_todo_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1BC2FE8E42A00DF86BB /* sideMenu_todo_40@2x.png */; };
-		E563F1C92FE8E42E00DF86BB /* sideMenu_focus_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1BD2FE8E42B00DF86BB /* sideMenu_focus_40@2x.png */; };
-		E563F1CA2FE8E42E00DF86BB /* sideMenu_focus_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1BE2FE8E42B00DF86BB /* sideMenu_focus_40@3x.png */; };
-		E563F1CB2FE8E42E00DF86BB /* sideMenu_quadrants_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1BF2FE8E42C00DF86BB /* sideMenu_quadrants_40@3x.png */; };
-		E563F1CC2FE8E42E00DF86BB /* sideMenu_calendar_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1C02FE8E42C00DF86BB /* sideMenu_calendar_40@3x.png */; };
-		E563F1CD2FE8E42E00DF86BB /* sideMenu_habit_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1C12FE8E42D00DF86BB /* sideMenu_habit_40@2x.png */; };
-		E563F1CE2FE8E42E00DF86BB /* sideMenu_todo_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1C22FE8E42D00DF86BB /* sideMenu_todo_40@3x.png */; };
 		E563F1D12FE8E97400DF86BB /* setting_hapticFeedback_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1CF2FE8E97300DF86BB /* setting_hapticFeedback_32@3x.png */; };
 		E563F1D22FE8E97400DF86BB /* setting_hapticFeedback_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1D02FE8E97400DF86BB /* setting_hapticFeedback_32@2x.png */; };
 		E563F1D92FE9184200DF86BB /* setting_share_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563F1D32FE9184000DF86BB /* setting_share_32@3x.png */; };
@@ -1551,6 +1529,30 @@
 		E5A1C2D42F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1C2D32F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift */; };
 		E5A1EC8E307495A700FCE0A3 /* AppProUpgradeBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1EC8D307495A700FCE0A3 /* AppProUpgradeBannerView.swift */; };
 		E5A2D1E42F9A4B5C00D1E2F4 /* WSActionListFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2D1E32F9A4B5C00D1E2F4 /* WSActionListFooterView.swift */; };
+		E5A307AA30B99C2E00A279A8 /* sideMenu_goal_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079230B99C2D00A279A8 /* sideMenu_goal_40@3x.png */; };
+		E5A307AB30B99C2E00A279A8 /* sideMenu_focus_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079330B99C2D00A279A8 /* sideMenu_focus_40@3x.png */; };
+		E5A307AC30B99C2E00A279A8 /* sideMenu_focus_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079430B99C2D00A279A8 /* sideMenu_focus_40@2x.png */; };
+		E5A307AD30B99C2E00A279A8 /* sideMenu_goal_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079530B99C2D00A279A8 /* sideMenu_goal_40@2x.png */; };
+		E5A307AE30B99C2E00A279A8 /* sideMenu_settings_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079630B99C2D00A279A8 /* sideMenu_settings_40@3x.png */; };
+		E5A307AF30B99C2E00A279A8 /* sideMenu_habit_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079730B99C2D00A279A8 /* sideMenu_habit_40@3x.png */; };
+		E5A307B030B99C2E00A279A8 /* sideMenu_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079830B99C2D00A279A8 /* sideMenu_24@2x.png */; };
+		E5A307B130B99C2E00A279A8 /* sideMenu_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079930B99C2D00A279A8 /* sideMenu_24@3x.png */; };
+		E5A307B230B99C2E00A279A8 /* sideMenu_habit_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079A30B99C2D00A279A8 /* sideMenu_habit_40@2x.png */; };
+		E5A307B330B99C2E00A279A8 /* sideMenu_settings_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079B30B99C2D00A279A8 /* sideMenu_settings_40@2x.png */; };
+		E5A307B430B99C2E00A279A8 /* sideMenu_todo_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079C30B99C2D00A279A8 /* sideMenu_todo_40@2x.png */; };
+		E5A307B530B99C2E00A279A8 /* sideMenu_calendar_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079D30B99C2D00A279A8 /* sideMenu_calendar_40@2x.png */; };
+		E5A307B630B99C2E00A279A8 /* sideMenu_calendar_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079E30B99C2D00A279A8 /* sideMenu_calendar_40@3x.png */; };
+		E5A307B730B99C2E00A279A8 /* sideMenu_todo_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A3079F30B99C2D00A279A8 /* sideMenu_todo_40@3x.png */; };
+		E5A307B830B99C2E00A279A8 /* sideMenu_timeline_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A307A030B99C2D00A279A8 /* sideMenu_timeline_40@3x.png */; };
+		E5A307B930B99C2E00A279A8 /* sideMenu_myDay_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A307A130B99C2D00A279A8 /* sideMenu_myDay_40@3x.png */; };
+		E5A307BA30B99C2E00A279A8 /* sideMenu_countdown_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A307A230B99C2D00A279A8 /* sideMenu_countdown_40@3x.png */; };
+		E5A307BB30B99C2E00A279A8 /* sideMenu_workspace_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A307A330B99C2D00A279A8 /* sideMenu_workspace_40@3x.png */; };
+		E5A307BC30B99C2E00A279A8 /* sideMenu_quadrants_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A307A430B99C2D00A279A8 /* sideMenu_quadrants_40@3x.png */; };
+		E5A307BD30B99C2E00A279A8 /* sideMenu_quadrants_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A307A530B99C2D00A279A8 /* sideMenu_quadrants_40@2x.png */; };
+		E5A307BE30B99C2E00A279A8 /* sideMenu_workspace_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A307A630B99C2D00A279A8 /* sideMenu_workspace_40@2x.png */; };
+		E5A307BF30B99C2E00A279A8 /* sideMenu_countdown_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A307A730B99C2D00A279A8 /* sideMenu_countdown_40@2x.png */; };
+		E5A307C030B99C2E00A279A8 /* sideMenu_myDay_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A307A830B99C2D00A279A8 /* sideMenu_myDay_40@2x.png */; };
+		E5A307C130B99C2E00A279A8 /* sideMenu_timeline_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A307A930B99C2D00A279A8 /* sideMenu_timeline_40@2x.png */; };
 		E5A625B33089B3CE003EB8BC /* WorkspacePluginProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625753089B3CD003EB8BC /* WorkspacePluginProcessorUpdater.swift */; };
 		E5A625B43089B3CE003EB8BC /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625763089B3CD003EB8BC /* WorkspaceRepository.swift */; };
 		E5A625B53089B3CE003EB8BC /* WorkspaceDashboardProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625773089B3CD003EB8BC /* WorkspaceDashboardProcessorUpdater.swift */; };
@@ -2553,7 +2555,6 @@
 		E5D7D8C52D43933600EC877A /* FocusTimerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8092D43933100EC877A /* FocusTimerInfo.swift */; };
 		E5D7D8C62D43933600EC877A /* FocusStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80A2D43933100EC877A /* FocusStep.swift */; };
 		E5D7D8C72D43933600EC877A /* FocusTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80B2D43933100EC877A /* FocusTracker.swift */; };
-		E5F0C0DF2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C0DE2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift */; };
 		E5D7D8C82D43933600EC877A /* FocusEndDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80C2D43933100EC877A /* FocusEndDataItem.swift */; };
 		E5D7D8C92D43933600EC877A /* FocusTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80D2D43933100EC877A /* FocusTrackingViewController.swift */; };
 		E5D7D8CA2D43933600EC877A /* FocusEndSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80F2D43933100EC877A /* FocusEndSectionController.swift */; };
@@ -2868,6 +2869,7 @@
 		E5F078D12F972E8B00F94BDF /* TodoMultipleScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078D02F972E8B00F94BDF /* TodoMultipleScheduleEditViewController.swift */; };
 		E5F078D32F975D2300F94BDF /* TodoMultiDayScheduleDateRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078D22F975D2300F94BDF /* TodoMultiDayScheduleDateRangeView.swift */; };
 		E5F078D52F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078D42F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift */; };
+		E5F0C0DF2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C0DE2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift */; };
 		E5F0C102308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift */; };
 		E5F0C102308E4F0000A00009 /* WSFocusSmallSystemTimerPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00009 /* WSFocusSmallSystemTimerPluginProvider.swift */; };
 		E5F0C102308E4F0000A0000A /* WSFocusSmallSystemTimerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0000A /* WSFocusSmallSystemTimerContentView.swift */; };
@@ -3111,8 +3113,6 @@
 		E5FC91942FBB61E400FC75C6 /* CalendarDayPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC91932FBB61E400FC75C6 /* CalendarDayPageView.swift */; };
 		E5FC91962FBB643800FC75C6 /* CalendarDayPageTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC91952FBB643800FC75C6 /* CalendarDayPageTimelineCell.swift */; };
 		E5FC919A2FBB65C200FC75C6 /* FocusTimelineBackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC91992FBB65C200FC75C6 /* FocusTimelineBackLayer.swift */; };
-		E5FD1920307FC2E900E87402 /* sideMenu_workspace_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FD191E307FC2E800E87402 /* sideMenu_workspace_40@2x.png */; };
-		E5FD1921307FC2E900E87402 /* sideMenu_workspace_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FD191F307FC2E900E87402 /* sideMenu_workspace_40@3x.png */; };
 		E5FEC5F930AC082500138DBF /* plugin_title_48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FEC5F530AC082400138DBF /* plugin_title_48@2x.png */; };
 		E5FEC5FA30AC082500138DBF /* plugin_body_48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FEC5F630AC082400138DBF /* plugin_body_48@2x.png */; };
 		E5FEC5FB30AC082500138DBF /* plugin_title_48@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FEC5F730AC082400138DBF /* plugin_title_48@3x.png */; };
@@ -3588,8 +3588,6 @@
 		E51E5F96303944B000ACF30C /* CalendarFocusEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFocusEventProvider.swift; sourceTree = "<group>"; };
 		E51E5F98303945CE00ACF30C /* FocusTimer+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusTimer+Calendar.swift"; sourceTree = "<group>"; };
 		E51E5F9A303957D700ACF30C /* CalendarFocusSettingSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFocusSettingSectionController.swift; sourceTree = "<group>"; };
-		E51E5F9C303A8DBD00ACF30C /* sideMenu_timeline_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_timeline_40@2x.png"; sourceTree = "<group>"; };
-		E51E5F9D303A8DBD00ACF30C /* sideMenu_timeline_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_timeline_40@3x.png"; sourceTree = "<group>"; };
 		E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineMainViewController.swift; sourceTree = "<group>"; };
 		E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCalendarDayEventIndicatorView.swift; sourceTree = "<group>"; };
 		E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfo.swift; sourceTree = "<group>"; };
@@ -3602,8 +3600,6 @@
 		E51F941230033C7B00734910 /* HabitRangeEventColorInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRangeEventColorInfoFetcher.swift; sourceTree = "<group>"; };
 		E51F94143003508300734910 /* FocusRangeEventColorInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRangeEventColorInfoFetcher.swift; sourceTree = "<group>"; };
 		E51F941730049A8400734910 /* MyDayMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayMainViewController.swift; sourceTree = "<group>"; };
-		E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_myDay_40@2x.png"; sourceTree = "<group>"; };
-		E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_myDay_40@3x.png"; sourceTree = "<group>"; };
 		E51F941D3005252800734910 /* MyDayEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayEditSectionController.swift; sourceTree = "<group>"; };
 		E51F94203006178F00734910 /* FocusTimerScheduleEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerScheduleEditSectionController.swift; sourceTree = "<group>"; };
 		E51F94223006357B00734910 /* HabitTimeEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTimeEditSectionController.swift; sourceTree = "<group>"; };
@@ -4085,8 +4081,6 @@
 		E549B1922F89F6A70014BE85 /* TodoTaskStepEditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskStepEditCell.swift; sourceTree = "<group>"; };
 		E549B19C2F89F7C20014BE85 /* TodoStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStep.swift; sourceTree = "<group>"; };
 		E549B19E2F8A01AD0014BE85 /* TodoStepAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepAddView.swift; sourceTree = "<group>"; };
-		E54A067C303BDC67001FF4A1 /* sideMenu_goal_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_goal_40@2x.png"; sourceTree = "<group>"; };
-		E54A067D303BDC69001FF4A1 /* sideMenu_goal_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_goal_40@3x.png"; sourceTree = "<group>"; };
 		E54A0681303BE5A9001FF4A1 /* GanttTimelineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineChartView.swift; sourceTree = "<group>"; };
 		E54A0684303BFBFB001FF4A1 /* GanttEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttEvent.swift; sourceTree = "<group>"; };
 		E54A0686303BFD7F001FF4A1 /* GanttTimeScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimeScale.swift; sourceTree = "<group>"; };
@@ -4244,8 +4238,6 @@
 		E558978E30569BAB001F8F22 /* setting_flipClock_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_flipClock_32@2x.png"; sourceTree = "<group>"; };
 		E558978F30569BAD001F8F22 /* setting_flipClock_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_flipClock_32@3x.png"; sourceTree = "<group>"; };
 		E55897933056A382001F8F22 /* FlipClockMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipClockMainViewController.swift; sourceTree = "<group>"; };
-		E55897963056D5AE001F8F22 /* sideMenu_countdown_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_countdown_40@2x.png"; sourceTree = "<group>"; };
-		E55897973056D5AE001F8F22 /* sideMenu_countdown_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_countdown_40@3x.png"; sourceTree = "<group>"; };
 		E558979B3056DF10001F8F22 /* CountdownMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMainViewController.swift; sourceTree = "<group>"; };
 		E558979D3056E124001F8F22 /* TPBubbleMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPBubbleMenuView.swift; sourceTree = "<group>"; };
 		E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_pause_circle_fill_32@3x.png"; sourceTree = "<group>"; };
@@ -4419,20 +4411,6 @@
 		E56342132F94C2E100E120BF /* TodoFilterRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterRule.swift; sourceTree = "<group>"; };
 		E56342182F94C59000E120BF /* TimeOffset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeOffset.swift; sourceTree = "<group>"; };
 		E563F1A92FE7E9D200DF86BB /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
-		E563F1AB2FE8082900DF86BB /* sideMenu_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_24@2x.png"; sourceTree = "<group>"; };
-		E563F1AC2FE8082900DF86BB /* sideMenu_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_24@3x.png"; sourceTree = "<group>"; };
-		E563F1B72FE8E42500DF86BB /* sideMenu_habit_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_habit_40@3x.png"; sourceTree = "<group>"; };
-		E563F1B82FE8E42600DF86BB /* sideMenu_calendar_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_calendar_40@2x.png"; sourceTree = "<group>"; };
-		E563F1B92FE8E42800DF86BB /* sideMenu_settings_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_settings_40@3x.png"; sourceTree = "<group>"; };
-		E563F1BA2FE8E42900DF86BB /* sideMenu_settings_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_settings_40@2x.png"; sourceTree = "<group>"; };
-		E563F1BB2FE8E42900DF86BB /* sideMenu_quadrants_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_quadrants_40@2x.png"; sourceTree = "<group>"; };
-		E563F1BC2FE8E42A00DF86BB /* sideMenu_todo_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_todo_40@2x.png"; sourceTree = "<group>"; };
-		E563F1BD2FE8E42B00DF86BB /* sideMenu_focus_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_focus_40@2x.png"; sourceTree = "<group>"; };
-		E563F1BE2FE8E42B00DF86BB /* sideMenu_focus_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_focus_40@3x.png"; sourceTree = "<group>"; };
-		E563F1BF2FE8E42C00DF86BB /* sideMenu_quadrants_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_quadrants_40@3x.png"; sourceTree = "<group>"; };
-		E563F1C02FE8E42C00DF86BB /* sideMenu_calendar_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_calendar_40@3x.png"; sourceTree = "<group>"; };
-		E563F1C12FE8E42D00DF86BB /* sideMenu_habit_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_habit_40@2x.png"; sourceTree = "<group>"; };
-		E563F1C22FE8E42D00DF86BB /* sideMenu_todo_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_todo_40@3x.png"; sourceTree = "<group>"; };
 		E563F1CF2FE8E97300DF86BB /* setting_hapticFeedback_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_hapticFeedback_32@3x.png"; sourceTree = "<group>"; };
 		E563F1D02FE8E97400DF86BB /* setting_hapticFeedback_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_hapticFeedback_32@2x.png"; sourceTree = "<group>"; };
 		E563F1D32FE9184000DF86BB /* setting_share_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_share_32@3x.png"; sourceTree = "<group>"; };
@@ -4707,6 +4685,30 @@
 		E5A1C2D32F9A4B5C00D1E2F3 /* MainJumpBackButtonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainJumpBackButtonManager.swift; sourceTree = "<group>"; };
 		E5A1EC8D307495A700FCE0A3 /* AppProUpgradeBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppProUpgradeBannerView.swift; sourceTree = "<group>"; };
 		E5A2D1E32F9A4B5C00D1E2F4 /* WSActionListFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSActionListFooterView.swift; sourceTree = "<group>"; };
+		E5A3079230B99C2D00A279A8 /* sideMenu_goal_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_goal_40@3x.png"; sourceTree = "<group>"; };
+		E5A3079330B99C2D00A279A8 /* sideMenu_focus_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_focus_40@3x.png"; sourceTree = "<group>"; };
+		E5A3079430B99C2D00A279A8 /* sideMenu_focus_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_focus_40@2x.png"; sourceTree = "<group>"; };
+		E5A3079530B99C2D00A279A8 /* sideMenu_goal_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_goal_40@2x.png"; sourceTree = "<group>"; };
+		E5A3079630B99C2D00A279A8 /* sideMenu_settings_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_settings_40@3x.png"; sourceTree = "<group>"; };
+		E5A3079730B99C2D00A279A8 /* sideMenu_habit_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_habit_40@3x.png"; sourceTree = "<group>"; };
+		E5A3079830B99C2D00A279A8 /* sideMenu_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_24@2x.png"; sourceTree = "<group>"; };
+		E5A3079930B99C2D00A279A8 /* sideMenu_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_24@3x.png"; sourceTree = "<group>"; };
+		E5A3079A30B99C2D00A279A8 /* sideMenu_habit_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_habit_40@2x.png"; sourceTree = "<group>"; };
+		E5A3079B30B99C2D00A279A8 /* sideMenu_settings_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_settings_40@2x.png"; sourceTree = "<group>"; };
+		E5A3079C30B99C2D00A279A8 /* sideMenu_todo_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_todo_40@2x.png"; sourceTree = "<group>"; };
+		E5A3079D30B99C2D00A279A8 /* sideMenu_calendar_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_calendar_40@2x.png"; sourceTree = "<group>"; };
+		E5A3079E30B99C2D00A279A8 /* sideMenu_calendar_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_calendar_40@3x.png"; sourceTree = "<group>"; };
+		E5A3079F30B99C2D00A279A8 /* sideMenu_todo_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_todo_40@3x.png"; sourceTree = "<group>"; };
+		E5A307A030B99C2D00A279A8 /* sideMenu_timeline_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_timeline_40@3x.png"; sourceTree = "<group>"; };
+		E5A307A130B99C2D00A279A8 /* sideMenu_myDay_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_myDay_40@3x.png"; sourceTree = "<group>"; };
+		E5A307A230B99C2D00A279A8 /* sideMenu_countdown_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_countdown_40@3x.png"; sourceTree = "<group>"; };
+		E5A307A330B99C2D00A279A8 /* sideMenu_workspace_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_workspace_40@3x.png"; sourceTree = "<group>"; };
+		E5A307A430B99C2D00A279A8 /* sideMenu_quadrants_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_quadrants_40@3x.png"; sourceTree = "<group>"; };
+		E5A307A530B99C2D00A279A8 /* sideMenu_quadrants_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_quadrants_40@2x.png"; sourceTree = "<group>"; };
+		E5A307A630B99C2D00A279A8 /* sideMenu_workspace_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_workspace_40@2x.png"; sourceTree = "<group>"; };
+		E5A307A730B99C2D00A279A8 /* sideMenu_countdown_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_countdown_40@2x.png"; sourceTree = "<group>"; };
+		E5A307A830B99C2D00A279A8 /* sideMenu_myDay_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_myDay_40@2x.png"; sourceTree = "<group>"; };
+		E5A307A930B99C2D00A279A8 /* sideMenu_timeline_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_timeline_40@2x.png"; sourceTree = "<group>"; };
 		E5A625753089B3CD003EB8BC /* WorkspacePluginProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspacePluginProcessorUpdater.swift; sourceTree = "<group>"; };
 		E5A625763089B3CD003EB8BC /* WorkspaceRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
 		E5A625773089B3CD003EB8BC /* WorkspaceDashboardProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceDashboardProcessorUpdater.swift; sourceTree = "<group>"; };
@@ -5724,7 +5726,6 @@
 		E5D7D8092D43933100EC877A /* FocusTimerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerInfo.swift; sourceTree = "<group>"; };
 		E5D7D80A2D43933100EC877A /* FocusStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStep.swift; sourceTree = "<group>"; };
 		E5D7D80B2D43933100EC877A /* FocusTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTracker.swift; sourceTree = "<group>"; };
-		E5F0C0DE2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerIntervalCalculator.swift; sourceTree = "<group>"; };
 		E5D7D80C2D43933100EC877A /* FocusEndDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusEndDataItem.swift; sourceTree = "<group>"; };
 		E5D7D80D2D43933100EC877A /* FocusTrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTrackingViewController.swift; sourceTree = "<group>"; };
 		E5D7D80F2D43933100EC877A /* FocusEndSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusEndSectionController.swift; sourceTree = "<group>"; };
@@ -6039,6 +6040,7 @@
 		E5F078D02F972E8B00F94BDF /* TodoMultipleScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMultipleScheduleEditViewController.swift; sourceTree = "<group>"; };
 		E5F078D22F975D2300F94BDF /* TodoMultiDayScheduleDateRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMultiDayScheduleDateRangeView.swift; sourceTree = "<group>"; };
 		E5F078D42F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMultiDayScheduleEditSectionController.swift; sourceTree = "<group>"; };
+		E5F0C0DE2E9A000100AB12CD /* FocusTimerIntervalCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerIntervalCalculator.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSystemTimerDataItem.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A00009 /* WSFocusSmallSystemTimerPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallSystemTimerPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A0000A /* WSFocusSmallSystemTimerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallSystemTimerContentView.swift; sourceTree = "<group>"; };
@@ -6282,8 +6284,6 @@
 		E5FC91932FBB61E400FC75C6 /* CalendarDayPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayPageView.swift; sourceTree = "<group>"; };
 		E5FC91952FBB643800FC75C6 /* CalendarDayPageTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayPageTimelineCell.swift; sourceTree = "<group>"; };
 		E5FC91992FBB65C200FC75C6 /* FocusTimelineBackLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineBackLayer.swift; sourceTree = "<group>"; };
-		E5FD191E307FC2E800E87402 /* sideMenu_workspace_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_workspace_40@2x.png"; sourceTree = "<group>"; };
-		E5FD191F307FC2E900E87402 /* sideMenu_workspace_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_workspace_40@3x.png"; sourceTree = "<group>"; };
 		E5FEC5F530AC082400138DBF /* plugin_title_48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_title_48@2x.png"; sourceTree = "<group>"; };
 		E5FEC5F630AC082400138DBF /* plugin_body_48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_body_48@2x.png"; sourceTree = "<group>"; };
 		E5FEC5F730AC082400138DBF /* plugin_title_48@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_title_48@3x.png"; sourceTree = "<group>"; };
@@ -9084,6 +9084,7 @@
 				E5D0E0000000000000000016 /* WSCountBadgeView.swift */,
 				E5D0E0000000000000000017 /* WSInfoTextCountHeaderView.swift */,
 				E5D0E0000000000000000018 /* WSIconInfoTextValueContentView.swift */,
+				E555A93F30B7158700D7FFA2 /* ActivityView */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -9996,14 +9997,6 @@
 				E5A7C30530A3370700FE6914 /* WSSeparatorContentView.swift */,
 			);
 			path = ContentView;
-			sourceTree = "<group>";
-		};
-		E555A93830B6FF6F00D7FFA2 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				E555A93F30B7158700D7FFA2 /* ActivityView */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		E555A93C30B7115F00D7FFA2 /* ------------------------------- */ = {
@@ -11847,6 +11840,37 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		E5A3079130B99C2D00A279A8 /* sideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E5A3079830B99C2D00A279A8 /* sideMenu_24@2x.png */,
+				E5A3079930B99C2D00A279A8 /* sideMenu_24@3x.png */,
+				E5A3079230B99C2D00A279A8 /* sideMenu_goal_40@3x.png */,
+				E5A3079330B99C2D00A279A8 /* sideMenu_focus_40@3x.png */,
+				E5A3079430B99C2D00A279A8 /* sideMenu_focus_40@2x.png */,
+				E5A3079530B99C2D00A279A8 /* sideMenu_goal_40@2x.png */,
+				E5A3079630B99C2D00A279A8 /* sideMenu_settings_40@3x.png */,
+				E5A3079730B99C2D00A279A8 /* sideMenu_habit_40@3x.png */,
+				E5A3079A30B99C2D00A279A8 /* sideMenu_habit_40@2x.png */,
+				E5A3079B30B99C2D00A279A8 /* sideMenu_settings_40@2x.png */,
+				E5A3079C30B99C2D00A279A8 /* sideMenu_todo_40@2x.png */,
+				E5A3079D30B99C2D00A279A8 /* sideMenu_calendar_40@2x.png */,
+				E5A3079E30B99C2D00A279A8 /* sideMenu_calendar_40@3x.png */,
+				E5A3079F30B99C2D00A279A8 /* sideMenu_todo_40@3x.png */,
+				E5A307A030B99C2D00A279A8 /* sideMenu_timeline_40@3x.png */,
+				E5A307A130B99C2D00A279A8 /* sideMenu_myDay_40@3x.png */,
+				E5A307A230B99C2D00A279A8 /* sideMenu_countdown_40@3x.png */,
+				E5A307A330B99C2D00A279A8 /* sideMenu_workspace_40@3x.png */,
+				E5A307A430B99C2D00A279A8 /* sideMenu_quadrants_40@3x.png */,
+				E5A307A530B99C2D00A279A8 /* sideMenu_quadrants_40@2x.png */,
+				E5A307A630B99C2D00A279A8 /* sideMenu_workspace_40@2x.png */,
+				E5A307A730B99C2D00A279A8 /* sideMenu_countdown_40@2x.png */,
+				E5A307A830B99C2D00A279A8 /* sideMenu_myDay_40@2x.png */,
+				E5A307A930B99C2D00A279A8 /* sideMenu_timeline_40@2x.png */,
+			);
+			path = sideMenu;
+			sourceTree = "<group>";
+		};
 		E5A50C8D30A357AB009B24D2 /* Text */ = {
 			isa = PBXGroup;
 			children = (
@@ -11986,16 +12010,15 @@
 			isa = PBXGroup;
 			children = (
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
-				E555A93830B6FF6F00D7FFA2 /* Components */,
+				E539C86F308CAE6C0077FE8A /* UIComponents */,
 				E5A50C8D30A357AB009B24D2 /* Text */,
 				E5097C2030A413750080ECCF /* Separator */,
-				E555A93C30B7115F00D7FFA2 /* ------------------------------- */,
-				E539C86F308CAE6C0077FE8A /* UIComponents */,
 				E52628623097711300B87016 /* Todo */,
-				E598E93430A7366C00E63A53 /* Action */,
-				E52628633097711A00B87016 /* Calendar */,
 				E5F7E6353098208300C72E55 /* MyDay */,
 				E5E5380130946DF00096EBAC /* Quadrant */,
+				E555A93C30B7115F00D7FFA2 /* ------------------------------- */,
+				E598E93430A7366C00E63A53 /* Action */,
+				E52628633097711A00B87016 /* Calendar */,
 				E5C0AEAA30933D3B00E487FC /* Gantt */,
 				E5BBCAD030919CF700E35B41 /* Goal */,
 				E5F002AB308F089100D70600 /* Habit */,
@@ -12528,6 +12551,7 @@
 		E5BB99DC2D3BEF0D0089667A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				E5A3079130B99C2D00A279A8 /* sideMenu */,
 				E5FEC5F430AC082400138DBF /* plugin */,
 				E5BB9A4D2D3BEF0D0089667A /* common */,
 				E5BEC27F307B3E770050E01B /* upgrade */,
@@ -12539,7 +12563,6 @@
 				E5BBA10D2D3BFB4D0089667A /* launch */,
 				E563F1882FE7CEB200DF86BB /* settting */,
 				E5371DDB2FF1FD1C00BA9DEF /* notification */,
-				E5BBA0F02D3BFB3C0089667A /* sideMenu */,
 				E583896C2F774E56003C30A4 /* task */,
 				E59243D02F505A4F00CA2393 /* habit */,
 				E5D7D9452D43CBA100EC877A /* focus */,
@@ -14445,37 +14468,6 @@
 				E518AAFD3087ADD50018987D /* Countdown */,
 			);
 			path = Bind;
-			sourceTree = "<group>";
-		};
-		E5BBA0F02D3BFB3C0089667A /* sideMenu */ = {
-			isa = PBXGroup;
-			children = (
-				E563F1AB2FE8082900DF86BB /* sideMenu_24@2x.png */,
-				E563F1AC2FE8082900DF86BB /* sideMenu_24@3x.png */,
-				E5FD191E307FC2E800E87402 /* sideMenu_workspace_40@2x.png */,
-				E5FD191F307FC2E900E87402 /* sideMenu_workspace_40@3x.png */,
-				E55897963056D5AE001F8F22 /* sideMenu_countdown_40@2x.png */,
-				E55897973056D5AE001F8F22 /* sideMenu_countdown_40@3x.png */,
-				E51E5F9C303A8DBD00ACF30C /* sideMenu_timeline_40@2x.png */,
-				E51E5F9D303A8DBD00ACF30C /* sideMenu_timeline_40@3x.png */,
-				E54A067C303BDC67001FF4A1 /* sideMenu_goal_40@2x.png */,
-				E54A067D303BDC69001FF4A1 /* sideMenu_goal_40@3x.png */,
-				E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */,
-				E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */,
-				E563F1B82FE8E42600DF86BB /* sideMenu_calendar_40@2x.png */,
-				E563F1C02FE8E42C00DF86BB /* sideMenu_calendar_40@3x.png */,
-				E563F1BD2FE8E42B00DF86BB /* sideMenu_focus_40@2x.png */,
-				E563F1BE2FE8E42B00DF86BB /* sideMenu_focus_40@3x.png */,
-				E563F1C12FE8E42D00DF86BB /* sideMenu_habit_40@2x.png */,
-				E563F1B72FE8E42500DF86BB /* sideMenu_habit_40@3x.png */,
-				E563F1BB2FE8E42900DF86BB /* sideMenu_quadrants_40@2x.png */,
-				E563F1BF2FE8E42C00DF86BB /* sideMenu_quadrants_40@3x.png */,
-				E563F1BA2FE8E42900DF86BB /* sideMenu_settings_40@2x.png */,
-				E563F1B92FE8E42800DF86BB /* sideMenu_settings_40@3x.png */,
-				E563F1BC2FE8E42A00DF86BB /* sideMenu_todo_40@2x.png */,
-				E563F1C22FE8E42D00DF86BB /* sideMenu_todo_40@3x.png */,
-			);
-			path = sideMenu;
 			sourceTree = "<group>";
 		};
 		E5BBA10D2D3BFB4D0089667A /* launch */ = {
@@ -17201,13 +17193,12 @@
 		E5F7E6383098305700C72E55 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E5F7E6633098209800C72E55 /* MyDayEvent+SourceIcon.swift */,
+				E5F7E6693098209800C72E55 /* MyDayEvent+DisplayInfo.swift */,
 				E5F7E6553098209800C72E55 /* Content */,
 				E5F7E6563098209800C72E55 /* Data */,
 				E5F7E6573098209800C72E55 /* Interactor */,
 				E5F7E6583098209800C72E55 /* Row */,
-				E5F7E6633098209800C72E55 /* MyDayEvent+SourceIcon.swift */,
-				E5F7E6653098209800C72E55 /* WSMyDayHeaderView.swift */,
-				E5F7E6693098209800C72E55 /* MyDayEvent+DisplayInfo.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -17263,6 +17254,7 @@
 		E5F7E6553098209800C72E55 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				E5F7E6653098209800C72E55 /* WSMyDayHeaderView.swift */,
 				E5F7E6433098209800C72E55 /* WSMyDayAllDayEventsContentView.swift */,
 				E5F7E66C3098209800C72E55 /* WSMyDayTimelineContentView.swift */,
 				E5F7E67D3098209800C72E55 /* TimelineView */,
@@ -17855,12 +17847,14 @@
 				E50DD7D82D72FD7600A85E87 /* todo_folder_opened_24@2x.png in Resources */,
 				E55CE3582D8BC2A60083316E /* quadrant_III_32@3x.png in Resources */,
 				E506B5C42F638B2E008B3321 /* habit_task_filter_todo_24@2x.png in Resources */,
+				E5A307B430B99C2E00A279A8 /* sideMenu_todo_40@2x.png in Resources */,
 				E5B8C4CE306A9AAA0056CB04 /* calendar_panel_24@3x.png in Resources */,
 				E55E4BD62F9336170068E032 /* calendar_10_24@2x.png in Resources */,
-				E51E5F9F303A8DBE00ACF30C /* sideMenu_timeline_40@3x.png in Resources */,
 				E5BB9ABB2D3BEF0D0089667A /* todo_task_action_move_24@3x.png in Resources */,
 				E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */,
+				E5A307B330B99C2E00A279A8 /* sideMenu_settings_40@2x.png in Resources */,
 				E5E9F7902FC03FCA00717004 /* todo_step_copyAsMarkdown_24@2x.png in Resources */,
+				E5A307AF30B99C2E00A279A8 /* sideMenu_habit_40@3x.png in Resources */,
 				E5259B1030184EA600A6D253 /* myDay_repeat_24@2x.png in Resources */,
 				E55E4BF82F9336170068E032 /* calendar_12_24@2x.png in Resources */,
 				E524C7802F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@2x.png in Resources */,
@@ -17874,7 +17868,6 @@
 				E56B94882F8CDB42001E488B /* todo_sort_type_modificationDate_24@3x.png in Resources */,
 				E515AD722D3CC5E600AA9AF2 /* ellipsis_24@3x.png in Resources */,
 				E515AD592D3CB2F900AA9AF2 /* LaunchLogo@3x.png in Resources */,
-				E55897993056D5AE001F8F22 /* sideMenu_countdown_40@3x.png in Resources */,
 				E55E4BD32F9336170068E032 /* calendar_23_24@3x.png in Resources */,
 				E50D02592F55860B00E93977 /* habit_time_afternoon_24@3x.png in Resources */,
 				E5BA9A8A3052431C0044106F /* goal_task_action_move_24@2x.png in Resources */,
@@ -17896,7 +17889,6 @@
 				E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */,
 				E52A4FE72F62C5D7009EC01B /* habit_week_day_notscheduled_42@2x.png in Resources */,
 				E5E277022D3DF6EA004EC522 /* shred_24@3x.png in Resources */,
-				E563F1CC2FE8E42E00DF86BB /* sideMenu_calendar_40@3x.png in Resources */,
 				E5CAA9672D700ABD00A0539C /* todo_task_quadrant_24@2x.png in Resources */,
 				E5423C4E307D204700B1DB3E /* goal_task_progress_weight_24@3x.png in Resources */,
 				E5259B22301A3CFE00A6D253 /* triangle_up_12@3x.png in Resources */,
@@ -17912,6 +17904,7 @@
 				E5BB9AA82D3BEF0D0089667A /* todo_task_note_24@3x.png in Resources */,
 				E555493E2F75590100C9460D /* focus_timer_stopwatch_24@3x.png in Resources */,
 				E5BB9ADC2D3BEF0D0089667A /* xmark_16@3x.png in Resources */,
+				E5A307AD30B99C2E00A279A8 /* sideMenu_goal_40@2x.png in Resources */,
 				E56B945E2F8CD6D0001E488B /* todo_group_type_priority_24@3x.png in Resources */,
 				E50D94C62D45224500F57957 /* unarchive_24@3x.png in Resources */,
 				E51DF20F2F84AF7B00D6BCE3 /* focus_24@2x.png in Resources */,
@@ -17929,9 +17922,9 @@
 				E55E4BD42F9336170068E032 /* calendar_28_24@2x.png in Resources */,
 				E5BBA1202D3BFD150089667A /* BarlowCondensed-SemiBold.ttf in Resources */,
 				E5E9F78E2FC03FCA00717004 /* todo_step_deleteCompleted_24@3x.png in Resources */,
+				E5A307BD30B99C2E00A279A8 /* sideMenu_quadrants_40@2x.png in Resources */,
 				E5186E452D93B141007AA074 /* todo_filter_progress_36@2x.png in Resources */,
 				E500DE542DB09D4500EAEAF7 /* todo_filter_indicator_date_12@3x.png in Resources */,
-				E563F1C42FE8E42E00DF86BB /* sideMenu_calendar_40@2x.png in Resources */,
 				E5CAA96A2D700ABD00A0539C /* todo_task_quadrant_24@3x.png in Resources */,
 				E55E4BE62F9336170068E032 /* calendar_5_24@2x.png in Resources */,
 				E5BB9AE42D3BEF0D0089667A /* checkmark_12@3x.png in Resources */,
@@ -17972,6 +17965,7 @@
 				E5BEC284307B3E770050E01B /* upgrade_service_16@2x.png in Resources */,
 				E55E4C042F9336170068E032 /* calendar_1_24@3x.png in Resources */,
 				E55E4BF62F9336170068E032 /* calendar_27_24@2x.png in Resources */,
+				E5A307AC30B99C2E00A279A8 /* sideMenu_focus_40@2x.png in Resources */,
 				E5BB9AB62D3BEF0D0089667A /* todo_task_action_done_24@2x.png in Resources */,
 				E5E40717306FE02900673727 /* calendar_panelStyle_3_4_vertical@3x.png in Resources */,
 				E56B94652F8CD6D0001E488B /* todo_group_type_dueDate_24@2x.png in Resources */,
@@ -17994,7 +17988,6 @@
 				E50D94DD2D4528E500F57957 /* ellipsis_circle_24@3x.png in Resources */,
 				E55E4BEE2F9336170068E032 /* calendar_19_24@2x.png in Resources */,
 				E515AD7E2D3CF87F00AA9AF2 /* triangle_right_12@2x.png in Resources */,
-				E51F941B3004F20E00734910 /* sideMenu_myDay_40@2x.png in Resources */,
 				E5B926D92D3FF04A0065FA79 /* arrow_up_24@3x.png in Resources */,
 				E50D94C92D45224500F57957 /* archive_24@2x.png in Resources */,
 				E5BB9ECD2D3BF0C80089667A /* Wheat01@2x.png in Resources */,
@@ -18008,6 +18001,7 @@
 				E5F078CA2F95DEB300F94BDF /* todo_filter_tag_none_24@3x.png in Resources */,
 				E5E2771B2D3E099C004EC522 /* todo_list_option_showCompleted_24@3x.png in Resources */,
 				E55E4BEB2F9336170068E032 /* calendar_3_24@3x.png in Resources */,
+				E5A307B530B99C2E00A279A8 /* sideMenu_calendar_40@2x.png in Resources */,
 				E58F46B62F7AAE370046FA96 /* todo_list_noParent_24@2x.png in Resources */,
 				E500E3842FC59BE600252011 /* todo_search_option_note_16@2x.png in Resources */,
 				E5320C2B2FCA87CE001DFE98 /* todo_list_option_importTask_24@3x.png in Resources */,
@@ -18025,12 +18019,11 @@
 				E53F32C92F699AC900B85B65 /* habit_report_failed_20@2x.png in Resources */,
 				E500E3862FC59BE600252011 /* todo_search_option_completed_16@3x.png in Resources */,
 				E570FC012D62C14A0017F930 /* chevron_right_16@3x.png in Resources */,
-				E5FD1921307FC2E900E87402 /* sideMenu_workspace_40@3x.png in Resources */,
-				E563F1C72FE8E42E00DF86BB /* sideMenu_quadrants_40@2x.png in Resources */,
 				E5168BD32F545B400000A760 /* dateRange_background_start@3x.png in Resources */,
 				E549438230B000BE006EC04B /* plugin_action_trash_24@2x.png in Resources */,
 				E524C79B2F9F499F005CCEBD /* todo_home_list_24@2x.png in Resources */,
 				E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */,
+				E5A307AB30B99C2E00A279A8 /* sideMenu_focus_40@3x.png in Resources */,
 				E55E4BD22F9336170068E032 /* calendar_16_24@3x.png in Resources */,
 				E533529C2FF8C9CC00546986 /* calendar_week_24@3x.png in Resources */,
 				E5DC6E6330AC8BA300581B10 /* plugin_todoTagGroup_48@2x.png in Resources */,
@@ -18042,7 +18035,6 @@
 				E55E4BFE2F9336170068E032 /* calendar_20_24@2x.png in Resources */,
 				E5F2BAD22D532316007DDCD4 /* xmark_circle_fill_12@2x.png in Resources */,
 				E50D94CA2D45224500F57957 /* archive_24@3x.png in Resources */,
-				E55897983056D5AE001F8F22 /* sideMenu_countdown_40@2x.png in Resources */,
 				E554308930AD4E04004C4AC1 /* plugin_todoFilterTask_48@3x.png in Resources */,
 				E5BB9A932D3BEF0D0089667A /* todo_smartlist_upcoming_24@2x.png in Resources */,
 				E5FEC60930AC3C4E00138DBF /* plugin_myDay_48@2x.png in Resources */,
@@ -18063,7 +18055,6 @@
 				E539474930B8138E00BE40FD /* plugin_todo_list_32@2x.png in Resources */,
 				E5371DDF2FF1FD1C00BA9DEF /* notification_sound_24@3x.png in Resources */,
 				E55E4BCC2F9336170068E032 /* calendar_2_24@2x.png in Resources */,
-				E563F1AD2FE8082900DF86BB /* sideMenu_24@2x.png in Resources */,
 				E5BB9E472D3BF0C70089667A /* StepperPositive@2x.png in Resources */,
 				E5E276FC2D3DF58B004EC522 /* todo_folder_ungroup_24@3x.png in Resources */,
 				E5BBA1162D3BFC6A0089667A /* LaunchScreen.storyboard in Resources */,
@@ -18084,6 +18075,7 @@
 				E5BB9ECA2D3BF0C80089667A /* Wheat01@3x.png in Resources */,
 				E5F078C92F95DEB300F94BDF /* todo_filter_tag_none_24@2x.png in Resources */,
 				E5D833922DAB64D60012ABF3 /* todo_task_progress_targetValue_24@2x.png in Resources */,
+				E5A307B230B99C2E00A279A8 /* sideMenu_habit_40@2x.png in Resources */,
 				E58389742F776404003C30A4 /* focus_quickStart_record_24@3x.png in Resources */,
 				E500DE562DB09D4500EAEAF7 /* todo_filter_indicator_tag_12@3x.png in Resources */,
 				E5185078300F6DFD00112DFC /* todo_circle_normal_24@2x.png in Resources */,
@@ -18095,7 +18087,6 @@
 				E5E4071B307088D400673727 /* setting_sideMenu_32@2x.png in Resources */,
 				E524C79C2F9F499F005CCEBD /* todo_home_list_24@3x.png in Resources */,
 				E54E633F2F5B1BFD00FCBCAE /* habit_menu_cancel_24@3x.png in Resources */,
-				E563F1C32FE8E42E00DF86BB /* sideMenu_habit_40@3x.png in Resources */,
 				E5B926DC2D3FFBA00065FA79 /* clear_24@2x.png in Resources */,
 				E5BB9AAE2D3BEF0D0089667A /* todo_task_step_addPrevious_24@3x.png in Resources */,
 				E55E4BCD2F9336170068E032 /* calendar_10_24@3x.png in Resources */,
@@ -18118,6 +18109,7 @@
 				E5BB9AED2D3BEF0D0089667A /* keyboard_dismiss_24@3x.png in Resources */,
 				E54A06B2303DCF19001FF4A1 /* gantt_taskList_toggle_normal_24@2x.png in Resources */,
 				E5E9F78F2FC03FCA00717004 /* todo_step_import_24@2x.png in Resources */,
+				E5A307BE30B99C2E00A279A8 /* sideMenu_workspace_40@2x.png in Resources */,
 				E5320C2C2FCA87CE001DFE98 /* todo_list_option_manageSection_24@3x.png in Resources */,
 				E54E633D2F5B1BFD00FCBCAE /* habit_menu_reset_24@3x.png in Resources */,
 				E55E4C052F9336170068E032 /* calendar_13_24@2x.png in Resources */,
@@ -18130,6 +18122,7 @@
 				E5D815C62F729C3700A4822D /* focus_record_bind_timer_24@2x.png in Resources */,
 				E5FEC61F30AC4B3700138DBF /* plugin_goal_48@2x.png in Resources */,
 				E500E3822FC59BE600252011 /* todo_search_option_step_16@2x.png in Resources */,
+				E5A307AA30B99C2E00A279A8 /* sideMenu_goal_40@3x.png in Resources */,
 				E53F32CA2F699AC900B85B65 /* habit_report_notScheduled_20@3x.png in Resources */,
 				E539474A30B8138E00BE40FD /* plugin_todo_tag_32@2x.png in Resources */,
 				E5C18FBA2DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png in Resources */,
@@ -18162,7 +18155,6 @@
 				E5BB9AA72D3BEF0D0089667A /* todo_task_priority_24@2x.png in Resources */,
 				E55A7B902D46000E000D224C /* placeholder_noSearchResult_80@3x.png in Resources */,
 				E5E276FE2D3DF58B004EC522 /* todo_list_move_24@2x.png in Resources */,
-				E563F1C52FE8E42E00DF86BB /* sideMenu_settings_40@3x.png in Resources */,
 				E55E4BF12F9336170068E032 /* calendar_6_24@3x.png in Resources */,
 				E515AD662D3CC36800AA9AF2 /* chevron_left_24@2x.png in Resources */,
 				E515AD5C2D3CBC3500AA9AF2 /* todo_task_step_addPosition_24@2x.png in Resources */,
@@ -18186,6 +18178,7 @@
 				E54A0693303C2C71001FF4A1 /* ganttTimeScale_week_24@3x.png in Resources */,
 				E5BB9A992D3BEF0D0089667A /* todo_board_24@3x.png in Resources */,
 				E50D94E02D4528E500F57957 /* ellipsis_circle_fill_24@2x.png in Resources */,
+				E5A307BF30B99C2E00A279A8 /* sideMenu_countdown_40@2x.png in Resources */,
 				E5BB9AB12D3BEF0D0089667A /* todo_task_step_addNext_24@2x.png in Resources */,
 				E556BCC32F5D6C7000CA20D9 /* habit_indicator_status_checked_16@3x.png in Resources */,
 				E5BB9ECB2D3BF0C80089667A /* Wheat03@2x.png in Resources */,
@@ -18245,7 +18238,6 @@
 				E549437D30B000BE006EC04B /* plugin_action_addNext_24@2x.png in Resources */,
 				E56B94602F8CD6D0001E488B /* todo_group_type_default_24@3x.png in Resources */,
 				E500DE572DB09D4500EAEAF7 /* todo_filter_indicator_tag_12@2x.png in Resources */,
-				E54A067E303BDC69001FF4A1 /* sideMenu_goal_40@2x.png in Resources */,
 				E56B947E2F8CDB42001E488B /* todo_sort_order_descending_24@3x.png in Resources */,
 				E50D94F32D452DD700F57957 /* focus_record_timeline_paused_24@3x.png in Resources */,
 				E55CE3652D8BC4BB0083316E /* quadrant_circle_IV@3x.png in Resources */,
@@ -18272,9 +18264,7 @@
 				E55528392FB5CB2C0093DD7E /* todo_smartlist_today_80@3x.png in Resources */,
 				E518505B300E1FD400112DFC /* myDay_overlapping_12@2x.png in Resources */,
 				E5D7D97D2D43E19700EC877A /* focus_timer_step_addNext_24@3x.png in Resources */,
-				E54A067F303BDC69001FF4A1 /* sideMenu_goal_40@3x.png in Resources */,
 				E5DA03A42FA0A59800A58ACC /* todo_group_type_completionDate_24@3x.png in Resources */,
-				E51E5F9E303A8DBE00ACF30C /* sideMenu_timeline_40@2x.png in Resources */,
 				E50D94CE2D45248D00F57957 /* gear_24@2x.png in Resources */,
 				E500DE552DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@2x.png in Resources */,
 				E55E4BE52F9336170068E032 /* calendar_29_24@2x.png in Resources */,
@@ -18282,14 +18272,13 @@
 				E50D94F12D452DD700F57957 /* focus_record_timeline_focus_24@2x.png in Resources */,
 				E5BB9AE62D3BEF0D0089667A /* checkmark_24@2x.png in Resources */,
 				E58F46B72F7AAE370046FA96 /* todo_list_noParent_24@3x.png in Resources */,
-				E563F1C82FE8E42E00DF86BB /* sideMenu_todo_40@2x.png in Resources */,
 				E53632D42FAF63480095DFEC /* quadrant_I_60@3x.png in Resources */,
-				E563F1AE2FE8082900DF86BB /* sideMenu_24@3x.png in Resources */,
 				E547C71E2F3D7ED40095918C /* focus_placeholder_noTimer_80@3x.png in Resources */,
 				E56B94642F8CD6D0001E488B /* todo_group_type_none_24@2x.png in Resources */,
 				E565BE513072912400E851DB /* setting_restorePurchases_32@3x.png in Resources */,
 				E555282B2FB5C81E0093DD7E /* todo_smartlist_upcoming_80@2x.png in Resources */,
 				E555493A2F75590100C9460D /* focus_timer_countdown_24@3x.png in Resources */,
+				E5A307B630B99C2E00A279A8 /* sideMenu_calendar_40@3x.png in Resources */,
 				E5BB9ADB2D3BEF0D0089667A /* xmark_16@2x.png in Resources */,
 				E55A7B9C2D463917000D224C /* bell_fill_16@3x.png in Resources */,
 				E5BB9A9B2D3BEF0D0089667A /* todo_list_layout_list_96@3x.png in Resources */,
@@ -18298,6 +18287,7 @@
 				E5D833942DAB64D60012ABF3 /* todo_task_progress_autoRecordValue_24@2x.png in Resources */,
 				E556BCC02F5D6C7000CA20D9 /* habit_indicator_log_16@3x.png in Resources */,
 				E53966E52D671D66008CC13B /* todo_list_option_layout_24@3x.png in Resources */,
+				E5A307B930B99C2E00A279A8 /* sideMenu_myDay_40@3x.png in Resources */,
 				E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */,
 				E5FEC62230AC4B3700138DBF /* plugin_focus_48@2x.png in Resources */,
 				E58F46A12F7AA0B50046FA96 /* todo_list_ungroup_24@3x.png in Resources */,
@@ -18306,6 +18296,7 @@
 				E515AD5D2D3CBC3500AA9AF2 /* todo_task_step_addPosition_24@3x.png in Resources */,
 				E58389732F776404003C30A4 /* focus_quickStart_record_24@2x.png in Resources */,
 				E5D7D9802D43E19700EC877A /* focus_timer_step_addPrevious_24@3x.png in Resources */,
+				E5A307BB30B99C2E00A279A8 /* sideMenu_workspace_40@3x.png in Resources */,
 				E5D7D9602D43DBE000EC877A /* focus_timer_pomodoro_32@3x.png in Resources */,
 				E5D7D9762D43E05700EC877A /* focus_running_screenAlwaysOnEnabled_24@2x.png in Resources */,
 				E5D833962DAB64D60012ABF3 /* todo_task_progress_recordType_24@3x.png in Resources */,
@@ -18321,13 +18312,14 @@
 				E5CAA9692D700ABD00A0539C /* todo_task_quadrant_fill_24@3x.png in Resources */,
 				E5D815C52F729C3700A4822D /* focus_record_bind_task_24@3x.png in Resources */,
 				E55CE34C2D8BBFE50083316E /* quadrant_I_32@3x.png in Resources */,
+				E5A307BA30B99C2E00A279A8 /* sideMenu_countdown_40@3x.png in Resources */,
+				E5A307AE30B99C2E00A279A8 /* sideMenu_settings_40@3x.png in Resources */,
 				E534800D2F604ACF00CFBF26 /* habit_status_completed_24@2x.png in Resources */,
 				E55E4BE42F9336170068E032 /* calendar_17_24@3x.png in Resources */,
 				E55E4BF52F9336170068E032 /* calendar_14_24@3x.png in Resources */,
 				E5BB9AC62D3BEF0D0089667A /* todo_task_progress_24@2x.png in Resources */,
 				E5BB9A7E2D3BEF0D0089667A /* schedule_time_24@2x.png in Resources */,
 				E50D94BC2D451C1800F57957 /* focus_record_24@2x.png in Resources */,
-				E563F1CB2FE8E42E00DF86BB /* sideMenu_quadrants_40@3x.png in Resources */,
 				E515AD4C2D3C0EA900AA9AF2 /* Localizable.strings in Resources */,
 				E5D7D9722D43E05700EC877A /* focus_running_screenAlwaysOnDisabled_24@3x.png in Resources */,
 				E55E4BFA2F9336170068E032 /* calendar_13_24@3x.png in Resources */,
@@ -18361,7 +18353,6 @@
 				E55E4C062F9336170068E032 /* calendar_18_24@3x.png in Resources */,
 				E56B94872F8CDB42001E488B /* todo_sort_type_manually_24@3x.png in Resources */,
 				E5146C9830305F54007A8BCB /* todo_task_step_convertToTask_24@3x.png in Resources */,
-				E563F1CD2FE8E42E00DF86BB /* sideMenu_habit_40@2x.png in Resources */,
 				E55528442FB5D4230093DD7E /* todo_list_80@2x.png in Resources */,
 				E5BB9AA92D3BEF0D0089667A /* todo_task_addToMyDay_24@3x.png in Resources */,
 				E55CE3542D8BC2A60083316E /* quadrant_II_32@3x.png in Resources */,
@@ -18407,6 +18398,7 @@
 				E539475430B8390E00BE40FD /* plugin_empty_todoTaskList_32@3x.png in Resources */,
 				E55E4BF92F9336170068E032 /* calendar_18_24@2x.png in Resources */,
 				E563420B2F948BCC00E120BF /* todo_home_filter_24@2x.png in Resources */,
+				E5A307B830B99C2E00A279A8 /* sideMenu_timeline_40@3x.png in Resources */,
 				E5168BD22F545B400000A760 /* dateRange_background_start@2x.png in Resources */,
 				E50D025B2F55860B00E93977 /* habit_time_anytime_24@3x.png in Resources */,
 				E524C7862F9B6855005CCEBD /* todo_smartlist_tomorrow_24@3x.png in Resources */,
@@ -18421,6 +18413,7 @@
 				E56B94AF2F8FB56A001E488B /* todo_task_action_removeFromMyDay_24@2x.png in Resources */,
 				E54A06B3303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@3x.png in Resources */,
 				E55E4C012F9336170068E032 /* calendar_20_24@3x.png in Resources */,
+				E5A307C030B99C2E00A279A8 /* sideMenu_myDay_40@2x.png in Resources */,
 				E5BBA1212D3BFD150089667A /* RobotoMono-Bold.ttf in Resources */,
 				E563F1DC2FE9184300DF86BB /* setting_rate_32@2x.png in Resources */,
 				E55A7B872D45FAA0000D224C /* bind_24@3x.png in Resources */,
@@ -18453,12 +18446,12 @@
 				E55E4BFF2F9336170068E032 /* calendar_7_24@3x.png in Resources */,
 				E50D94E32D452DBF00F57957 /* checkmark_circle_fill_24@3x.png in Resources */,
 				E5BB9AD92D3BEF0D0089667A /* xmark_24@2x.png in Resources */,
+				E5A307B030B99C2E00A279A8 /* sideMenu_24@2x.png in Resources */,
 				E5E276F72D3DF2F3004EC522 /* todo_list_add_24@2x.png in Resources */,
 				E549B18C2F89ECB70014BE85 /* todo_home_expand_18@2x.png in Resources */,
 				E55CE3452D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png in Resources */,
 				E51350A3302B1A8B000E9871 /* myDay_calendar_24@3x.png in Resources */,
 				E53F32C52F699AC900B85B65 /* habit_report_failed_20@3x.png in Resources */,
-				E5FD1920307FC2E900E87402 /* sideMenu_workspace_40@2x.png in Resources */,
 				E55E4BF72F9336170068E032 /* calendar_19_24@3x.png in Resources */,
 				E5259B0F30184EA600A6D253 /* myDay_repeat_24@3x.png in Resources */,
 				E5E4D14B2D92AF2C00813B6C /* todo_filter_tag_36@2x.png in Resources */,
@@ -18469,6 +18462,7 @@
 				E5BBCAD93091A97700E35B41 /* inbox_24@3x.png in Resources */,
 				E5BB9A802D3BEF0D0089667A /* schedule_reminder_24@3x.png in Resources */,
 				E5E277032D3DF6EA004EC522 /* shred_24@2x.png in Resources */,
+				E5A307B130B99C2E00A279A8 /* sideMenu_24@3x.png in Resources */,
 				E572C6AB30613AFF00624F65 /* xmark_32@2x.png in Resources */,
 				E58F46A22F7AA0B50046FA96 /* todo_list_ungroup_24@2x.png in Resources */,
 				E515AD612D3CC04A00AA9AF2 /* chevron_down_24@2x.png in Resources */,
@@ -18495,6 +18489,7 @@
 				E5BB9B352D3BEF920089667A /* diamond.png in Resources */,
 				E53ABEC83008728300EB8632 /* myDay_fill_16@3x.png in Resources */,
 				E565BE523072912400E851DB /* setting_unlockPro_32@3x.png in Resources */,
+				E5A307C130B99C2E00A279A8 /* sideMenu_timeline_40@2x.png in Resources */,
 				E50D94BD2D451C1800F57957 /* focus_record_24@3x.png in Resources */,
 				E53F32C82F699AC900B85B65 /* habit_report_skipped_20@2x.png in Resources */,
 				E544106630317F9200E398BE /* todo_task_step_addSubstep_24@2x.png in Resources */,
@@ -18523,7 +18518,6 @@
 				E55E4BDD2F9336170068E032 /* calendar_24_24@3x.png in Resources */,
 				E5BB9AD72D3BEF0D0089667A /* xmark_12@3x.png in Resources */,
 				E50D94EE2D452DD700F57957 /* focus_record_timeline_focus_24@3x.png in Resources */,
-				E563F1CA2FE8E42E00DF86BB /* sideMenu_focus_40@3x.png in Resources */,
 				E5DA03A02FA0A58A00A58ACC /* todo_sort_type_completionDate_24@2x.png in Resources */,
 				E53632D02FAF63480095DFEC /* quadrant_III_60@3x.png in Resources */,
 				E5BB9AE82D3BEF0D0089667A /* trash_24@2x.png in Resources */,
@@ -18550,6 +18544,7 @@
 				E5D833972DAB64D60012ABF3 /* todo_task_progress_recordType_24@2x.png in Resources */,
 				E5135095302A0BD1000E9871 /* arrow_uturn_right_36@3x.png in Resources */,
 				E556BCC12F5D6C7000CA20D9 /* habit_indicator_status_failed_16@3x.png in Resources */,
+				E5A307BC30B99C2E00A279A8 /* sideMenu_quadrants_40@3x.png in Resources */,
 				E5D815C72F729C3700A4822D /* focus_record_bind_timer_24@3x.png in Resources */,
 				E563F1D92FE9184200DF86BB /* setting_share_32@3x.png in Resources */,
 				E515AD622D3CC04A00AA9AF2 /* chevron_down_24@3x.png in Resources */,
@@ -18584,6 +18579,7 @@
 				E50DD7CF2D72BE5A00A85E87 /* todo_folder_24@3x.png in Resources */,
 				E524C7892F9B6855005CCEBD /* todo_smartlist_myDay_24@3x.png in Resources */,
 				E539474D30B8138E00BE40FD /* plugin_todo_filter_32@2x.png in Resources */,
+				E5A307B730B99C2E00A279A8 /* sideMenu_todo_40@3x.png in Resources */,
 				E50CC61D3066B4C000D1BD3E /* countdown_type_24@3x.png in Resources */,
 				E5BB9A782D3BEF0D0089667A /* todo_home_setting_24@3x.png in Resources */,
 				E563F1D22FE8E97400DF86BB /* setting_hapticFeedback_32@2x.png in Resources */,
@@ -18634,7 +18630,6 @@
 				E5BB9AE12D3BEF0D0089667A /* moveToTop_24@3x.png in Resources */,
 				E539474B30B8138E00BE40FD /* plugin_todo_filter_32@3x.png in Resources */,
 				E53632D32FAF63480095DFEC /* quadrant_I_60@2x.png in Resources */,
-				E563F1C62FE8E42E00DF86BB /* sideMenu_settings_40@2x.png in Resources */,
 				E5D7D9742D43E05700EC877A /* focus_running_minimal_24@3x.png in Resources */,
 				E5BB9A7C2D3BEF0D0089667A /* schedule_alarm_24@3x.png in Resources */,
 				E513509F302B1A2E000E9871 /* calendar_24@3x.png in Resources */,
@@ -18673,7 +18668,6 @@
 				E5B926CD2D3F97F30065FA79 /* plus_32@3x.png in Resources */,
 				E533529B2FF8C9CC00546986 /* calendar_month_24@2x.png in Resources */,
 				E55E4BD52F9336170068E032 /* calendar_4_24@2x.png in Resources */,
-				E51F941C3004F20E00734910 /* sideMenu_myDay_40@3x.png in Resources */,
 				E5D8339C2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@2x.png in Resources */,
 				E55CE3672D8BC4BB0083316E /* quadrant_circle_III@3x.png in Resources */,
 				E547C7262F3DA2F00095918C /* sort_order_ascending_24@2x.png in Resources */,
@@ -18697,10 +18691,8 @@
 				E539475130B8157400BE40FD /* plugin_info_circle_32@2x.png in Resources */,
 				E5DC6E5F30AC8BA300581B10 /* plugin_todoListGroup_48@2x.png in Resources */,
 				E5BB9AE72D3BEF0D0089667A /* trash_24@3x.png in Resources */,
-				E563F1CE2FE8E42E00DF86BB /* sideMenu_todo_40@3x.png in Resources */,
 				E500DE592DB09D4500EAEAF7 /* todo_filter_indicator_myDay_12@2x.png in Resources */,
 				E55549502F7629CA00C9460D /* focus_timer_bind_stopwatch_32@3x.png in Resources */,
-				E563F1C92FE8E42E00DF86BB /* sideMenu_focus_40@2x.png in Resources */,
 				E58D47982F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@2x.png in Resources */,
 				E5FAA9E3304D09AF00C9CCD8 /* task_type_goal_24@3x.png in Resources */,
 				E5C76BA72F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png in Resources */,

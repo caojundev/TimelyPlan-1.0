@@ -14,9 +14,6 @@ extension WSPluginType {
         /// 四象限·小·比例条：以圆角堆叠比例条展示四个象限未完成任务的占比。
         static let smallStackedBar = make("quadrantSmallStackedBar", .small)
 
-        /// 四象限·小·任务列表：展示配置中选择的一个象限的未完成任务。
-        static let smallTaskList = make("quadrantSmallTaskList", .small)
-
         /// 四象限·中·数量：以一行四列横向展示四个象限的未完成任务数。
         static let mediumCounts = make("quadrantMediumCounts", .medium)
 
@@ -25,6 +22,9 @@ extension WSPluginType {
 
         /// 四象限·中·比例条：以圆角堆叠比例条展示占比，并以网格列出各象限详情。
         static let mediumStackedBar = make("quadrantMediumStackedBar", .medium)
+
+        /// 四象限·小·任务列表：展示配置中选择的一个象限的未完成任务。
+        static let smallTaskList = make("quadrantSmallTaskList", .small)
 
         /// 四象限·中·任务列表：展示配置中选择的一个象限的未完成任务。
         static let mediumTaskList = make("quadrantMediumTaskList", .medium)
@@ -37,9 +37,8 @@ extension WSPluginType {
 
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
-            smallCounts, smallDonut, smallStackedBar, smallTaskList,
-            mediumCounts, mediumDonut, mediumStackedBar, mediumTaskList,
-            largeTasks, largeTaskList,
+            smallCounts, mediumCounts, smallDonut, mediumDonut, smallStackedBar, mediumStackedBar,
+            smallTaskList, mediumTaskList, largeTaskList, largeTasks,
         ]
 
         /// 模块内全部组件配置
@@ -47,10 +46,10 @@ extension WSPluginType {
             .init(WSQuadrantSmallCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant"),
             .init(WSQuadrantSmallDonutPluginProvider(), title: "Quadrant Ring", subtitle: "Shows the share of unfinished tasks in a ring"),
             .init(WSQuadrantSmallStackedBarPluginProvider(), title: "Quadrant Bar", subtitle: "Shows the share of unfinished tasks as a stacked bar"),
-            .init(WSQuadrantSmallTaskListPluginProvider(), title: "Quadrant Tasks", subtitle: "Shows unfinished tasks in a selected quadrant"),
             .init(WSQuadrantMediumCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant in a row"),
             .init(WSQuadrantMediumDonutPluginProvider(), title: "Quadrant Ring", subtitle: "Shows the share of unfinished tasks in a ring with a list"),
             .init(WSQuadrantMediumStackedBarPluginProvider(), title: "Quadrant Bar", subtitle: "Shows the share of unfinished tasks as a stacked bar with details"),
+            .init(WSQuadrantSmallTaskListPluginProvider(), title: "Quadrant Tasks", subtitle: "Shows unfinished tasks in a selected quadrant"),
             .init(WSQuadrantMediumTaskListPluginProvider(), title: "Quadrant Tasks", subtitle: "Shows unfinished tasks in a selected quadrant"),
             .init(WSQuadrantTasksPluginProvider(), title: "Quadrants", subtitle: "Shows unfinished tasks in each quadrant"),
             .init(WSQuadrantLargeTaskListPluginProvider(), title: "Quadrant Tasks", subtitle: "Shows unfinished tasks in a selected quadrant"),

@@ -44,7 +44,7 @@ class WSQuadrantTaskListContentView: WSPluginContentView {
         listView.didClickAddHandler = { [weak self] quadrant in
             (self?.interactor as? WSQuadrantTasksContentInteractor)?.quickAddTask(for: quadrant, from: self)
         }
-        listView.didSelectMoreHandler = { [weak self] quadrant in
+        listView.didSelectMoreEntryHandler = { [weak self] quadrant in
             self?.showDetail(for: quadrant)
         }
         listView.didSelectTaskHandler = { [weak self] dataItem in
@@ -78,7 +78,7 @@ class WSQuadrantTaskListContentView: WSPluginContentView {
         super.update(with: dataItem)
         
         let group = (dataItem as? WSQuadrantTasksDataItem)?.quadrants.first
-        listView.update(with: group)
+        listView.update(withQuadrant: group)
         setNeedsLayout()
     }
 }

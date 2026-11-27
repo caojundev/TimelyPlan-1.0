@@ -40,6 +40,7 @@ class WSMyDayLargeAllDayEventsContentView: WSMyDayAllDayEventsContentView {
         self.rowMaximumHeight = Metrics.rowMaximumHeight
         self.rowSpacing = Metrics.rowSpacing
         self.moreLeadingInset = Metrics.moreLeadingInset
+        self.headerView.title = resGetString("All-Day Events")
     }
     
     required init?(coder: NSCoder) {
