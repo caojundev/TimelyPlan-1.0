@@ -23,14 +23,19 @@ class WSQuadrantTasksContentView: WSPluginContentView {
         static let padding = UIEdgeInsets(value: 8.0)
         
         /// 象限之间的间距
-        static let spacing: CGFloat = 6.0
+        static let spacing: CGFloat = 4.0
+        
+        /// 任务行的最小高度。任务行需容纳名称（18）、详情（14）、进度（4）及其间距（约 38），
+        /// 行高低于该高度时行内的详情会被省略
+        static let minimumRowHeight: CGFloat = 40.0
     }
     
     /// 象限卡片
     private lazy var quadrantViews: [Quadrant: WSQuadrantTaskListView] = {
         var views = [Quadrant: WSQuadrantTaskListView]()
         for quadrant in Quadrant.allCases {
-            views[quadrant] = WSQuadrantTaskListView(quadrant: quadrant)
+            views[quadrant] = WSQuadrantTaskListView(quadrant: quadrant,
+                                                     minimumRowHeight: Metrics.minimumRowHeight)
         }
         
         return views

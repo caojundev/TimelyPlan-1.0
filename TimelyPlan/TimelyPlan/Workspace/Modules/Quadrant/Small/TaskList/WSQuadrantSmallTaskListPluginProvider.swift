@@ -11,24 +11,19 @@ import UIKit
 // MARK: - 组件提供者
 
 /// 四象限·小·任务列表。展示配置中选择的一个象限的未完成任务。
-class WSQuadrantSmallTaskListPluginProvider: WSPluginProvider {
+class WSQuadrantSmallTaskListPluginProvider: WSQuadrantTaskListPluginProvider {
     
-    /// 插件类型
-    var type: WSPluginType {
-        return .Quadrant.smallTaskList
+    init() {
+        super.init(type: .Quadrant.smallTaskList)
     }
     
     /// 创建该组件内容视图
-    func makeContentView() -> WSPluginContentView {
+    override func makeContentView() -> WSPluginContentView {
         return WSQuadrantTaskListContentView()
     }
     
-    func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {
+    override func makeContentInteractor(plugin: WSPlugin,
+                                        context: WSPluginContext) -> WSPluginContentInteractor {
         return WSQuadrantTaskListContentInteractor(plugin: plugin, context: context)
-    }
-    
-    /// 配置界面：选择要展示的象限
-    func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)? {
-        return WSQuadrantTaskConfigViewController(plugin: plugin)
     }
 }

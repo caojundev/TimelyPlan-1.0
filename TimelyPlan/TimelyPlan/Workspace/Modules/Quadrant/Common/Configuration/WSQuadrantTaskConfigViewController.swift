@@ -20,7 +20,7 @@ class WSQuadrantTaskConfigViewController: WSPluginConfigViewController {
     
     /// 象限选择列表
     private lazy var selectionViewController: WSQuadrantSelectionViewController = {
-        let viewController = WSQuadrantSelectionViewController(selectedQuadrant: config.targetQuadrant)
+        let viewController = WSQuadrantSelectionViewController(selectedQuadrant: config.quadrant)
         viewController.didSelectQuadrant = { [weak self] quadrant in
             self?.selectQuadrant(quadrant)
         }
@@ -57,13 +57,13 @@ class WSQuadrantSelectionViewController: TPTableSectionsViewController,
     /// 可选的象限，按布局顺序排列
     private let quadrants: [Quadrant]
     
-    /// 当前选中的象限
-    private var selectedQuadrant: Quadrant
+    /// 当前选中的象限。未配置时为 nil，不展示勾选
+    private var selectedQuadrant: Quadrant?
     
     /// 列表数据
     private let sectionController = TPTableItemSectionController()
     
-    init(selectedQuadrant: Quadrant) {
+    init(selectedQuadrant: Quadrant?) {
         self.quadrants = QuadrantSetting.shared.layout.getQuadrants()
         self.selectedQuadrant = selectedQuadrant
         super.init(style: .insetGrouped)

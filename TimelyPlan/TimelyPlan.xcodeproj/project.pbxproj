@@ -953,6 +953,9 @@
 		E54A06B9303DD0DD001FF4A1 /* gantt_backToday_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06B7303DD0DD001FF4A1 /* gantt_backToday_24@3x.png */; };
 		E54A06BC303EA549001FF4A1 /* triangle_left_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06BA303EA548001FF4A1 /* triangle_left_12@2x.png */; };
 		E54A06BD303EA549001FF4A1 /* triangle_left_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06BB303EA549001FF4A1 /* triangle_left_12@3x.png */; };
+		E54B1BBD30BB03E200C39DD8 /* plugin_empty_quadrant_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54B1BBB30BB03E100C39DD8 /* plugin_empty_quadrant_32@2x.png */; };
+		E54B1BBE30BB03E200C39DD8 /* plugin_empty_quadrant_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54B1BBC30BB03E200C39DD8 /* plugin_empty_quadrant_32@3x.png */; };
+		E54B1BC130BB06A500C39DD8 /* WSQuadrantTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54B1BC030BB06A500C39DD8 /* WSQuadrantTaskListPluginProvider.swift */; };
 		E54C7C7B2F5BADD300263B82 /* HabitRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */; };
 		E54C7C7D2F5BADE200263B82 /* HabitDatePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */; };
 		E54C7C7F2F5BB1EE00263B82 /* HabitPeriodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7E2F5BB1EE00263B82 /* HabitPeriodItem.swift */; };
@@ -4107,6 +4110,9 @@
 		E54A06B7303DD0DD001FF4A1 /* gantt_backToday_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gantt_backToday_24@3x.png"; sourceTree = "<group>"; };
 		E54A06BA303EA548001FF4A1 /* triangle_left_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle_left_12@2x.png"; sourceTree = "<group>"; };
 		E54A06BB303EA549001FF4A1 /* triangle_left_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle_left_12@3x.png"; sourceTree = "<group>"; };
+		E54B1BBB30BB03E100C39DD8 /* plugin_empty_quadrant_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_empty_quadrant_32@2x.png"; sourceTree = "<group>"; };
+		E54B1BBC30BB03E200C39DD8 /* plugin_empty_quadrant_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plugin_empty_quadrant_32@3x.png"; sourceTree = "<group>"; };
+		E54B1BC030BB06A500C39DD8 /* WSQuadrantTaskListPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSQuadrantTaskListPluginProvider.swift; sourceTree = "<group>"; };
 		E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecord.swift; sourceTree = "<group>"; };
 		E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDatePeriod.swift; sourceTree = "<group>"; };
 		E54C7C7E2F5BB1EE00263B82 /* HabitPeriodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPeriodItem.swift; sourceTree = "<group>"; };
@@ -9058,6 +9064,8 @@
 				E539475230B8390D00BE40FD /* plugin_empty_todoTaskList_32@3x.png */,
 				E539475630B84CCA00BE40FD /* plugin_empty_todoSmartList_32@2x.png */,
 				E539475730B84CCB00BE40FD /* plugin_empty_todoSmartList_32@3x.png */,
+				E54B1BBB30BB03E100C39DD8 /* plugin_empty_quadrant_32@2x.png */,
+				E54B1BBC30BB03E200C39DD8 /* plugin_empty_quadrant_32@3x.png */,
 			);
 			path = empty;
 			sourceTree = "<group>";
@@ -9758,6 +9766,14 @@
 				E5259B0A3017A72D00A6D253 /* Add */,
 			);
 			path = Event;
+			sourceTree = "<group>";
+		};
+		E54B1BBF30BB06A500C39DD8 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E54B1BC030BB06A500C39DD8 /* WSQuadrantTaskListPluginProvider.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		E54E632C2F5AFE1500FCBCAE /* Task */ = {
@@ -16424,6 +16440,7 @@
 		E5E5380230946E250096EBAC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E54B1BBF30BB06A500C39DD8 /* Provider */,
 				E5F1A3A13092000100E35C42 /* Chart */,
 				E5F1A3C13092000100E35C42 /* Configuration */,
 				E5F1A3A23092000100E35C42 /* Content */,
@@ -18501,6 +18518,7 @@
 				E55A7B7D2D45F873000D224C /* timer_pause_24@3x.png in Resources */,
 				E515AD752D3CC70D00AA9AF2 /* todo_smartlist_trash_24@3x.png in Resources */,
 				E5BB9AAF2D3BEF0D0089667A /* todo_task_step_addPrevious_24@2x.png in Resources */,
+				E54B1BBD30BB03E200C39DD8 /* plugin_empty_quadrant_32@2x.png in Resources */,
 				E5BB9AB02D3BEF0D0089667A /* todo_task_step_addNext_24@3x.png in Resources */,
 				E53AC84D2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png in Resources */,
 				E5168BDD2F5481660000A760 /* bell_add_20@3x.png in Resources */,
@@ -18528,6 +18546,7 @@
 				E5D833982DAB64D60012ABF3 /* todo_task_progress_calculation_24@3x.png in Resources */,
 				E55A7B7C2D45F873000D224C /* timer_next_circle_fill_32@2x.png in Resources */,
 				E50D94C72D45224500F57957 /* unarchive_24@2x.png in Resources */,
+				E54B1BBE30BB03E200C39DD8 /* plugin_empty_quadrant_32@3x.png in Resources */,
 				E55E4BEA2F9336170068E032 /* calendar_24_24@2x.png in Resources */,
 				E5E4D1472D92AF2C00813B6C /* todo_filter_priority_36@2x.png in Resources */,
 				E556BCD52F5D746400CA20D9 /* HabitRecordTypeCheckin@2x.png in Resources */,
@@ -19697,6 +19716,7 @@
 				E556BCF82F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift in Sources */,
 				E5B33D6C2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift in Sources */,
 				E5168BD52F5474F50000A760 /* DateRange+Habit.swift in Sources */,
+				E54B1BC130BB06A500C39DD8 /* WSQuadrantTaskListPluginProvider.swift in Sources */,
 				E5BB9EAD2D3BF0C80089667A /* TPMenuListActionCell.swift in Sources */,
 				E57B2B3C3045213200BA4D56 /* GoalPresenter.swift in Sources */,
 				E5139EB0309E191D0026B60C /* WSTodoTagMediumTasksListPluginProvider.swift in Sources */,

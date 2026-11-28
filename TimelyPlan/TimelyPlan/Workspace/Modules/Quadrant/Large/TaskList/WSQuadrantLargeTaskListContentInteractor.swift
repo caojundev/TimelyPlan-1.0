@@ -15,14 +15,9 @@ import Foundation
 class WSQuadrantLargeTaskListContentInteractor: WSQuadrantTaskListContentInteractor {
     
     override var maximumTaskCount: Int {
-        return 12
+        return 8
     }
-    
-    /// 任务详情的展示项：计划、步骤、进度与标签
-    override var option: TodoTaskDetailOption? {
-        return [.schedule, .step, .progress, .tag]
-    }
-    
+
     override var previewQuadrant: Quadrant {
         return .urgentNotImportant
     }

@@ -12,15 +12,6 @@ import Foundation
 /// 四象限任务组件的配置
 struct WSQuadrantTaskConfiguration: Codable {
     
-    /// 用户选择的象限
+    /// 用户选择的象限。为 nil 表示尚未配置，组件展示空白占位
     var quadrant: Quadrant?
-    
-    /// 实际展示的象限。未选择时取象限布局中的第一个
-    var targetQuadrant: Quadrant {
-        if let quadrant = quadrant {
-            return quadrant
-        }
-        
-        return QuadrantSetting.shared.layout.getQuadrants().first ?? .urgentImportant
-    }
 }

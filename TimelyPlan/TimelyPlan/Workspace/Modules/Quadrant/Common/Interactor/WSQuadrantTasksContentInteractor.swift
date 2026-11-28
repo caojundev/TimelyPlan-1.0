@@ -22,9 +22,9 @@ class WSQuadrantTasksContentInteractor: WSTodoTaskContentInteractor,
         return 6
     }
 
-    /// 任务详情的展示项。为 nil 时不展示详情
+    /// 任务详情的展示项
     var option: TodoTaskDetailOption? {
-        return nil
+        return [.schedule, .step, .progress, .tag]
     }
 
     /// 任务快速添加管理器，首次添加时创建

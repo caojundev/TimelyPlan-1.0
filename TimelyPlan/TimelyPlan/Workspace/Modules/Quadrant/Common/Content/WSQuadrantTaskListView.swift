@@ -200,7 +200,6 @@ class WSQuadrantTaskListView: WSMoreRowListView, QuadrantTitleViewDelegate {
     override func makeEmptyView() -> WSPluginEmptyPlaceholderView {
         var configuration = WSPluginEmptyPlaceholderConfiguration()
         configuration.iconName = quadrant.smallPlaceholderImageName
-        configuration.iconName
         configuration.title = resGetString("No Task")
         return WSPluginIconTitleEmptyPlaceholderView(configuration: configuration)
     }

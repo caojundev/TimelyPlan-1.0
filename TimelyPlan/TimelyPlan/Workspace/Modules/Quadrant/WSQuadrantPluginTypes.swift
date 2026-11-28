@@ -23,17 +23,17 @@ extension WSPluginType {
         /// 四象限·中·比例条：以圆角堆叠比例条展示占比，并以网格列出各象限详情。
         static let mediumStackedBar = make("quadrantMediumStackedBar", .medium)
 
-        /// 四象限·小·任务列表：展示配置中选择的一个象限的未完成任务。
-        static let smallTaskList = make("quadrantSmallTaskList", .small)
+        /// 四象限·小·任务列表：展示配置中选择的一个象限的未完成任务。添加后直接进入象限选择
+        static let smallTaskList = make("quadrantSmallTaskList", .small, opensConfigAfterAdd: true)
 
-        /// 四象限·中·任务列表：展示配置中选择的一个象限的未完成任务。
-        static let mediumTaskList = make("quadrantMediumTaskList", .medium)
+        /// 四象限·中·任务列表：展示配置中选择的一个象限的未完成任务。添加后直接进入象限选择
+        static let mediumTaskList = make("quadrantMediumTaskList", .medium, opensConfigAfterAdd: true)
 
         /// 四象限·大·任务：以两列两行的网格展示四个象限的未完成任务列表。
         static let largeTasks = make("quadrantLargeTasks", .large)
 
-        /// 四象限·大·任务列表：展示配置中选择的一个象限的未完成任务。
-        static let largeTaskList = make("quadrantLargeTaskList", .large)
+        /// 四象限·大·任务列表：展示配置中选择的一个象限的未完成任务。添加后直接进入象限选择
+        static let largeTaskList = make("quadrantLargeTaskList", .large, opensConfigAfterAdd: true)
 
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
@@ -55,8 +55,13 @@ extension WSPluginType {
             .init(WSQuadrantLargeTaskListPluginProvider(), title: "Quadrant Tasks", subtitle: "Shows unfinished tasks in a selected quadrant"),
         ]
 
-        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .quadrants, size: size)
+        private static func make(_ rawValue: String,
+                                 _ size: WSPluginSize,
+                                 opensConfigAfterAdd: Bool = false) -> WSPluginType {
+            return WSPluginType(rawValue,
+                                module: .quadrants,
+                                size: size,
+                                opensConfigAfterAdd: opensConfigAfterAdd)
         }
     }
 }

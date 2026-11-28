@@ -29,7 +29,7 @@ class WSQuadrantTaskListContentView: WSPluginContentView {
         rowSpacing: rowSpacing
     )
     
-    init(minimumRowHeight: CGFloat = 30.0, rowSpacing: CGFloat = 0.0) {
+    init(minimumRowHeight: CGFloat = 36.0, rowSpacing: CGFloat = 0.0) {
         self.minimumRowHeight = minimumRowHeight
         self.rowSpacing = rowSpacing
         super.init(frame: .zero)
